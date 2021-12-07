@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="doctor_gigi_rule" model="ir.rule">
+        <field name="name">Doctor Gigi : Data Antrian Pasien</field>
+        <field ref="asb_klinik_admission_registration.model_master_registration" name="model_id"/>
+        <field name="domain_force">[('faskes_id', '=', user.faskes_id.id), '|', '|', ('poli_unit_ids', '=', user.poli_unit_id.id), ('examination_list_ids.poli_unit_id', '=', user.poli_unit_id.id), ('dokter_id', '=', user.partner_id.id)]</field>
+        <field name="groups" eval="[(4, ref('asb_klinik_doctor_team.group_unit_doctor_gigi'))]"/>
+    </record>
+
+    <record id="doctor_gigi_examination_rule" model="ir.rule">
+        <field name="name">Data Examination Dokter Gigi</field>
+        <field ref="product.model_product_product" name="model_id"/>
+        <field name="domain_force">['|', ('poli_unit_id', '=', user.poli_unit_id.id), ('poli_unit_id.kategori', '=', 'penunjang')]</field>
+        <field name="groups" eval="[(4, ref('asb_klinik_doctor_team.group_unit_doctor_gigi'))]"/>
+    </record>
+
+    <record id="doctor_gigi_examination_template_rule" model="ir.rule">
+        <field name="name">Data Examination Dokter Gigi</field>
+        <field ref="product.model_product_template" name="model_id"/>
+        <field name="domain_force">['|', ('poli_unit_id', '=', user.poli_unit_id.id), ('poli_unit_id.kategori', '=', 'penunjang')]</field>
+        <field name="groups" eval="[(4, ref('asb_klinik_doctor_team.group_unit_doctor_gigi'))]"/>
+    </record>
+    
+</odoo>

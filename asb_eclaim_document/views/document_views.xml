@@ -1,0 +1,79 @@
+<odoo>
+  <data>
+
+    <!-- Form View -->
+    <record model="ir.ui.view" id="eclaim_document_view_form">
+      <field name="name">eclaim.document.form</field>
+      <field name="model">eclaim.document</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+            <button name="action_submit" type="object" states="draft" string="Submit" class="oe_highlight" />
+            <!-- <button name="action_cancel" type="object" string="Cancel" /> -->
+            <field name="state" widget="statusbar" statusbar_visible="draft,submit,receive"/>
+          </header>
+          <sheet>
+            <group>
+              <group>
+                <field name="receipt_number" required="1"/>
+                <field name="document_from" />
+                <field name="to" />
+                <field name="expedition" />
+                <field name="courier" />
+              </group>
+              <group>
+                <field name="item_type_id" />
+                <field name="item_id" />
+                <field name="quantity" />
+                <field name="date" />
+                <field name="invoice_number" />
+              </group>
+            </group>
+            <notebook>
+              <page name="notes_page" string="Notes">
+                <field name="notes" widget='text' />
+              </page>
+            </notebook>
+          </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers" />
+            <field name="activity_ids" widget="mail_activity" />
+            <field name="message_ids" widget="mail_thread" />
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="eclaim_document_view_tree">
+      <field name="name">eclaim.document.tree</field>
+      <field name="model">eclaim.document</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="receipt_number" />
+          <field name="invoice_number" />
+          <field name="document_from" />
+          <field name="to" />
+          <field name="item_id" />
+          <field name="date" />
+          <field name="state" />
+        </tree>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record id="eclaim_document_action_window" model="ir.actions.act_window">
+      <field name="name">Document</field>
+      <field name="res_model">eclaim.document</field>
+      <field name="view_mode">tree,form</field>
+      <field name="target">main</field>
+    </record>
+
+    <menuitem name="Document Receive" id="asb_eclaim_document.menu_root" web_icon="asb_eclaim_document,static/description/icon.png" groups="asb_eclaim.access_eclaim"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Document Receive" id="asb_eclaim_document_submenu" parent="asb_eclaim_document.menu_root" action="eclaim_document_action_window" sequence="1"/>
+
+  </data>
+</odoo>

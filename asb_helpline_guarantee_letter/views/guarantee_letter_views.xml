@@ -1,0 +1,332 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="guarantee_letter_view_form">
+      <field name="name">guarantee.letter.form</field>
+      <field name="model">guarantee.letter</field>
+      <field name="arch" type="xml">
+        <form string="Case Monitoring">
+          <header attrs="{'invisible': ['|',('preadmission', '=', False),('preadmission_state', '=', 'close')]}">
+            <button name="action_close_preadmission" type="object" string="Process" class="oe_highlight" attrs="{'invisible': [('preadmission_state', '!=', 'open')]}" />
+            <field name="preadmission_state" widget="statusbar" statusbar_visible="open,close" />
+            <field name="preadmission" invisible="1" />
+          </header>
+          <header attrs="{'invisible': ['|',('claim_status', 'not in', ['decline','open']),('preadmission_state', '=', 'open')]}">
+            <button name="lmi" type="object" string="LMA" class="oe_highlight oe_read_only" />
+            <button name="action_initial_gl" type="object" string="Initial GL" class="oe_highlight oe_read_only" attrs="{'invisible' : ['|',('case_status', '!=', 'open'),('category', 'in', ['ip','ma'])]}" />
+            <button name="action_print_initial_gl" type="object" string="Print Initial GL" class="oe_highlight oe_read_only" attrs="{'invisible' : [('initial_gl', '=', False)]}" />
+            <button name="confirm_send_email" type="object" string="Send by Email" class="oe_highlight oe_read_only" attrs="{'invisible' : [('case_status', '!=', False)]}"/>
+            <button name="action_process_case" type="object" string="Process" class="oe_highlight oe_read_only" attrs="{'invisible' : [('case_status', '!=', 'initial')]}" />
+            <button name="action_close_case" type="object" string="Close" class="oe_highlight oe_read_only" attrs="{'invisible' : [('case_status', '!=', 'process')]}" />
+            <button name="action_submit_case" type="object" string="Submit Final GL" class="oe_highlight oe_read_only" attrs="{'invisible' : ['|',('category', 'not in', ['ip','ma']),('case_status', '!=', 'open'),('case_status', '!=', 'close')]}" />
+            <button name="action_final_gl" type="object" string="Approve Final GL" class="oe_highlight oe_read_only" attrs="{'invisible' : [('case_status', '!=', 'submit')]}" />
+            <button name="action_discharge_case" type="object" string="Discharge Completed" class="oe_highlight oe_read_only" attrs="{'invisible' : [('case_status', '!=', 'approved')]}" />
+            <button name="action_print_final_gl" type="object" string="Print Final GL" class="oe_highlight oe_read_only" attrs="{'invisible' : [('case_status', 'not in', ['approved','discharge'])]}" />
+            <button name="action_revise_case" type="object" string="Revise" class="btn btn-warning oe_read_only" attrs="{'invisible' : [('case_status', 'not in', ['submit','approved'])]}" />
+            <field name="case_status" widget="statusbar" statusbar_visible="open,initial,process,close,submit,approved,discharge" attrs="{'invisible' : [('claim_status', '!=', 'open')]}"/>
+            <field name="category" invisible="1" />
+          </header>
+          <header attrs="{'invisible': ['|',('case_status', '!=', 'discharge'),('preadmission_state', '=', 'open')]}">
+            <button name="lmi" type="object" string="LMA" class="oe_highlight oe_read_only" />
+            <button name="action_print_initial_gl" type="object" string="Print Initial GL" class="oe_highlight oe_read_only" attrs="{'invisible' : [('initial_gl', '=', False)]}" />
+            <button name="action_print_final_gl" type="object" string="Print Final GL" class="oe_highlight oe_read_only" attrs="{'invisible' : [('claim_status', 'in', ['open','decline'])]}" />
+            <button name="confirm_send_email" type="object" string="Send by Email" class="oe_highlight oe_read_only" />
+            <button name="action_complete" type="object" string="Complete" class="oe_highlight" attrs="{'invisible' : [('claim_status', 'not in', ['verified'])]}" />
+            <button name="action_set_verified" type="object" string="Set to Verified" class="oe_highlight" attrs="{'invisible' : [('claim_status', 'not in', ['completed'])]}" />
+            <!-- <button name="action_approve" type="object" string="Approve" class="oe_highlight" attrs="{'invisible' : [('claim_status', 'not in', ['verified'])]}" /> -->
+            <field name="claim_status" widget="statusbar" statusbar_visible="open,release,verified,approved,paid" attrs="{'invisible' : [('case_status', 'not in', ['discharge'])]}" />
+            <field name="initial_gl" invisible="1" />
+            <field name="final_gl" invisible="1" />
+          </header>
+          <sheet>
+            <div name="button_box" class="oe_button_box">
+              <button name="action_get_attachment_view" string="Scans" class="oe_stat_button" icon="fa-book" type="object" />
+              <button name="guarantee_letter_relation_smart_button" string="Relation" type="object" icon='fa-address-book-o' class="oe_stat_button" />
+            </div>
+            <div class="oe_title">
+              <h1>
+                <field name="gl_number" readonly="1" style="color : #134F7C; font-weight: bold" />
+              </h1>
+            </div>
+            <group string="Claim Information">
+              <group>
+                <field name="claim_number" readonly="1" />
+                <field name="service_type" attrs="{'required' : [('preadmission', '=', False)]}" />
+                <field name="claim_source" />
+              </group>
+              <group>
+                <field name="claim_reject_id" options="{'no_create': True, 'no_open': True, 'no_create_edit':True}" attrs="{'invisible': [('claim_status', '=', 'decline')]}" readonly="1" />
+                <field name="decline_reason_id" options="{'no_create': True, 'no_open': True, 'no_create_edit':True}" attrs="{'invisible': [('claim_status', '!=', 'decline')]}" readonly="1" />
+                <field name="created_by" readonly="1" force_save="1" />
+                <field name="created_date" readonly="1" force_save="1" />
+              </group>
+            </group>
+            <group string="Member Info">
+              <group>
+                <field name="member" />
+                <field name="name" attrs="{'invisible': [('member', '=', True)]}" />
+                <field name="member_id" options="{'no_create': True, 'no_create_edit':True}" context="{'form_view_ref': 'asb_membership_member.member_view_form'}" attrs="{'invisible': [('member', '=', False)]}" />
+                <field name="client_id" options="{'no_create': True, 'no_open': True, 'no_create_edit':True}" attrs="{'readonly' : [('member','=',True)]}" force_save="1" context="{'form_view_ref': 'asb_membership_client.membership_client_view_form'}" required="1" />
+                <field name="client_branch_id" options="{'no_create': True, 'no_open': True, 'no_create_edit':True}" attrs="{'readonly' : [('member','=',True)]}" domain="[('client_id', '=', client_id)]" force_save="1" required="1" />
+                <field name="card_number_id" options="{'no_create': True, 'no_open': True, 'no_create_edit':True}" attrs="{'invisible': [('member', '=', False)]}" force_save="1" />
+                <field name="nik" attrs="{'readonly' : [('member','=',True)]}" force_save="1"/>
+                <field name="member_number" attrs="{'readonly' : [('member','=',True)]}" force_save="1"/>
+                <field name="gender" attrs="{'readonly' : [('member','=',True)]}" force_save="1"/>
+                <field name="dob" required="1" attrs="{'readonly' : [('member','=',True)]}" force_save="1"/>
+                <field name="suffix_id" attrs="{'readonly' : [('member','=',True)]}" force_save="1"/>
+                <field name="marital_status" attrs="{'readonly' : [('member','=',True)]}" force_save="1"/>
+                <field name="relationship" attrs="{'readonly' : [('member','=',True)]}" force_save="1"/>
+              </group>
+              <group>
+                <field name="program_id" options="{'no_create': True, 'no_open': True, 'no_create_edit':True}" domain="[('client_branch_id', '=', client_branch_id)]" force_save="1" attrs="{'required' : [('member', '=', True)],'readonly' : [('member','=',True)]}" />
+                <field name="plan_id" options="{'no_create': True, 'no_open': True, 'no_create_edit':True}" domain="[('program_id', '=', program_id)]" force_save="1" attrs="{'required' : [('member', '=', True)],'readonly' : [('member','=',True)]}" />
+                <field name="policy_number" attrs="{'readonly' : [('member','=',True)]}" force_save="1"/>
+                <field name="join_date" attrs="{'readonly' : [('member','=',True)]}" force_save="1"/>
+                <field name="start_date" attrs="{'readonly' : [('member','=',True)]}" force_save="1"/>
+                <field name="effective_date_member" attrs="{'readonly' : [('member','=',True)]}" force_save="1"/>
+                <field name="end_date" attrs="{'readonly' : [('member','=',True)]}" force_save="1"/>
+                <field name="end_policy_date" attrs="{'readonly' : [('member','=',True)]}" force_save="1"/>
+                <field name="policy_status" attrs="{'readonly' : [('member','=',True)]}" force_save="1"/>
+              </group>
+            </group>
+            <group string="Admission and Discharge" name='admission_exchange' style="margin-bottom: 0">
+              <group style="margin-bottom: 0">
+                <span class="o_form_label o_td_label" name="provider_id">
+                  <b>Provider</b>
+                </span>
+                <div class="o_address_format">
+                  <field name="provider_id" options="{'no_create': True, 'no_open': True, 'no_create_edit':True}" required="1" class="o_address_city" force_save="1" />
+                  <field name="provider_check" class="o_address_state" readonly="1" force_save="1" decoration-danger="provider_check == 'not_provider'" decoration-success="provider_check == 'provider'" widget="badge" attrs="{'invisible': [('provider_check', '=', False)]}" />
+                </div>
+                <field name="benefit_master_id" options="{'no_create': True, 'no_create_edit':True}" attrs="{'required' : [('preadmission', '=', False),('member', '=', False)], 'invisible': [('member','=',True)]}" string="Claim Category" />
+                <field name="header_id" options="{'no_create': True, 'no_create_edit':True}" attrs="{'required' : [('preadmission', '=', False),('member', '=', True)], 'invisible': [('member','=',False)]}" domain="[('plan_id', '=', plan_id)]" string='Claim Category' />
+                <field name="benefit" />
+                <field name="primary_surgery_id" />
+                <field name="secondary_surgery_id" />
+              </group>
+              <group style="margin-bottom: 0">
+                <!-- <field name="doctor_name" string="Practitioner Name" /> -->
+                <field name="practitioner_id" />
+                <field name="lodgement_status" />
+                <field name="admission_date" required="1" />
+                <field name="discharge_date" />
+              </group>
+            </group>
+            <group style="margin-top: 0">
+              <span class="o_form_label o_td_label" name="diagnosa1_id">
+                <b>1st Diagnosis</b>
+              </span>
+              <div class="o_address_format" style="height: 25px">
+                <field name="diagnosa1_id" options="{'no_create': True, 'no_open': True, 'no_create_edit':True}" class="o_address_city" force_save="1" />
+                <field name="diagnosa1_check" class="o_address_state" readonly="1" force_save="1" decoration-danger="diagnosa1_check == 'exclusion'" widget="badge" attrs="{'invisible': ['|',('diagnosa1_check', '!=', 'exclusion' ),('diagnosa1_id', '=', False)]}" />
+              </div>
+              <span class="o_form_label o_td_label" name="diagnosa2_id">
+                <b>2nd Diagnosis</b>
+              </span>
+              <div class="o_address_format" style="height: 25px">
+                <field name="diagnosa2_id" options="{'no_create': True, 'no_open': True, 'no_create_edit':True}" class="o_address_city" force_save="1" />
+                <field name="diagnosa2_check" class="o_address_state" readonly="1" force_save="1" decoration-danger="diagnosa2_check == 'exclusion'" widget="badge" attrs="{'invisible': ['|',('diagnosa2_check', '!=', 'exclusion' ),('diagnosa2_id', '=', False)]}" />
+              </div>
+              <span class="o_form_label o_td_label" name="diagnosa3_id">
+                <b>3rd Diagnosis</b>
+              </span>
+              <div class="o_address_format" style="height: 25px">
+                <field name="diagnosa3_id" options="{'no_create': True, 'no_open': True, 'no_create_edit':True}" class="o_address_city" force_save="1" />
+                <field name="diagnosa3_check" class="o_address_state" readonly="1" force_save="1" decoration-danger="diagnosa3_check == 'exclusion'" widget="badge" attrs="{'invisible': ['|',('diagnosa3_check', '!=', 'exclusion' ),('diagnosa3_id', '=', False)]}" />
+              </div>
+              <span class="o_form_label o_td_label" name="diagnosa4_id">
+                <b>4th Diagnosis</b>
+              </span>
+              <div class="o_address_format" style="height: 25px">
+                <field name="diagnosa4_id" options="{'no_create': True, 'no_open': True, 'no_create_edit':True}" class="o_address_city" force_save="1" />
+                <field name="diagnosa4_check" class="o_address_state" readonly="1" force_save="1" decoration-danger="diagnosa4_check == 'exclusion'" widget="badge" attrs="{'invisible': ['|',('diagnosa4_check', '!=', 'exclusion' ),('diagnosa4_id', '=', False)]}" />
+              </div>
+              <field name="diagnosis_ids" invisible="1" />
+            </group>
+            <group string="Exchange Rate Currency" groups="asb_eclaim.access_eclaim">
+              <span class="o_form_label o_td_label" name="claim_received_currency_id">
+                <b>Claim Received</b>
+              </span>
+              <div class="o_row">
+                <field name="claim_received_currency_id" options="{'no_create': True, 'no_open': True, 'no_create_edit':True}" class="o_address_city" force_save="1" />
+                <field name="claim_received_rate" class="o_address_state" force_save="1" />
+              </div>
+              <span class="o_form_label o_td_label" name="claim_paid_currency_id">
+                <b>Claim Paid</b>
+              </span>
+              <div class="o_row">
+                <field name="claim_paid_currency_id" options="{'no_create': True, 'no_open': True, 'no_create_edit':True}" class="o_address_city" force_save="1" />
+                <field name="claim_paid_rate" class="o_address_state" force_save="1" />
+              </div>
+            </group>
+            <group>
+            </group>
+            <notebook>
+              <page name="remarks_page" string="Remarks">
+                <field name="remarks" />
+                <field name="daily_fu" invisible="1" />
+              </page>
+              <page name="final_gl_lines" string="Worksheet">
+                <field name="final_gl_line" force_save="1" />
+                <group name="note_group" col="12" class="mt-2 mt-md-0">
+                  <group colspan='4'>
+                    <field name="final_gl_benefit" readonly="1" force_save="1" />
+                  </group>
+                  <group colspan='4'>
+                    <field name="final_gl_max_per_visit" readonly="1" force_save="1" />
+                  </group>
+                  <group class="oe_subtotal_footer oe_right" colspan="4" name="claim_total">
+                    <field name="currency_id" invisible="1" />
+                    <field name="amount_deductible" widget="monetary" options="{'currency_field': 'currency_id'}" modifiers="{'readonly':true}" />
+                    <field name="amount_cover" widget="monetary" options="{'currency_field': 'currency_id'}" modifiers="{'readonly':true}" />
+                    <field name="amount_excess" widget="monetary" options="{'currency_field': 'currency_id'}" modifiers="{'readonly':true}" />
+                    <field name="amount_approved" widget="monetary" options="{'currency_field': 'currency_id'}" modifiers="{'readonly':true}" />
+                    <!-- <field name="amount_total" widget="monetary" options="{'currency_field': 'currency_id'}" modifiers="{'readonly':true}" /> -->
+                  </group>
+                  <div class="oe_clear" />
+                </group>
+              </page>
+              <page name="comment_page" string="Comment">
+                <group>
+                  <group>
+                    <field name="internal_comment" widget="text" />
+                    <field name="comment_statement" widget="text" />
+                  </group>
+                  <group>
+                    <field name="number_of_item" />
+                    <field name="received_claim" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                    <field name="amount_total" widget="monetary" options="{'currency_field': 'currency_id'}" modifiers="{'readonly':true}" />
+                    <field name="amount_difference" widget="monetary" options="{'currency_field': 'currency_id'}" modifiers="{'readonly':true}" />
+                  </group>
+                </group>
+              </page>
+              <page name="audit_page" string="Audit">
+                <group>
+                  <group>
+                    <field name="checker_flagging" />
+                    <field name="approval_payment" />
+                    <field name="approval_date" />
+                    <field name="approved_by" />
+                  </group>
+                  <group></group>
+                </group>
+              </page>
+            </notebook>
+          </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers" />
+            <field name="activity_ids" widget="mail_activity" />
+            <field name="message_ids" widget="mail_thread" />
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <!-- list view -->
+
+    <record model="ir.ui.view" id="guarantee_letter_view_tree">
+      <field name="name">guarantee.letter.tree</field>
+      <field name="model">guarantee.letter</field>
+      <field name="arch" type="xml">
+        <tree js_class="guarantee_letter_list_dashboard">
+          <field name="claim_number" readonly="1" />
+          <field name="name" string="Member Name" />
+          <field name="client_id" />
+          <field name="provider_id" />
+          <field name="member" />
+          <field name="service_type" />
+          <field name="benefit_master_id" />
+          <!-- <field name="claim_status" widget="badge" decoration-danger="claim_status in ['reject','decline']" decoration-info="claim_status == 'verified'" decoration-it="claim_status == 'open'" decoration-success="claim_status == 'paid'" decoration-warning="claim_status == 'release'" decoration-primary="claim_status == 'approved'" /> -->
+          <field name="case_status" widget="label_selection" options="{'classes': {'decline': 'custom-danger', 'discharge': 'custom-success', 'open': 'default', 'initial': 'custom-primary', 'approved': 'custom-info', 'submit' : 'custom-warning', 'process' : 'custom-process', 'close' : 'custom-close' }}" />
+        </tree>
+      </field>
+    </record>
+
+    <!-- Guarantee Letter Search -->
+
+    <record id="view_guarantee_letter_case_monitoring_filter" model="ir.ui.view">
+      <field name="name">guarantee.letter.case.monitoring</field>
+      <field name="model">guarantee.letter</field>
+      <field name="arch" type="xml">
+        <search string="Search Case Monitoring">
+          <field name="name" string="Name" />
+          <field name="claim_number" string="Claim Number" />
+          <field name="gl_number" />
+          <filter name="ip_maternity_case" string="Maternity / Rawat Inap" domain="[('benefit_master_id.category','in', ['ip','ma'])]" />
+          <filter name="need_followed_up" string="Need Follow Up" domain="[('daily_fu','=', False),('claim_status','!=','open')]" />
+          <filter name="followed_up" string="Followed Up" domain="[('daily_fu','=', True),('claim_status','!=','open')]" />
+        </search>
+      </field>
+    </record>
+
+    <!-- actions open attachment models -->
+
+    <record id="action_attachment_guarantee_letter" model="ir.actions.act_window">
+      <field name="name">Attachments</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">ir.attachment</field>
+      <field name="view_id" eval="False" />
+      <field name="domain">[('res_model','=','guarantee.letter'), ('res_id', '=', active_id)]</field>
+      <field name="context">{'default_res_model': 'guarantee.letter', 'default_res_id': active_id}</field>
+      <field name="search_view_id" ref="base.view_attachment_search" />
+      <field name="view_id" ref="asb_binary_newtab.attachment_tree_view_dev" />
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+                    Create a new document
+        </p>
+        <p>
+                    Also you will find here all the related documents and download it by clicking on any individual document.
+        </p>
+      </field>
+    </record>
+
+    <!-- GL Number Sequence -->
+
+    <record id="sequence_new_guarantee_letter_number" model="ir.sequence">
+      <field name="name">Case Monitoring GL Number</field>
+      <field name="code">guarantee.letter.gl.number</field>
+      <field name="prefix">/%(month)s/%(year)s/</field>
+      <field name="padding">5</field>
+      <field name="company_id" eval="False" />
+    </record>
+
+    <record id="sequence_new_claim_number" model="ir.sequence">
+      <field name="name">Case Monitoring Claim Number</field>
+      <field name="code">guarantee.letter.claim.number</field>
+      <field name="prefix">CL/%(month)s/%(year)s/</field>
+      <field name="padding">5</field>
+      <field name="company_id" eval="False" />
+    </record>
+
+    <!-- actions opening views on models -->
+    <record id="guarantee_letter_action_window" model="ir.actions.act_window">
+      <field name="name">Case Monitoring</field>
+      <field name="res_model">guarantee.letter</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('preadmission_state','!=','open')]</field>
+      <field name="view_id" ref="asb_helpline_guarantee_letter.guarantee_letter_view_tree" />
+      <field name="search_view_id" ref="view_guarantee_letter_case_monitoring_filter" />
+    </record>
+
+    <!-- Dashboard action button -->
+    <record id="guarantee_letter_dashboard_list" model="ir.actions.act_window">
+      <field name="name">Case Monitoring</field>
+      <field name="res_model">guarantee.letter</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('preadmission_state','!=','open')]</field>
+      <field name="view_id" ref="asb_helpline_guarantee_letter.guarantee_letter_view_tree" />
+      <field name="search_view_id" ref="view_guarantee_letter_case_monitoring_filter" />
+      <field name="target">main</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_empty_folder">
+                No Case Monitoring to display
+        </p>
+      </field>
+    </record>
+
+    <!-- menu actions -->
+
+    <menuitem name="Case Monitoring" id="asb_guarantee_letter_menu" parent="asb_helpline.menu_root" action="guarantee_letter_action_window" sequence="3" />
+
+  </data>
+</odoo>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <menuitem id="master_poli_perawat_menu" name="Poli / Unit Perawat" web_icon="asb_klinik_admission_poli_perawat,static/description/icon.png"/>
+    
+    </data>
+</odoo>

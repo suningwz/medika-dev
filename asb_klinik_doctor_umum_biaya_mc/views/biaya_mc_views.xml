@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <!-- Inherit form doctor umum antrian pasien -->
+        <record id="doctor_umum_antrian_pasien_form_inherit_biaya_mc" model="ir.ui.view">
+            <field name="name">master.registration.view.form.inherit</field>
+            <field name="model">master.registration</field>
+            <field name="inherit_id" ref="asb_klinik_doctor_umum_antrian_pasien.antrian_pasien_doctor_umum_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='catatan']" position="after">
+                    <group name='total_biaya' string='Total Biaya' attrs="{'invisible':[('jenis_perjanjian', '!=', 'mc')]}">
+                        <group class="o_group_biaya_mc">
+                            <field name="total_pemeriksaan_mc" string="Biaya MC" widget="monetary" />
+                            <field name="total_resep_obat" string="Biaya Obat" widget="monetary" />
+                            <field name="cost_permintaan_lab" string="Biaya Laboratorium" widget="monetary" />
+                            <field name="cost_permintaan_radiologi" string="Biaya Radiologi" widget="monetary" />
+                            <td class="o_td_label">
+                                <label class="o_readonly_modifier" for="total_biaya_mc" style="margin-left: 0px; font-size: 16px;">Total Biaya</label>
+                            </td>
+                            <field name="total_biaya_mc" nolabel='1' widget="monetary" class="o_total_biaya badge-pill badge-success" />
+                        </group>
+                        <group></group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
+                

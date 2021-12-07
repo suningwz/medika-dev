@@ -1,0 +1,68 @@
+<odoo>
+  <data>
+
+    <record id="model_costing_product_information_action_archive" model="ir.actions.server">
+      <field name="name">Archive</field>
+      <field name="model_id" ref="asb_klinik_costing_product_information.model_costing_product_information"/>
+      <field name="binding_model_id" ref="asb_klinik_costing_product_information.model_costing_product_information"/>
+      <field name="binding_view_types">form,list</field>
+      <field name="state">code</field>
+      <field name="code">action = records.action_archive()</field>
+    </record>
+
+    <record id="model_costing_product_information_action_unarchive" model="ir.actions.server">
+      <field name="name">Unarchive</field>
+      <field name="model_id" ref="asb_klinik_costing_product_information.model_costing_product_information"/>
+      <field name="binding_model_id" ref="asb_klinik_costing_product_information.model_costing_product_information"/>
+      <field name="binding_view_types">form,list</field>
+      <field name="state">code</field>
+      <field name="code">action = records.action_unarchive()</field>
+    </record>
+
+    <record id="costing_product_information_view_form" model="ir.ui.view">
+      <field name="name">costing.product.information.view.form</field>
+      <field name="model">costing.product.information</field>
+      <field name="arch" type="xml">
+        <form string="Product Information">
+          <header>
+            <field name="state" widget="statusbar"/>
+          </header>
+          <sheet>
+            <group col="4">
+              <field name="name" />
+              <field name="start_from" />
+              <field name="description" />
+              <field name="start_to" />
+              <field name="attachment" />
+              <field name="archive" />
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="costing_product_information_view_tree" model="ir.ui.view">
+      <field name="name">costing.product.information.view.tree</field>
+      <field name="model">costing.product.information</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" />
+          <field name="description" />
+          <field name="start_from" />
+          <field name="start_to" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="product_information_action" model="ir.actions.act_window">
+      <field name="name">Product Information</field>
+      <field name="res_model">costing.product.information</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- <menuitem id="product_information_menu" name="Product" parent="asb_costing.costing_menu" sequence="2"/> -->
+
+    <menuitem id="product_information_submenu" name="Product Information" parent="asb_klinik_costing.setting_costing_menu" action="product_information_action"/>
+
+  </data>
+</odoo>

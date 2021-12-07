@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Form View -->
+        <record model="ir.ui.view" id="lifestyle_merokok_wizard_form">
+            <field name="name">lifestyle.merokok.wizard.form</field>
+            <field name="model">lifestyle.merokok.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header></header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="lifestyle_id" options="{'no_open': True, 'no_create': True}" force_save="1" readonly="1" />
+                                <field name="status" required="1" />
+                                <field name="deskripsi" required="1" />
+                            </group>
+                            <group attrs="{'invisible':[('status', '=', 'no')]}">
+                                <field name="berhenti_merokok" attrs="{'invisible':[('status', '!=', 'berhenti')], 'required':[('status', '=', 'berhenti')]}" />
+                                <field name="batang" attrs="{'required':[('status', '=', 'yes')], 'invisible':[('status', '!=', 'yes')]}" />
+                                <field name="tahun_merokok" attrs="{'required':[('status', '=', 'yes')], 'invisible':[('status', '!=', 'yes')]}" />
+                                <field name="indeks_brinkman" attrs="{'invisible':[('status', '!=', 'yes')]}" />
+                                <field name="klasifikasi" attrs="{'invisible':[('status', '!=', 'yes')]}" />
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="save" type="object" string="Save" class="oe_highlight" />
+                        <button special="cancel" string="Cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- <record id="lifestyle_merokok_wizard_action" model="ir.actions.act_window">
+            <field name="name">Kebiasaan (Lifestyle)</field>
+            <field name="res_model">lifestyle.merokok.wizard</field>
+            <field name="view_mode">form</field>
+        </record> -->
+
+    </data>
+</odoo>

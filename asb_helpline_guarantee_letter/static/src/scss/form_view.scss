@@ -1,0 +1,124 @@
+.o_form_view {
+    // Labels
+    .o_form_label {
+        &.o_form_label_empty{
+            height: 25px;
+        }
+    }
+}
+
+
+// .badge {
+//   color: #333;
+//   display: inline-block;
+//   padding: 0.25em 0.4em;
+//   font-size: 100%;
+//   font-weight: 700;
+//   line-height: 1;
+//   text-align: center;
+//   white-space: nowrap;
+//   vertical-align: baseline;
+//   border-radius: 10rem;
+//   border: 0;
+//   padding-left: 0.6em;
+//   padding-right: 0.6em;
+//   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+// }
+
+.badge-custom-info {
+  padding: 0.25em 0.4em;
+  font-size: 12px;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: top;
+  border-radius: 10rem;
+  border: 0;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+  color: #333;
+  background-color: rgba(23, 162, 184, 0.5);
+}
+
+.badge-custom-success {
+  padding: 0.25em 0.4em;
+  font-size: 12px;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: top;
+  border-radius: 10rem;
+  border: 0;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+  color: #333;
+  background-color: rgba(40, 167, 69, 0.5) !important;
+}
+
+.badge-custom-danger {
+  padding: 0.25em 0.4em;
+  font-size: 12px;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: top;
+  border-radius: 10rem;
+  border: 0;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+  color: #333;
+  background-color: rgba(220, 53, 69, 0.5) !important;
+}
+
+.badge-custom-warning {
+  padding: 0.25em 0.4em;
+  font-size: 12px;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: top;
+  border-radius: 10rem;
+  border: 0;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+  color: #333;
+  background-color: rgba(255, 193, 7, 0.5) !important;
+}
+
+.badge-custom-primary {
+  padding: 0.25em 0.4em;
+  font-size: 12px;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: top;
+  border-radius: 10rem;
+  border: 0;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+  color: #333;
+  background-color: rgba(124, 123, 173, 0.5) !important;
+}
+
+.badge-custom-process {
+  padding: 0.25em 0.4em;
+  font-size: 12px;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: top;
+  border-radius: 10rem;
+  border: 0;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+  color: #333;
+  background-color: rgba(223, 142, 66, 0.5) !important;
+}
+
+.badge-custom-close {
+  padding: 0.25em 0.4em;
+  font-size: 12px;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: top;
+  border-radius: 10rem;
+  border: 0;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+  color: #333;
+  background-color: rgba(165, 83, 219, 0.5) !important;
+}

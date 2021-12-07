@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- List View -->
+        <record model="ir.ui.view" id="eclaim_batch_finance_tree">
+            <field name="name">eclaim.batch.finance.tree</field>
+            <field name="model">eclaim.batch</field>
+            <field name="arch" type="xml">
+                <tree name='Finance Tree' default_order="finance_due_date desc" create="false" editable="bottom" js_class="eclaim_finance_list_dashboard" class="o_finance_column">
+                    <field name="batch_number" readonly="1" />
+                    <field name="client_id" readonly="1" />
+                    <field name="provider_id" readonly="1" />
+                    <field name="client_type" readonly="1" />
+                    <field name="claim_type" readonly="1" />
+                    <field name="finance_due_date" invisible="1"/>
+                    <field name="finance_due_date_str" readonly="1" widget="badge" decoration-success="finance_due_date &lt; -30" decoration-warning="finance_due_date &gt; -30 and finance_due_date &lt; -5" decoration-danger="finance_due_date &gt; -5"/>
+                    <field name="so_number" attrs="{'required': ['|',('so_pr_date','!=',False),('pr_number','!=',False)], 'readonly': [('state', '=', 'paid')]}" decoration-info='1' />
+                    <field name="pr_number" attrs="{'required': ['|',('so_pr_date','!=',False),('so_number','!=',False)],'readonly': [('state', '=', 'paid')]}" decoration-info='1' />
+                    <field name="so_pr_date" attrs="{'required': ['|',('pr_number','!=',False),('so_number','!=',False)],'readonly': [('state', '=', 'paid')]}" decoration-info='1' />
+                    <field name="ar_number" attrs="{'required': [('ar_remarks','!=',False)], 'readonly': [('state', '=', 'paid')]}" decoration-danger='1' />
+                    <field name="ar_remarks" attrs="{'required': [('ar_number','!=',False)], 'readonly': [('state', '=', 'paid')]}" decoration-danger='1' />
+                    <field name="po_number" attrs="{'required': [('po_remarks','!=',False)],'readonly': [('state', '=', 'paid')]}" decoration-success='1' />
+                    <field name="po_remarks" attrs="{'required': [('po_number','!=',False)],'readonly': [('state', '=', 'paid')]}" decoration-success='1' />
+                    <field name="ap_number" attrs="{'required': [('ap_remarks','!=',False)],'readonly': [('state', '=', 'paid')]}" decoration-warning='1' />
+                    <field name="ap_remarks" attrs="{'required': [('ap_number','!=',False)],'readonly': [('state', '=', 'paid')]}" decoration-warning='1' />
+                    <button name="paid" attrs="{'invisible': [('state', '=', 'paid')]}" string="Paid" type="object" class="oe_highlight" />
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <!-- <record id="guarantee_letter_view_form_inherit_eclaim_finance" model="ir.ui.view">
+            <field name="name">guarantee.letter.view.form.eclaim.finance.inherit</field>
+            <field name="model">guarantee.letter</field>
+            <field name="inherit_id" ref="asb_helpline_guarantee_letter.guarantee_letter_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='audit_page']" position="after">
+                    <page name="finance_page" string="Finance" attrs="{'invisible' : [('member', '=', True)]}">
+                        <group name='finance'>
+                            <group name='so_pr' string='SO &amp; PR'>
+                                <field name="so_number" />
+                                <field name="pr_number" />
+                                <field name="so_pr_date" />
+                            </group>
+                            <group name='ar' string='AR'>
+                                <field name="ar_number" />
+                                <field name="ar_remarks" />
+                            </group>
+                            <group name='po' string='PO'>
+                                <field name="po_number" />
+                                <field name="po_remarks" />
+                            </group>
+                            <group name='ap' string='AP'>
+                                <field name="ap_number" />
+                                <field name="ap_remarks" />
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record> -->
+
+        <record id="view_eclaim_batch_finance_filter" model="ir.ui.view">
+            <field name="name">eclaim.batch.eclaim.finance</field>
+            <field name="model">eclaim.batch</field>
+            <field name="arch" type="xml">
+                <search string="Search Finance">
+                    <filter name="so_pr_pending" string="SO &amp; PR Pending" domain="['|','|', ('so_number', '=', False), ('pr_number', '=', False), ('so_pr_date', '=', False), ('state','=','approved')]" />
+                    <filter name="ar_pending" string="AR Pending" domain="['|', ('ar_number', '=', False), ('ar_remarks', '=', False), ('state','=','approved')]" />
+                    <filter name="po_pending" string="PO Pending" domain="['|', ('po_number', '=', False), ('po_remarks', '=', False), ('state','=','approved')]" />
+                    <filter name="ap_pending" string="AP Pending" domain="['|', ('ap_number', '=', False), ('ap_remarks', '=', False), ('state','=','approved')]" />
+                    <filter name="ap_pending_is_set" string="AP Pending is Set" domain="[('ap_number', '!=', False),('state','!=','paid')]" />
+                    <group expand="1" string="Group By">
+                        <filter string="Client Type" name="member" domain="[]" context="{'group_by': 'client_type'}"/>
+                    </group>
+
+                </search>
+            </field>
+        </record>
+
+        <!-- Dashboard action button -->
+        <record id="eclaim_batch_finance_dashboard_list" model="ir.actions.act_window">
+            <field name="name">Finance Monitoring</field>
+            <field name="res_model">eclaim.batch</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="eclaim_batch_finance_tree" />
+            <field name="search_view_id" ref="view_eclaim_batch_finance_filter" />
+            <field name="target">main</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_empty_folder">
+                No Finance Case to display
+                </p>
+            </field>
+        </record>
+
+        <!-- action tengah tree -->
+        <record id="model_eclaim_batch_finance_action_archive" model="ir.actions.server">
+            <field name="name">Paid</field>
+            <field name="model_id" ref="asb_eclaim_batch.model_eclaim_batch" />
+            <field name="binding_model_id" ref="asb_eclaim_batch.model_eclaim_batch" />
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.paid()</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="eclaim_batch_finance_action">
+            <field name="name">Finance Monitoring</field>
+            <field name="res_model">eclaim.batch</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_member': True}</field>
+            <field name="search_view_id" ref="view_eclaim_batch_finance_filter" />
+            <field name="domain">[('state','=','approved')]</field>
+        </record>
+        <record id="action_tree_finance_batch" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="eclaim_batch_finance_tree" />
+            <field name="act_window_id" ref="eclaim_batch_finance_action" />
+        </record>
+        <record id="action_form_finance_batch" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="asb_eclaim_batch.eclaim_batch_view_form" />
+            <field name="act_window_id" ref="eclaim_batch_finance_action" />
+        </record>
+        <menuitem id="submenu_eclaim_batch_finance" sequence="4" name="Finance Monitoring" parent="asb_eclaim.menu_root" action="eclaim_batch_finance_action" />
+
+    </data>
+</odoo>

@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_list_package_base,list.package.base,model_list_package,base.group_user,1,0,0,0
+access_list_package_sales,list.package.sales,model_list_package,asb_klinik_costing_team.group_master_costing_sales,1,1,1,0
+access_list_package_level_1,list.package.level.1,model_list_package,asb_klinik_costing_team.group_master_costing_level_1,1,1,1,1
+access_list_package_level_2,list.package.level.2,model_list_package,asb_klinik_costing_team.group_master_costing_level_2,1,1,1,1
+access_list_package_manager,list.package.manager,model_list_package,asb_klinik_costing_team.group_master_costing_manager,1,1,1,1
+
+access_package_mcu_base,package.mcu.base,model_package_mcu,base.group_user,1,0,0,0
+access_package_mcu_sales,package.mcu.sales,model_package_mcu,asb_klinik_costing_team.group_master_costing_sales,1,1,1,0
+access_package_mcu_level_1,package.mcu.level.1,model_package_mcu,asb_klinik_costing_team.group_master_costing_level_1,1,1,1,1
+access_package_mcu_level_2,package.mcu.level.2,model_package_mcu,asb_klinik_costing_team.group_master_costing_level_2,1,1,1,1
+access_package_mcu_manager,package.mcu.manager,model_package_mcu,asb_klinik_costing_team.group_master_costing_manager,1,1,1,1

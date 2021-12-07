@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record id="config_certificate_list_view_tree" model="ir.ui.view">
+            <field name="name">config.certificate.list.view.tree</field>
+            <field name="model">config.certificate.list</field>
+            <field name="arch" type="xml">
+
+                <tree string="Certificate List">
+                    <field name="name"/>
+                    <field name="cost"/>
+                </tree>
+            
+            </field>
+        </record>
+    
+    </data>
+</odoo>

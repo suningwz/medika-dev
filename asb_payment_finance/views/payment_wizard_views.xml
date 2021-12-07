@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Form View -->
+        <record id="payment_paid_wizard_view_form" model="ir.ui.view">
+            <field name="name">payment.paid.wizard.view.form</field>
+            <field name="model">payment.paid.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Finance Payment">
+                    <sheet>
+                        <group>
+                            <field name="letter_ids" widget="many2many_tags" invisible="1"/>
+                            <field name="total_cover" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="total_excess" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="total_approved" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <footer>
+                            <button name="action_finance_paid" type="object" string="Paid" class="oe_highlight"/>
+                            <button special="cancel" string="Cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="payment_finance_wizard_action" model="ir.actions.act_window">
+            <field name="name">Finance Payment</field>
+            <field name="res_model">payment.paid.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.ui.view" id="guarantee_letter_view_tree_inherit_payment_paid">
+            <field name="name">guarantee.letter.tree</field>
+            <field name="model">guarantee.letter</field>
+            <field name="inherit_id" ref="asb_payment_finance.payment_finance_member_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <header>
+                        <button name="action_payment_paid" string=" Paid" type="object" class="oe_highlight o_icon_white" icon="fa-money"/>
+                    </header>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

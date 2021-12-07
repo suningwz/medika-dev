@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Root Menu -->
+        <menuitem name="Doctor" id="top_menu_doctor" web_icon="asb_klinik_doctor,static/description/icon.png" />
+        
+        <!-- Menu Antrian Pasien -->
+        <menuitem id="antrian_pasien_menu" name="Antrian Pasien" parent="top_menu_doctor" sequence="10" />
+
+        <!-- Menu Antrian Pasien Umum -->
+        <menuitem id="submenu_antrian_pasien_doctor_umum" name="Antrian Pasien Dokter Umum" parent="antrian_pasien_menu" action="asb_klinik_doctor_umum_antrian_pasien.antrian_pasien_doctor_umum_action" groups="asb_klinik_doctor_team.group_unit_doctor_umum" />
+        <menuitem id="submenu_antrian_pasien_doctor_gigi" name="Antrian Pasien Dokter Gigi" parent="antrian_pasien_menu" action="asb_klinik_doctor_gigi_antrian_pasien.antrian_pasien_doctor_gigi_action" groups="asb_klinik_doctor_team.group_unit_doctor_gigi" />
+        <menuitem id="submenu_antrian_pasien_doctor_mata" name="Antrian Pasien Dokter Mata" parent="antrian_pasien_menu" action="asb_klinik_doctor_mata_antrian_pasien.antrian_pasien_doctor_mata_action" groups="asb_klinik_doctor_team.group_unit_doctor_mata" />
+        <menuitem id="submenu_antrian_pasien_doctor_jantung" name="Antrian Pasien Dokter Jantung" parent="antrian_pasien_menu" action="asb_klinik_doctor_jantung_antrian_pasien.antrian_pasien_doctor_jantung_action" groups="asb_klinik_doctor_team.group_unit_doctor_jantung" />
+
+        <!-- Menu Configuration -->
+        <menuitem id="doctor_configuration_menu" name="Configuration" parent="top_menu_doctor" sequence="11" />
+        
+        <!-- Menu Configraution : Anamnesa -->
+        <menuitem id="submenu_anamnesa_master" sequence="1" name="Anamnesa Master" parent="doctor_configuration_menu" groups="asb_klinik_doctor_team.group_unit_doctor_user" />
+        <menuitem id="submenu_anamnesa_master_medical_history" sequence="1" name="Riwayat Penyakit Terdahulu (Medical History)" parent="submenu_anamnesa_master" action="asb_klinik_doctor_umum_configuration_anamnesa.anamnesa_master_medical_history_action" groups="asb_klinik_doctor_team.group_unit_doctor_user" />
+        <menuitem id="submenu_anamnesa_master_special_for_woman" sequence="2" name="Khusus Wanita (Spesial for Woman)" parent="submenu_anamnesa_master" action="asb_klinik_doctor_umum_configuration_anamnesa.anamnesa_master_special_for_woman_action" groups="asb_klinik_doctor_team.group_unit_doctor_user" />
+        <menuitem id="submenu_anamnesa_master_lifestyle" sequence="3" name="Kebiasaan (Lifestyle)" parent="submenu_anamnesa_master" action="asb_klinik_doctor_umum_configuration_anamnesa.anamnesa_master_lifestyle_action" groups="asb_klinik_doctor_team.group_unit_doctor_user" />
+        <menuitem id="submenu_anamnesa_master_family_history" sequence="4" name="Riwayat Penyakit Keluarga (Family History)" parent="submenu_anamnesa_master" action="asb_klinik_doctor_umum_configuration_anamnesa.anamnesa_master_family_history_action" groups="asb_klinik_doctor_team.group_unit_doctor_user" />
+        <menuitem id="submenu_anamnesa_master_work_exposure_physical" sequence="5" name="Riwayat Paparan Pekerjaan Fisik (Work Exposure Physical)" parent="submenu_anamnesa_master" action="asb_klinik_doctor_umum_configuration_anamnesa.anamnesa_master_work_exposure_physical_action" groups="asb_klinik_doctor_team.group_unit_doctor_user" />
+        <menuitem id="submenu_anamnesa_master_work_exposure_chemical" sequence="6" name="Riwayat Paparan Pekerjaan Kimia (Work Exposure Chemical)" parent="submenu_anamnesa_master" action="asb_klinik_doctor_umum_configuration_anamnesa.anamnesa_master_work_exposure_chemical_action" groups="asb_klinik_doctor_team.group_unit_doctor_user" />
+        <menuitem id="submenu_anamnesa_master_work_exposure_biology" sequence="7" name="Riwayat Paparan Pekerjaan Biologi (Work Exposure Biology)" parent="submenu_anamnesa_master" action="asb_klinik_doctor_umum_configuration_anamnesa.anamnesa_master_work_exposure_biology_action" groups="asb_klinik_doctor_team.group_unit_doctor_user" />
+        <menuitem id="submenu_anamnesa_master_work_exposure_ergonomics" sequence="8" name="Riwayat Paparan Pekerjaan Ergonomi (Work Exposure Ergonomics)" parent="submenu_anamnesa_master" action="asb_klinik_doctor_umum_configuration_anamnesa.anamnesa_master_work_exposure_ergonomics_action" groups="asb_klinik_doctor_team.group_unit_doctor_user" />
+        <menuitem id="submenu_anamnesa_master_work_exposure_psyichology" sequence="9" name="Riwayat Paparan Pekerjaan Psikologi (Work Exposure Psyichology)" parent="submenu_anamnesa_master" action="asb_klinik_doctor_umum_configuration_anamnesa.anamnesa_master_work_exposure_psyichology_action" groups="asb_klinik_doctor_team.group_unit_doctor_user" />
+        <menuitem id="submenu_anamnesa_master_work_exposure_other" sequence="10" name="Riwayat Paparan Pekerjaan Lain-Lain (Work Exposure Other)" parent="submenu_anamnesa_master" action="asb_klinik_doctor_umum_configuration_anamnesa.anamnesa_master_work_exposure_other_action" groups="asb_klinik_doctor_team.group_unit_doctor_user" />
+
+        <!-- Menu Configuratuon : Pemeriksaan Fisik -->
+        <menuitem id="submenu_pemeriksaan_fisik_master" sequence="2" name="Pemeriksaan Fisik Master" parent="doctor_configuration_menu" />
+        <menuitem id="submenu_pemeriksaan_fisik_master_kulit_skin" sequence="1" name="Kulit (Skin)" parent="submenu_pemeriksaan_fisik_master" action="asb_klinik_doctor_umum_configuration_pemeriksaan_fisik.pemeriksaan_fisik_master_kulit_skin_action" groups="asb_klinik_doctor_team.group_unit_doctor_user" />
+        <menuitem id="submenu_pemeriksaan_fisik_master_mata_eye" sequence="2" name="Mata (Eye)" parent="submenu_pemeriksaan_fisik_master" action="asb_klinik_doctor_umum_configuration_pemeriksaan_fisik.pemeriksaan_fisik_master_mata_eye_action" groups="asb_klinik_doctor_team.group_unit_doctor_user" />
+        <menuitem id="submenu_pemeriksaan_fisik_master_tht_ent" sequence="3" name="THT/ENT" parent="submenu_pemeriksaan_fisik_master" action="asb_klinik_doctor_umum_configuration_pemeriksaan_fisik.pemeriksaan_fisik_master_tht_ent_action" groups="asb_klinik_doctor_team.group_unit_doctor_user" />
+        <menuitem id="submenu_pemeriksaan_fisik_master_mulut_mouth" sequence="4" name="Mulut (Mouth)" parent="submenu_pemeriksaan_fisik_master" action="asb_klinik_doctor_umum_configuration_pemeriksaan_fisik.pemeriksaan_fisik_master_mulut_mouth_action" groups="asb_klinik_doctor_team.group_unit_doctor_user" />
+        <menuitem id="submenu_pemeriksaan_fisik_master_leher_neck" sequence="5" name="Leher (Neck)" parent="submenu_pemeriksaan_fisik_master" action="asb_klinik_doctor_umum_configuration_pemeriksaan_fisik.pemeriksaan_fisik_master_leher_neck_action" groups="asb_klinik_doctor_team.group_unit_doctor_user" />
+        <menuitem id="submenu_pemeriksaan_fisik_master_dada_chest" sequence="6" name="Dada (Chest)" parent="submenu_pemeriksaan_fisik_master" action="asb_klinik_doctor_umum_configuration_pemeriksaan_fisik.pemeriksaan_fisik_master_dada_chest_action" groups="asb_klinik_doctor_team.group_unit_doctor_user" />
+        <menuitem id="submenu_pemeriksaan_fisik_master_extrimitas_extrimities" sequence="7" name="Extrimitas (Extrimities)" parent="submenu_pemeriksaan_fisik_master" action="asb_klinik_doctor_umum_configuration_pemeriksaan_fisik.pemeriksaan_fisik_master_extrimitas_extrimities_action" groups="asb_klinik_doctor_team.group_unit_doctor_user" />
+        <menuitem id="submenu_pemeriksaan_fisik_master_sensorik_examination" sequence="8" name="Pemeriksaan Fungsi Sensorik (Sensoric Examination)" parent="submenu_pemeriksaan_fisik_master" action="asb_klinik_doctor_umum_configuration_pemeriksaan_fisik.pemeriksaan_fisik_master_sensorik_examination_action" groups="asb_klinik_doctor_team.group_unit_doctor_user" />
+        <menuitem id="submenu_pemeriksaan_fisik_master_muskuloskletal_examination" sequence="9" name="Pemeriksaan Muskuloskletal (Muskuloskletal Examination)" parent="submenu_pemeriksaan_fisik_master" action="asb_klinik_doctor_umum_configuration_pemeriksaan_fisik.pemeriksaan_fisik_master_muskuloskletal_examination_action" groups="asb_klinik_doctor_team.group_unit_doctor_user" />
+        <menuitem id="submenu_pemeriksaan_fisik_master_motorik_examination" sequence="10" name="Pemeriksaan Fungsi Motorik (Motoric Examination)" parent="submenu_pemeriksaan_fisik_master" action="asb_klinik_doctor_umum_configuration_pemeriksaan_fisik.pemeriksaan_fisik_master_motorik_examination_action" groups="asb_klinik_doctor_team.group_unit_doctor_user" />
+        <menuitem id="submenu_pemeriksaan_fisik_master_reflek_examination" sequence="11" name="Pemeriksaan Fungsi Reflek (Reflex Examination)" parent="submenu_pemeriksaan_fisik_master" action="asb_klinik_doctor_umum_configuration_pemeriksaan_fisik.pemeriksaan_fisik_master_reflek_examination_action" groups="asb_klinik_doctor_team.group_unit_doctor_user" />
+        <menuitem id="submenu_pemeriksaan_fisik_master_limfatik_sistem" sequence="12" name="Sistem Limfatik (Lymphe System)" parent="submenu_pemeriksaan_fisik_master" action="asb_klinik_doctor_umum_configuration_pemeriksaan_fisik.pemeriksaan_fisik_master_limfatik_sistem_action" groups="asb_klinik_doctor_team.group_unit_doctor_user" />
+
+    </data>
+</odoo>

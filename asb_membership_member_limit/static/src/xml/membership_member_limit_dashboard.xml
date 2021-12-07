@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates>
+    <t t-name="asb_membership_member_limit.MembeshipMemberLimitDashboard">
+        <div class="o_membership_member_limit_dashboard container" style="position: sticky;left: 0px;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <!-- <td class="o_main_call o_dashboard_action" title="Klinik" context='{"search_default_klinik": true}' name="asb_master_provider_dashboard.master_provider_dashboard_list" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);"> -->
+                                <td style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <!-- <td>
+                                                <img src='/asb_membership_member_limit/static/src/img/odoo_icon.png' style="max-width: 50px;" />
+                                            </td> -->
+                                            <td class="o_remarks">
+                                                <span>Total Claim</span>
+                                                <br />
+                                                <span style="color:#2EBBAB;">
+                                                    <t t-esc="values['currency']" />
+                                                    <t t-esc="values['total_claim']" />
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

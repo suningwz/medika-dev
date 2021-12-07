@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit form doctor umum antrian pasien -->
+        <record id="doctor_umum_antrian_pasien_form_inherit_work_exposure_other" model="ir.ui.view">
+            <field name="name">master.registration.view.form.inherit</field>
+            <field name="model">master.registration</field>
+            <field name="inherit_id" ref="asb_klinik_doctor_umum_antrian_pasien.antrian_pasien_doctor_umum_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='10']" position="after">
+                    <group string="RIWAYAT PAPARAN PEKERJAAN LAIN-LAIN/WORK EXPOSURE OTHER">
+                        <field name="work_exposure_other_line" nolabel="1" context="{'form_view_ref': 'asb_klinik_doctor_umum_configuration_anamnesa.work_exposure_other_form'}">
+                            <tree create="false" delete="false" editable="top">
+                                <field name="anamnesa_master_id" style="width: 45%%" force_save="1" readonly="1" options="{'no_open': True, 'no_create': True}" />
+                                <field name="yes" style="width: 5%%" widget="boolean_toggle" class="oe_edit_only" />
+                                <field name="no" style="width: 5%%" widget="boolean_toggle" class="oe_edit_only" />
+                                <field name="previous" widget="boolean_toggle" class="oe_edit_only" />
+                                <field name="status" style="width: 5%%" force_save="1" readonly="1" class="oe_read_only" />
+                                <field name="deskripsi" style="width: 100%%" attrs="{'required':[('status', '!=', 'no')]}" />
+                                <field name="registration_id" invisible="1" />
+                            </tree>
+                        </field>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- List View -->
+        <record model="ir.ui.view" id="work_exposure_other_tree">
+            <field name="name">work.exposure.other.tree</field>
+            <field name="model">work.exposure.other</field>
+            <field name="arch" type="xml">
+                <tree create="false" delete="false" editable="top">
+                    <field name="anamnesa_master_id" force_save="1" readonly="1" options="{'no_open': True, 'no_create': True}" />
+                    <field name="status" force_save="1" readonly="1" class="oe_read_only" />
+                    <field name="yes" class="oe_edit_only" widget="boolean_toggle" />
+                    <field name="no" class="oe_edit_only" widget="boolean_toggle" />
+                    <field name="previous" widget="boolean_toggle" class="oe_edit_only" />
+                    <field name="deskripsi" />
+                    <field name="registration_id" invisible="1" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record model="ir.ui.view" id="work_exposure_other_form">
+            <field name="name">work.exposure.other.form</field>
+            <field name="model">work.exposure.other</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header></header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="anamnesa_master_id" />
+                                <field name="status" />
+                            </group>
+                            <group>
+                                <field name="deskripsi" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="work_exposure_other_action">
+            <field name="name">Riwayat Paparan Pekerjaan Lain-Lain (Work Exposure Other)</field>
+            <field name="res_model">work.exposure.other</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- <menuitem id="submenu_work_exposure_other" name="SPECIAL FOR WOMAN" parent="menu_work_exposure_other" action="work_exposure_other_action" /> -->
+
+    </data>
+</odoo>

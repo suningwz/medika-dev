@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data> 
+
+        <record id="profile_user_view_form" model="ir.ui.view">
+            <field name="name">res.users.profile.user.view.form</field>
+            <field name="model">res.users</field>
+            <field name="arch" type="xml">
+                <form string="Profile User" create="0" duplicate="0">
+
+                    <header>
+                        <button string="Go To Main Menu" name="action_main_menu" type="object" class="btn btn-success"/>
+                    </header>
+
+                    <sheet>
+                        <group col="6" colspan="2" style="margin: 1px 0px;">
+                            <div class="oe_title" style="margin: 0px 0px 0px 0px;">
+                                <label for="name" string="Nama User"/>
+                                <h1>
+                                    <field name="name" readonly="1"/>
+                                </h1>
+                            </div>
+
+                            <div class="oe_title" style="margin: 0px 0px 0px 150px;">
+                                <label for="faskes_id" string="Check - in Klinik"/>
+                                <h1 class="text-center">
+                                    <field name="faskes_id" force_save="1" domain="[('id', 'in', faskes_ids)]" attrs="{ 'readonly' : [('faskes_ids', '=', [])]}" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                                </h1>
+                            </div>
+
+                            <div class="oe_title">
+                                <field name="image_1920" readonly="1" nolabel="1" widget='image' class="oe_avatar"/>
+                            </div>
+                        </group>
+
+                        <group name="faskes_group" string="Fasilitas Kesehatan dan Poli Unit User">
+                            <field name="poli_unit_ids" invisible="1"/>
+                            <field name="faskes_ids" readonly="1" widget="many2many_tags" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True, 'color_field': 'color'}"/>
+                            <field name="poli_unit_id" readonly="1" domain="[('id', 'in', poli_unit_ids)]" attrs="{ 'invisible' : [('faskes_ids', '=', [])]}" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                        </group>
+
+                        <group name="ketenagaan_group" string="Unit dan Ketenagaan User">
+                            <field name="master_ketenagaan_ids" invisible="1"/>
+                            <field name="unit_kerja" readonly="1" />
+                            <field name="master_ketenagaan_id" readonly="1" domain="[('id', 'in', master_ketenagaan_ids)]" attrs="{ 'invisible' : [('unit_kerja', '=', False)]}" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                        </group>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="profile_user_menu_view_form" model="ir.ui.view">
+            <field name="name">res.users.profile.user.menu.view.form</field>
+            <field name="model">res.users</field>
+            <field name="arch" type="xml">
+                <form string="Profile User" create="0" duplicate="0">
+
+                    <sheet>
+                        <group col="6" colspan="2" style="margin: 1px 0px;">
+                            <div class="oe_title" style="margin: 0px 0px 0px 0px;">
+                                <label for="name" string="Nama User"/>
+                                <h1>
+                                    <field name="name" readonly="1" />
+                                </h1>
+                            </div>
+
+                            <div class="oe_title" style="margin: 0px 0px 0px 150px;">
+                                <label for="faskes_id" string="Check - in Klinik"/>
+                                <h1 class="text-center">
+                                    <field name="faskes_id" force_save="1" domain="[('id', 'in', faskes_ids)]" attrs="{ 'readonly' : [('faskes_ids', '=', [])]}" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                                </h1>
+                            </div>
+
+                            <div class="oe_title">
+                                <field name="image_1920" readonly="1" nolabel="1" widget='image' class="oe_avatar"/>
+                            </div>
+                        </group>
+
+                        <group name="faskes_group" string="Fasilitas Kesehatan dan Poli Unit User">
+                            <field name="poli_unit_ids" invisible="1"/>
+                            <field name="faskes_ids" readonly="1" widget="many2many_tags" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True, 'color_field': 'color'}"/>
+                            <field name="poli_unit_id" readonly="1" domain="[('id', 'in', poli_unit_ids)]" attrs="{ 'invisible' : [('faskes_ids', '=', [])]}" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                        </group>
+
+                        <group name="ketenagaan_group" string="Unit dan Ketenagaan User">
+                            <field name="master_ketenagaan_ids" invisible="1"/>
+                            <field name="unit_kerja" readonly="1" />
+                            <field name="master_ketenagaan_id" readonly="1" domain="[('id', 'in', master_ketenagaan_ids)]" attrs="{ 'invisible' : [('unit_kerja', '=', False)]}" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                        </group>
+                    </sheet>
+                    
+                </form>
+            </field>
+        </record>
+    
+        <record model="ir.actions.server" id="profile_user_action">
+            <field name="name">Profile User</field>
+            <field name="model_id" ref="model_res_users" />
+            <field name="state">code</field>
+            <field name="code">action=env['res.users']._get_mysetting()
+            </field>
+        </record>
+    
+        <record model="ir.actions.server" id="profile_user_menu_action">
+            <field name="name">Profile User Menu</field>
+            <field name="model_id" ref="model_res_users" />
+            <field name="state">code</field>
+            <field name="code">action=env['res.users']._get_myprofile()
+            </field>
+        </record>
+    
+    </data>
+</odoo>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record id="master_pemeriksaan_status_pasien_view_form" model="ir.ui.view">
+            <field name="name">master.pemeriksaan.status.pasien.form</field>
+            <field name="model">master.pemeriksaan.status.pasien</field>
+            <field name="arch" type="xml">
+                <form string="Data Pemeriksaan">
+                    
+                    <group col="4" colspan="2">
+                        <field name="name" readonly="1" force_save="1"/>
+                        <field name="faskes_id" readonly="1" force_save="1"/>
+                        <field name="registration_id" readonly="1" force_save="1"/>
+                        <field name="no_medical_report" readonly="1" force_save="1"/>
+                        <field name="pemeriksaan_perawat" readonly="1" force_save="1" widget="badge" decoration-success="pemeriksaan_perawat == 'Done'" decoration-danger="pemeriksaan_perawat == 'Not Yet'"/>
+                        <field name="on_progress"/>
+                        <field name="waktu_cek_lab" string="Waktu Cek Lab" readonly="1" force_save="1" attrs="{'invisible':[('is_blood_group_prandial', '=', False)]}"/>
+                        <field name="is_blood_group_prandial" force_save="1" readonly="1" invisible="1"/>
+                    </group>
+
+                    <notebook>
+                        <page name="status_pemeriksaan" string="Status Pemeriksaan">
+                            <field name="list_pemeriksaan_ids" widget="many2many" options="{'no_create': True}" force_save="1" >
+                                <tree>
+                                    <field name="poli_unit_id" string="Poli Unit" readonly="1"/>
+                                    <field name="status" widget="badge" decoration-warning="status == 'Tahap 1'" decoration-success="status == 'Done'" decoration-danger="status == 'Not Yet'"/>
+                                    <field name="registration_id" invisible="1"/>
+                                </tree>
+                                <form string="Status Pemeriksaan">
+                                    <sheet>
+                                        <group>
+                                            <field name="poli_unit_id" string="Poli Unit" readonly="1"/>
+                                            <field name="status" widget="badge" decoration-success="status == 'Done'" decoration-danger="status == 'Not Yet'"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+
+                    <footer>
+                        <button string="Close" class="btn btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="master_pemeriksaan_status_pasien_action" model="ir.actions.act_window">
+            <field name="name">Status Pemeriksaan</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">master.pemeriksaan.status.pasien</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    
+    </data>
+</odoo>

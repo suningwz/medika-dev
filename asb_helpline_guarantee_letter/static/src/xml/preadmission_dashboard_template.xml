@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="asb_helpline_guarantee_letter.PreadmissionDashboard">
+        <div class="o_preadmission_dashboard container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <td class="o_main o_dashboard_action" title="Preadmission Case" name="asb_helpline_guarantee_letter.preadmission_dashboard" context='{"search_default_preadmission_case": true}' style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <img src='/asb_helpline_guarantee_letter/static/src/img/preadmission.png' style="max-width: 75%;" />
+                                            </td>
+                                            <td class="o_remarks">
+                                                <span>Preadmission Case</span>
+                                                <br />
+                                                <span>
+                                                    <t t-esc="values['total_preadmission_case']" />
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="o_main o_dashboard_action" title="Open Preadmission" name="asb_helpline_guarantee_letter.preadmission_dashboard" context='{"search_default_open_preadmission": true}' style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <img src='/asb_helpline_guarantee_letter/static/src/img/open.png' style="max-width: 75%;" />
+                                            </td>
+                                            <td class="o_remarks">
+                                                <span>Open</span>
+                                                <br />
+                                                <span>
+                                                    <t t-esc="values['total_preadmission_open']" />
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="o_main o_dashboard_action" title="Preadmission Close" name="asb_helpline_guarantee_letter.preadmission_dashboard" context='{"search_default_close_preadmission": true}' style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <img src='/asb_helpline_guarantee_letter/static/src/img/closed.png' style="max-width: 75%;" />
+                                            </td>
+                                            <td class="o_remarks">
+                                                <span>Close</span>
+                                                <br />
+                                                <span>
+                                                    <t t-esc="values['total_preadmission_close']" />
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

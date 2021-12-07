@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record id="ketenagaan_form_inherit_res_users" model="ir.ui.view">
+            <field name="name">res.users.ketenagaan.view.form.inherit</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//page[@name='access_rights']/group[1]" position="after">
+                    <group name="ketenagaan_group" string="Unit dan Ketenagaan User">
+                        <field name="master_ketenagaan_ids" invisible="1"/>
+                        <field name="unit_kerja" />
+                        <field name="master_ketenagaan_id" domain="[('id', 'in', master_ketenagaan_ids)]" attrs="{ 'invisible' : [('unit_kerja', '=', False)]}" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+    
+    </data>
+</odoo>

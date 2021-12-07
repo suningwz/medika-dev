@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record id="view_partner_form_inherit_asb_invisible_partner" model="ir.ui.view">
+            <field name="name">res.partner.view.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_type']" position="attributes">
+                    <attribute name='attrs'>{'invisible': ['|',('is_master','=',True),('member','=',True)]}</attribute>
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="attributes">
+                    <attribute name='attrs'>{'invisible': ['|','|',('is_master', '=', True),('is_pic','=',True),('member','=',True)]}</attribute>
+                </xpath>
+                <xpath expr="//notebook[1]" position="attributes">
+                    <attribute name='attrs'>{'invisible': ['|','&amp;','&amp;','&amp;',('member', '=', True),('group', '=', False),'&amp;',('client', '=', False),('entity', '=', False),'&amp;',('user', '=', False),('provider', '=', False),('is_pic','=',True)]}</attribute>
+                </xpath>
+            </field>
+        </record>
+    
+    </data>
+</odoo>

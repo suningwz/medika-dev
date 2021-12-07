@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="header_detail_view_form" model="ir.ui.view">
+            <field name="name">header.detail.view.form</field>
+            <field name="model">header.detail</field>
+            <field name="arch" type="xml">
+                <form string="Header Detail">
+                    <sheet>
+                        <group col='4'>
+                            <group colspan="2">
+                                <field name="plan_id" />
+                                <field name="header_id" readonly="1"/>
+                                <field name="benefit_id" required="1"/>
+                                <field name="cover" />
+                                <field name="max_per_visit" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                <field name="max_day_per_year" />
+                            </group>
+                            <group colspan="2">
+                                <field name="max_per_day"/>
+                                <field name="inner_limit" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                <field name="per_day_limit" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                <field name="currency_id" />
+                                <field name="created_by" readonly="1"/>
+                                <field name="created_date" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="header_detail_view_tree" model="ir.ui.view">
+            <field name="model">header.detail</field>
+            <field name="name">header.detail.view.tree</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="benefit_id" domain="[('id','=',get_benefit_id_domain)]" options="{'no_open': True, 'no_create': True}" required="1"/>
+                    <field name="cover" />
+                    <field name="max_per_visit" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="max_day_per_year" />
+                    <field name="max_per_day" />
+                    <field name="inner_limit" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="per_day_limit" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="created_by" readonly="1"/>
+                    <field name="created_date" readonly="1"/>
+                    <field name="currency_id" invisible="1" />
+                    <field name="get_benefit_id_domain" invisible="1"/>
+                    <field name="header_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+
+
+</odoo>

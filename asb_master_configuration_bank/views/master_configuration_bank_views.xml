@@ -1,0 +1,30 @@
+<odoo>
+  <data>
+    <record id="view_bank_master_list" model="ir.ui.view">
+      <field name="name">bank.master.list</field>
+      <field name="model">bank.master</field>
+      <field name="arch" type="xml">
+        <tree editable="top" create="1" delete="1" multi_edit="1" string="Bank Master">
+          <field name="type" required="1" attrs="{'readonly': [('confirm', '=', True)]}" force_save="1" />
+          <field name="code_bank" required="1" attrs="{'readonly': [('confirm', '=', True)]}" force_save="1" />
+          <field name="name" required="1" attrs="{'readonly': [('confirm', '=', True)]}" force_save="1" />
+          <field name="confirm" widget='boolean_toggle' />
+        </tree>
+      </field>
+    </record>
+    <record id="bank_master_action" model="ir.actions.act_window">
+      <field name="name">Bank Master</field>
+      <field name="res_model">bank.master</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="view_bank_master_list" />
+      <field name="domain">[]</field>
+      <field name="context">{}</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+            Click create to start a new Bank Master.
+        </p>
+      </field>
+    </record>
+    <menuitem name="Bank Master" id="submenu_item_bank_master" parent="asb_master_configuration.menu_item_configuration" action="bank_master_action" sequence="1" />
+  </data>
+</odoo>

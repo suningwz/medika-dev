@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+    
+        <record id="1" model="master.jenis.dokumen">
+            <field name="name">SURAT IZIN</field>
+        </record>
+
+        <record id="2" model="master.jenis.dokumen">
+            <field name="name">SERTIFIKAT</field>
+        </record>
+    
+    </data>
+</odoo>

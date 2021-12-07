@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="btw" model="master.plan">
+            <field name="name">Back To Work</field>
+        </record>
+        <record id="observation" model="master.plan">
+            <field name="name">Observation</field>
+        </record>
+        <record id="refferal" model="master.plan">
+            <field name="name">Refferal</field>
+        </record>
+        <record id="urgent_refferal" model="master.plan">
+            <field name="name">Urgent Refferal</field>
+        </record>
+        <record id="medivac" model="master.plan">
+            <field name="name">Medivac</field>
+        </record>
+        <record id="close" model="master.plan">
+            <field name="name">Close</field>
+        </record>
+
+    </data>
+</odoo>

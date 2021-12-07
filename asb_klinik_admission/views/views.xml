@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+  
+    <menuitem id="master_admission_menu" sequence="10" name="Master Admission" web_icon="asb_klinik_admission,static/description/icon.png"/>
+
+    <!-- Menu Item Reservation -->
+    <menuitem id="master_reservation_menu" sequence="11" name="Reservation" parent="master_admission_menu" action="asb_klinik_admission_reservation.master_reservation_action" groups="asb_klinik_admission_team.group_unit_admission_user"/>
+
+    <!-- Menu Item Registrasi -->
+    <menuitem id="master_registration_menu" sequence="12" name="Registration" parent="master_admission_menu" action="asb_klinik_admission_registration.master_registration_action" groups="asb_klinik_admission_team.group_unit_admission_user"/>
+  
+  </data>
+</odoo>

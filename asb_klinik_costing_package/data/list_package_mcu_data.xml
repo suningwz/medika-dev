@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+    
+        <record id="seq_list_package_house" model="ir.sequence">
+            <field name="name">List Package in House</field>
+            <field name="code">list.package.house</field>
+            <field name="implementation">no_gap</field>
+            <field name="prefix">BOP/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_list_package_onsite" model="ir.sequence">
+            <field name="name">List Package Onsite</field>
+            <field name="code">list.package.onsite</field>
+            <field name="implementation">no_gap</field>
+            <field name="prefix">BOP/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    
+    </data>
+</odoo>

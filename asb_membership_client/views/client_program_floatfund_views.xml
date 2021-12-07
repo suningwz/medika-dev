@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="client_program_floatfund_view_form" model="ir.ui.view">
+            <field name="name">client.program.floatfund.view.form</field>
+            <field name="model">client.program.floatfund</field>
+            <field name="arch" type="xml">
+                <form string="Program Floatfund ">
+                    <sheet>
+                        <group col='4'>
+                            <group colspan='2'>
+                                <field name="program_id" invisible="1" readonly="1"/>
+                                <field name="name"/>
+                                <label for="amount" string="Amount"/>
+                                <div class="o_row">
+                                    <field name="amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="currency_id" class="oe_edit_only"/>
+                                </div>
+                            </group>
+                            <group colspan='2'>
+                                <field name="created_by" readonly="1"/>
+                                <field name="created_date" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="client_program_floatfund_view_tree" model="ir.ui.view">
+            <field name="model">client.program.floatfund</field>
+            <field name="name">client.program.floatfund.view.tree</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="program_id" invisible="1" />
+                    <field name="name" required="1"/>
+                    <!-- <field name="amount_total_signed" string="Total" decoration-bf="1"/> -->
+                    <field name="created_by" />
+                    <field name="created_date"/>
+                    <field name="amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="currency_id" invisible="1" />
+                </tree>
+            </field>
+        </record>
+
+    </data>
+
+
+</odoo>

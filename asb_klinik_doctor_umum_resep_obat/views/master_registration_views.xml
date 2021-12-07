@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit form doctor umum antrian pasien -->
+        <record id="doctor_umum_antrian_pasien_form_inherit_resep_obat" model="ir.ui.view">
+            <field name="name">master.registration.view.form.inherit</field>
+            <field name="model">master.registration</field>
+            <field name="inherit_id" ref="asb_klinik_doctor_umum_antrian_pasien.antrian_pasien_doctor_umum_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='resep_obat_mc']" position="inside">
+                    <group name='resep_obat_line' string='Resep Obat'>
+                        <field name="resep_obat_line" nolabel='1' />
+                    </group>
+                    <group class="oe_subtotal_footer oe_right">
+                        <div class="oe_subtotal_footer_separator oe_inline">
+                            <label for="total_resep_obat" />
+                        </div>
+                        <field name="total_resep_obat" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

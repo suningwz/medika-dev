@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record id="costing_setting_general_view_form" model="ir.ui.view">
+            <field name="name">costing.setting.general.view.form</field>
+            <field name="model">costing.setting.general</field>
+            <field name="arch" type="xml">
+                <form string="Setting Costing General" create="0" delete="0" duplicate="0">
+
+                    <header>
+                        <field name="master_tindakan_ids" invisible="1"/>
+                    </header>
+
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+
+                        <notebook>
+                            <page name="fixed_costing" string="Fixed Costing">
+                                <field name="fixed_costing_line">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="cost_in_house" widget="monetary"/>
+                                        <field name="cost_onsite" widget="monetary"/>
+                                        <field name="updated_date" />
+                                        <field name="updated_user" />
+                                    </tree>
+                                    <form string="Fixed Costing">
+                                        <sheet>
+                                            <group col="4" colspan="2">
+                                                <field name="name" />
+                                                <field name="updated_date" />
+                                                <field name="cost_in_house" />
+                                                <field name="updated_user" />
+                                                <field name="cost_onsite" />
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+
+                            <page name="certificate_list" string="Certificate List">
+                                <field name="certificate_list_line">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="price" widget="monetary"/>
+                                        <field name="cost" widget="monetary"/>
+                                        <field name="color" widget="color_picker" invisible="1"/>
+                                        <field name="updated_date" />
+                                        <field name="updated_user" />
+                                    </tree>
+                                    <form string="Certificate List">
+                                        <sheet>
+                                            <group col="4" colspan="2">
+                                                <field name="name" />
+                                                <field name="updated_date" />
+                                                <field name="cost" />
+                                                <field name="updated_user" />
+                                                <field name="price" />
+                                            </group>
+                                        </sheet>
+                                    </form>
+
+                                </field>
+                            </page>
+
+                            <page name="examination_list" string="Examination List">
+                                <field name="examination_list_line" force_save="1">
+                                    <tree editable="bottom">
+                                        <field name="master_tindakan_id" domain="[('id', 'in', parent.master_tindakan_ids)]" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}" context="{'tree_view_ref': 'asb_klinik_master_product.master_tindakan_layanan_simple_view_tree'}"/>
+                                        <field name="poli_unit_id" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                                        <field name="name" invisible="1"/>
+                                        <field name="list_price" string="Harga Jual" widget="monetary"/>
+                                        <field name="total_beban_langsung" string="Cost Beban Langsung" widget="monetary"/>
+                                        <field name="updated_date" />
+                                        <field name="updated_user" />
+                                    </tree>
+                                    <form string="Examination List">
+                                        <sheet>
+                                            <group col="4" colspan="2">
+                                                <field name="name" />
+                                                <field name="poli_unit_id" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                                                <field name="total_beban_langsung" />
+                                                <field name="updated_date" />
+                                                <field name="list_price" />
+                                                <field name="updated_user" />
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="costing_setting_general_action">
+            <field name="name">Setting Costing General</field>
+            <field name="model_id" ref="model_costing_setting_general" />
+            <field name="state">code</field>
+            <field name="code">action=env['costing.setting.general']._get_setting_general()
+            </field>
+        </record>
+    
+    </data>
+</odoo>

@@ -1,0 +1,27 @@
+<odoo>
+  <data>
+
+    <record id="guarantee_letter_view_form_inherit_case_monitoring" model="ir.ui.view">
+      <field name="name">guarantee.letter.view.form.inherit</field>
+      <field name="model">guarantee.letter</field>
+      <field name="inherit_id" ref="asb_helpline_guarantee_letter.guarantee_letter_view_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//notebook" position="inside">
+          <page name="case_monitoring_lines" string="Case Monitoring" invisible="1">
+            <field name="case_monitoring_line" context="{'default_letter_id': active_id, 
+                                                        'default_member' : member,
+                                                        'default_card_number_id' : card_number_id,
+                                                        'default_member_id' : member_id,
+                                                        'default_nik' : nik,
+                                                        'default_dob' : dob,
+                                                        'default_client_id' : client_id,
+                                                        'default_name' : name,
+                                                        'default_diagnosis_ids' : diagnosis_ids
+                                                        }"/>
+          </page>
+        </xpath>
+      </field>
+    </record>
+
+  </data>
+</odoo>

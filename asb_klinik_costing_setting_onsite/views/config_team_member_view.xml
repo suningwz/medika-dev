@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record id="config_team_member_view_tree" model="ir.ui.view">
+            <field name="name">config.team.member.view.tree</field>
+            <field name="model">config.team.member</field>
+            <field name="arch" type="xml">
+
+                <tree string="Team Member">
+                    <field name="name" string="Team Member"/>
+                    <field name="internal_cost" string="Internal Cost" widget="monetary"/>
+                    <field name="external_cost" string="External Cost" widget="monetary"/>
+                </tree>
+
+            </field>
+        </record>
+    
+    </data>
+</odoo>

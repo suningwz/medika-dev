@@ -1,0 +1,24 @@
+.btn-plan-duplicate {
+
+    color: #fff;
+    background-color: darken(#88E0EF, 20%);
+    border-color: darken(#88E0EF, 20%);
+
+}
+
+.btn-plan-duplicate:hover {
+
+    color: #fff;
+    background-color: darken(#88E0EF, 40%);
+    border-color: darken(#88E0EF, 40%);
+}
+
+.o_icon_white{
+    &.btn-primary{
+        > i {
+            &.o_button_icon {
+                    color: #ffffff !important;
+            }
+        }
+    }
+}

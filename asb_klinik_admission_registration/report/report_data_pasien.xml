@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+    
+        <template id="report_data_pasien">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+
+                        <div class="container">
+                            <div class="row" style="border-bottom: 2px solid black">
+                                <div class="col align-bottom">
+                                    <h4 class="text-center float-left font-weight-bold ">MEDIKA PLAZA INDONESIA</h4>
+                                    <span class="text-center float-right font-weight-bold">
+                                        (<t t-esc="context_timestamp(datetime.datetime.now()).strftime('%B %d, %Y - %H:%M:%S')"/>)
+                                        - User : 
+                                        <t t-esc="doc.user_create.name"/> 
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </template>
+    
+    </data>
+</odoo>

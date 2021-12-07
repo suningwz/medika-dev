@@ -1,0 +1,43 @@
+<odoo>
+  <data>
+
+    <!-- explicit list view  -->
+
+    <record model="ir.ui.view" id="configuration_reject_reason_view_form">
+      <field name="name">claim.reject.reason.form</field>
+      <field name="model">claim.reject.reason</field>
+      <field name="arch" type="xml">
+        <form string="Reject Reason">
+          <sheet>
+            <group>
+              <field name="name" />
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="configuration_reject_reason_view_tree">
+      <field name="name">claim.reject.reason.tree</field>
+      <field name="model">claim.reject.reason</field>
+      <field name="arch" type="xml">
+        <tree editable="top">
+          <field name="name" required="1"/>
+          <field name="comment" />
+        </tree>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record id="configuration_reject_reason_action_window" model="ir.actions.act_window">
+      <field name="name">Reject Reason</field>
+      <field name="res_model">claim.reject.reason</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Submenu actions -->
+    <menuitem name="Reject Reason" id="asb_reject_reason_submenu" parent="asb_helpline.asb_configuration_menu" action="configuration_reject_reason_action_window" sequence="3"/>
+
+  </data>
+</odoo>

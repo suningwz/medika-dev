@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="list_faskes_inherit_master_dokumen" model="ir.ui.view">
+            <field name="name">master.dokumen.faskes.view.list.inherit</field>
+            <field name="model">master.dokumen</field>
+            <field name="inherit_id" ref="asb_klinik_master_dokumen.master_dokumen_faskes_view_tree"/>
+            <field name="arch" type="xml">
+                
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="nama_faskes" />
+                </xpath>
+
+            </field>
+        </record>
+    
+        <record id="faskes_form_inherit_master_dokumen" model="ir.ui.view">
+            <field name="name">master.dokumen.faskes.view.form.inherit</field>
+            <field name="model">master.dokumen</field>
+            <field name="inherit_id" ref="asb_klinik_master_dokumen.master_dokumen_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//group[@name='data_dokumen']" position="after">
+                    <group name="faskes" string="Data Fasilitas Kesehatan" attrs="{'invisible': [('kategori','!=','faskes')]}">
+                        <group>
+                            <field name="kode_faskes" />
+
+                            <span class="o_form_label o_td_label" name="address_name">Alamat</span>
+                            <div class="o_address_format">
+                                <field name="street" class="o_address_street" placeholder="Street..." />
+                                <field name="kelurahan_id" class="o_address_city" placeholder="Kelurahan" options="{'no_open': True, 'no_create': True}" domain="[('kecamatan_id', '=', kecamatan_id)]" context="{'tree_view_ref' : 'asb_state_city.kelurahan_ref_view_tree'}" />
+                                <field name="kecamatan_id" class="o_address_state" placeholder="Kecamatan" options="{'no_open': True, 'no_create': True}" domain="[('city_id', '=', city_id)]" context="{'tree_view_ref' : 'asb_state_city.kecamatan_ref_view_tree'}" />
+                                <field name="city_id" class="o_address_city" placeholder="City" options="{'no_open': True, 'no_create': True}" domain="[('state_id', '=', state_id)]" context="{'tree_view_ref' : 'asb_state_city.kota_kabupaten_ref_view_tree'}" />
+                                <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_create': True}" domain="[('country_id', '=', country_id)]" />
+                                <field name="country_id" class="o_address_city" placeholder="Country" options="{'no_open': True, 'no_create': True}" />
+                                <field name="zip" class="o_address_state" placeholder="ZIP" />
+                            </div>
+                        </group>
+
+                        <group>
+                            <field name="penaggung_jawab_id" context="{'form_view_ref': 'asb_klinik_master_personil.master_dokter_view_form', 'default_is_company': 0, 'default_is_dokter':1, 'default_is_klinik':1, 'default_unit_kerja':'dokter', 'default_type' : ''}"/>
+                            <field name="poli_unit_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            <field name="nama_faskes" invisible="1"/>
+                        </group>
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+    
+    </data>
+</odoo>

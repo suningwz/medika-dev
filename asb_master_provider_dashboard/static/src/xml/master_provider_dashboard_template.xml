@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates>
+    <t t-name="asb_master_provider_dashboard.MasterProviderDashboard">
+        <div class="o_master_provider_dashboard container" style="position: sticky;left: 0px;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <td class="o_main_call o_dashboard_action" title="Klinik" context='{"search_default_klinik": true}' name="asb_master_provider_dashboard.master_provider_dashboard_list" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <img src='/asb_master_provider_dashboard/static/src/img/odoo_icon.png' style="max-width: 50px;" />
+                                            </td>
+                                            <td class="o_remarks">
+                                                <span>Klinik</span>
+                                                <br />
+                                                <span style="color:#2EBBAB;">
+                                                    <t t-esc="values['total_klinik']" />
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="o_main_call o_dashboard_action" title="Apotik" context='{"search_default_apotik": true}' name="asb_master_provider_dashboard.master_provider_dashboard_list" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <img src='/asb_master_provider_dashboard/static/src/img/odoo_icon1.png' style="max-width: 50px;" />
+                                            </td>
+                                            <td class="o_remarks">
+                                                <span>Apotik</span>
+                                                <br />
+                                                <span style="color:#2EBBAB;">
+                                                    <t t-esc="values['total_apotik']" />
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="o_main_call o_dashboard_action" title="Laboratorium" context='{"search_default_laboratorium": true}' name="asb_master_provider_dashboard.master_provider_dashboard_list" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <img src='/asb_master_provider_dashboard/static/src/img/odoo_icon2.png' style="max-width: 50px;" />
+                                            </td>
+                                            <td class="o_remarks">
+                                                <span>Laboratorium</span>
+                                                <br />
+                                                <span style="color:#2EBBAB;">
+                                                    <t t-esc="values['total_laboratorium']" />
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="o_main_call o_dashboard_action" title="Optik" context='{"search_default_optik": true}' name="asb_master_provider_dashboard.master_provider_dashboard_list" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <img src='/asb_master_provider_dashboard/static/src/img/odoo_icon3.png' style="max-width: 50px;" />
+                                            </td>
+                                            <td class="o_remarks">
+                                                <span>Optik</span>
+                                                <br />
+                                                <span style="color:#2EBBAB;">
+                                                    <t t-esc="values['total_optik']" />
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="o_main_call o_dashboard_action" title="Rumah Sakit" context='{"search_default_rumah_sakit": true}' name="asb_master_provider_dashboard.master_provider_dashboard_list" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <img src='/asb_master_provider_dashboard/static/src/img/odoo_icon4.png' style="max-width: 50px;" />
+                                            </td>
+                                            <td class="o_remarks">
+                                                <span>Rumah Sakit</span>
+                                                <br />
+                                                <span style="color:#2EBBAB;">
+                                                    <t t-esc="values['total_rumah_sakit']" />
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="o_main_call o_dashboard_action" title="With Rebate" context='{"search_default_rebate": true}' name="asb_master_provider_dashboard.master_provider_dashboard_list" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <img src='/asb_master_provider_dashboard/static/src/img/odoo_icon5.png' style="max-width: 50px;" />
+                                            </td>
+                                            <td class="o_remarks">
+                                                <span>Rebate</span>
+                                                <br />
+                                                <span style="color:#2EBBAB;">
+                                                    <t t-esc="values['total_rebate']" />
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="o_main_call o_dashboard_action" title="With Discount" context='{"search_default_discount": true}' name="asb_master_provider_dashboard.master_provider_dashboard_list" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <img src='/asb_master_provider_dashboard/static/src/img/odoo_icon6.png' style="max-width: 50px;" />
+                                            </td>
+                                            <td class="o_remarks">
+                                                <span>Discount</span>
+                                                <br />
+                                                <span style="color:#2EBBAB;">
+                                                    <t t-esc="values['total_discount']" />
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="o_main_call o_dashboard_action" title="Contract &#60; 60 Days" context='{"search_default_contract_&#60;_60_Days": true}' name="asb_master_provider_dashboard.master_provider_dashboard_list" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <img src='/asb_master_provider_dashboard/static/src/img/odoo_icon7.png' style="max-width: 50px;" />
+                                            </td>
+                                            <td class="o_remarks">
+                                                <span>Contract &#60; 60 Days</span>
+                                                <br />
+                                                <span style="color:#2EBBAB;">
+                                                    <t t-esc="values['total_contract_60_hari']" />
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

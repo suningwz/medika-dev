@@ -1,0 +1,42 @@
+<odoo>
+  <data>
+
+    <!-- explicit list view  -->
+
+    <record model="ir.ui.view" id="configuration_issued_view_form">
+      <field name="name">issued.issued.form</field>
+      <field name="model">issued.issued</field>
+      <field name="arch" type="xml">
+        <form string="Issued">
+          <sheet>
+            <group>
+              <field name="name" />
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="configuration_issued_view_tree">
+      <field name="name">issued.issued.tree</field>
+      <field name="model">issued.issued</field>
+      <field name="arch" type="xml">
+        <tree editable="top">
+          <field name="name" required="1"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record id="configuration_issued_action_window" model="ir.actions.act_window">
+      <field name="name">Issued</field>
+      <field name="res_model">issued.issued</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Submenu actions -->
+    <menuitem name="Issued" id="asb_issued_submenu" parent="asb_helpline.asb_configuration_menu" action="configuration_issued_action_window" sequence="1"/>
+
+  </data>
+</odoo>

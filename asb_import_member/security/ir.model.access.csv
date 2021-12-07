@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_asb_import_member,asb_import_member.import_member,model_import_member,base.group_user,1,1,1,1
+access_asb_preview_file,asb_import_member.preview_file,model_preview_file,base.group_user,1,1,1,1

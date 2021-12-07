@@ -1,0 +1,39 @@
+<odoo>
+  <data>
+
+    <record id="call_record_view_form_inherit_monitoring_detail_chart" model="ir.ui.view">
+      <field name="name">call.record.view.form.inherit</field>
+      <field name="model">call.record</field>
+      <field name="inherit_id" ref="asb_helpline_call_record.call_record_view_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//div[@name='button_box']" position="inside">
+          <button name="action_member_limit" string="Benefit Limit" type="object" icon='fa-bar-chart' class="oe_stat_button"/>
+        </xpath>
+      </field>
+    </record>
+
+    <record id="ticketing_member_benefit_limit_view_tree" model="ir.ui.view">
+      <field name="model">member.benefit.limit</field>
+      <field name="name">member.benefit.limit.view.tree</field>
+      <field name="arch" type="xml">
+        <tree create="0" edit="0" delete="0">
+          <field name="detail_id" options="{'no_open': True, 'no_create': True}" required="1"/>
+          <field name="member_ticketing_benefit_limit" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+          <field name="member_ticketing_benefit_remarks" />
+          <field name="utilized_limit" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+          <field name="remaining_limit" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+          <field name="currency_id" invisible="1" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="action_call_record_member_benefit_limit" model="ir.actions.act_window">
+      <field name="name">Benefit Limit</field>
+      <field name="res_model">member.benefit.limit</field>
+      <field name="view_mode">tree</field>
+      <field name="domain">[]</field>
+      <field name="view_id" ref="asb_membership_member_limit.ticketing_member_benefit_limit_view_tree" />
+    </record>
+
+  </data>
+</odoo>

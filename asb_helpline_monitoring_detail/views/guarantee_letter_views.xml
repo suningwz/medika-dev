@@ -1,0 +1,18 @@
+<odoo>
+  <data>
+
+    <record id="guarantee_letter_view_form_inherit_monitoring_detail" model="ir.ui.view">
+      <field name="name">guarantee.letter.view.form.inherit</field>
+      <field name="model">guarantee.letter</field>
+      <field name="inherit_id" ref="asb_helpline_guarantee_letter.guarantee_letter_view_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//page[@name='final_gl_lines']" position="before">
+          <page name="monitoring_detail_lines" string="Monitoring Detail">
+            <field name="monitoring_detail_line" />
+          </page>
+        </xpath>
+      </field>
+    </record>
+
+  </data>
+</odoo>

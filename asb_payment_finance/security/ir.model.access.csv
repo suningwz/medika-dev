@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_payment_paid_wizard,asb_payment_finance.payment_paid_wizard,model_payment_paid_wizard,base.group_user,1,1,1,1
+access_payment_rebate,asb_payment_finance.payment_rebate,model_payment_rebate,base.group_user,1,1,1,1

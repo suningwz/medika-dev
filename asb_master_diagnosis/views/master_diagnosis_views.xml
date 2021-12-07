@@ -1,0 +1,102 @@
+<odoo>
+  <data>
+
+    <!-- diagnosis views tree -->
+    <record id="diagnosis_tree_view" model="ir.ui.view">
+      <field name="name">diagnosis.tree</field>
+      <field name="model">diagnosis.diagnosis</field>
+      <field name="arch" type="xml">
+        <tree string="Diagnosis">
+          <field name="diagnosis_code" />
+          <field name="name" required="1" />
+          <field name="description" />
+          <field name="edc_code" />
+          <field name="initial_symptom" optional='hide' />
+          <field name="vital_sign" optional='hide' />
+          <field name="length_stay" optional="hide" />
+          <field name="estimated_cost" optional="hide" widget='monetary' />
+          <field name="company_id" invisible="1" />
+          <field name="currency_id" invisible="1" />
+        </tree>
+      </field>
+    </record>
+
+    <!-- diagnosis views form -->
+    <record id="diagnosis_setup_form_view" model="ir.ui.view">
+      <field name="name">diagnosis.setup.form</field>
+      <field name="model">diagnosis.diagnosis</field>
+      <field name="arch" type="xml">
+        <form string="Diagnosis" create="false">
+          <sheet>
+            <group col='12'>
+              <group colspan='5'>
+                <field name="diagnosis_code" readonly="1" />
+                <field name="name" required="1" readonly="1" />
+                <field name="description" widget="text" readonly="1" />
+              </group>
+              <group colspan='5'>
+                <field name="edc_code" />
+                <field name="initial_symptom" />
+                <field name="vital_sign" widget="text" />
+              </group>
+              <group colspan='5'>
+                <label for="length_stay" string="Length of Stay" />
+                <div class="o_row">
+                  <field name="length_stay" />
+                  Days
+                </div>
+                <label for="estimated_cost" string="Estimated Cost" />
+                <div class="o_row">
+                  <field name="estimated_cost" widget='monetary' />
+                  <field name="currency_id" />
+                </div>
+                <field name="company_id" invisible="1" />
+              </group>
+            </group>
+          </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers" />
+            <field name="activity_ids" widget="mail_activity" />
+            <field name="message_ids" widget="mail_thread" />
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <!-- Search View -->
+    <record model="ir.ui.view" id="diagnosis_search">
+      <field name="name">diagnosis.diagnosis.search</field>
+      <field name="model">diagnosis.diagnosis</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="diagnosis_code" />
+          <field name="name" required="1" />
+          <field name="description" />
+          <field name="edc_code" />
+          <field name="initial_symptom" />
+          <field name="vital_sign" />
+          <field name="length_stay" />
+          <field name="estimated_cost" />
+          <searchpanel class="parent_root">
+            <field name="root_id" icon="fa-tags" limit="0" string="diagnosis" enable_counters="1" />
+          </searchpanel>
+        </search>
+      </field>
+    </record>
+
+    <!-- actions diagnosis -->
+    <record model="ir.actions.act_window" id="diagnosis_action_window">
+      <field name="name">Diagnosis</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">diagnosis.diagnosis</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="diagnosis_search" />
+      <field name="view_id" ref="diagnosis_tree_view" />
+      <field name="domain">[]</field>
+      <field name="context">{}</field>
+    </record>
+
+    <menuitem name="Diagnosis" id="menu_item_diagnosis" parent="asb_master.top_menu_master" action="diagnosis_action_window" sequence="2" />
+
+  </data>
+</odoo>

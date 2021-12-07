@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="provider_activity_view_tree" model="ir.ui.view">
+            <field name="name">provider.activity.view.tree</field>
+            <field name="model">provider.activity</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="name" required="1" />
+                </tree>
+            </field>
+        </record>
+        <record id="provider_case_activity_action" model="ir.actions.act_window">
+            <field name="name">Provider Case Activity</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">provider.activity</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="provider_case_configuration" name="Case Activity" parent="asb_master_configuration.menu_item_configuration" action="provider_case_activity_action" />
+
+    </data>
+
+
+</odoo>

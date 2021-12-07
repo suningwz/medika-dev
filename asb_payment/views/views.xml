@@ -1,0 +1,13 @@
+<odoo>
+  <data>
+
+    <!-- Top menu item -->
+
+    <menuitem name="Payment" id="asb_payment.menu_root" web_icon="asb_payment,static/description/icon.png" groups="asb_payment.access_payment" />
+
+    <!-- menu categories -->
+
+    <!-- <menuitem name="Configuration" id="asb_configuration_menu" parent="asb_payment.menu_root" /> -->
+
+  </data>
+</odoo>

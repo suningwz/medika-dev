@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_master_jenis_pekerjaan,master.jenis.pekerjaan,model_master_jenis_pekerjaan,base.group_user,1,1,1,1
+access_master_lokasi_pekerjaan,master.lokasi.pekerjaan,model_master_lokasi_pekerjaan,base.group_user,1,1,1,1

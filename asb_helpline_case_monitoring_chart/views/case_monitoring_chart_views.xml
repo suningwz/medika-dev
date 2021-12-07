@@ -1,0 +1,36 @@
+<odoo>
+  <data>
+
+    <record id="case_monitoring_view_qweb" model="ir.ui.view">
+      <field name="name">General Condition</field>
+      <field name="type">qweb</field>
+      <field name="model">monitoring.detail</field>
+      <field name="arch" type="xml">
+        <qweb js_class="monitoring_chart">
+          <div class="o_form_view o_form_readonly o_project_plan">
+            <div class="o_form_sheet_bg">
+              <div class="o_form_sheet o_timesheet_plan_content">
+                <div class="o_timesheet_plan_sale_timesheet">
+                  <div class="o_timesheet_plan_sale_timesheet_dashboard">
+                    <div class="row main-section">
+                      <div class="col-md-12">
+                        <canvas id="canvas_monitoring" width="300" height="400"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </qweb>
+      </field>
+    </record>
+
+    <record id="helpline_case_monitoring_chart_action" model="ir.actions.act_window">
+      <field name="name">General Condition</field>
+      <field name="res_model">monitoring.detail</field>
+      <field name="view_mode">qweb</field>
+    </record>
+
+  </data>
+</odoo>

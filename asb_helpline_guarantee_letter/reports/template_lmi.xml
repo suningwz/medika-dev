@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="report.paperformat" id="report_lmi_format">
+        <field name="name">Report LMI Format</field>
+        <field name="default" eval="False" />
+        <field name="format">custom</field>
+        <field name="page_width">210</field>
+        <field name="page_height">297</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">40</field>
+        <field name="margin_bottom">25</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <!-- <field name="header_line" eval="False" /> -->
+    </record>
+
+
+    <template id="report_lmi">
+        <t t-call="web.html_container">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="header">
+                        <table style="width:100%; font-size:10px">
+                            <tr>
+                                <td rowspan="6">Image</td>
+                                <td>PT. KARTIKA BINA MEDIKATAMA</td>
+                            </tr>
+                            <tr>
+                                <td>Beltway Office Park, Tower C Lantai 2</td>
+                            </tr>
+                            <tr>
+                                <td>Jl. Ampera Raya No 9-10, Jakarta Selatan 12550</td>
+                            </tr>
+                            <tr>
+                                <td>Phone +62 21 8086 6088 (Hunting)</td>
+                            </tr>
+                            <tr>
+                                <td>Fax +62 21 8086 6089</td>
+                            </tr>
+                            <tr>
+                                <td>www.medikaplaza.com</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <!--<style>-->
+                        <!--  table, th, td {-->
+                        <!--    border: 1px solid black;-->
+                        <!--    border-collapse: collapse;-->
+                        <!--  }-->
+                        <!--</style>-->
+                        <table style="width:100%; text-align:center;">
+                            <tr>
+                                <td>INFORMASI MEDIS AWAL GENERAL</td>
+                            </tr>
+                            <tr>
+                                <td>Informasi Medis Awal Harus Diisi dan Dikirim ke Medika Plaza ke e-mail 1500918@medikaplaza.com atau</td>
+                            </tr>
+                            <tr>
+                                <td>24/7 Helpline 1500 918 atau +62 21 8086 600 sebagai Syarat Penjamin</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <style>
+                          table, th, td {
+                              border: 1px solid black;
+                              border-collapse: collapse;
+                            }
+                        </style>
+                        <table class="table" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <td colspan="12">INFORMASI PELAYANAN RS</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="7">Nama Rumah Sakit/Klinik : HERMINA PADANG, RS</td>
+                                    <td colspan="5">Dokter :</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">Nama Staf Pendaftar : </td>
+                                    <td colspan="4">No Telp : </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5">Email RS/Klinik : </td>
+                                    <td colspan="7">Tanggal Masuk/Jam : </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6">Kelas Kamar &amp; Tarif Kamar : </td>
+                                    <td colspan="2">( ) Sesuai Hak</td>
+                                    <td colspan="2">( ) Penuh</td>
+                                    <td colspan="2">( ) APS*</td>
+                                </tr>
+                            </tbody>
+                            <tfooter>
+                                <tr>
+                                    <td colspan="12">*APS Atas Permintaan Sendiri</td>
+                                </tr>
+                            </tfooter>
+                        </table>
+                    </div>
+                    <div class="footer">
+                        <table style="width:100%;">
+                            <tr>
+                            Footer
+                        </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_lmi" model="ir.actions.report">
+        <field name="name">LMI</field>
+        <field name="model">guarantee.letter</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">asb_helpline_guarantee_letter.report_lmi</field>
+        <field name="report_file">asb_helpline_guarantee_letter.report_lmi</field>
+        <field name="paperformat_id" ref="asb_helpline_guarantee_letter.report_lmi_format" />
+    </record>
+
+</odoo>

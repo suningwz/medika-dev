@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Kulit -->
+        <record id="1" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">kulit</field>
+            <field name="physical_examination_type">kulit</field>
+            <field name="name">Kulit</field>
+            <field name="nama">Skin</field>
+        </record>
+
+        <!-- Mata -->
+        <record id="2" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">mata</field>
+            <field name="physical_examination_type">mata</field>
+            <field name="name">Kiri</field>
+            <field name="nama">Left</field>
+        </record>
+        <record id="3" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">mata</field>
+            <field name="physical_examination_type">mata</field>
+            <field name="name">Kanan</field>
+            <field name="nama">Right</field>
+        </record>
+
+        <!-- Tht -->
+        <record id="4" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">tht</field>
+            <field name="physical_examination_type">tht</field>
+            <field name="name">Daun Telinga</field>
+            <field name="nama">Auricle</field>
+        </record>
+        <record id="5" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">tht</field>
+            <field name="physical_examination_type">tht</field>
+            <field name="name">Lubang Telinga</field>
+            <field name="nama">Ear canal</field>
+        </record>
+        <record id="6" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">tht</field>
+            <field name="physical_examination_type">tht</field>
+            <field name="name">Membran Tympani</field>
+            <field name="nama">Drums</field>
+        </record>
+        <record id="7" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">tht</field>
+            <field name="physical_examination_type">tht</field>
+            <field name="name">Hidung</field>
+            <field name="nama">Septum/Conchae</field>
+        </record>
+        <record id="8" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">tht</field>
+            <field name="physical_examination_type">tht</field>
+            <field name="name">Sinus</field>
+            <field name="nama">SInuses</field>
+        </record>
+        <record id="9" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">tht</field>
+            <field name="physical_examination_type">tht</field>
+            <field name="name">Faring</field>
+            <field name="nama">Pharynx</field>
+        </record>
+        <record id="10" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">tht</field>
+            <field name="physical_examination_type">tht</field>
+            <field name="name">Tonsil</field>
+            <field name="nama">Tonsil</field>
+        </record>
+
+        <!-- Mulut -->
+        <record id="11" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">mulut</field>
+            <field name="physical_examination_type">mulut</field>
+            <field name="name">Gusi</field>
+            <field name="nama">Gum</field>
+        </record>
+        <record id="12" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">mulut</field>
+            <field name="physical_examination_type">mulut</field>
+            <field name="name">Gigi</field>
+            <field name="nama">Dental</field>
+        </record>
+
+        <!-- Leher -->
+        <record id="13" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">leher</field>
+            <field name="physical_examination_type">leher</field>
+            <field name="name">Umum</field>
+            <field name="nama">General</field>
+        </record>
+        <record id="14" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">leher</field>
+            <field name="physical_examination_type">leher</field>
+            <field name="name">Kelenjar Tiroid</field>
+            <field name="nama">Thyroid Gland</field>
+        </record>
+
+        <!-- Dada -->
+        <record id="15" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">dada</field>
+            <field name="physical_examination_type">dada</field>
+            <field name="name">Bentuk</field>
+            <field name="nama">Form</field>
+        </record>
+        <record id="16" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">dada</field>
+            <field name="physical_examination_type">dada</field>
+            <field name="name">Paru-Paru</field>
+            <field name="nama">Lung</field>
+        </record>
+        <record id="17" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">dada</field>
+            <field name="physical_examination_type">dada</field>
+            <field name="name">Jantung</field>
+            <field name="nama">Heart</field>
+        </record>
+        <record id="18" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">dada</field>
+            <field name="physical_examination_type">dada</field>
+            <field name="name">Payudara</field>
+            <field name="nama">Breast</field>
+        </record>
+
+        <!-- Extrimitas -->
+        <record id="19" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">extrimitas</field>
+            <field name="physical_examination_type">extrimitas</field>
+            <field name="name">Tulan, Sendi</field>
+            <field name="nama">Bones, Joint</field>
+        </record>
+        <record id="20" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">extrimitas</field>
+            <field name="physical_examination_type">extrimitas</field>
+            <field name="name">Oto, Tonus</field>
+            <field name="nama">Muscles, Tonus</field>
+        </record>
+        <record id="21" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">extrimitas</field>
+            <field name="physical_examination_type">extrimitas</field>
+            <field name="name">Jari, Kuku</field>
+            <field name="nama">Fingernails</field>
+        </record>
+        <record id="22" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">extrimitas</field>
+            <field name="physical_examination_type">extrimitas</field>
+            <field name="name">Tangan</field>
+            <field name="nama">Hand</field>
+        </record>
+        <record id="23" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">extrimitas</field>
+            <field name="physical_examination_type">extrimitas</field>
+            <field name="name">Kaki</field>
+            <field name="nama">Foot</field>
+        </record>
+
+        <!-- Muskuloskletal -->
+        <record id="24" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">muskuloskletal</field>
+            <field name="physical_examination_type">muskuloskletal</field>
+            <field name="name">Tes Lhermitte</field>
+            <field name="nama">Lhermitte Test</field>
+        </record>
+        <record id="25" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">muskuloskletal</field>
+            <field name="physical_examination_type">muskuloskletal</field>
+            <field name="name">Tes Spurling</field>
+            <field name="nama">Spurling Test</field>
+        </record>
+        <record id="26" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">muskuloskletal</field>
+            <field name="physical_examination_type">muskuloskletal</field>
+            <field name="name">Tes Neers</field>
+            <field name="nama">Neers Test</field>
+        </record>
+        <record id="27" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">muskuloskletal</field>
+            <field name="physical_examination_type">muskuloskletal</field>
+            <field name="name">Tes Yergason</field>
+            <field name="nama">Yergason Test</field>
+        </record>
+        <record id="28" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">muskuloskletal</field>
+            <field name="physical_examination_type">muskuloskletal</field>
+            <field name="name">Tes Phalen</field>
+            <field name="nama">Phalen Test</field>
+        </record>
+        <record id="29" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">muskuloskletal</field>
+            <field name="physical_examination_type">muskuloskletal</field>
+            <field name="name">Tes Tinel</field>
+            <field name="nama">Tinel Test</field>
+        </record>
+        <record id="30" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">muskuloskletal</field>
+            <field name="physical_examination_type">muskuloskletal</field>
+            <field name="name">Tes Finklestein</field>
+            <field name="nama">Finklestein Test</field>
+        </record>
+        <record id="31" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">muskuloskletal</field>
+            <field name="physical_examination_type">muskuloskletal</field>
+            <field name="name">Tes Straight Leg Raise</field>
+            <field name="nama">Straight Leg Raise Test</field>
+        </record>
+
+        <!-- Sensorik -->
+        <record id="32" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">sensorik</field>
+            <field name="physical_examination_type">sensorik</field>
+            <field name="name">Tes Raba</field>
+            <field name="nama">Tes Raba</field>
+        </record>
+
+        <!-- Motorik -->
+        <record id="33" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">motorik</field>
+            <field name="physical_examination_type">motorik</field>
+            <field name="name">Tes Grip</field>
+            <field name="nama">Tes Grip</field>
+        </record>
+
+        <!-- Reflek -->
+        <record id="34" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">reflek</field>
+            <field name="physical_examination_type">reflek</field>
+            <field name="name">Reflek Fisiologi</field>
+            <field name="nama">Physiologic Reflex</field>
+        </record>
+        <record id="35" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">reflek</field>
+            <field name="physical_examination_type">reflek</field>
+            <field name="name">Reflek Patologi</field>
+            <field name="nama">Patologic Reflex</field>
+        </record>
+
+        <!-- Limfatik -->
+        <record id="36" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">limfatik</field>
+            <field name="physical_examination_type">limfatik</field>
+            <field name="name">Submandibula</field>
+            <field name="nama">Submandibula</field>
+        </record>
+        <record id="37" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">limfatik</field>
+            <field name="physical_examination_type">limfatik</field>
+            <field name="name">Kelenjar Leher</field>
+            <field name="nama">Neck Gland</field>
+        </record>
+        <record id="38" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">limfatik</field>
+            <field name="physical_examination_type">limfatik</field>
+            <field name="name">Kelenjar Ketiak</field>
+            <field name="nama">Armpit Gland</field>
+        </record>
+        <record id="39" model="pemeriksaan.fisik.master">
+            <field name="tipe_pemeriksaan_fisik">limfatik</field>
+            <field name="physical_examination_type">limfatik</field>
+            <field name="name">Selangkang</field>
+            <field name="nama">Inguiinal</field>
+        </record>
+
+    </data>
+</odoo>

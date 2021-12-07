@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+    
+        <record id="1" model="master.komponen.tarif">
+            <field name="alokasi_tarif">Jasa Dokter</field>
+        </record>
+
+        <record id="2" model="master.komponen.tarif">
+            <field name="alokasi_tarif">Jasa Perawat</field>
+        </record>
+    
+    </data>
+</odoo>

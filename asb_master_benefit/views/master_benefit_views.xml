@@ -1,0 +1,76 @@
+<odoo>
+  <data>
+    <!-- benefit views tree -->
+    <record id="benefit_tree_view" model="ir.ui.view">
+      <field name="name">benefit.tree</field>
+      <field name="model">benefit.benefit</field>
+      <field name="arch" type="xml">
+        <tree string="Benefit">
+          <field name="master_id" />
+          <field name="item_code" />
+          <field name="name" />
+          <field name="description" />
+          <field name="edc_code_id" optional="show" />
+          <field name="edc_name" optional="show" />
+          <field name="state" optional="show" />
+          <field name="alternate_code" optional="hide" />
+        </tree>
+      </field>
+    </record>
+
+    <!-- benefit views form -->
+    <record id="benefit_form_view" model="ir.ui.view">
+      <field name="name">benefit.form</field>
+      <field name="model">benefit.benefit</field>
+      <field name="arch" type="xml">
+        <form string="Benefit">
+          <header>
+            <button string="Enable" name="set_enabled" type="object" class="oe_highlight" states="draft" />
+            <button string="Disable" name="set_disabled" type="object" class="oe_highlight" states="enabled" />
+            <button string="Set to Draft" name="set_draft" type="object" class="oe_highlight" states="enabled,disabled" />
+            <field name="state" widget="statusbar" />
+          </header>
+          <sheet edit="false">
+            <group>
+              <group>
+                <field name="master_id" attrs="{'readonly': [('state', 'not in', 'draft')]}" />
+                <field name="item_code" required="1" attrs="{'readonly': [('state', 'not in', 'draft')]}" />
+                <field name="name" required="1" attrs="{'readonly': [('state', 'not in', 'draft')]}" />
+                <field name="description" widget="text" attrs="{'readonly': [('state', 'not in', 'draft')]}" />
+              </group>
+              <group>
+                <field name="edc_code_id" attrs="{'readonly': [('state', 'not in', 'draft')]}" />
+                <field name="edc_name" attrs="{'readonly': [('state', 'not in', 'draft')]}" />
+                <field name="alternate_code" attrs="{'readonly': [('state', 'not in', 'draft')]}" />
+              </group>
+            </group>
+          </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers" />
+            <field name="activity_ids" widget="mail_activity" />
+            <field name="message_ids" widget="mail_thread" />
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <!-- actions benefit -->
+    <record model="ir.actions.act_window" id="benefit_action_window">
+      <field name="name">Benefit</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">benefit.benefit</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="benefit_tree_view" />
+      <field name="domain">[]</field>
+      <field name="context">{}</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click create to start a new Benefit.
+        </p>
+      </field>
+    </record>
+
+    <menuitem name="Benefit" id="menu_item_benefit" parent="asb_master.top_menu_master" action="benefit_action_window" sequence="1" />
+
+  </data>
+</odoo>

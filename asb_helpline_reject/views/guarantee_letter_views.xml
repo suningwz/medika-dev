@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="guarantee_letter_view_form_inherit_reject" model="ir.ui.view">
+            <field name="name">guarantee.letter.view.form.inherit</field>
+            <field name="model">guarantee.letter</field>
+            <field name="inherit_id" ref="asb_helpline_guarantee_letter.guarantee_letter_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_complete']" position="after">
+                    <button name="reject_reason_wizard" string="Reject" type="object" attrs="{'invisible' : [('claim_status', '!=', 'verified')]}" class="btn btn-danger" />
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

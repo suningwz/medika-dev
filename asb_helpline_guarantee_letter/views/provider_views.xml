@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="master_provider_form_inherit_asb_helpline_guarantee_letter" model="ir.ui.view">
+            <field name="name">res.partner.view.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="asb_master_provider.master_provider_form" />
+            <field name="arch" type="xml">
+                <div name='provider_box' position='inside'>
+                    <button class="oe_stat_button" type="object" name="claim_history" icon="fa-file-text">
+                        <field string="Claim History" name="claim_history_count" widget="statinfo" />
+                    </button>
+                </div>
+            </field>
+        </record>
+
+    </data>
+
+
+</odoo>

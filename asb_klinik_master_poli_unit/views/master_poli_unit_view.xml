@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- View Poli Unit -->
+        <!-- Tree View -->
+
+        <record id="master_poli_unit_view_tree" model="ir.ui.view">
+            <field name="name">master.poli.unit.view.tree</field>
+            <field name="model">master.poli.unit</field>
+            <field name="arch" type="xml">
+
+                <tree string="Poli / Unit">
+                    <field name="name" />
+                    <field name="nama_poli_unit" />
+                    <field name="tenaga_medis_count" string="Jumlah Tenaga Kerja"/>
+                    <field name="kategori" widget="badge" decoration-info="kategori == 'penunjang'" decoration-success="kategori == 'unit'" decoration-warning="kategori == 'poli'"/>
+                </tree>
+
+            </field>
+        </record>
+
+        <!-- Form View -->
+
+        <record id="master_poli_unit_view_form" model="ir.ui.view">
+            <field name="name">master.poli.unit.view.form</field>
+            <field name="model">master.poli.unit</field>
+            <field name="arch" type="xml">
+                <form string="Poli / Unit" class="oe_form_configuration">
+
+                    <sheet>
+                        <div class="oe_button_box" name="button_box_poli_unit">
+                            <button class="oe_stat_button" name="%(asb_klinik_master_personil.data_personil_poli_unit_action)d" icon="fa-th-list" type="action" context="{'search_default_poli_unit_id': active_id, 'search_default_poli_unit_id': active_id}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="tenaga_medis_count"/>
+                                    </span>
+                                    <span class="o_stat_text"> Tenaga Kerja</span>
+                                </div>
+                            </button>
+                        </div>
+
+                        <div class="oe_title">
+                            <label for="nama_poli_unit" string="Nama Poli / Unit"/>
+                            <h1>
+                                <field name="nama_poli_unit" placeholder="e.g. Poli Umum"/>
+                            </h1>
+                        </div>
+
+                        <group>
+                            <group>
+                                <field name="name" class="oe_inline"/>
+                                <field name="kategori" required="1"/>
+                            </group>
+                            <group>
+                                <field name="color" widget="color_picker" class="oe_inline"/>
+                            </group>
+                        </group>
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <!-- Search View -->
+
+        <record id="master_poli_unit_view_search" model="ir.ui.view">
+            <field name="name">master.poli.unit.view.search</field>
+            <field name="model">master.poli.unit</field>
+            <field name="arch" type="xml">
+
+                <search string="Poli / Unit">
+                    <field name="name" string="Kode Poli / Unit" filter_domain="[('name', 'ilike', self)]"/>
+                    <field name="nama_poli_unit" string ="Nama Poli / Unit" filter_domain="[('nama_poli_unit', 'ilike', self)]"/>
+                    <separator/>
+
+                    <filter name="kategori_poli" string="Poli" domain="[('kategori', '=', 'poli')]"/>
+                    <filter name="kategori_unit" string="Unit" domain="[('kategori', '=', 'unit')]"/>
+                    <separator/>
+
+                    <group expand="1" string="Group By">
+                        <filter string="Kategori Poli / Unit" name="kategori" domain="[]" context="{'group_by': 'kategori'}"/>
+                    </group>
+                </search>
+                
+            </field>
+        </record>
+
+        <!-- Action -->
+
+        <record id="master_poli_unit_action" model="ir.actions.act_window">
+            <field name="name">Poli / Unit</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">master.poli.unit</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="master_poli_unit_view_search"/>
+            <field name="view_id" ref="master_poli_unit_view_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                            Tidak ada Data Poli / Unit
+                </p>
+            </field>
+        </record>
+
+        <record id="master_poli_unit_action_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="master_poli_unit_view_tree"/>
+            <field name="act_window_id" ref="master_poli_unit_action"/>
+        </record>
+
+        <record id="master_poli_unit_action_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="master_poli_unit_view_form"/>
+            <field name="act_window_id" ref="master_poli_unit_action"/>
+        </record>
+
+    </data>
+</odoo>

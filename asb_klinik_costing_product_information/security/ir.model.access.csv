@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_costing_product_information,asb_klinik_costing_product_information.costing_product_information,model_costing_product_information,base.group_user,1,1,1,1

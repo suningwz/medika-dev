@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record id="config_transportasi_akomodasi_view_tree" model="ir.ui.view">
+            <field name="name">config.transportasi.akomodasi.view.tree</field>
+            <field name="model">config.transportasi.akomodasi</field>
+            <field name="arch" type="xml">
+
+                <tree string="Transportasi / Akomodasi">
+                    <field name="name" string="Nama Transportasi / Akomodasi"/>
+                </tree>
+
+            </field>
+        </record>
+    
+    </data>
+</odoo>

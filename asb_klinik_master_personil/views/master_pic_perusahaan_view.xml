@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="pic_perusahaan_view_template_tree" model="ir.ui.view">
+            <field name="name">pic.perusahaan.view.template.tree</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree string="PIC Perusaahan">
+                    <field name="name" />
+                    <field name="client_title_id" string="Posisi / Jabatan" />
+                    <field name="email" widget="email"/>
+                    <field name="mobile" widget="mobile"/>
+                </tree>
+            </field>
+        </record>
+    
+        <record id="pic_perusahaan_view_form" model="ir.ui.view">
+            <field name="name">pic.perusahaan.view.form</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form string="PIC Perusahaan">
+
+                    <sheet>
+                        <field name="image_1920" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;image_128&quot;}"/>
+                        <div class="oe_title">
+                            <field name="is_pic_perusahaan" force_save="1" invisible="1"/>
+                            <field name="is_perusahaan" force_save="1" invisible="1"/>
+                            <field name="is_company" force_save="1" invisible="1"/>
+                            <field name="type" force_save="1" invisible="1"/>
+                            <field name="commercial_partner_id" invisible="1"/>
+                            <field name="active" invisible="1"/>
+                            <field name="company_type" force_save="1" invisible="1" widget="radio" class="oe_edit_only" options="{'horizontal': true}"/>
+                            <h1>
+                                <field name="name" default_focus="1" placeholder="Name" attrs="{ 'required' : [('is_pic_perusahaan', '=', True)]}" />
+                            </h1>
+                            <div class="o_row">
+                                <field name="parent_id" force_save="1" readonly="1" widget="res_partner_many2one" placeholder="Company" domain="[('is_company', '=', True)]" context="{'default_is_company': True, 'show_vat': True}" attrs="{'invisible': ['|', '|', ('is_pic_perusahaan','=', True), ('is_company','=', True), ('parent_id', '=', False)]}"/>
+                                <field name="company_name" attrs="{'invisible': ['|', '|', ('company_name', '=', False), ('company_name', '=', ''), ('is_company', '=', True)]}"/>
+                                <button name="create_company" icon="fa-plus-square" string="Create company" type="object" class="oe_edit_only btn-link" attrs="{'invisible': ['|', '|', ('is_company','=', True), ('company_name', '=', ''), ('company_name', '=', False)]}"/>
+                            </div>
+                        </div>
+
+                        <group>
+                            <group>
+                                <label for="street" string="Alamat" class="oe_edit_only" />
+                                <div class="o_address_format oe_edit_only">
+                                    <field name="street" class="o_address_street" placeholder="Street..." />
+                                    <field name="country_id" class="o_address_state" style="width: 31%" placeholder="Country" options="{'no_open': True, 'no_create': True}" />
+                                    <field name="state_id" class="o_address_state" style="width: 31%" placeholder="State" options="{'no_open': True, 'no_create': True}" domain="[('country_id', '=', country_id)]" />
+                                    <field name="city_id" style="width: 34%" placeholder="City" options="{'no_open': True, 'no_create': True}" domain="[('state_id', '=', state_id)]" context="{'tree_view_ref' : 'asb_state_city.kota_kabupaten_ref_view_tree'}" />
+                                    <field name="kecamatan_id" class="o_address_state" style="width: 37%" placeholder="Kecamatan" options="{'no_open': True, 'no_create': True}" domain="[('city_id', '=', city_id)]" context="{'tree_view_ref' : 'asb_state_city.kecamatan_ref_view_tree'}" />
+                                    <field name="kelurahan_id" class="o_address_state" style="width: 37%" placeholder="Kelurahan" options="{'no_open': True, 'no_create': True}" domain="[('kecamatan_id', '=', kecamatan_id)]" context="{'tree_view_ref' : 'asb_state_city.kelurahan_ref_view_tree'}" />
+                                    <field name="zip" style="width: 22%" placeholder="ZIP" />
+                                </div>
+
+                                <label for="street" string="Alamat" class="oe_read_only" />
+                                <div class="o_address_format oe_read_only">
+                                    <field name="street" class="o_address_street" placeholder="Street..." />
+                                    <field name="kelurahan_id" class="o_address_city" placeholder="Kelurahan" options="{'no_open': True, 'no_create': True}" domain="[('kecamatan_id', '=', kecamatan_id)]" context="{'tree_view_ref' : 'asb_state_city.kelurahan_ref_view_tree'}" />
+                                    <field name="kecamatan_id" class="o_address_state" placeholder="Kecamatan" options="{'no_open': True, 'no_create': True}" domain="[('city_id', '=', city_id)]" context="{'tree_view_ref' : 'asb_state_city.kecamatan_ref_view_tree'}" />
+                                    <field name="city_id" class="o_address_city" placeholder="City" options="{'no_open': True, 'no_create': True}" domain="[('state_id', '=', state_id)]" context="{'tree_view_ref' : 'asb_state_city.kota_kabupaten_ref_view_tree'}" />
+                                    <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_create': True}" domain="[('country_id', '=', country_id)]" />
+                                    <field name="country_id" class="o_address_city" placeholder="Country" options="{'no_open': True, 'no_create': True}" />
+                                    <field name="zip" class="o_address_state" placeholder="ZIP" />
+                                </div>
+                            </group>
+
+                            <group>
+                                <field name="client_title_id" string="Posisi / Jabatan" placeholder="e.g. Sales Director" attrs="{ 'required' : [('is_pic_perusahaan', '=', True)]}" options="{'no_quick_create': True}" />
+                                <field name="mobile" widget="phone" attrs="{ 'required' : [('is_pic_perusahaan', '=', True)]}" />
+                                <field name="email" widget="email" context="{'gravatar_image': True}" attrs="{ 'required' : [('is_pic_perusahaan', '=', True)]}" />
+                                <field name="user_ids" invisible="1" />
+                            </group>
+                        </group>
+                    </sheet>
+                    
+                </form>
+            </field>
+        </record>
+    
+    </data>
+</odoo>

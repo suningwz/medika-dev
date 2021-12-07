@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_asb_invisible_partner_asb_invisible_partner,asb_invisible_partner.asb_invisible_partner,model_asb_invisible_partner_asb_invisible_partner,base.group_user,1,1,1,1

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="client_program_plan_header_view_form" model="ir.ui.view">
+            <field name="name">program.plan.header.view.form</field>
+            <field name="model">program.plan.header</field>
+            <field name="arch" type="xml">
+                <form string="Plan Header">
+                    <sheet>
+                        <group col='4'>
+                            <group colspan='2'>
+                                <field name="plan_id" readonly="1" />
+                                <field name="benefit_category_id" required="1" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                <field name="annual_limit" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                <field name="daily_limit" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                <field name="deductible" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                <field name="deductible_period" />
+                            </group>
+                            <group colspan='2'>
+                                <!-- <label for="coinsurance" string="Co-Insurance" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                <div class="o_row"> -->
+                                <field name="coinsurance" widget="percentage" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                <!-- % -->
+                                <!-- </div> -->
+                                <field name="coshare" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                <field name="currency_id" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                <field name="limit_selection"/>
+                                <field name="created_by" readonly="1" />
+                                <field name="created_date" readonly="1" />
+                                <field name="is_editable" invisible="1" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="header_detail_line" string="Detail">
+                                <field name="detail_line" attrs="{'readonly': [('is_editable','=', False)]}" />
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="activity_ids" widget="mail_activity" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="client_program_plan_header_view_tree" model="ir.ui.view">
+            <field name="model">program.plan.header</field>
+            <field name="name">program.plan.header.view.tree</field>
+            <field name="arch" type="xml">
+                <tree limit="8">
+                    <field name="program_id" />
+                    <field name="plan_id" />
+                    <field name="benefit_category_id" />
+                    <field name="annual_limit" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                    <field name="deductible" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                    <field name="coinsurance" widget="percentage" />
+                    <field name="coshare" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                    <field name="currency_id" invisible="1" />
+                    <field name="created_by" />
+                    <field name="created_date" />
+                </tree>
+            </field>
+        </record>
+
+    </data>
+
+
+</odoo>

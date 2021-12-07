@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_suffix_id,asb_membership_member.suffix_id,model_suffix_id,base.group_user,1,1,1,1
+access_plan_information,asb_membership_member.plan_information,model_plan_information,base.group_user,1,1,1,1
+access_member_history,asb_membership_member.member_history,model_member_history,base.group_user,1,1,1,1
+access_card_number,asb_helpline_preadmission.card_number,model_card_number,base.group_user,1,1,1,1

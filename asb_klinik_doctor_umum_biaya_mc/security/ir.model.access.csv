@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_asb_klinik_doctor_umum_biaya_mc_asb_klinik_doctor_umum_biaya_mc,asb_klinik_doctor_umum_biaya_mc.asb_klinik_doctor_umum_biaya_mc,model_asb_klinik_doctor_umum_biaya_mc_asb_klinik_doctor_umum_biaya_mc,base.group_user,1,1,1,1

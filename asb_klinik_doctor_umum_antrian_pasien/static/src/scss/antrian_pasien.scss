@@ -1,0 +1,43 @@
+// per group
+.o_group_keadaan_umum {
+    &.o_inner_group {
+        > tbody > tr > td {
+            &.o_td_label {
+                > label {
+                    &.o_form_label {
+                        min-width: 300px !important; 
+                    }
+                }
+            }
+        }
+        // div {
+        //     &.o_row { 
+        //             > div > div > label {
+        //             &.o_form_label {
+        //                 margin-left: 0px !important; 
+        //                 width:200px !important;
+        //             }
+        //         }
+        //     }
+        // } 
+        // div > label {
+        //         &.o_form_label {
+        //             margin-left: 0px !important; 
+        //             width:200px !important;
+        //         }
+        //     }
+    }
+}
+
+// per field
+.o_width_100px {
+    &.o_field_widget {
+        > div 
+            > label {
+                &.o_form_label {
+                    margin-left: 0px !important; 
+                    width:100px !important;
+                }
+            }
+    }
+}

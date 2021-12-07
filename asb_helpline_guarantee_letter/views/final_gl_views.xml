@@ -1,0 +1,69 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="final_gl_view_form">
+      <field name="name">final.gl.form</field>
+      <field name="model">final.gl</field>
+      <field name="arch" type="xml">
+        <form string="Guarantee Letter">
+          <sheet>
+            <group string="Final GL">
+              <field name="detail_id"/>
+              <field name="annual_limit" widget="monetary" options="{'currency_field': 'currency_id'}" invisible="1"/>
+              <field name="days" string="No. of Services"/>
+              <field name="actual_amount" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1" force_save="1"/>
+              <field name="excess_amount" invisible="1"/>
+              <field name="approved_amount" widget="monetary" options="{'currency_field': 'currency_id'}" force_save="1"/>
+              <field name="member_per_day_limit_line">
+                <tree>
+                  <field name="detail_id" />
+                  <field name="service_date" />
+                  <field name="per_day_limit_used" />
+                </tree>
+              </field>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- list view -->
+
+    <record model="ir.ui.view" id="final_gl_view_tree">
+      <field name="name">final.gl.tree</field>
+      <field name="model">final.gl</field>
+      <field name="arch" type="xml">
+        <tree editable="top">
+          <field name="benefit_id" options="{'no_create': True, 'no_create_edit':True}" domain="[('id', 'in', get_benefit_ids)]" required="1" force_save="1"/>
+          <field name="detail_id" options="{'no_create': True, 'no_create_edit':True}" domain="[('id', 'in', get_detail_ids)]" invisible="1"/>
+          <field name="get_detail_ids" invisible="1" />
+          <field name="get_benefit_ids" invisible="1" />
+          <field name="remaining_limit" groups="base.group_no_one" optional="hide" readonly="1" force_save="1"/>
+          <field name="days" string="No. of Services"/>
+          <field name="service_date" required="1" force_save="1"/>
+          <field name="admin_comment" />
+          <field name="actual_amount" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1" groups="base.group_no_one" optional="hide" force_save="1"/>
+          <field name="charge" widget="monetary" options="{'currency_field': 'currency_id'}" force_save="1"/>
+          <field name="total_amount" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1" groups="base.group_no_one" optional="hide" force_save="1"/>
+          <field name="patient_paid" widget="monetary" options="{'currency_field': 'currency_id'}" force_save="1" />
+          <field name="cover_amount" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1" force_save="1" groups="base.group_no_one" optional="hide"/>
+          <field name="real_cover_amount" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1" force_save="1"/>
+          <field name="excess_amount" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1" force_save="1" groups="base.group_no_one" optional="hide"/>
+          <field name="exclusion"/>
+          <field name="real_excess_amount" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('exclusion', '=', False)]}" force_save="1"/>
+          <field name="approved_amount" widget="monetary" options="{'currency_field': 'currency_id'}" force_save="1"/>
+          <field name="remarks" widget="percentage" readonly="1" force_save="1"/>
+          <field name="coinsurance" widget="percentage" readonly="1" force_save="1"/>
+          <field name="deductible_amount" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1" force_save="1" groups="base.group_no_one" optional="hide"/>
+          <field name="excess_comment" />
+          <field name="excess_remarks" />
+          <field name="total_days" invisible="1"/>
+          <field name="member_per_day_limit_line" invisible="1"/>
+          <button string="" type="object" name="action_view" class="oe_highlight" icon="fa-search"/>
+          <field name="currency_id" invisible="1" />
+        </tree>
+      </field>
+    </record>
+
+  </data>
+</odoo>

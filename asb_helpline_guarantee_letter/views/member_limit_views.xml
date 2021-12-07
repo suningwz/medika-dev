@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+
+        <record id="guarantee_letter_view_form_inherit_monitoring_detail_chart" model="ir.ui.view">
+            <field name="name">guarantee.letter.view.form.inherit</field>
+            <field name="model">guarantee.letter</field>
+            <field name="inherit_id" ref="asb_helpline_guarantee_letter.guarantee_letter_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="action_member_limit" string="Benefit Limit" type="object" icon='fa-bar-chart' class="oe_stat_button"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_gl_member_benefit_limit" model="ir.actions.act_window">
+            <field name="name">Benefit Limit</field>
+            <field name="res_model">member.benefit.limit</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[]</field>
+            <field name="view_id" ref="asb_membership_member_limit.member_benefit_limit_view_tree" />
+        </record>
+
+        <record id="per_day_limit_inherit_final_gl_amount" model="ir.ui.view">
+            <field name="name">member.per.day.limit.view.tree.inherit</field>
+            <field name="model">member.per.day.limit</field>
+            <field name="inherit_id" ref="asb_membership_member_limit.member_per_day_limit_view_tree"/>
+            <field name="arch" type="xml">
+                <field name="per_day_limit_used" position="after">
+                    <field name="cover_amount" />
+                    <field name="excess_amount" />
+                    <field name="final_gl_id" />
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

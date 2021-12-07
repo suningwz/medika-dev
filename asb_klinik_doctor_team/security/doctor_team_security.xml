@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.module.category" id="module_category_menu_doctor">
+        <field name="name">Menu Doctor</field>
+        <field name="sequence">5</field>
+    </record>
+
+    <record id="group_unit_doctor_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="module_category_menu_doctor"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="group_unit_doctor_umum" model="res.groups">
+        <field name="name">Dokter Umum</field>
+        <field name="category_id" ref="module_category_menu_doctor"/>
+        <field name="implied_ids" eval="[(4, ref('group_unit_doctor_user'))]"/>
+    </record>
+
+    <record id="group_unit_doctor_gigi" model="res.groups">
+        <field name="name">Dokter Gigi</field>
+        <field name="category_id" ref="module_category_menu_doctor"/>
+        <field name="implied_ids" eval="[(4, ref('group_unit_doctor_user'))]"/>
+    </record>
+
+    <record id="group_unit_doctor_mata" model="res.groups">
+        <field name="name">Dokter Mata</field>
+        <field name="category_id" ref="module_category_menu_doctor"/>
+        <field name="implied_ids" eval="[(4, ref('group_unit_doctor_user'))]"/>
+    </record>
+
+    <record id="group_unit_doctor_jantung" model="res.groups">
+        <field name="name">Dokter Jantung</field>
+        <field name="category_id" ref="module_category_menu_doctor"/>
+        <field name="implied_ids" eval="[(4, ref('group_unit_doctor_user'))]"/>
+    </record>
+
+    <record id="group_unit_doctor_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="module_category_menu_doctor"/>
+        <field name="implied_ids" eval="[ (4, ref('group_unit_doctor_umum')), 
+                                          (4, ref('group_unit_doctor_gigi')),
+                                          (4, ref('group_unit_doctor_jantung')),
+                                          (4, ref('group_unit_doctor_mata'))]"/>
+    </record>
+
+    <record id="base.group_system" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('group_unit_doctor_manager'))]" />
+    </record>
+
+</odoo>

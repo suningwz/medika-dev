@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_policy,asb_membership_policy.policy,model_policy_policy,base.group_user,1,1,1,1
+access_policy_member_line,asb_membership_policy.policy_member_line,model_policy_member_line,base.group_user,1,1,1,1
+access_policy_member_wizard,asb_membership_policy.policy_member_wizard,model_policy_member_wizard,base.group_user,1,1,1,1

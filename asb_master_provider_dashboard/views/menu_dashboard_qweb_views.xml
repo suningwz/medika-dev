@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+    
+        <record id="provider_dashboard_qweb" model="ir.ui.view">
+            <field name="name">provider.view.qweb</field>
+            <field name="type">qweb</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <qweb js_class="QwebProvider">
+                    <div class="o_form_view o_form_readonly o_provider_qweb_dashboard">
+                        <div class="o_form_sheet_bg">
+                            <div class="o_form_sheet" >
+                                <div class="row">
+                                    <div class="col-sm-12 o_total_provider">
+                                        <table class="table table-borderless o_dashboard_action" context='{}' name="asb_master_provider_dashboard.master_provider_dashboard_list" type="button" action="asb_master_provider.master_provider_action" title="TOTAL PROVIDER" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <img src='/asb_master_provider_dashboard/static/src/img/All Provider.png' style="width: 100%;" />
+                                                    </td>
+                                                    <td class="o_name">
+                                                        <span>
+                                                            <b>TOTAL PROVIDER</b>
+                                                        </span>
+                                                    </td>
+                                                    <td class="o_value">
+                                                        <span t-esc="total_provider"/>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-3 o_klinik">
+                                        <table class="table table-borderless o_dashboard_action" context='{"search_default_klinik": true}' name="asb_master_provider_dashboard.master_provider_dashboard_list" title="KLINIK" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <img src='/asb_master_provider_dashboard/static/src/img/Klinik.png' style="width: 100%;" />
+                                                    </td>
+                                                    <td class="o_name">
+                                                        <span>
+                                                            <b>KLINIK</b>
+                                                        </span>
+                                                    </td>
+                                                    <td class="o_value">
+                                                        <span t-esc="total_klinik" />
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-3 o_apotik">
+                                        <table class="table table-borderless o_dashboard_action" context='{"search_default_apotik": true}' name="asb_master_provider_dashboard.master_provider_dashboard_list" title="APOTIK" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <img src='/asb_master_provider_dashboard/static/src/img/apotek.png' style="width: 100%;" />
+                                                    </td>
+                                                    <td class="o_name">
+                                                        <span>
+                                                            <b>APOTIK</b>
+                                                        </span>
+                                                    </td>
+                                                    <td class="o_value">
+                                                        <span t-esc="total_apotik"/>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-3 o_laboratorium">
+                                        <table class="table table-borderless o_dashboard_action" context='{"search_default_laboratorium": true}' name="asb_master_provider_dashboard.master_provider_dashboard_list" title="LABORATORIUM" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <img src='/asb_master_provider_dashboard/static/src/img/laboratorium.png' style="width: 100%;" />
+                                                    </td>
+                                                    <td class="o_name">
+                                                        <span>
+                                                            <b>LABORATORIUM</b>
+                                                        </span>
+                                                    </td>
+                                                    <td class="o_value">
+                                                        <span t-esc="total_laboratorium"/>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-3 o_optik">
+                                        <table class="table table-borderless o_dashboard_action" context='{"search_default_optik": true}' name="asb_master_provider_dashboard.master_provider_dashboard_list" title="OPTIK" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <img src='/asb_master_provider_dashboard/static/src/img/optik.png' style="width: 100%;" />
+                                                    </td>
+                                                    <td class="o_name">
+                                                        <span>
+                                                            <b>OPTIK</b>
+                                                        </span>
+                                                    </td>
+                                                    <td class="o_value">
+                                                        <span t-esc="total_optik"/>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-3 o_rumah_sakit">
+                                        <table class="table table-borderless o_dashboard_action" context='{"search_default_rumah_sakit": true}' name="asb_master_provider_dashboard.master_provider_dashboard_list" title="RUMAH SAKIT" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <img src='/asb_master_provider_dashboard/static/src/img/rumah sakit.png' style="width: 100%;" />
+                                                    </td>
+                                                    <td class="o_name">
+                                                        <span>
+                                                            <b>RUMAH SAKIT</b>
+                                                        </span>
+                                                    </td>
+                                                    <td class="o_value">
+                                                        <span t-esc="total_rumah_sakit"/>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-3 o_rebate">
+                                        <table class="table table-borderless o_dashboard_action" context='{"search_default_rebate": true}' name="asb_master_provider_dashboard.master_provider_dashboard_list" title="REBATE" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <img src='/asb_master_provider_dashboard/static/src/img/rebate.png' style="width: 100%;" />
+                                                    </td>
+                                                    <td class="o_name">
+                                                        <span>
+                                                            <b>REBATE</b>
+                                                        </span>
+                                                    </td>
+                                                    <td class="o_value">
+                                                        <span t-esc="total_rebate"/>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-3 o_discount">
+                                        <table class="table table-borderless o_dashboard_action" context='{"search_default_discount": true}' name="asb_master_provider_dashboard.master_provider_dashboard_list" title="DISCOUNT" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <img src='/asb_master_provider_dashboard/static/src/img/discount.png' style="width: 100%;" />
+                                                    </td>
+                                                    <td class="o_name">
+                                                        <span>
+                                                            <b>DISCOUNT</b>
+                                                        </span>
+                                                    </td>
+                                                    <td class="o_value">
+                                                        <span t-esc="total_discount"/>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-3 o_contract">
+                                        <table class="table table-borderless o_dashboard_action" context='{"search_default_contract_&#60;_60_Days": true}' name="asb_master_provider_dashboard.master_provider_dashboard_list" title="CONTRACT" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <img src='/asb_master_provider_dashboard/static/src/img/contract remaining.png' style="width: 100%;" />
+                                                    </td>
+                                                    <td class="o_name">
+                                                        <span>
+                                                            <b>CONTRACT &lt; 60 Days </b>
+                                                        </span>
+                                                    </td>
+                                                    <td class="o_value">
+                                                        <span t-esc="total_contract_60_hari" />
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <br/>
+                                <!-- <hr color="blue" size="10" /> -->
+                                <br/>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <table class="table table-borderless" title="CHART 1" style="height: 350px; box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="o_name">
+                                                        <div class="row main-section">
+                                                            <div class="col-md-12">
+                                                                <canvas id="canvas" style="height: 330px; width: 100%;"></canvas>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <table class="table table-borderless" title="CHART 2" style="height: 350px; box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="o_name">
+                                                        <div class="row main-section">
+                                                            <div class="col-md-12">
+                                                                <canvas id="canvas2" style="height: 330px; width: 100%;"></canvas>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <table class="table table-borderless" title="CHART 3" style="height: 350px; box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="o_name">
+                                                        <div class="row main-section">
+                                                            <div class="col-md-12">
+                                                                <canvas id="canvas3" style="height: 330px; width: 100%;"></canvas>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <table class="table table-borderless" title="CHART 4" style="height: 350px; box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="o_name">
+                                                        <div class="row main-section">
+                                                            <div class="col-md-12">
+                                                                <canvas id="canvas4" style="height: 330px; width: 100%; margin:0 auto;"></canvas>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <br />
+                                <!-- <hr color="blue" size="10" /> -->
+                                <br />
+                                <!-- <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table table-borderless" title="CHART 3" style="height: 750px; box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <span>MAPS</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </qweb>
+            </field>
+        </record>
+        
+        <record id="provider_dashboard_qweb_action" model="ir.actions.act_window">
+            <field name="name">Provider</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">qweb</field>
+            <field name="view_id" ref="asb_master_provider_dashboard.provider_dashboard_qweb" />
+        </record>
+        
+        <menuitem id="provider_dashboard_qweb_menu" name="Provider Dashboard" action="provider_dashboard_qweb_action" parent="asb_master_provider.provider_menuitem" sequence="1"/>
+    </data>
+    
+
+</odoo>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="asb_helpline_preadmission.PreadmissionDashboard">
+        <div class="o_preadmission_dashboard container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <td class="o_text">
+                                    <div>Preadmission Case</div>
+                                </td>
+                                <td class="o_main o_dashboard_action" title="Preadmission Case" name="asb_helpline_preadmission.preadmission_dashboard" context='{"search_default_preadmission_case": true}'>
+                                    <a href="#">
+                                        <t t-esc="values['total_preadmission_case']"/>
+                                    </a>
+                                </td>
+                                <td class="o_text">
+                                    <div>On Process</div>
+                                </td>
+                                <td class="o_main o_dashboard_action" title="Preadmission On Process" name="asb_helpline_preadmission.preadmission_dashboard" context='{"search_default_process_preadmission": true}'>
+                                    <a href="#">
+                                        <t t-esc="values['total_preadmission_process']"/>
+                                    </a>
+                                </td>
+                                <td class="o_text">
+                                    <div>Pending</div>
+                                </td>
+                                <td class="o_main o_dashboard_action" title="Pending Preadmission" name="asb_helpline_preadmission.preadmission_dashboard" context='{"search_default_pending_preadmission": true}'>
+                                    <a href="#">
+                                        <t t-esc="values['total_preadmission_pending']"/>
+                                    </a>
+                                </td>
+                                <td class="o_text">
+                                    <div>Done</div>
+                                </td>
+                                <td class="o_main o_dashboard_action" title="Preadmission Done" name="asb_helpline_preadmission.preadmission_dashboard" context='{"search_default_done_preadmission": true}'>
+                                    <a href="#">
+                                        <t t-esc="values['total_preadmission_done']"/>
+                                        <br/>
+                                    </a>
+                                </td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

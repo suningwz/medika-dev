@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data >
+
+        <record model="report.paperformat" id="information_package_mcu_format">
+            <field name="name">Information Package MCU</field>
+            <field name="default" eval="False" />
+            <field name="format">custom</field>
+            <field name="page_width">210</field>
+            <field name="page_height">297</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">25</field>
+            <field name="margin_right">25</field>
+            <field name="header_line" eval="False" />
+        </record>
+
+        <template id="information_package_mcu">
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <t t-foreach="docs" t-as="doc">
+                        <div>
+                            <div>
+                                <span t-field="doc.perusahaan_id.name" />
+                                <br />
+                                <span t-field="doc.nama_paket" />
+                                <br />
+                                <span t-field="doc.name" />
+                                <br />
+                                <span t-field="doc.certificate_ids" />
+                                <br />
+                            </div>
+                            <div>
+                                <table rules="all" class="table table-condensed table-bordered" style="width: 100%" border="1">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" style="width: 40%">Product</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="doc.examination_list_ids" t-as="move">
+                                            <tr>
+                                                <td style="text-align: left">
+                                                    <span t-field="move.name" />
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <record id="action_print_list_package_mcu" model="ir.actions.report">
+            <field name="name">Information Package MCU</field>
+            <field name="model">list.package</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">asb_helpline_call_record_information.information_package_mcu</field>
+            <field name="report_file">asb_helpline_call_record_information.information_package_mcu</field>
+            <field name="print_report_name">'Package MCU - %s' % (object.name)</field>
+            <field name="paperformat_id" ref="asb_helpline_call_record_information.information_package_mcu_format" />
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record id="master_dokter_view_tree" model="ir.ui.view">
+            <field name="name">master_dokter.view.tree</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+
+                <tree string="Master Dokter" default_order="kode">
+                    <field name="kode" string="ID Dokter"/>
+                    <field name="display_name" />
+                    <field name="kode_perusahaan" />
+                    <field name="master_ketenagaan_id" readonly="1" />
+                    <field name="poli_unit_id" readonly="1"/>
+                    <field name="email" />
+                    <field name="mobile" />
+                </tree>
+
+            </field>
+        </record>
+
+        <record id="master_dokter_simple_view_tree" model="ir.ui.view">
+            <field name="name">master_dokter.simple.view.tree</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+
+                <tree string="Data Dokter" default_order="kode">
+                    <field name="kode" string="ID Dokter"/>
+                    <field name="display_name" />
+                    <field name="faskes_ids" widget="many2many_tags" readonly="1"/>
+                    <field name="master_ketenagaan_id" readonly="1" />
+                    <field name="poli_unit_id" readonly="1" />
+                    <field name="email" />
+                    <field name="mobile" />
+                </tree>
+
+            </field>
+        </record>
+
+        <record id="master_dokter_view_form" model="ir.ui.view">
+            <field name="name">master.dokter.view.form</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form string="Data Dokter">
+
+                    <header name="header_dokter">
+                        <field name="master_ketenagaan_ids" invisible="1"/>
+                        <field name="poli_unit_ids" invisible="1"/>
+                        <button string="Create User" name="action_create_user" type="object" class="oe_highlight"/>
+                    </header>
+                    
+                    <sheet>
+                        <div class="oe_button_box" name="box_dokter">
+                            <button class="oe_stat_button" name="%(asb_klinik_master_dokumen.master_dokumen_dokter_action)d" icon="fa-th-list" type="action" context="{'search_default_partner_id': active_id, 'default_partner_id': active_id}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="berkas_dokumen_count"/>
+                                    </span>
+                                    <span class="o_stat_text"> Dokumen</span>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" name="%(asb_klinik_master_dokumen.master_dokumen_dokter_action)d" icon="fa-th-list" type="action" >
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+
+                                    </span>
+                                    <span class="o_stat_text"> Prescription</span>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" name="%(asb_klinik_master_dokumen.master_dokumen_dokter_action)d" icon="fa-th-list" type="action">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+
+                                    </span>
+                                    <span class="o_stat_text"> Pasien</span>
+                                </div>
+                            </button>
+                        </div>
+
+                        <field name="image_1920" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;image_128&quot;}"/>
+                        <div class="oe_title">
+                            <field name="is_klinik" force_save="1" invisible="1"/>
+                            <field name="is_dokter" force_save="1" invisible="1"/>
+                            <field name="type" invisible="1"/>
+                            <field name="is_company" invisible="1"/>
+                            <field name="active" invisible="1"/>
+                            <field name="company_type" invisible="1" widget="radio" class="oe_edit_only" options="{'horizontal': true}"/>
+                            <h1>
+                                <field name="name" required="1" default_focus="1" placeholder="Nama Dokter"/>
+                            </h1>
+                        </div>
+
+                        <group>
+                            <group>
+                                <label for="street" string="Alamat" class="oe_edit_only" />
+                                <div class="o_address_format oe_edit_only">
+                                    <field name="street" class="o_address_street" placeholder="Street..." />
+                                    <field name="country_id" class="o_address_state" style="width: 31%" placeholder="Country" options="{'no_open': True, 'no_create': True}" />
+                                    <field name="state_id" class="o_address_state" style="width: 31%" placeholder="State" options="{'no_open': True, 'no_create': True}" domain="[('country_id', '=', country_id)]" />
+                                    <field name="city_id" style="width: 34%" placeholder="City" options="{'no_open': True, 'no_create': True}" domain="[('state_id', '=', state_id)]" context="{'tree_view_ref' : 'asb_state_city.kota_kabupaten_ref_view_tree'}" />
+                                    <field name="kecamatan_id" class="o_address_state" style="width: 37%" placeholder="Kecamatan" options="{'no_open': True, 'no_create': True}" domain="[('city_id', '=', city_id)]" context="{'tree_view_ref' : 'asb_state_city.kecamatan_ref_view_tree'}" />
+                                    <field name="kelurahan_id" class="o_address_state" style="width: 37%" placeholder="Kelurahan" options="{'no_open': True, 'no_create': True}" domain="[('kecamatan_id', '=', kecamatan_id)]" context="{'tree_view_ref' : 'asb_state_city.kelurahan_ref_view_tree'}" />
+                                    <field name="zip" style="width: 22%" placeholder="ZIP" />
+                                </div>
+
+                                <label for="street" string="Alamat" class="oe_read_only" />
+                                <div class="o_address_format oe_read_only">
+                                    <field name="street" class="o_address_street" placeholder="Street..." />
+                                    <field name="kelurahan_id" class="o_address_city" placeholder="Kelurahan" options="{'no_open': True, 'no_create': True}" domain="[('kecamatan_id', '=', kecamatan_id)]" context="{'tree_view_ref' : 'asb_state_city.kelurahan_ref_view_tree'}" />
+                                    <field name="kecamatan_id" class="o_address_state" placeholder="Kecamatan" options="{'no_open': True, 'no_create': True}" domain="[('city_id', '=', city_id)]" context="{'tree_view_ref' : 'asb_state_city.kecamatan_ref_view_tree'}" />
+                                    <field name="city_id" class="o_address_city" placeholder="City" options="{'no_open': True, 'no_create': True}" domain="[('state_id', '=', state_id)]" context="{'tree_view_ref' : 'asb_state_city.kota_kabupaten_ref_view_tree'}" />
+                                    <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_create': True}" domain="[('country_id', '=', country_id)]" />
+                                    <field name="country_id" class="o_address_city" placeholder="Country" options="{'no_open': True, 'no_create': True}" />
+                                    <field name="zip" class="o_address_state" placeholder="ZIP" />
+                                </div>
+                            </group>
+
+                            <group>
+                                <field name="kode" />
+                                <field name="kode_perusahaan" required="1" />
+                                <field name="mobile" required="1" widget="phone"/>
+                                <field name="email" required="1" widget="email" context="{'gravatar_image': True}"/>
+                                <field name="user_ids" invisible="1"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page name="informasi_personal" string="Informasi Personal">
+                                <group>
+                                    <group>
+                                        <field name="jenis_kelamin" required="1" />
+                                        <field name="status_perkawinan" required="1" />
+                                    </group>
+
+                                    <group>
+                                        <field name="tempat_lahir" required="1" />
+                                        <field name="tanggal_lahir" required="1" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="informasi_poli_unit" string="Informasi Poli Unit">
+                                <group>
+                                    <group>
+                                        <field name="unit_kerja" readonly="1" force_save="1" />
+                                        <field name="faskes_ids" required="1" widget="many2many_tags" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True, 'color_field': 'color'}"/>
+                                    </group>
+
+                                    <group>
+                                        <field name="master_ketenagaan_id" domain="[('id', 'in', master_ketenagaan_ids)]" required="1" attrs="{ 'invisible' : [('faskes_ids', '=', [])]}" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                                        <field name="poli_unit_id" domain="[('id', 'in', poli_unit_ids)]" required="1" attrs="{ 'invisible' : [('faskes_ids', '=', [])]}" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="master_dokter_view_search" model="ir.ui.view">
+            <field name="name">master.dokter.view.search</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+
+                <search string="Master Dokter">
+                    <field name="name" string="Nama Dokter" filter_domain="['|', ('display_name', 'ilike', self), ('name', 'ilike', self)]"/>
+                    <field name="email" string="Email Dokter" filter_domain="[('email', 'ilike', self)]"/>
+                    <field name="phone" string="Kontak Dokter" filter_domain="['|', ('phone', 'ilike', self), ('mobile', 'ilike', self)]"/>
+                    <field name="faskes_ids" string="Fasilitas Kesehatan" filter_domain="[('faskes_ids', 'ilike', self)]"/>
+                    <separator/>
+
+                    <group expand="1" string="Group By">
+                        <filter string="Fasilitas Kesehatan" name="faskes_ids" domain="[]" context="{'group_by': 'faskes_ids'}"/>
+                        <filter string="Poli / Unit" name="poli_unit_id" domain="[]" context="{'group_by': 'poli_unit_id'}"/>
+                        <filter string="Bidang Ketenagaan" name="master_ketenagaan_id" domain="[]" context="{'group_by': 'master_ketenagaan_id'}"/>
+                    </group>
+                </search>
+
+            </field>
+        </record>
+
+        <record id="master_dokter_action" model="ir.actions.act_window">
+            <field name="name">Master Dokter</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('unit_kerja', '=', 'dokter')]</field>
+            <field name="context">{ 'search_default_customer': 0, 
+                                    'default_customer': 0, 
+                                    'search_default_supplier': 0, 
+                                    'default_supplier': 0, 
+                                    'default_is_company': 0, 
+                                    'default_is_dokter':1, 
+                                    'default_is_klinik':1, 
+                                    'default_unit_kerja':'dokter', 
+                                    'default_type' : ''}</field>
+            <field name="search_view_id" ref="master_dokter_view_search"/>
+            <field name="filter" eval="True"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                  Tidak ada Data Dokter
+                </p>
+            </field>
+        </record>
+
+        <record id="master_dokter_action_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="master_dokter_view_tree"/>
+            <field name="act_window_id" ref="master_dokter_action"/>
+        </record>
+
+        <record id="master_dokter_action_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="master_dokter_view_form"/>
+            <field name="act_window_id" ref="master_dokter_action"/>
+        </record>
+    
+    </data>
+</odoo>

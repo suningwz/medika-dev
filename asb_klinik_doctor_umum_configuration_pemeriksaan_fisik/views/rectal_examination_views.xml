@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit form doctor umum antrian pasien -->
+        <record id="doctor_umum_antrian_pasien_form_inherit_rectal_examination" model="ir.ui.view">
+            <field name="name">master.registration.view.form.inherit</field>
+            <field name="model">master.registration</field>
+            <field name="inherit_id" ref="asb_klinik_doctor_umum_antrian_pasien.antrian_pasien_doctor_umum_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='rectal']" position="after">
+                    <group string="PEMERIKSAAN RECTAL/RECTAL EXAMINATION">
+                        <label for="hemorrhoid" />
+                        <div class="o_row">
+                            <field name="hemorrhoid" class="o_width_200px" widget='radio' options="{'horizontal': true}" />
+                            <field name="des_hemorrhoid" attrs="{'required':[('hemorrhoid','!=','negatif')]}" />
+                        </div>
+                        <label for="anus" />
+                        <div class="o_row">
+                            <field name="anus" class="o_width_200px" widget='radio' options="{'horizontal': true}" />
+                            <field name="des_anus" attrs="{'required':[('anus','!=','tidak_diperiksa')]}" />
+                        </div>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

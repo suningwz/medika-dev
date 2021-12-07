@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <!-- Action Magic Button -->
+        <record id="view_provider_contract_filter" model="ir.ui.view">
+            <field name="name">Provider Contract</field>
+            <field name="model">provider.contract</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name="partner_id" operator="child_of" />
+                </search>
+            </field>
+        </record>
+        <record id="provider_contract_action" model="ir.actions.act_window">
+            <field name="name">Provider Contract</field>
+            <field name="res_model">provider.contract</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('partner_id','=',active_id)]</field>
+            <field name="context">{'default_partner_id': active_id}</field>
+            <field name="search_view_id" ref="view_provider_contract_filter" />
+        </record>
+        <record id="master_provider_form_inherit_asb_master_provider_contract" model="ir.ui.view">
+            <field name="name">res.partner.view.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="asb_master_provider.master_provider_form" />
+            <field name="arch" type="xml">
+                <div name='provider_box' position='inside'>
+                    <button class="oe_stat_button" type="action" name="asb_master_provider_contract.provider_contract_action" icon="fa-pencil-square">
+                        <field string="Contract" name="provider_contract_count" widget="statinfo" />
+                    </button>
+                </div>
+            </field>
+        </record>
+
+
+        <record id="provider_contract_view_form" model="ir.ui.view">
+            <field name="name">provider.contract.view.form</field>
+            <field name="model">provider.contract</field>
+            <field name="arch" type="xml">
+                <form string="Contract">
+                    <header>
+                        <widget name="attach_document" string="Attach Document" action="message_post" highlight="1" attrs="{'invisible': [('id','=',False)]}" />
+                        <button name="set_commit" string="Active" type="object" class="oe_highlight" attrs="{'invisible':[('state', '!=', 'draft')]}" />
+                        <field name="state" widget="statusbar" />
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" invisible="context.get('expense_adding_line')" modifiers="{}">
+                            <button name="action_get_attachment_view" class="oe_stat_button" icon="fa-book" type="object" modifiers="{}" options="{}">
+                                <field name="attachment_number" widget="statinfo" string="Documents" modifiers="{'readonly':true}" />
+                            </button>
+                        </div>
+                        <h1>
+                            <field name="name" readonly="1" />
+                        </h1>
+                        <group col='4'>
+                            <group colspan="2">
+                                <field name="partner_id" attrs="{'readonly': [('state', '!=', 'draft')]}" required="1" domain="[('provider', '=', True)]" options="{'no_create': True}" />
+                                <field name="pks" attrs="{'readonly': [('state', '!=', 'draft')]}" required="1" />
+                                <field name="start_date" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+                                <field name="end_date" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+                                <field name="remaining_contract" readonly="1" />
+                                <field name="remaining_contract_int" invisible="1" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+                                <!-- <field name="state_contract" attrs="{'readonly': [('state', '!=', 'draft')]}" widget="badge" decoration-success="state_contract == 'active'" decoration-danger="state_contract == 'inactive'" /> -->
+                            </group>
+                            <group colspan="2">
+                                <field name="created_by" attrs="{'readonly': [('state', '!=', 'draft')]}" readonly="1" />
+                                <field name="created_date" attrs="{'readonly': [('state', '!=', 'draft')]}" readonly="1" />
+                            </group>
+                        </group>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="activity_ids" widget="mail_activity" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="provider_contract_view_tree" model="ir.ui.view">
+            <field name="model">provider.contract</field>
+            <field name="name">provider.contract.view.tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="partner_id" />
+                    <field name="pks" />
+                    <field name="start_date" />
+                    <field name="end_date" />
+                    <field name="state" widget="badge" decoration-warning="state == 'draft'" decoration-success="state == 'active'" decoration-danger="state == 'inactive'" />
+                    <field name="remaining_contract" />
+                    <field name="remaining_contract_int" invisible="1" />
+                    <field name="create_uid" readonly="1" />
+                    <field name="create_date" readonly="1" />
+                    <button name="action_get_attachment_view" string="Documents" type="object" icon="fa-paperclip" attrs="{'invisible': [('attachment_number', '=', 0)]}" />
+                    <field name="attachment_number" invisible="1" />
+                    <button name="new_tab" string=" Open" type="object" class="oe_inline fa fa-arrow-right oe_link" attrs="{'invisible': [('attachment_number', '=', 0)]}" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_provider_contract" model="ir.actions.act_window">
+            <field name="name">Provider Contract</field>
+            <field name="res_model">provider.contract</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.sequence" id="provider_contract_sequence">
+            <field name="name">Provider Contract</field>
+            <field name="code">provider.contract</field>
+            <field name="padding">3</field>
+            <field name="suffix">/KBM-</field>
+            <field name="company_id" eval="False" />
+        </record>
+
+        <menuitem id="provider_contract_menuitem" sequence="3" name="Contract" parent="asb_master_provider.provider_menuitem" action="action_provider_contract" />
+
+    </data>
+
+
+</odoo>

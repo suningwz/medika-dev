@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_client_activity,asb_membership_client.client_activity,model_client_activity,base.group_user,1,1,1,1
+access_client_activity_line,asb_membership_client.client_activity_line,model_client_activity_line,base.group_user,1,1,1,1
+access_client_branch,asb_membership_client.client_branch,model_client_branch,base.group_user,1,1,1,1
+access_client_program,asb_membership_client.client_program,model_client_program,base.group_user,1,1,1,1
+access_client_program_plan,asb_membership_client.client_program_plan,model_client_program_plan,base.group_user,1,1,1,1
+access_program_plan_line,asb_membership_client.program_plan_line,model_program_plan_line,base.group_user,1,1,1,1
+access_client_program_floatfund,asb_membership_client.client_program_floatfund,model_client_program_floatfund,base.group_user,1,1,1,1
+access_program_plan_header,asb_membership_client.program_plan_header,model_program_plan_header,base.group_user,1,1,1,1
+access_header_detail,asb_membership_client.header_detail,model_header_detail,base.group_user,1,1,1,1
+access_activity_participant,asb_membership_client.activity_participant,model_activity_participant,base.group_user,1,1,1,1

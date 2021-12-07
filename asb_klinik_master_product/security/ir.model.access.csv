@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_master_kategori_produk,master.kategori.produk,model_master_kategori_produk,base.group_user,1,1,1,1
+access_master_sub_kategori_produk,master.sub.kategori.produk,model_master_sub_kategori_product,base.group_user,1,1,1,1
+access_master_komponen_tarif,master.komponen.tarif,model_master_komponen_tarif,base.group_user,1,1,1,1
+access_master_bentuk_persediaan,master.bentuk.persediaan,model_master_bentuk_persediaan,base.group_user,1,1,1,1
+access_master_dokter_line,master.dokter.line,model_master_dokter_line,base.group_user,1,1,1,1
+access_master_perawat_line,master.perawat.line,model_master_perawat_line,base.group_user,1,1,1,1
+access_master_obat_line,master.obat.line,model_master_obat_line,base.group_user,1,1,1,1
+access_master_alat_kesehatan_line,master.alat.kesehatan.line,model_master_alat_kesehatan_line,base.group_user,1,1,1,1
+access_master_jasa_line,master.jasa.line,model_master_jasa_line,base.group_user,1,1,1,1
+access_master_tindakan_layanan_line,master.tindakan.layanan.line,model_master_tindakan_layanan_line,base.group_user,1,1,1,1
+access_master_alat_obat_line,master.alat.obat.line,model_master_alat_obat_line,base.group_user,1,1,1,1
+access_master_sampling,master.sampling,model_master_sampling,base.group_user,1,1,1,1
+access_master_pricelist,master.pricelist,model_master_pricelist,base.group_user,1,1,1,1
+access_master_pricelist,master.pricelist,model_master_pricelist,base.group_user,1,1,1,1

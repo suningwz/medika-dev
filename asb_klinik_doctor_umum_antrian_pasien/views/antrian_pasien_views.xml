@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- List View -->
+        <record model="ir.ui.view" id="antrian_pasien_doctor_umum_tree">
+            <field name="name">master.registration.tree</field>
+            <field name="model">master.registration</field>
+            <field name="arch" type="xml">
+                <tree string="Antrian Pasien Dokter Umum" default_order="no_antrian" create="false" edit="false" delete="false" duplicate="false" export_xlsx="false">
+                    <field name="status_antrian" string="Status Antrian" decoration-success="status_antrian == 'done'" decoration-warning="status_antrian == 'waiting'" decoration-danger="status_antrian == 'progress'" widget="badge"/>
+                    <field name="no_antrian" />
+                    <field name="tanggal_registrasi" />
+                    <field name="no_medical_report" />
+                    <field name="pasien_id" />
+                    <field name="jenis_kelamin" string="L/P" />
+                    <field name="umur" />
+                    <field name="status_kunjungan" decoration-info="status_kunjungan == 'tanpa'" decoration-success="status_kunjungan == 'perjanjian'" decoration-warning="status_kunjungan == 'prioritas'" widget="badge" />
+                    <field name="jenis_perjanjian" decoration-success="jenis_perjanjian == 'mc'" decoration-info="jenis_perjanjian == 'mcu'" decoration-warning="jenis_perjanjian == 'onsite'" widget="badge" />
+                    <field name="tipe_transaksi" invisible="1" decoration-success="jenis_perjanjian == 'mc'" decoration-info="jenis_perjanjian == 'mcu'" decoration-warning="jenis_perjanjian == 'onsite'" decoration-primary="jenis_perjanjian == 'provider'" widget="badge" />
+                    <field name="status_pemeriksaan_dokter_umum" widget="badge" decoration-success="status_pemeriksaan_dokter_umum == 'Done'" decoration-danger="status_pemeriksaan_dokter_umum == 'Not Yet'" />
+                    <field name="faskes_id" string="Faskes" />
+                    <button string="Cek Status" name="status_pemeriksaan_wizard" type="object" class="oe_highlight" context="{'registration_id' : active_id, 'is_status' : 1}" />
+                    <field name="state" invisible="1" decoration-success="state == 'registered'" decoration-warning="state == 'confirm'" widget="badge" />
+                    <field name="is_done_perawat" invisible="1" />
+                    <field name="get_is_poli_umum" invisible="1" />
+                    <field name="status_antrian_dokter_umum" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record model="ir.ui.view" id="antrian_pasien_doctor_umum_form">
+            <field name="name">master.registration.form</field>
+            <field name="model">master.registration</field>
+            <field name="arch" type="xml">
+                <form create="false">
+                    <header>
+                        <field name="list_package_ids" invisible="1"/>
+                        <field name="package_mcu_ids" invisible="1"/>
+                        <field name="perusahaan_ids" invisible="1"/>
+                        <field name="poli_ids" invisible="1"/>
+                        <field name="dokter_ids" invisible="1"/>
+                        <field name="examination_ids" invisible="1"/>
+                        <field name="status_kunjungan_ids" invisible="1"/>
+                        <field name="on_progress" invisible="1"/>
+                        <field name="status_antrian_dokter_umum" invisible="1"/>
+                        <field name="is_done_perawat" invisible="1"/>
+                        <field name="is_done_poli_umum" force_save="1" invisible="1"/>
+                        <field name="is_dokter" force_save="1" invisible="1"/>
+                        <button name="dokter_umum_panggil" type="object" string="Panggil" class="btn btn-info text-uppercase font-weight-bold" attrs="{'invisible':['|', ('status_antrian', '!=', 'waiting'), ('is_done_poli_umum', '=', True)]}" />
+                        <button name="dokter_umum_notif" invisible="1" type="object" string="Notif" class="btn btn-warning text-uppercase font-weight-bold" />
+                        <button name="dokter_umum_lewati" type="object" string="Lewati" class="btn btn-danger text-uppercase font-weight-bold" attrs="{'invisible':[('status_antrian_dokter_umum', '!=', 'progress')]}" />
+                        <button name="dokter_umum_done" type="object" string="Done" class="btn btn-success text-uppercase font-weight-bold" attrs="{'invisible':[('status_antrian_dokter_umum', '!=', 'progress')]}" />
+                    </header>
+                    <sheet>
+                        <div class="d-flex justify-content-center">
+                            <field name="status_antrian" nolabel="1" style="font-weight: bold; font-size: 16px; text-transform: uppercase;" force_save="1" widget="badge" decoration-success="status_antrian == 'done'" decoration-warning="status_antrian == 'waiting'" decoration-danger="status_antrian == 'progress'"/>
+                        </div>
+
+                        <group col="6" colspan="2" style="margin: 1px 0px;">
+                            <div class="oe_title" style="margin: 0px 0px 0px 0px;">
+                                <label for="name" string="No. Registrasi" />
+                                <h1>
+                                    <field name="name" />
+                                </h1>
+                            </div>
+
+                            <div class="oe_title" style="margin: 0px 0px 0px 200px;">
+                                <label for="no_antrian" string="No. Antrian" />
+                                <h1 class="text-center" style="width:70px;">
+                                    <field name="no_antrian" />
+                                </h1>
+                            </div>
+
+                            <div class="oe_title">
+                                <field name="image_1920" force_save="1" nolabel="1" widget='image' class="oe_avatar" />
+                            </div>
+                        </group>
+
+                        <group col="4" colspan="2" style="margin: 1px 0px;">
+                            <field name="tanggal_registrasi" />
+                            <field name="tipe_transaksi" />
+                            <field name="status_kunjungan" />
+                            <field name="jenis_perjanjian" force_save="1" attrs="{'readonly' : ['|', ('status_kunjungan', 'in', ['perjanjian', 'prioritas']), ('state', '!=', 'draft')]}" />
+                            <field name="reservation_id" domain="[('id', 'in', status_kunjungan_ids)]" attrs="{'invisible' : [('status_kunjungan', 'not in', ['perjanjian', 'prioritas'])], 'required' : [('status_kunjungan', 'in', ['perjanjian', 'prioritas'])]}" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}" />
+                        </group>
+
+                        <group style="margin: 1px 0px;">
+                            <group string="Data Pasien" style="margin: 1px 0px;">
+                                <field name="no_record" force_save="1" invisible="1"/>
+                                <field name="no_medical_report" force_save="1" attrs="{'invisible' : [('pasien_id', '=', False)]}"/>
+                                <field name="pasien_id" force_save="1" attrs="{'readonly' : ['|', ('status_kunjungan', 'in', ['perjanjian', 'prioritas']), ('state', '!=', 'draft')], 'required' : [('status_kunjungan', '=', 'tanpa')]}" context="{'form_view_ref': 'asb_klinik_master_personil.form_inherit_res_partner', 'search_default_customer': 0, 'default_customer': 0, 'search_default_supplier': 0, 'default_supplier': 0, 'default_is_company': 0, 'default_is_pasien' : 1, 'default_is_master' : 1, 'default_type' : ''}" options="{'no_quick_create': True, 'no_open': True, 'no_create': True}" />
+                                <field name="no_ktp" attrs="{'invisible' : [('pasien_id', '=', False)]}"/>
+                                <field name="warga_negara" attrs="{'invisible' : [('pasien_id', '=', False)]}"/>
+                                <field name="jenis_kelamin" attrs="{'invisible' : [('pasien_id', '=', False)]}"/>
+                                <field name="tempat_lahir" attrs="{'invisible' : [('pasien_id', '=', False)]}"/>
+                                <field name="tanggal_lahir" attrs="{'invisible' : [('pasien_id', '=', False)]}"/>
+                                <field name="umur" attrs="{'invisible' : [('pasien_id', '=', False)]}"/>
+                                <field name="email" widget="email" attrs="{'invisible' : [('pasien_id', '=', False)]}"/>
+                                <field name="mobile" widget="mobile" attrs="{'invisible' : [('pasien_id', '=', False)]}"/>
+                                <span class="o_form_label o_td_label" name="address_name" attrs="{'invisible' : [('pasien_id', '=', False)]}">Address</span>
+                                <div class="o_address_format" attrs="{'invisible' : [('pasien_id', '=', False)]}">
+                                    <field name="street" class="o_address_street" placeholder="Street..." />
+                                    <field name="kelurahan_id" class="o_address_city" placeholder="Kelurahan" options="{'no_open': True, 'no_create': True}" domain="[('kecamatan_id', '=', kecamatan_id)]" context="{'tree_view_ref' : 'asb_state_city.kelurahan_ref_view_tree'}" />
+                                    <field name="kecamatan_id" class="o_address_state" placeholder="Kecamatan" options="{'no_open': True, 'no_create': True}" domain="[('city_id', '=', city_id)]" context="{'tree_view_ref' : 'asb_state_city.kecamatan_ref_view_tree'}" />
+                                    <field name="city_id" class="o_address_city" placeholder="City" options="{'no_open': True, 'no_create': True}" domain="[('state_id', '=', state_id)]" context="{'tree_view_ref' : 'asb_state_city.kota_kabupaten_ref_view_tree'}" />
+                                    <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_create': True}" domain="[('country_id', '=', country_id)]" />
+                                    <field name="country_id" class="o_address_city" placeholder="Country" options="{'no_open': True, 'no_create': True}" />
+                                    <field name="zip" class="o_address_state" placeholder="ZIP" />
+                                </div>
+                                <field name="is_perjanjian" invisible="1"/>
+                                <field name="is_perjanjian_mcu" invisible="1"/>
+                                <field name="state" invisible="1"/>
+                            </group>
+
+                            <group string="Informasi Layanan" style="margin: 1px 0px;">
+                                <field name="status_gl" force_save="1" attrs="{'readonly' : ['|', ('status_kunjungan', 'in', ['perjanjian', 'prioritas']), ('state', '!=', 'draft')]}" />
+                                <field name="no_gl" force_save="1" attrs="{'invisible' : [('status_gl', 'in', ['tidak', False])], 'required' : [('status_gl', '=', 'ya')], 'readonly' : ['|', ('status_kunjungan', 'in', ['perjanjian', 'prioritas']), ('state', '!=', 'draft')]}"/>
+                                <field name="poli_unit_ids" force_save="1" domain="[('id', 'in', poli_ids)]" attrs="{'invisible' : [('jenis_perjanjian', 'not in', ['mc'])], 'required' : [('jenis_perjanjian', '=', 'mc')], 'readonly' : ['|', ('status_kunjungan', 'in', ['perjanjian', 'prioritas']), ('state', '!=', 'draft')]}" widget="many2many_tags" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True, 'color_field': 'color'}"/>
+                                <field name="dokter_id" force_save="1" domain="[('id', 'in', dokter_ids)]" attrs="{'invisible' : ['|', ('jenis_perjanjian', 'not in', ['mc']), ('poli_unit_ids', '=', [])], 'readonly': ['|', '|', ('status_kunjungan', 'in', ['perjanjian', 'prioritas']), ('poli_unit_ids', '=', []), ('state', '!=', 'draft')], 'required' : ['&amp;', ('jenis_perjanjian', '=', 'mc'), ('is_perjanjian_mcu', '=', True)]}" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                                <field name="nama_perawat" force_save="1" readonly="1" attrs="{'invisible':[('jenis_perjanjian', '!=', 'mc')]}"/>
+                                <field name="package_mcu_id" force_save="1" domain="[('id', 'in', package_mcu_ids)]" attrs="{'invisible' : [('jenis_perjanjian', 'not in', ['mcu', 'onsite'])], 'readonly': ['|', '|', ('perusahaan_id', '=', False), ('status_kunjungan', 'in', ['perjanjian', 'prioritas']), ('state', '!=', 'draft')]}" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                                <field name="list_package_id" force_save="1" domain="[('id', 'in', list_package_ids)]" attrs="{'invisible' : ['|', ('jenis_perjanjian', 'not in', ['mcu', 'onsite']), ('package_mcu_id', '=', False)], 'readonly' : ['|', ('status_kunjungan', 'in', ['perjanjian', 'prioritas']), ('state', '!=', 'draft')]}" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                                <field name="certificate_ids" force_save="1" widget="many2many_tags" options="{'color_field': 'color'}" attrs="{'invisible' : ['|', '|', ('jenis_perjanjian', 'not in', ['mcu', 'onsite']), ('package_mcu_id', '=', False), ('list_package_id', '=', False)]}"/>
+                                <field name="price_paket" invisible="1" widget="monetary" force_save="1" attrs="{'invisible' : ['|', '|', ('jenis_perjanjian', 'not in', ['mcu', 'onsite']), ('package_mcu_id', '=', False), ('list_package_id', '=', False)]}"/>
+                                <field name="tanggal_pembuatan" force_save="1" invisible="1"/>
+                                <field name="user_create" invisible="1"/>
+                                <field name="tanggal_confirm" invisible="1"/>
+                                <field name="user_approve" invisible="1"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="faskes_id" invisible="1"/>
+                                <field name="code" invisible="1"/>
+                                <field name="on_progress" invisible="1" />
+                                <field name="status" invisible="1" />
+                                <field name="is_poli_unit" widget="boolean_toggle" invisible="1" />
+                                <field name="status_antrian" invisible="1" nolabel="1" style="font-weight: bold; font-size: 16px; text-transform: uppercase;" force_save="1" widget="badge" decoration-success="status_antrian == 'done'" decoration-warning="status_antrian == 'waiting'" decoration-danger="status_antrian == 'progress'"/>
+                            </group>
+                        </group>
+
+                        <group style="margin: 1px 0px;">
+                            <group name='catatan' string="Catatan" style="margin: 1px 0px;">
+                                <field name="tipe_pengiriman" required="1" force_save="1" attrs="{'readonly' : ['|', ('status_kunjungan', 'in', ['perjanjian', 'prioritas']), ('state', '!=', 'draft')]}" />
+                                <field name="bahasa_hasil" force_save="1" attrs="{'readonly' : ['|', ('status_kunjungan', 'in', ['perjanjian', 'prioritas']), ('state', '!=', 'draft')]}" />
+                                <field name="catatan" />
+                                <field name="edukasi" attrs="{'invisible':[('tipe_transaksi', '!=', 'mc')]}" />
+                            </group>
+                            <group string="Dokter" style="margin: 1px 0px;" attrs="{'invisible':[('jenis_perjanjian', 'not in', ['mcu','onsite'])]}">
+                                <field name="users_dokter_id" force_save="1" readonly="1" />
+                                <field name="nama_perawat" force_save="1" readonly="1"/>
+                            </group>
+                        </group>
+                        
+                        <field name="get_is_poli_umum" force_save="1" readonly="1" invisible="1" />
+                        <field name="edit_dokter_umum_hide_css" nolabel='1' />
+
+                        <notebook>
+                            <page name="informasi_pekerjaan" string="Informasi Pekerjaan">
+                                <group col="4" colspan="2" attrs="{'invisible' : [('pasien_id', '=', False)]}">
+                                    <field name="perusahaan_id" attrs="{'readonly' : ['|', ('status_kunjungan', 'in', ['perjanjian', 'prioritas']), ('state', '!=', 'draft')]}" force_save="1" domain="[('id', 'in', perusahaan_ids)]" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                                    <field name="nik_pegawai" />
+                                    <field name="status_pegawai" />
+                                    <field name="mulai_bekerja" />
+                                    <field name="jenis_pekerjaan_id" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                                    <field name="shift_kerja" />
+                                    <field name="lokasi_pekerjaan_id" options="{'no_open': True}" />
+                                    <field name="function" />
+                                </group>
+                            </page>
+
+                            <page name='detail_pemeriksaan_mc' string='Detail Pemeriksaan' attrs="{'invisible' : [('jenis_perjanjian', 'not in', ['mc'])]}"></page>
+
+                            <page name="detail_pemeriksaan" string="Detail Pemeriksaan" attrs="{'invisible' : [('jenis_perjanjian', 'not in', ['mcu', 'onsite'])]}">
+                                <field name="fixed_costing_line" force_save="1" attrs="{'invisible' : [('jenis_perjanjian', 'not in', ['mcu', 'onsite'])]}">
+                                    <tree>
+                                        <field name="fixed_costing_id"/>
+                                        <field name="name" invisible = "1"/>
+                                        <field name="cost_onsite" widget="monetary" invisible = "1"/>
+                                        <field name="cost_in_house" widget="monetary" invisible = "1"/>
+                                    </tree>
+                                    <form string="Fixed Costing" readonly="1" force_save="1">
+                                        <sheet>
+                                            <group col="4" colspan="2">
+                                                <field name="fixed_costing_id" />
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+
+                                <field name="examination_list_ids" domain="[('id', 'in', examination_ids)]" attrs="{'invisible' : [('is_perjanjian', '=', False)], 'readonly' : ['|', ('state', '!=', 'draft'), '&amp;', ('is_perjanjian_mcu', '=', True), ('is_perjanjian', '=', True)]}" widget="many2many" options="{'no_create': True}" force_save="1" context="{'tree_view_ref': 'asb_klinik_master_product.examination_list_view_tree'}">
+                                    <tree>
+                                        <field name="name" string="Nama Pemeriksaan"/>
+                                        <field name="poli_unit_id" string="Poli / Unit"/>
+                                        <field name="list_price" string="Harga Jual" widget="monetary" invisible="1"/>
+                                        <field name="total_beban_langsung" widget="monetary" invisible="1"/>
+                                    </tree>
+                                    <form string="Examination List">
+                                        <sheet>
+                                            <group col="4" colspan="2">
+                                                <field name="name" />
+                                                <field name="poli_unit_id"/>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+
+                                <field name="sampling_list_ids" widget="many2many" options="{'no_create': True}" force_save="1" attrs="{'invisible' : [('jenis_perjanjian', 'not in', ['mcu', 'onsite'])]}">
+                                    <tree>
+                                        <field name="name" string="Sampling"/>
+                                        <field name="total_cost" string="Cost" widget="monetary" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page name="additional_examination_list" string="Additional Examination List for MCU" attrs="{'invisible' : [('jenis_perjanjian', 'not in', ['mcu', 'onsite'])]}">
+                                <field name="filter_examination_ids" invisible="1"/>
+                                <field name="additional_examination_ids" domain="[('id', 'in', filter_examination_ids)]" widget="many2many" options="{'no_create': True}" force_save="1" readonly="1" context="{'tree_view_ref': 'asb_klinik_master_product.examination_list_view_tree'}">
+                                    <tree>
+                                        <field name="name" string="Nama Pemeriksaan"/>
+                                        <field name="poli_unit_id" string="Poli / Unit"/>
+                                        <field name="list_price" string="Harga Jual" widget="monetary" invisible="1"/>
+                                    </tree>
+                                    <form string="Examination List">
+                                        <sheet>
+                                            <group col="4" colspan="2">
+                                                <field name="name" />
+                                                <field name="poli_unit_id"/>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+
+                            <page name="anamnesa" string="Anamnesa" attrs="{'invisible' : [('jenis_perjanjian', 'not in', ['mcu','onsite'])]}">
+                                <group name='1'>
+                                    <script>
+                                    $(document).ready(function(){
+                                    $('.o_form_label').css({'margin-left': '0'});
+                                    });
+                                    </script>
+                                    <field name="keluhan_riwayat_penyakit" widget="text" />
+                                </group>
+                                <group name='2'></group>
+                                <group name='3'></group>
+                                <group name='4'></group>
+                                <group name='5'></group>
+                                <group name='6'></group>
+                                <group name='7'></group>
+                                <group name='8'></group>
+                                <group name='9'></group>
+                                <group name='10'></group>
+                            </page>
+
+                            <page name="pemeriksaan_fisik_mcu" string="Pemeriksaan Fisik" attrs="{'invisible' : [('jenis_perjanjian', 'not in', ['mcu','onsite'])]}">
+                                <group class='o_group_keadaan_umum' string='KEADAAN UMUM/GENERAL'>
+                                    <!-- <script>
+                                    $(document).ready(function(){
+                                    $('.o_form_label').css({'margin-left': '0'});
+                                    });
+                                    </script> -->
+                                    <field name="keadaan_umum" class='o_width_100px' widget='radio' options="{'horizontal': true}" />
+                                    <field name="bentuk_badan" class='o_width_100px' widget='radio' options="{'horizontal': true}" />
+                                </group>
+                                
+                                <div class="container mt-4">
+                                    <table class="table table-bordered">
+                                        <tr class="text-center">
+                                            <th scope="col" colspan="4">Tanda Vital</th>
+                                            <th scope="col" colspan="4">Tanda Fisik</th>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <th style="width:30%">Berat Badan (kg)</th>
+                                            <td colspan="2"><field name="berat_badan" force_save="1" readonly="1" attrs="{'required' : [('is_poli_unit', '=', True)]}" nolabel="1"/></td>
+                                            <th colspan="2">Lingkar Leher (cm)</th>
+                                            <td colspan="2"><field name="lingkar_leher" force_save="1" readonly="1" attrs="{'required' : [('is_poli_unit', '=', True)]}" nolabel="1"/></td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <th style="width:30%">Tinggi Badan (cm)</th>
+                                            <td colspan="2"><field name="tinggi_badan" force_save="1" readonly="1" attrs="{'required' : [('is_poli_unit', '=', True)]}" nolabel="1"/></td>
+                                            <th colspan="2">Lingkar Lengan (cm)</th>
+                                            <td colspan="2"><field name="lingkar_lengan" force_save="1" readonly="1" attrs="{'required' : [('is_poli_unit', '=', True)]}" nolabel="1"/></td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <th style="width:30%">Berat Ideal (kg)</th>
+                                            <td colspan="2"><field name="berat_ideal" force_save="1" readonly="1" nolabel="1"/></td>
+                                            <th colspan="2">Lingkar Dada (cm)</th>
+                                            <td colspan="2"><field name="lingkar_dada" force_save="1" readonly="1" attrs="{'required' : [('is_poli_unit', '=', True)]}" nolabel="1"/></td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <th rowspan="2" style="width:30%; vertical-align : middle;">Indeks Massa Tubuh (kg / m<sup>2</sup>)</th>
+                                            <td colspan="2"><field name="indeks_massa_tubuh" force_save="1" readonly="1" nolabel="1"/></td>
+                                            <th colspan="2">Lingkar Perut (cm)</th>
+                                            <td colspan="2"><field name="lingkar_perut" force_save="1" readonly="1" attrs="{'required' : [('is_poli_unit', '=', True)]}" nolabel="1"/></td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <td><field force_save="1" readonly="1" name="kesimpulan_imt" style="font-weight: bold; font-size: 16px; text-transform: uppercase;" widget="badge" decoration-success="kesimpulan_imt == 'normal'" decoration-warning="kesimpulan_imt == 'overweight'" decoration-danger="kesimpulan_imt == 'obesitas'" decoration-info="kesimpulan_imt == 'underweight'" nolabel="1"/></td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <th rowspan="2" style="width:30%; vertical-align : middle;">Tekanan Darah (mm / Hg)</th>
+                                            <td><field name="tekanan_sistolik" force_save="1" readonly="1" attrs="{'required' : [('is_poli_unit', '=', True)]}" nolabel="1"/> / <field name="tekanan_diastolik" force_save="1" readonly="1" attrs="{'required' : [('is_poli_unit', '=', True)]}" nolabel="1"/></td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <td><field force_save="1" readonly="1" name="klasifikasi" style="font-weight: bold; font-size: 16px; text-transform: uppercase;" widget="badge" decoration-info="klasifikasi == 'rendah'" decoration-success="klasifikasi == 'normal'" decoration-warning="klasifikasi == 'pra'" decoration-danger="klasifikasi == 'hipertensi'" nolabel="1"/></td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <th style="width:30%">Nadi (kali / menit)</th>
+                                            <td colspan="2"><field name="nadi" force_save="1" readonly="1" attrs="{'required' : [('is_poli_unit', '=', True)]}" nolabel="1"/></td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <th style="width:30%">Respiratory Rate (kali / menit)</th>
+                                            <td colspan="2"><field name="respiratory_rate" force_save="1" readonly="1" attrs="{'required' : [('is_poli_unit', '=', True)]}" nolabel="1"/></td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <th style="width:30%">Suhu Tubuh (°C)</th>
+                                            <td colspan="2"><field name="suhu_tubuh" force_save="1" readonly="1" attrs="{'required' : [('is_poli_unit', '=', True)]}" nolabel="1"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <group name='kulit'></group>
+                                <group name='mata'></group>
+                                <group name='tht'></group>
+                                <group name='mulut'></group>
+                                <group name='leher'></group>
+                                <group name='dada'></group>
+                                <group name='perut'></group>
+                                <group name='extrimitas'></group>
+                                <group name='rectal'></group>
+                                <group name='muskuloskletal'></group>
+                                <group name='sensorik'></group>
+                                <group name='motorik'></group>
+                                <group name='reflek'></group>
+                                <group name='other'></group>
+                                <group name='limfatik'></group>
+                            </page>
+
+                            <page name='jcs' string="JCS" attrs="{'invisible' : [('jenis_perjanjian', 'not in', ['mcu','onsite'])]}">
+                                <group>
+                                    <group name='jcs' string='JAKARTA CARDIOVASCULAR SCORE'>
+                                        <field name="jenis_kelamin" />
+                                        <field name="umur" />
+                                        <span class="o_form_label o_td_label">Tekanan Darah</span>
+                                        <div class="o_row">
+                                            <field name="tekanan_sistolik" force_save="1" readonly="1" />
+                                            /
+                                            <field name="tekanan_diastolik" force_save="1" readonly="1" />
+                                            <field name="klasifikasi" force_save="1" widget="badge" decoration-info="klasifikasi == 'rendah'" decoration-success="klasifikasi == 'normal'" decoration-warning="klasifikasi == 'pra'" decoration-danger="klasifikasi == 'hipertensi'" />
+                                        </div>
+                                        <span class="o_form_label o_td_label">Indeks Massa Tubuh</span>
+                                        <div class="o_row">
+                                            <field name="indeks_massa_tubuh" />
+                                            <field name="kesimpulan_imt" force_save="1" widget="badge" decoration-success="kesimpulan_imt == 'normal'" decoration-warning="kesimpulan_imt == 'overweight'" decoration-danger="kesimpulan_imt == 'obesitas'" decoration-info="kesimpulan_imt == 'underweight'" />
+                                        </div>
+                                        <field name="indeks_massa_tubuh" invisible="1" />
+                                    </group>
+                                    <group name='poin' invisible="1">
+                                        <field name="poin_jk" />
+                                        <field name="poin_umur" />
+                                        <field name="poin_tekanan_darah" />
+                                        <field name="poin_imt" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="pemeriksaan_fisik_mc" string="Pemeriksaan Fisik" attrs="{'invisible' : [('tipe_transaksi', '!=', 'mc')]}">
+                                <div class="container mb-3">
+                                    <table class="table table-bordered">
+                                        <tr class="text-center">
+                                            <th scope="col" colspan="4">Tanda Vital</th>
+                                            <th scope="col" colspan="4">Tanda Fisik</th>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <th style="width:30%">Berat Badan (kg)</th>
+                                            <td colspan="2"><field name="berat_badan" force_save="1" readonly="1" attrs="{'required' : [('is_poli_unit', '=', True)]}" nolabel="1"/></td>
+                                            <th colspan="2">Lingkar Leher (cm)</th>
+                                            <td colspan="2"><field name="lingkar_leher" force_save="1" readonly="1" attrs="{'required' : [('is_poli_unit', '=', True)]}" nolabel="1"/></td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <th style="width:30%">Tinggi Badan (cm)</th>
+                                            <td colspan="2"><field name="tinggi_badan" force_save="1" readonly="1" attrs="{'required' : [('is_poli_unit', '=', True)]}" nolabel="1"/></td>
+                                            <th colspan="2">Lingkar Lengan (cm)</th>
+                                            <td colspan="2"><field name="lingkar_lengan" force_save="1" readonly="1" attrs="{'required' : [('is_poli_unit', '=', True)]}" nolabel="1"/></td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <th style="width:30%">Berat Ideal (kg)</th>
+                                            <td colspan="2"><field name="berat_ideal" force_save="1" readonly="1" nolabel="1"/></td>
+                                            <th colspan="2">Lingkar Dada (cm)</th>
+                                            <td colspan="2"><field name="lingkar_dada" force_save="1" readonly="1" attrs="{'required' : [('is_poli_unit', '=', True)]}" nolabel="1"/></td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <th rowspan="2" style="width:30%; vertical-align : middle;">Indeks Massa Tubuh (kg / m<sup>2</sup>)</th>
+                                            <td colspan="2"><field name="indeks_massa_tubuh" force_save="1" readonly="1" nolabel="1"/></td>
+                                            <th colspan="2">Lingkar Perut (cm)</th>
+                                            <td colspan="2"><field name="lingkar_perut" force_save="1" readonly="1" attrs="{'required' : [('is_poli_unit', '=', True)]}" nolabel="1"/></td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <td><field force_save="1" readonly="1" name="kesimpulan_imt" style="font-weight: bold; font-size: 16px; text-transform: uppercase;" widget="badge" decoration-success="kesimpulan_imt == 'normal'" decoration-warning="kesimpulan_imt == 'overweight'" decoration-danger="kesimpulan_imt == 'obesitas'" decoration-info="kesimpulan_imt == 'underweight'" nolabel="1"/></td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <th rowspan="2" style="width:30%; vertical-align : middle;">Tekanan Darah (mm / Hg)</th>
+                                            <td><field name="tekanan_sistolik" force_save="1" readonly="1" attrs="{'required' : [('is_poli_unit', '=', True)]}" nolabel="1"/> / <field name="tekanan_diastolik" force_save="1" readonly="1" attrs="{'required' : [('is_poli_unit', '=', True)]}" nolabel="1"/></td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <td><field force_save="1" readonly="1" name="klasifikasi" style="font-weight: bold; font-size: 16px; text-transform: uppercase;" widget="badge" decoration-info="klasifikasi == 'rendah'" decoration-success="klasifikasi == 'normal'" decoration-warning="klasifikasi == 'pra'" decoration-danger="klasifikasi == 'hipertensi'" nolabel="1"/></td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <th style="width:30%">Nadi (kali / menit)</th>
+                                            <td colspan="2"><field name="nadi" force_save="1" readonly="1" attrs="{'required' : [('is_poli_unit', '=', True)]}" nolabel="1"/></td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <th style="width:30%">Respiratory Rate (kali / menit)</th>
+                                            <td colspan="2"><field name="respiratory_rate" force_save="1" readonly="1" attrs="{'required' : [('is_poli_unit', '=', True)]}" nolabel="1"/></td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <th style="width:30%">Suhu Tubuh (°C)</th>
+                                            <td colspan="2"><field name="suhu_tubuh" force_save="1" readonly="1" attrs="{'required' : [('is_poli_unit', '=', True)]}" nolabel="1"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <group>
+                                    <group name='last'>
+                                        <field name="subjektif_anamnesa" />
+                                        <field name="objektif" />
+                                        <field name="assessment" />
+                                        <field name="plan_id" options="{'no_open': True, 'no_create': True}" />
+                                    </group>
+                                    <group></group>
+                                </group>
+                            </page>
+                            <page name='resep_obat_mc' string='Resep Obat' attrs="{'invisible':[('tipe_transaksi', '!=', 'mc')]}"></page>
+                            <page name='permintaan_lab_mc' string='Permintaan Lab' attrs="{'invisible':[('tipe_transaksi', '!=', 'mc')]}"></page>
+                            <page name='permintaan_radiologi_mc' string='Permintaan Radiologi' attrs="{'invisible':[('tipe_transaksi', '!=', 'mc')]}"></page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Search View -->
+        <record model="ir.ui.view" id="antrian_pasien_doctor_umum_search">
+            <field name="name">doctor.umum.view.filter</field>
+            <field name="model">master.registration</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Nama Pasien" filter_domain="['|', ('display_name', 'ilike', self), ('name', 'ilike', self)]"/>
+                    <field name="no_ktp" string="No. KTP Pasien" filter_domain="[('no_ktp', 'ilike', self)]"/>
+                    <field name="tanggal_registrasi" string="Tanggal Reservasi" filter_domain="[('tanggal_registrasi', '=', self)]"/>
+                    <field name="jenis_perjanjian" string="Jenis Perjanjian" filter_domain="[('jenis_perjanjian', '=', self)]"/>
+                    <separator/>
+                    <filter name="today" string="Today" domain="[('tanggal_registrasi', '=', datetime.datetime.now())]" />
+                    <searchpanel class="parent_root">
+                        <field name="jenis_perjanjian" icon="fa-tags" string="Jenis Perjanjian" />
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <record id="antrian_pasien_doctor_umum_action" model="ir.actions.act_window">
+            <field name="name">Antrian Pasien - Dokter Umum</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">master.registration</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="antrian_pasien_doctor_umum_tree"/>
+            <field name="search_view_id" ref="antrian_pasien_doctor_umum_search"/>
+            <field name="domain">[('is_done_perawat', '=', True), ('state', '=', 'going'), ('get_is_poli_umum', '=', True)]</field>
+            <field name="context">{'search_default_today': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_empty_folder">
+                    Tidak ada Data Poli Umum
+                </p>
+            </field>
+        </record>
+
+        <record id="antrian_pasien_doctor_umum_action_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="antrian_pasien_doctor_umum_tree" />
+            <field name="act_window_id" ref="antrian_pasien_doctor_umum_action" />
+        </record>
+
+        <record id="antrian_pasien_doctor_umum_action_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="3" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="antrian_pasien_doctor_umum_form" />
+            <field name="act_window_id" ref="antrian_pasien_doctor_umum_action" />
+        </record>
+
+    </data>
+</odoo>

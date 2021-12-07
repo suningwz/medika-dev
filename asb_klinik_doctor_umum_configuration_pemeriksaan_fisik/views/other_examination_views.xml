@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit form doctor umum antrian pasien -->
+        <record id="doctor_umum_antrian_pasien_form_inherit_other_examination" model="ir.ui.view">
+            <field name="name">master.registration.view.form.inherit</field>
+            <field name="model">master.registration</field>
+            <field name="inherit_id" ref="asb_klinik_doctor_umum_antrian_pasien.antrian_pasien_doctor_umum_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='other']" position="after">
+                    <group string="PEMERIKSAAN LAIN-LAIN/OTHER EXAMINATION">
+                        <label for="fungsi_koordinasi" />
+                        <div class="o_row">
+                            <field name="fungsi_koordinasi" class="o_width_200px" widget='radio' options="{'horizontal': true}" />
+                            <field name="des_fungsi_koordinasi" attrs="{'required':[('fungsi_koordinasi','!=','normal')]}" />
+                        </div>
+                        <label for="romberg_test" />
+                        <div class="o_row">
+                            <field name="romberg_test" class="o_width_200px" widget='radio' options="{'horizontal': true}" />
+                            <field name="des_romberg_test" />
+                        </div>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

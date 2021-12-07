@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="client_activity_view_form" model="ir.ui.view">
+            <field name="name">client.activity.view.form</field>
+            <field name="model">client.activity</field>
+            <field name="arch" type="xml">
+                <form string="Contract">
+                    <header>
+                        <widget name="attach_document" string="Attach Document" action="message_post" highlight="1" attrs="{'invisible': [('id','=',False)]}" />
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" invisible="context.get('expense_adding_line')" modifiers="{}">
+                            <button name="action_get_attachment_view" class="oe_stat_button" icon="fa-book" type="object" modifiers="{}" options="{}">
+                                <field name="attachment_number" widget="statinfo" string="Documents" modifiers="{'readonly':true}" />
+                            </button>
+                        </div>
+                        <group colspan='4'>
+                            <field name="client_id" readonly='1' />
+                            <field name="datetime" />
+                            <field name="venue" />
+                            <field name="subject" />
+                            <!-- <field name="participant_ids" widget="many2many_tags" domain="[('id', '=', -1)]"/> -->
+                            <field name="participant_ids" widget="many2many_tags" />
+                            <field name="created_by" />
+                            <!-- <field name="attachment" widget="many2many_binary"/> -->
+                        </group>
+                        <notebook>
+                            <page name="activity" string="Activity">
+                                <field name="activity_line">
+                                    <tree editable="top">
+                                        <field name="subject" />
+                                        <field name="description" />
+                                        <field name="pic" />
+                                        <field name="due_date" />
+                                        <field name="status" />
+                                        <field name="create_uid" readonly="1" />
+                                        <field name="create_date" readonly="1" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="activity_ids" widget="mail_activity" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="client_activity_view_tree" model="ir.ui.view">
+            <field name="model">client.activity</field>
+            <field name="name">client.activity.view.tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="client_id" />
+                    <field name="datetime" />
+                    <field name="venue" />
+                    <field name="subject" />
+                    <!-- <field name="attachment" widget="many2many_binary" /> -->
+                    <field name="create_uid" />
+                    <field name="create_date" />
+                    <button name="action_get_attachment_view" string="Documents" type="object" icon="fa-paperclip" attrs="{'invisible': [('attachment_number', '&lt;', 2)]}" />
+                    <field name="attachment_number" invisible="1" />
+                    <button name="new_tab" type="object" class="oe_inline fa fa-arrow-right oe_link" attrs="{'invisible': [('attachment_number', '=', 0)]}" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_client_activity" model="ir.actions.act_window">
+            <field name="name">Client Activity</field>
+            <field name="res_model">client.activity</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">main</field>
+        </record>
+
+    </data>
+
+
+</odoo>

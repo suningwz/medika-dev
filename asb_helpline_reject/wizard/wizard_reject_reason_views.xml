@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- List View -->
+        <record model="ir.ui.view" id="wizard_claim_reject_tree">
+            <field name="name">reject.reason.wizard.tree</field>
+            <field name="model">reject.reason.wizard</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="guarantee_letter_id" readonly="1" invisible="1" force_save="1" />
+                    <field name="claim_reject_id" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record model="ir.ui.view" id="wizard_claim_reject_form">
+            <field name="name">reject.reason.wizard.form</field>
+            <field name="model">reject.reason.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header></header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="guarantee_letter_id" readonly="1" invisible="1" force_save="1" />
+                                <field name="claim_reject_id" />
+                            </group>
+                            <group></group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="button_reject" type="object" string="Reject" class="oe_highlight" />
+                        <button special="cancel" string="Cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="wizard_claim_reject_action">
+            <field name="name">Reject Reason</field>
+            <field name="res_model">reject.reason.wizard</field>
+            <field name="view_mode">form</field>
+        </record>
+
+    </data>
+</odoo>

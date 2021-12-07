@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="member_benefit_limit_view_tree" model="ir.ui.view">
+      <field name="model">member.benefit.limit</field>
+      <field name="name">member.benefit.limit.view.tree</field>
+      <field name="arch" type="xml">
+        <tree create="0" edit="0" delete="0" js_class="membership_member_limit_list_dashboard">
+          <!-- <tree create="0" edit="0" delete="0"> -->
+          <field name="detail_id" options="{'no_open': True, 'no_create': True}" required="1" />
+          <field name="max_per_visit" widget="monetary" options="{'currency_field': 'currency_id'}" />
+          <field name="max_day_per_year" />
+          <field name="utilized_day" />
+          <field name="remaining_day" />
+          <field name="inner_limit" widget="monetary" options="{'currency_field': 'currency_id'}" />
+          <field name="utilized_limit" widget="monetary" options="{'currency_field': 'currency_id'}" />
+          <field name="remaining_limit" widget="monetary" options="{'currency_field': 'currency_id'}" />
+          <field name="per_day_limit" widget="monetary" options="{'currency_field': 'currency_id'}" />
+          <field name="utilized_limit_today" widget="monetary" options="{'currency_field': 'currency_id'}" />
+          <field name="remaining_limit_today" widget="monetary" options="{'currency_field': 'currency_id'}" />
+          <field name="max_per_day" />
+          <field name="utilized_visit" />
+          <field name="remaining_visit" />
+          <field name="currency_id" invisible="1" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="member_deductible_remaining_view_tree" model="ir.ui.view">
+      <field name="model">member.deductible.remaining</field>
+      <field name="name">member.deductible.remaining.view.tree</field>
+      <field name="arch" type="xml">
+        <tree create="0" edit="0" delete="0">
+          <field name="header_id" options="{'no_open': True, 'no_create': True}" required="1" />
+          <field name="deductible" />
+          <field name="deductible_remaining" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="member_per_day_limit_view_tree" model="ir.ui.view">
+      <field name="model">member.per.day.limit</field>
+      <field name="name">member.per.day.limit.view.tree</field>
+      <field name="arch" type="xml">
+        <tree create="0" edit="0" delete="0">
+          <field name="detail_id" options="{'no_open': True, 'no_create': True}" required="1" />
+          <field name="service_date" />
+          <field name="per_day_limit" />
+          <field name="per_day_limit_used" />
+        </tree>
+      </field>
+    </record>
+
+
+    <record id="member_view_form_inherit_benefit_limit" model="ir.ui.view">
+      <field name="name">res.partner.view.form.inherit.benefit.limit</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="asb_membership_member.member_view_form" />
+      <field name="arch" type="xml">
+        <field name="program_plan_header_line" position="after">
+          <field name="deductible_remaining_line" invisible="1" />
+          <button string="Refresh Limit" name="refresh_benefit" type="object" class="oe_highlight" invisible="1" />
+          <field name="benefit_limit_line" invisible="1" />
+          <field name="per_day_limit_line" />
+        </field>
+      </field>
+    </record>
+
+    <record id="mmeber_view_form_inherit_member_limit" model="ir.ui.view">
+      <field name="name">res.partner.member.view.form.inherit.member.limit</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="asb_membership_member.member_view_form" />
+      <field name="arch" type="xml">
+        <xpath expr="//div[@name='member_box']" position="inside">
+          <button name="action_member_limit" string="Member Benefit Limit" type="object" icon='fa-bar-chart' class="oe_stat_button" />
+        </xpath>
+      </field>
+    </record>
+
+    <record id="action_member_benefit_limit" model="ir.actions.act_window">
+      <field name="name">Benefit Limit</field>
+      <field name="res_model">member.benefit.limit</field>
+      <field name="view_mode">tree</field>
+      <field name="domain">[('member_id', '=', active_id)]</field>
+      <field name="context">{'default_member_id': active_id}</field>
+      <field name="view_id" ref="member_benefit_limit_view_tree" />
+    </record>
+
+  </data>
+</odoo>

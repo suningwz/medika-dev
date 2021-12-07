@@ -1,0 +1,27 @@
+<odoo>
+  <data>
+
+    <record id="eclaim_invoice_detail_view_form_inherit_batch" model="ir.ui.view">
+      <field name="name">eclaim.invoice.detail.view.form.inherit.batch</field>
+      <field name="model">eclaim.invoice.detail</field>
+      <field name="inherit_id" ref="asb_eclaim_eclaim.eclaim_invoice_detail_view_form"/>
+      <field name="arch" type="xml">
+        <field name="case_id" position="after">
+          <field name="batch_id" />
+        </field>
+      </field>
+    </record>
+
+    <record id="eclaim_invoice_detail_view_tree_inherit_batch" model="ir.ui.view">
+      <field name="name">eclaim.invoice.detail.view.tree.inherit.batch</field>
+      <field name="model">eclaim.invoice.detail</field>
+      <field name="inherit_id" ref="asb_eclaim_eclaim.eclaim_invoice_detail_view_tree"/>
+      <field name="arch" type="xml">
+        <field name="case_id" position="after">
+          <field name="batch_id" />
+        </field>
+      </field>
+    </record>
+
+  </data>
+</odoo>

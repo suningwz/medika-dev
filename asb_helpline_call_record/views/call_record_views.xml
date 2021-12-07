@@ -1,0 +1,245 @@
+<odoo>
+  <data>
+
+    <!-- action list view on call.record -->
+
+    <record id="guarantee_letter_provider_list_action" model="ir.actions.act_window">
+      <field name="name">Provider</field>
+      <field name="res_model">res.partner</field>
+      <field name="view_mode">tree</field>
+      <field name="domain">[('provider','=',True)]</field>
+      <field name="target">new</field>
+      <field name="binding_model_id" ref="asb_helpline_call_record.model_call_record" />
+    </record>
+
+    <record id="guarantee_letter_diagnosa_list_action" model="ir.actions.act_window">
+      <field name="name">Diagnosa</field>
+      <field name="res_model">diagnosis.diagnosis</field>
+      <field name="view_mode">tree</field>
+      <field name="target">new</field>
+      <field name="binding_model_id" ref="asb_helpline_call_record.model_call_record" />
+    </record>
+
+    <record id="call_record_history_action_window" model="ir.actions.act_window">
+      <field name="name">Ticketing</field>
+      <field name="res_model">call.record</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.ui.view" id="call_record_view_form">
+      <field name="name">call.record.form</field>
+      <field name="model">call.record</field>
+      <field name="arch" type="xml">
+        <form string="Ticketing" confirm="Provider is not registered in selected member's client provider list">
+          <header>
+            <!-- <button name="action_process" type="object" states="open" string="On Process" class="oe_highlight" /> -->
+            <button name="action_close" type="object" states="open" string="Close" class="btn btn btn-danger" />
+            <field name="state" widget="statusbar" statusbar_visible="open,close" />
+          </header>
+          <sheet>
+            <div name="button_box" class="oe_button_box">
+              <button name="call_record_history_button" string="Call History" type="object" icon='fa-phone' class="oe_stat_button" />
+              <button name="call_record_dependent_button" string="Dependent" type="object" icon='fa-address-book-o' class="oe_stat_button" />
+            </div>
+            <div class="oe_title">
+              <h1>
+                <field name="number_ticket" readonly="1" />
+              </h1>
+            </div>
+            <group>
+              <group>
+                <field name="caller_name" />
+                <field name="caller_status" />
+                <field name="phone_number" required="1"/>
+                <field name="patient_phone" />
+                <field name="email" />
+                <span class="o_form_label o_td_label" name="provider_id">
+                  <b>Provider</b>
+                </span>
+                <div class="o_address_format">
+                  <field name="provider_id" options="{'no_create': True, 'no_open': True, 'no_create_edit':True}" class="o_address_city" force_save="1" />
+                  <field name="provider_check" class="o_address_state" readonly="1" force_save="1" decoration-success="provider_check == 'client'" decoration-danger="provider_check == 'not_client'" widget="badge" attrs="{'invisible': ['|',('provider_id', '=', False),('client_id', '=', False)]}" />
+                </div>
+                <field name="member" />
+                <span class="o_form_label o_td_label" name="member_id">
+                  <b>Member Name</b>
+                </span>
+                <div class="o_address_format">
+                  <field name="member_id" options="{'no_create': True, 'no_open': True, 'no_create_edit':True}" context="{'form_view_ref': 'asb_membership_member.member_view_form', 'tree_view_ref': 'asb_membership_member.view_member_tree'}" class="o_address_city" attrs="{'invisible': [('member', '=', False)]}" force_save="1" />
+                  <field name="classification_member" class="o_address_state" readonly="1" force_save="1" decoration-success="classification_member == '0'" decoration-danger="classification_member == '1'" widget="badge" attrs="{'invisible': ['|',('member', '=', False),('classification_member', '=', False)]}" />
+                  <field name="member_name" string="Member Name" attrs="{'invisible': [('member', '=', True)]}" />
+                </div>
+                <field name="card_number_id" options="{'no_create': True, 'no_open': True, 'no_create_edit':True}" attrs="{'invisible': [('member', '=', False)]}" force_save="1" />
+              </group>
+              <group>
+                <field name="relationship" />
+                <field name="nik" force_save="1" attrs="{'invisible': [('member', '=', True)]}"/>
+                <field name="client_id" options="{'no_create': True, 'no_create_edit':True}" context="{'form_view_ref': 'asb_membership_client.membership_client_view_form'}" attrs="{'readonly': [('member', '=', True)]}" force_save="1" />
+                <field name="client_branch_id" options="{'no_create': True, 'no_create_edit':True}" attrs="{'readonly': [('member', '=', True)]}" domain="[('client_id', '=', client_id)]" force_save="1" />
+                <field name="source_id" />
+                <field name="issued_id" options="{'no_open': True, 'no_create': True, 'no_create_edit':True}" />
+                <field name="assign_to" />
+                <field name="created_date" readonly="1" />
+                <field name="created_by" readonly="1" />
+              </group>
+            </group>
+            <notebook>
+              <page name="call_record_lines" string="Ticket Record">
+                <field name="call_record_line" context="{'default_name': caller_name, 'default_caller_status': caller_status, 'default_phone_number': phone_number, 'default_email': email, 'default_source_id': source_id, 'default_issued_id': issued_id}" />
+              </page>
+              <page name="call_record_history" string="Ticket Record History">
+                <field name="call_record_history_ids" readonly="1" context="{'default_name': caller_name, 'default_caller_status': caller_status, 'default_phone_number': phone_number, 'default_email': email, 'default_source_id': source_id, 'default_issued_id': issued_id}">
+                  <tree>
+                    <field name="call_id" />
+                    <field name="name" />
+                    <field name="caller_status" />
+                    <field name="issued_id" options="{'no_open': True}" />
+                    <field name="description" />
+                    <field name="issued_id" />
+                    <field name="interval" widget="float_time" />
+                  </tree>
+                </field>
+              </page>
+            </notebook>
+          </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers" />
+            <field name="activity_ids" widget="mail_activity" />
+            <field name="message_ids" widget="mail_thread" />
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="call_record_lines_view_form">
+      <field name="name">call.record.lines.form</field>
+      <field name="model">call.record.lines</field>
+      <field name="arch" type="xml">
+        <form string="Ticket Record">
+          <sheet>
+            <group>
+              <group>
+                <field name="name" />
+                <field name="caller_status_selection" />
+                <field name="phone_number" />
+                <field name="email" widget="email" />
+                <field name="source_id" />
+              </group>
+              <group>
+                <label for="issued_id" />
+                <div class="o_row">
+                  <field name="issued_id" options="{'no_open': True, 'no_create': True, 'no_create_edit':True}" />
+                  <a title='Warning! &#013;Jika saat memilih Issued Status = Selesai maka semua call record yang sedang On process maka akan menjadi Selesai. Jadi di harapkan cek call record sebelumnya untuk dilakukan pengecekan apakah sedang dalam process rawat inap atau rawat jalan atau yang lain. &#013;&#013;Jika sudah yakin akan diselesaikan maka bisa dilakukan Selesai dan kasus akan Selesai semua yang sedang On process' class="o_doc_link" target="_blank"></a>
+                </div>
+                <field name="description" widget="text" />
+                <field name="interval" widget="float_time" />
+                <field name="created_by" readonly="1" />
+                <field name="created_date" readonly="1" />
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- explicit list view definition -->
+
+
+    <record model="ir.ui.view" id="call_record_lines_view_tree">
+      <field name="name">call.record.lines.tree</field>
+      <field name="model">call.record.lines</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" />
+          <field name="caller_status_selection" />
+          <field name="provider_id" />
+          <field name="issued_id" options="{'no_open': True}" />
+          <field name="description" widget="text" />
+          <field name="issued_status" />
+          <!-- <field name="created_by" /> -->
+          <!-- <field name="created_date" /> -->
+          <field name="interval" widget="float_time" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_call_record_filter" model="ir.ui.view">
+      <field name="name">call.record.select</field>
+      <field name="model">call.record</field>
+      <field name="arch" type="xml">
+        <search string="Search Ticketing">
+          <field name="member_id" string="Member" />
+          <field name="number_ticket" />
+          <filter name="ticketing_call_in" string="Call In" domain="[('state', '=', 'open'),('source_id.name', '=', 'Call In')]" />
+          <filter name="ticketing_call_out" string="Call Out" domain="[('state', '=', 'open'),('source_id.name', '=', 'Call Out')]" />
+          <filter name="ticketing_email_in" string="Email In" domain="[('state', '=', 'open'),('source_id.name', '=', 'Email In')]" />
+          <filter name="ticketing_email_out" string="Email Out" domain="[('state', '=', 'open'),('source_id.name', '=', 'Email Out')]" />
+          <filter name="ticketing_whatsapp" string="Whatsapp" domain="[('state', '=', 'open'),('source_id.name', '=', 'Whatsapp')]" />
+          <filter name="ticketing_eclient" string="E-Client" domain="[('state', '=', 'open'),('source_id.name', '=', 'E-Client')]" />
+          <filter name="ticketing_others" string="Others" domain="[('state', '=', 'open'), '|',('source_id','=',False),('source_id.name','not in',['Whatsapp','Call In','Call Out','Email In','Email Out'])]" />
+          <filter name="state_open" string="Open" domain="[('state', '=', 'open')]" />
+          <filter name="state_close" string="Closed" domain="[('state', '=', 'close')]" />
+        </search>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="call_record_view_tree">
+      <field name="name">call.record.tree</field>
+      <field name="model">call.record</field>
+      <field name="arch" type="xml">
+        <tree js_class="call_record_list_dashboard">
+          <field name="number_ticket" />
+          <field name="created_date" />
+          <field name="caller_name" />
+          <field name="member_name" string="Member Name" />
+          <field name="caller_status" />
+          <field name="provider_id" />
+          <field name="client_id" />
+          <field name="assign_to" />
+          <field name="source_id" />
+          <field name="state" widget="badge" decoration-info="state == 'open'" decoration-success="state == 'close'" />
+        </tree>
+      </field>
+    </record>
+
+    <!-- Dashboard action button -->
+
+    <record id="call_record_dashboard_list" model="ir.actions.act_window">
+      <field name="name">Ticketing</field>
+      <field name="res_model">call.record</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="asb_helpline_call_record.call_record_view_tree" />
+      <field name="search_view_id" ref="view_call_record_filter" />
+      <field name="target">main</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_empty_folder">
+                No Ticketing to display
+        </p>
+      </field>
+    </record>
+
+    <!-- Number Ticket Sequence -->
+
+    <record id="sequence_new_call_record" model="ir.sequence">
+      <field name="name">Ticketing</field>
+      <field name="code">call.record</field>
+      <field name="prefix">HLP/%(month)s/%(year)s/</field>
+      <field name="padding">5</field>
+      <field name="company_id" eval="False" />
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record id="call_record_action_window" model="ir.actions.act_window">
+      <field name="name">Ticketing</field>
+      <field name="res_model">call.record</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_call_record_filter" />
+    </record>
+
+    <!-- menu categories -->
+
+    <menuitem name="Ticketing" id="asb_call_record_submenu" parent="asb_helpline.menu_root" action="call_record_action_window" sequence="1" />
+
+  </data>
+</odoo>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="data_personil_view_tree" model="ir.ui.view">
+            <field name="name">res.partner.view.tree</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+
+                <tree string="Data Personil" default_order="unit_kerja" create="false" edit="false" delete="false">
+                    <field name="kode"/>
+                    <field name="display_name" />
+                    <field name="kode_perusahaan" />
+                    <field name="email" />
+                    <field name="mobile" />
+                    <field name="unit_kerja" widget="badge" decoration-success="unit_kerja == 'dokter'" decoration-info="unit_kerja == 'perawat'" decoration-warning="unit_kerja == 'nonmedis'"/>
+                </tree>
+
+            </field>
+        </record>
+
+        <record id="data_personil_view_search" model="ir.ui.view">
+            <field name="name">res.partner.view.search</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+
+                <search>
+                    <field name="master_ketenagaan_id" filter_domain="[('master_ketenagaan_id', 'child_of', raw_value)]"/>
+                    <field name="faskes_ids" filter_domain="[('faskes_ids', 'child_of', raw_value)]"/>
+                    <field name="poli_unit_id" filter_domain="[('poli_unit_id', 'child_of', raw_value)]"/>
+                    <separator/>
+                </search>
+
+            </field>
+        </record>
+
+        <record id="data_personil_bidang_ketenagaan_action" model="ir.actions.act_window">
+            <field name="name">Data Personil</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('master_ketenagaan_id', '=', active_id)]</field>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="data_personil_view_search"/>
+            <field name="view_id" ref="data_personil_view_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                  Tidak ada Data Personil
+                </p>
+            </field>
+        </record>
+
+        <record id="data_personil_poli_unit_action" model="ir.actions.act_window">
+            <field name="name">Data Personil</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('poli_unit_id', '=', active_id)]</field>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="data_personil_view_search"/>
+            <field name="view_id" ref="data_personil_view_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                  Tidak ada Data Personil
+                </p>
+            </field>
+        </record>
+
+        <record id="data_personil_faskes_action" model="ir.actions.act_window">
+            <field name="name">Data Personil</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('faskes_ids', '=', active_id)]</field>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="data_personil_view_search"/>
+            <field name="view_id" ref="data_personil_view_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                  Tidak ada Data Personil
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.actions.act_window" id="asb_master_provider.master_provider_action">
+            <field name="view_mode">tree,form,google_map</field>
+        </record>
+
+        <record id="master_provider_form_inherit_asb_master_provider_maps" model="ir.ui.view">
+            <field name="name">res.partner.view.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="asb_master_provider.master_provider_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Partner Assignment" sequence="100">
+                        <group>
+                            <group string="Geolocation">
+                                <field name="provider" invisible="1" />
+                                <button name="get_lat_long" string="Google Maps" type="object" icon="fa-map-marker" />
+                            </group>
+                            <group></group>
+                            <group>
+                                <field name="map_link" widget='url' attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                                <field name="partner_latitude" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                                <field name="partner_longitude" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                                <field name="marker_color" widget="google_marker_picker" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                            </group>
+                        </group>
+                        <field name="edit_geolocation_hide_css" nolabel='1' />
+                    </page>
+                </xpath>
+                <xpath expr="//form" position="attributes">
+                    <attribute name="geo_field">{'lat': 'partner_latitude', 'lng': 'partner_longitude'}</attribute>
+                </xpath>
+                <div name="provider_box" position="inside">
+                    <button name="%(contacts_maps.action_view_res_partner_google_map)d" type="action" class="oe_stat_button" icon="fa-map-marker" string="Google Map" attrs="{'invisible': ['|',('partner_latitude', '=', 0.0), ('partner_longitude', '=', 0.0)]}" />
+                </div>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_partner_form">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="edit_geolocation_hide_css" />
+                    <field name="provider" invisible="1" />
+                </xpath>
+                <xpath expr="//page[@name='geo_location']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="web_google_maps.action_partner_form_view3" model="ir.actions.act_window.view">
+            <field eval="3" name="sequence" />
+            <field name="view_mode">google_map</field>
+            <field name="view_id" ref="web_google_maps.view_res_partner_google_map" />
+            <field name="act_window_id" ref="asb_master_provider.master_provider_action" />
+        </record>
+
+    </data>
+</odoo>

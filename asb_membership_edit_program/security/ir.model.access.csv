@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_edit_program,asb_membership_edit_program.edit_program,model_edit_program,base.group_user,1,1,1,1
+access_edit_floatfund,asb_membership_edit_program.edit_floatfund,model_edit_floatfund,base.group_user,1,1,1,1
+access_edit_plan,asb_membership_edit_program.edit_plan,model_edit_plan,base.group_user,1,1,1,1
+
+access_edit_program_plan,asb_membership_edit_program.edit_program_plan,model_edit_program_plan,base.group_user,1,1,1,1
+access_edit_program_plan_line,asb_membership_edit_program.edit_program_plan_line,model_edit_program_plan_line,base.group_user,1,1,1,1
+access_edit_program_plan_header,asb_membership_edit_program.edit_program_plan_header,model_edit_program_plan_header,base.group_user,1,1,1,1
+access_edit_header_detail,asb_membership_edit_program.edit_header_detail,model_edit_header_detail,base.group_user,1,1,1,1

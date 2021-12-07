@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="member_history_view_form">
+            <field name="name">member.history.form</field>
+            <field name="model">member.history</field>
+            <field name="arch" type="xml">
+                <form string="Member History" create="0" edit="0" delete="0">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" default_focus="1"/>
+                            </h1>
+                            <group>
+                                <field name="record_mode" />
+                            </group>
+                        </div>
+                        <group name='group_member_1' >
+                            <group>
+                                <field name="nik" />
+                                <field name="card_number" />
+                                <field name="member_number" force_save="1" readonly="1" />
+                                <field name="suffix_id" options="{'no_open': True, 'no_create': True}" />
+                                <field name="marital_status" />
+                                <field name="relationship" />
+                            </group>
+                            <group>
+                                <field name="policy_number" />
+                                <field name="join_date" />
+                                <field name="start_date" />
+                                <field name="effective_date_member" />
+                                <field name="end_date" />
+                                <field name="end_policy_date" />
+                            </group>
+                        </group>
+                        <notebook name="notebook_member">
+                            <page name="work_information" string="Work Information">
+                                <group>
+                                    <group>
+                                        <field name="member_client_id" readonly="1" force_save="1" />
+                                        <field name="client_branch_id" readonly="1" force_save="1" />
+                                        <field name="division" />
+                                    </group>
+                                    <group>
+                                        <field name="division_id" />
+                                        <field name="employment_status" />
+                                        <field name="salary" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="private_information" string="Private Information">
+                                <group>
+                                    <group string='Contact'>
+                                        <label for="street" string="Address" class="oe_edit_only" />
+                                        <div class="o_address_format oe_edit_only">
+                                            <field name="country_id" class="o_address_state" style="width: 31%%" placeholder="Country" options="{'no_open': True, 'no_create': True}" />
+                                            <field name="state_id" class="o_address_state" style="width: 31%%" placeholder="State" options="{'no_open': True, 'no_create': True}" domain="[('country_id','=',country_id)]" />
+                                            <field name="city_id" style="width: 34%%" placeholder="City" options="{'no_open': True, 'no_create': True}" domain="[('state_id','=',state_id)]" />
+                                            <field name="kecamatan_id" class="o_address_state" style="width: 31%%" placeholder="Kecamatan" options="{'no_open': True, 'no_create': True}" domain="[('city_id','=',city_id)]" />
+                                            <field name="kelurahan_id" class="o_address_state" style="width: 31%%" placeholder="Kelurahan" options="{'no_open': True, 'no_create': True}" domain="[('kecamatan_id','=',kecamatan_id)]" />
+                                            <field name="zip" style="width: 34%%" placeholder="ZIP" />
+                                            <field name="street" class="o_address_street" placeholder="Street..." />
+                                        </div>
+                                        <label for="street" string="Address" class="oe_read_only" />
+                                        <div class="o_address_format oe_read_only">
+                                            <field name="street" class="o_address_street" placeholder="Street..." />
+                                            <field name="kelurahan_id" class="o_address_state" placeholder="Kelurahan" options="{'no_open': True, 'no_create': True}" domain="[('kecamatan_id','=',kecamatan_id)]" />
+                                            <field name="kecamatan_id" class="o_address_state" placeholder="Kecamatan" options="{'no_open': True, 'no_create': True}" domain="[('city_id','=',city_id)]" />
+                                            <field name="city_id" class="o_address_state" placeholder="City" options="{'no_open': True, 'no_create': True}" domain="[('state_id','=',state_id)]" />
+                                            <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_create': True}" domain="[('country_id','=',country_id)]" />
+                                            <field name="country_id" class="o_address_state" placeholder="Country" options="{'no_open': True, 'no_create': True}" />
+                                            <field name="zip" class="o_address_state" placeholder="ZIP" />
+                                        </div>
+                                        <field name="tlp_office" />
+                                        <field name="tlp_residence" />
+                                        <field name="mobile" string='Telephone (Mobile)' />
+                                        <field name="email" widget='email' />
+                                    </group>
+                                    <group string='Citizenship'>
+                                        <field name="identification_no" />
+                                        <field name="passport_no" />
+                                        <field name="passport_country" />
+                                        <field name="language" />
+                                        <field name="gender" />
+                                        <field name="birth_date" />
+                                    </group>
+                                    <!-- <group string='Marital &amp; Relationship'>
+                                    <field name="marital_status" />
+                                    <field name="relationship" />
+                                </group> -->
+                                </group>
+                            </page>
+                            <page name="bank_account" string="Bank Account">
+                                <group>
+                                    <group>
+                                        <field name="bank_id" can_create="true" can_write="true" id="bank" />
+                                        <field name="swift_code" id="swift_code" />
+                                        <field name="account_name" id="account_name" />
+                                    </group>
+                                    <group>
+                                        <field name="bank_account" id="bank_account" />
+                                        <field name="bank_branch" id="bank_branch" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page name='member_information' string="Member Information">
+                                <group>
+                                    <group>
+                                        <field name="record_type" />
+                                        <field name="payor_id" />
+                                        <field name="rule_bpjs" />
+                                        <field name="bpjs_number" />
+                                        <field name="bpjs_classes_room" />
+                                        <field name="name_faskes_fktp" />
+                                        <field name="classification_member" />
+                                        <field name="pre_existing" />
+                                    </group>
+                                    <group>
+                                        <field name="remarks" />
+                                        <field name="endorsement_date" />
+                                        <field name="member_since" />
+                                        <field name="policy_status" />
+                                        <field name="member_suspend" />
+                                        <field name="renewal_activation_date" />
+                                        <field name="internal_use" />
+                                        <field name="option_mode" />
+                                    </group>
+                                </group>
+                            </page>
+                            <!-- <page name='benefit_information' string="Benefit Information">
+                            <group>
+                                <group>
+                                    <field name="ip" />
+                                    <field name="op" />
+                                    <field name="de" />
+                                    <field name="eg" />
+                                </group>
+                                <group>
+                                    <field name="ma" />
+                                    <field name="mcu" />
+                                    <field name="ot" />
+                                </group>
+                            </group>
+                        </page> -->
+                            <page name='Plan Information' string='Plan Information'>
+                                <group>
+                                    <group>
+                                        <!-- <field name="member_client_id" readonly="1" force_save="1" invisible="1" /> -->
+                                        <!-- <field name="client_branch_id" readonly="1" force_save="1" invisible="1" /> -->
+                                        <field name="get_program_id_domain" invisible="1" />
+                                        <field name="program_id" domain="[('id','=',get_program_id_domain)]" options="{'no_open': True, 'no_create': True}" />
+                                        <field name="get_program_plan_id_domain" invisible="1" />
+                                        <field name="program_plan_id" domain="[('id','=',get_program_plan_id_domain)]" options="{'no_open': True, 'no_create': True}" attrs="{'invisible':[('program_id', '=', False)]}" />
+                                    </group>
+                                    <field name="program_plan_header_line" options="{'no_create':True}" force_save="1" readonly="1" attrs="{'invisible':[('program_plan_id', '=', False)]}">
+                                        <tree>
+                                            <field name="benefit_category_id" />
+                                            <field name="annual_limit" />
+                                            <field name="deductible" />
+                                            <field name="coinsurance" />
+                                            <field name="coshare" />
+                                        </tree>
+                                        <form string="Plan Header">
+                                            <sheet>
+                                                <group col='4'>
+                                                    <group colspan='2'>
+                                                        <field name="plan_id" readonly="1" />
+                                                        <field name="benefit_category_id" required="1" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                        <field name="annual_limit" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                        <field name="daily_limit" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                        <field name="deductible" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                    </group>
+                                                    <group colspan='2'>
+                                                        <label for="coinsurance" string="Co-Insurance" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                        <div class="o_row">
+                                                            <field name="coinsurance" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                            %
+                                                        </div>
+                                                        <field name="coshare" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                        <field name="currency_id" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                        <field name="created_by" readonly="1" />
+                                                        <field name="created_date" readonly="1" />
+                                                        <field name="is_editable" invisible="1" />
+                                                    </group>
+                                                </group>
+                                                <notebook>
+                                                    <page name="header_detail_line" string="Detail">
+                                                        <field name="detail_line" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                    </page>
+                                                </notebook>
+                                            </sheet>
+                                        </form>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="member_history_view_tree" model="ir.ui.view">
+            <field name="name">member.history.tree</field>
+            <field name="model">member.history</field>
+            <field name="arch" type="xml">
+                <tree create="0" delete="0" editable="bottom">
+                    <field name="record_mode" readonly="1"/>
+                    <field name="name" readonly="1"/>
+                    <field name="nik" readonly="1"/>
+                    <field name="member_number" readonly="1"/>
+                    <field name="create_date" string="Upload Date"/>
+                    <field name="create_uid" string="Upload By"/>
+                    <field name="import_remarks" widget="text"/>
+                    <button name="open_member_history" string="View" type="object" class="oe_highlight" />
+                    <field name="member_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="member_history_log_action" model="ir.actions.act_window">
+            <field name="name">Member History</field>
+            <!-- <field name="type">ir.actions.act_window</field> -->
+            <field name="res_model">member.history</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="view_id" ref="member_history_view_form" /> -->
+            <!-- <field name="context"></field> -->
+            <!-- <field name="search_view_id" ref="asb_membership.view_res_partner_filter_add" /> -->
+        </record>
+
+        <menuitem id="member_history_menuitem" name="Import History" parent="asb_membership.menu_configuration" action="member_history_log_action" />
+
+    </data>
+</odoo>

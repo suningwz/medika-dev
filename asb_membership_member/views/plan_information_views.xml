@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- List View -->
+        <record model="ir.ui.view" id="plan_information_tree">
+            <field name="name">plan.information.tree</field>
+            <field name="model">plan.information</field>
+            <field name="arch" type="xml">
+                <tree create="false" delete="false">
+                    <field name="id" invisible="1" />
+                    <field name="program_plan_id" invisible="1" />
+                    <field name="header_id" />
+                    <field name="benefit_id" />
+                    <field name="annual_limit" />
+                    <field name="daily_limit" />
+                    <field name="deductible" />
+                    <field name="coinsurance" />
+                    <field name="coshare" />
+                    <field name="cover" optional='hide' />
+                    <field name="max_per_visit" optional='hide' />
+                    <field name="max_day_per_year" optional='hide' />
+                    <field name="max_per_day" optional='hide' />
+                    <field name="inner_limit" optional='hide' />
+                    <field name="per_day_limit" optional='hide' />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        optional='hide'
+        <record model="ir.ui.view" id="plan_information_form">
+            <field name="name">plan.information.form</field>
+            <field name="model">plan.information</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header></header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="id" invisible="1" />
+                                <field name="program_plan_id" invisible="1" />
+                                <field name="benefit_id" />
+                                <field name="header_id" />
+                                <field name="annual_limit" />
+                                <field name="daily_limit" />
+                                <field name="deductible" />
+                                <field name="coinsurance" />
+                            </group>
+                            <group>
+                                <field name="coshare" />
+                                <field name="cover" />
+                                <field name="max_per_visit" />
+                                <field name="max_day_per_year" optional='hide' />
+                                <field name="max_per_day" />
+                                <field name="inner_limit" />
+                                <field name="per_day_limit" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="plan_information_action">
+            <field name="name">Plan Information</field>
+            <field name="res_model">plan.information</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_guarantee_letter,asb_helpline_guarantee_letter.guarantee_letter,model_guarantee_letter,base.group_user,1,1,1,1
+access_final_gl,asb_helpline_guarantee_letter.final_gl,model_final_gl,base.group_user,1,1,1,1
+access_claim_reject_reason,asb_helpline_guarantee_letter.claim_reject_reason,model_claim_reject_reason,base.group_user,1,1,1,1
+access_decline_reason,asb_helpline_guarantee_letter.decline_reason,model_decline_reason,base.group_user,1,1,1,1
+access_claim_primary_surgery,asb_helpline_guarantee_letter.claim_primary_surgery,model_claim_primary_surgery,base.group_user,1,1,1,1
+access_claim_secondary_surgery,asb_helpline_guarantee_letter.claim_secondary_surgery,model_claim_secondary_surgery,base.group_user,1,1,1,1
+access_helpline_master_practitioner,asb_helpline_guarantee_letter.helpline_master_practitioner,model_helpline_master_practitioner,base.group_user,1,1,1,1
+access_confirm_send_email,asb_helpline_guarantee_letter.confirm_send_email,model_confirm_send_email,base.group_user,1,1,1,1

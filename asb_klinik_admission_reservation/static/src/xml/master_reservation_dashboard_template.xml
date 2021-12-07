@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <!-- This template is for a table at the top of purchase views that shows some KPIs. -->
+    <t t-name="asb_klinik_admission_reservation.ReservationDashboard">
+        <div class="o_reservation_dashboard container">
+
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <center>
+                        <p>
+                            <strong>
+                                Tanggal : <t t-esc="values['today_reservation']"/>
+                            </strong>
+                        </p>
+                    </center>
+                </div>
+
+                <div class="col-sm-6">
+                    <center>
+                        <p>
+                            <strong>
+                                Tanggal : <t t-esc="values['tomorrow_reservation']"/>
+                            </strong>
+                        </p>
+                    </center>
+                </div>
+            </div>
+            
+            <div class="row">
+
+                <div class="col-sm-2">
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span style="color:white;">
+                                        Total Perjanjian <br/> <t t-esc="values['total_perjanjian_today']"/>
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_jenis_perjanjian_mc": true, "search_default_today" : true}'>
+                                    <a href="#">
+                                        Perjanjian MC <br/> <t t-esc="values['perjanjian_mc_today']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_jenis_perjanjian_mcu": true, "search_default_today" : true}'>
+                                    <a href="#">
+                                        Perjanjian MCU <br/> <t t-esc="values['perjanjian_mcu_today']"/>
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_registered_reservasi": true, "search_default_today" : true}'>
+                                    <a href="#">
+                                        Telah Registrasi <br/> <t t-esc="values['registered_today']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_draft_reservasi": true, "search_default_today" : true}'>
+                                    <a href="#">
+                                        Belum Registrasi <br/> <t t-esc="values['waiting_today']"/>
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_perjanjian_direct": true, "search_default_today" : true}'>
+                                    <a href="#">
+                                        Perjanjian Direct <br/> <t t-esc="values['perjanjian_direct_today']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-sm-2">
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_perjanjian_online": true, "search_default_today" : true}'>
+                                    <a href="#">
+                                        Perjanjian Online <br/> <t t-esc="values['perjanjian_online_today']"/>
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_spesialis_mata": true, "search_default_today" : true}'>
+                                    <a href="#">
+                                       Spesialis Mata <br/>  <t t-esc="values['spesialis_mata_today']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_spesialis_tht": true, "search_default_today" : true}'>
+                                    <a href="#">
+                                        Spesialis THT <br/> <t t-esc="values['spesialis_tht_today']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_spesialis_jantung": true, "search_default_today" : true}'>
+                                    <a href="#">
+                                        Spesialis Jantung <br/> <t t-esc="values['spesialis_jantung_today']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_spesialis_dalam": true, "search_default_today" : true}'>
+                                    <a href="#">
+                                        Spesialis P. Dalam <br/> <t t-esc="values['spesialis_dalam_today']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_spesialis_paru": true, "search_default_today" : true}'>
+                                    <a href="#">
+                                        Spesialis Paru <br/> <t t-esc="values['spesialis_paru_today']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-sm-2">
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_poli_umum": true, "search_default_today" : true}'>
+                                    <a href="#">
+                                        Poli Umum <br/> <t t-esc="values['dokter_umum_today']"/>
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_poli_gigi": true, "search_default_today" : true}'>
+                                    <a href="#">
+                                        Poli Gigi <br/>  <t t-esc="values['dokter_gigi_today']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_periksa_audiometri": true, "search_default_today" : true}'>
+                                    <a href="#">
+                                        Audiometri <br/> <t t-esc="values['audiometri_today']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_periksa_spirometri": true, "search_default_today" : true}'>
+                                    <a href="#">
+                                        Spirometri <br/> <t t-esc="values['spirometri_today']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_periksa_ekg": true, "search_default_today" : true}'>
+                                    <a href="#">
+                                        EKG <br/> <t t-esc="values['ekg_today']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_periksa_treadmill": true, "search_default_today" : true}'>
+                                    <a href="#">
+                                        Treadmill <br/> <t t-esc="values['treadmill_today']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-sm-2">
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span style="color:white;">
+                                        Total Perjanjian <br/> <t t-esc="values['total_perjanjian_tomorrow']"/>
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_jenis_perjanjian_mc": true, "search_default_tomorrow" : true}'>
+                                    <a href="#">
+                                        Perjanjian MC <br/> <t t-esc="values['perjanjian_mc_tomorrow']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_jenis_perjanjian_mcu": true, "search_default_tomorrow" : true}'>
+                                    <a href="#">
+                                        Perjanjian MCU <br/> <t t-esc="values['perjanjian_mcu_tomorrow']"/>
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_registered_reservasi": true, "search_default_tomorrow" : true}'>
+                                    <a href="#">
+                                        Telah Registrasi <br/> <t t-esc="values['registered_tomorrow']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_draft_reservasi": true, "search_default_tomorrow" : true}'>
+                                    <a href="#">
+                                        Belum Registrasi <br/> <t t-esc="values['waiting_tomorrow']"/>
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_perjanjian_direct": true, "search_default_tomorrow" : true}'>
+                                    <a href="#">
+                                        Perjanjian Direct <br/> <t t-esc="values['perjanjian_direct_tomorrow']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-sm-2">
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_perjanjian_online": true, "search_default_tomorrow" : true}'>
+                                    <a href="#">
+                                        Perjanjian Online <br/> <t t-esc="values['perjanjian_online_tomorrow']"/>
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_spesialis_mata": true, "search_default_tomorrow" : true}'>
+                                    <a href="#">
+                                       Spesialis Mata <br/>  <t t-esc="values['spesialis_mata_tomorrow']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_spesialis_tht": true, "search_default_tomorrow" : true}'>
+                                    <a href="#">
+                                        Spesialis THT <br/> <t t-esc="values['spesialis_tht_tomorrow']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_spesialis_jantung": true, "search_default_tomorrow" : true}'>
+                                    <a href="#">
+                                        Spesialis Jantung <br/> <t t-esc="values['spesialis_jantung_tomorrow']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_spesialis_dalam": true, "search_default_tomorrow" : true}'>
+                                    <a href="#">
+                                        Spesialis P. Dalam <br/> <t t-esc="values['spesialis_dalam_tomorrow']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_spesialis_paru": true, "search_default_tomorrow" : true}'>
+                                    <a href="#">
+                                        Spesialis Paru <br/> <t t-esc="values['spesialis_paru_tomorrow']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-sm-2">
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_poli_umum": true, "search_default_tomorrow" : true}'>
+                                    <a href="#">
+                                        Poli Umum <br/> <t t-esc="values['dokter_umum_tomorrow']"/>
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_poli_gigi": true, "search_default_tomorrow" : true}'>
+                                    <a href="#">
+                                        Poli Gigi <br/>  <t t-esc="values['dokter_gigi_tomorrow']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_periksa_audiometri": true, "search_default_tomorrow" : true}'>
+                                    <a href="#">
+                                        Audiometri <br/> <t t-esc="values['audiometri_tomorrow']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_periksa_spirometri": true, "search_default_tomorrow" : true}'>
+                                    <a href="#">
+                                        Spirometri <br/> <t t-esc="values['spirometri_tomorrow']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_periksa_ekg": true, "search_default_tomorrow" : true}'>
+                                    <a href="#">
+                                        EKG <br/> <t t-esc="values['ekg_tomorrow']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="o_main o_reservation_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_periksa_treadmill": true, "search_default_tomorrow" : true}'>
+                                    <a href="#">
+                                        Treadmill <br/> <t t-esc="values['treadmill_tomorrow']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </t>
+</templates>

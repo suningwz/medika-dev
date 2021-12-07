@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record id="master_sub_kategori_produk_view_tree" model="ir.ui.view">
+            <field name="name">master.sub.kategori.product.view.tree</field>
+            <field name="model">master.sub.kategori.product</field>
+            <field name="arch" type="xml">
+
+                <tree string="Sub - Kategori Product" editable="top" create="1" delete="1" multi_edit="1">
+                    <field name="name" required="1"/>
+                    <field name="kategori_produk_id" required="1"/>
+                </tree>
+
+            </field>
+        </record>
+
+        <record id="master_sub_kategori_produk_action" model="ir.actions.act_window">
+            <field name="name">Sub Kategori Product</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">master.sub.kategori.product</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="master_sub_kategori_produk_view_tree"/>
+            <field name="help" type="html">
+                <p></p>
+            </field>
+        </record>
+    
+    </data>
+</odoo>

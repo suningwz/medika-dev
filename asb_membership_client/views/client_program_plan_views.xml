@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="plan_header_action" model="ir.actions.act_window">
+            <field name="name">Plan Header</field>
+            <field name="res_model">program.plan.header</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">main</field>
+            <field name="domain">[('plan_id', '=', active_id)]</field>
+            <field name="context">{'default_plan_id': active_id}</field>
+        </record>
+
+        <record id="client_program_plan_view_form" model="ir.ui.view">
+            <field name="name">client.program.plan.view.form</field>
+            <field name="model">client.program.plan</field>
+            <field name="arch" type="xml">
+                <form string="Program Plan ">
+                    <sheet>
+                        <group col='4'>
+                            <group colspan='2'>
+                                <field name="program_id" class='oe_read_only' />
+                                <field name="program" class='oe_edit_only' />
+                                <field name="entity" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                <field name="name" required="1" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                <field name="service" attrs="{'readonly': [('is_editable','=', False)]}" />
+                            </group>
+                            <group colspan='2'>
+                                <field name="fullcover" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                <field name="created_by" readonly="1" />
+                                <field name="created_date" readonly="1" />
+                                <field name="is_editable" invisible="1" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="header_lines" string="Header">
+                                <field name="header_line" attrs="{'readonly': [('is_editable','=', False)]}" />
+                            </page>
+                            <page name="edc_remarks" string="EDC Remarks">
+                                <field name="program_plan_lines" widget='one2many' attrs="{'readonly': [('is_editable','=', False)]}" />
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="activity_ids" widget="mail_activity" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="client_program_plan_view_tree" model="ir.ui.view">
+            <field name="model">client.program.plan</field>
+            <field name="name">client.program.plan.view.tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="program_id" invisible="1" />
+                    <field name="entity" />
+                    <field name="name" />
+                    <field name="service" />
+                    <field name="fullcover" />
+                    <field name="created_by" />
+                    <field name="created_date" />
+                    <button string="Header" type="action" name="asb_membership_client.plan_header_action" class="oe_highlight" />
+                    <button string="Duplicate" type="object" name="copy" class="btn btn-plan-duplicate" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="program_plan_line_view_tree" model="ir.ui.view">
+            <field name="model">program.plan.line</field>
+            <field name="name">program.plan.line.view.tree</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="benefit_category_id" options="{'no_open': True, 'no_create': True}" />
+                    <field name="benefit_id" domain="[('id','=',get_benefit_id_domain)]" options="{'no_open': True, 'no_create': True}" />
+                    <field name="remarks" />
+                    <field name="program_plan_id" invisible="1" />
+                    <field name="get_benefit_id_domain" invisible="1" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="program_plan_line_view_form" model="ir.ui.view">
+            <field name="model">program.plan.line</field>
+            <field name="name">program.plan.line.view.form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="benefit_category_id" options="{'no_open': True, 'no_create': True}" />
+                                <field name="benefit_id" domain="[('id','=',get_benefit_id_domain)]" options="{'no_open': True, 'no_create': True}" />
+                            </group>
+                            <group>
+                                <field name="remarks" />
+                                <field name="get_benefit_id_domain" invisible="1" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

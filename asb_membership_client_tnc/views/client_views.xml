@@ -1,0 +1,96 @@
+<odoo>
+  <data>
+
+    <record id="action_client_terms_condition_attachment" model="ir.actions.act_window">
+      <field name="name">Attachments</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">ir.attachment</field>
+      <field name="view_id" eval="False"/>
+      <field name="domain">[('res_model','=','res.partner'), ('res_id', '=', active_id)]</field>
+      <field name="context">{'default_res_model': 'res.partner', 'default_res_id': active_id}</field>
+      <field name="search_view_id" ref="base.view_attachment_search"/>
+      <field name="view_id" ref="asb_binary_newtab.attachment_tree_view_dev"/>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+                    Create a new document
+        </p>
+        <p>
+                    Also you will find here all the related documents and download it by clicking on any individual document.
+        </p>
+      </field>
+    </record>
+
+
+    <record id="membership_client_view_form_inherit_terms_conditions" model="ir.ui.view">
+      <field name="name">res.partner.view.form.inherit.terms.conditions</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="asb_membership_client.membership_client_view_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//div[@name='client_button_box']" position="inside">
+          <button name="action_get_terms_condition_attachment_view" string="Terms and Conditions" type="object" icon='fa-pencil-square' class="oe_stat_button"/>
+        </xpath>
+      </field>
+    </record>
+
+    <record id="call_record_view_form_inherit_client_terms_conditions" model="ir.ui.view">
+      <field name="name">call.record.view.form.inherit.terms.conditions</field>
+      <field name="model">call.record</field>
+      <field name="inherit_id" ref="asb_helpline_call_record.call_record_view_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//div[@name='button_box']" position="inside">
+          <button name="action_get_client_terms_condition_attachment_view" string="Terms and Conditions" type="object" icon='fa-pencil-square' class="oe_stat_button"/>
+        </xpath>
+      </field>
+    </record>
+
+    <record id="terms_conditions_attachment_view_form" model="ir.ui.view">
+      <field name="name">ir.attachment.view.form.client.terms.conditions</field>
+      <field name="model">ir.attachment</field>
+      <field name="arch" type="xml">
+        <form string="Attachments">
+          <sheet>
+            <label for="name" class="oe_edit_only"/>
+            <h1>
+              <field name="name"/>
+            </h1>
+            <group>
+              <group>
+                <field name="type" invisible="1"/>
+                <field name="datas" filename="name" string="File Content"/>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="terms_conditions_attachment_view_tree" model="ir.ui.view">
+      <field name="name">ir.attachment.view.tree.client.terms.conditions</field>
+      <field name="model">ir.attachment</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="file_size"/>
+          <field name="create_uid"/>
+          <field name="create_date"/>
+          <button name="new_tab" string="Open Attachment" type="object" class="oe_inline fa fa-arrow-right oe_link"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="action_tree_membership_client" model="ir.actions.act_window.view">
+      <field name="sequence" eval="1" />
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="terms_conditions_attachment_view_tree" />
+      <field name="act_window_id" ref="action_client_terms_condition_attachment" />
+    </record>
+
+    <record id="action_form_membership_client" model="ir.actions.act_window.view">
+      <field name="sequence" eval="2" />
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="terms_conditions_attachment_view_form" />
+      <field name="act_window_id" ref="action_client_terms_condition_attachment" />
+    </record>
+
+  </data>
+</odoo>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record id="antrian_pasien_dokter_gigi_form_inherit_pemeriksaan_lab" model="ir.ui.view">
+            <field name="name">pemeriksaan.lab.doctor.gigi.form.inherit</field>
+            <field name="model">master.registration</field>
+            <field name="inherit_id" ref="asb_klinik_doctor_gigi_antrian_pasien.antrian_pasien_doctor_gigi_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='permintaan_lab_mc']" position="inside">
+                    <group>
+                        <field name="permintaan_lab_ids" nolabel='1'>
+                            <tree editable="top">
+                                <field name="product_ids" invisible="1" />
+                                <field name="product_id" string='Servis Lab' required="1" domain="[('id','=',product_ids)]" options="{'no_open': False, 'no_create': True}" context="{'tree_view_ref' : 'asb_klinik_master_product.examination_list_view_tree'}" />
+                                <field name="harga_jual" string="Harga Jual" widget="monetary" />
+                                <field name="keterangan" style="width: 70%%" />
+                                <field name="registration_id" invisible="1" />
+                                <field name="currency_id" invisible="1" />
+                            </tree>
+                        </field>
+                    </group>
+                    <group class="oe_subtotal_footer oe_right">
+                        <div class="oe_subtotal_footer_separator oe_inline">
+                            <label for="cost_permintaan_lab" />
+                        </div>
+                        <field name="cost_permintaan_lab" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    
+    </data>
+</odoo>

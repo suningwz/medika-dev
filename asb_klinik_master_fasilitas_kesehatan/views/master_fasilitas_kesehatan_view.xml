@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- View Fasilitas Kesehatan -->
+        <!-- Tree View -->
+
+        <record id="master_fasilitas_kesehatan_view_tree" model="ir.ui.view">
+            <field name="name">master.fasilitas.kesehatan.view.tree</field>
+            <field name="model">master.fasilitas.kesehatan</field>
+            <field name="arch" type="xml">
+
+                <tree string="Fasilitas Kesehatan">
+                    <field name="name" />
+                    <field name="nama_faskes" />
+                    <field name="kode_faskes" />
+                    <field name="penanggung_jawab_id" />
+                    <field name="tenaga_medis_count" string="Jumlah Tenaga Kerja"/>
+                    <field name="status" decoration-success="status == 'Aktif'" decoration-danger="status == 'Tidak Aktif'" widget="badge"/>
+                </tree>
+
+            </field>
+        </record>
+
+        <!-- Form View -->
+
+        <record id="master_fasilitas_kesehatan_view_form" model="ir.ui.view">
+            <field name="name">master.fasilitas.kesehatan.view.form</field>
+            <field name="model">master.fasilitas.kesehatan</field>
+            <field name="arch" type="xml">
+                <form string="Fasilitas Kesehatan">
+
+                    <sheet>
+                        <div class="oe_button_box" name="button_box_faskes">
+                            <button class="oe_stat_button" name="%(asb_klinik_master_dokumen.master_dokumen_faskes_action)d" icon="fa-th-list" type="action" context="{'search_default_faskes_id': active_id, 'default_faskes_id': active_id}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="surat_izin_count"/>
+                                    </span>
+                                    <span class="o_stat_text"> Surat Izin</span>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" name="%(asb_klinik_master_personil.data_personil_faskes_action)d" icon="fa-th-list" type="action" context="{'search_default_faskes_ids': active_id, 'default_faskes_ids': active_id}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="tenaga_medis_count"/>
+                                    </span>
+                                    <span class="o_stat_text"> Tenaga Kerja</span>
+                                </div>
+                            </button>
+                        </div>
+
+                        <div class="oe_title">
+                            <label for="name" string="Kode Fasilitas Kesehatan"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+
+                        <group string="Informasi Fasilitas Kesehatan" style="margin: 1px 0px;">
+                            <group>
+                                <field name="nama_faskes" />
+                                <field name="kode_faskes" />
+                                <field name="penanggung_jawab_id" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}" context="{'tree_view_ref' : 'asb_klinik_master_personil.master_dokter_simple_view_tree'}" />
+                                <field name="semua_unit" widget="boolean_toggle"/>
+                                <field name="poli_unit_ids" widget="many2many_tags" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True, 'color_field': 'color'}"/>
+                                <label for="street" string="Alamat" class="oe_edit_only" />
+                                <div class="o_address_format oe_edit_only">
+                                    <field name="street" class="o_address_street" placeholder="Street..." />
+                                    <field name="country_id" class="o_address_state" style="width: 31%" placeholder="Country" options="{'no_open': True, 'no_create': True}" />
+                                    <field name="state_id" class="o_address_state" style="width: 31%" placeholder="State" options="{'no_open': True, 'no_create': True}" domain="[('country_id', '=', country_id)]" />
+                                    <field name="city_id" style="width: 34%" placeholder="City" options="{'no_open': True, 'no_create': True}" domain="[('state_id', '=', state_id)]" context="{'tree_view_ref' : 'asb_state_city.kota_kabupaten_ref_view_tree'}" />
+                                    <field name="kecamatan_id" class="o_address_state" style="width: 37%" placeholder="Kecamatan" options="{'no_open': True, 'no_create': True}" domain="[('city_id', '=', city_id)]" context="{'tree_view_ref' : 'asb_state_city.kecamatan_ref_view_tree'}" />
+                                    <field name="kelurahan_id" class="o_address_state" style="width: 37%" placeholder="Kelurahan" options="{'no_open': True, 'no_create': True}" domain="[('kecamatan_id', '=', kecamatan_id)]" context="{'tree_view_ref' : 'asb_state_city.kelurahan_ref_view_tree'}" />
+                                    <field name="zip" style="width: 22%" placeholder="ZIP" />
+                                </div>
+
+                                <label for="street" string="Alamat" class="oe_read_only" />
+                                <div class="o_address_format oe_read_only">
+                                    <field name="street" class="o_address_street" placeholder="Street..." />
+                                    <field name="kelurahan_id" class="o_address_city" placeholder="Kelurahan" options="{'no_open': True, 'no_create': True}" domain="[('kecamatan_id', '=', kecamatan_id)]" context="{'tree_view_ref' : 'asb_state_city.kelurahan_ref_view_tree'}" />
+                                    <field name="kecamatan_id" class="o_address_state" placeholder="Kecamatan" options="{'no_open': True, 'no_create': True}" domain="[('city_id', '=', city_id)]" context="{'tree_view_ref' : 'asb_state_city.kecamatan_ref_view_tree'}" />
+                                    <field name="city_id" class="o_address_city" placeholder="City" options="{'no_open': True, 'no_create': True}" domain="[('state_id', '=', state_id)]" context="{'tree_view_ref' : 'asb_state_city.kota_kabupaten_ref_view_tree'}" />
+                                    <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_create': True}" domain="[('country_id', '=', country_id)]" />
+                                    <field name="country_id" class="o_address_city" placeholder="Country" options="{'no_open': True, 'no_create': True}" />
+                                    <field name="zip" class="o_address_state" placeholder="ZIP" />
+                                </div>
+                            </group>
+
+                            <group>
+                                <span class="o_form_label o_td_label" name="status_name">
+                                    <b>Status</b>
+                                </span>
+                                <div class="o_address_format">
+                                    <field name="active" string="Status" widget="boolean_toggle" class="o_address_city"/>
+                                    <field name="status" class="o_address_state" force_save="1" readonly="1" decoration-success="active == True" decoration-danger="active == False" widget="badge"/>
+                                </div>
+                                <field name="total_quota_mcu_direct" />
+                                <field name="total_quota_mcu_online" />
+                                <field name="total_quota_mcu" />
+                                <field name="color" widget="color_picker"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page name="jadwal_quota_mcu" string="Jadwal dan Quota MCU">
+                                <field name="jadwal_quota_mcu_line">
+                                    <tree editable="bottom">
+                                        <field name="start_time" widget="float_time"/>
+                                        <field name="end_time" widget="float_time"/>
+                                        <field name="quota_mcu_direct" />
+                                        <field name="quota_mcu_online" />
+                                    </tree>
+                                    <form string="Jadwal dan Quota MCU">
+                                        <sheet>
+                                            <group col="4" colspan="2">
+                                                <field name="start_time" />
+                                                <field name="end_time" />
+                                                <field name="quota_mcu_direct" />
+                                                <field name="quota_mcu_online" />
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                    
+                </form>
+            </field>
+        </record>
+
+        <!-- Search View -->
+
+        <record id="master_fasilitas_kesehatan_view_search" model="ir.ui.view">
+            <field name="name">master.fasilitas.kesehatan.view.search</field>
+            <field name="model">master.fasilitas.kesehatan</field>
+            <field name="arch" type="xml">
+
+                <search string="Fasilitas Kesehatan">
+                    <field name="name" string="Kode Fasilitas Kesehatan" filter_domain="[('name', 'ilike', self)]"/>
+                    <field name="nama_faskes" string ="Nama Fasilitas Kesehatan" filter_domain="[('nama_faskes', 'ilike', self)]"/>
+                    <field name="city" string ="Kota" filter_domain="[('city', 'ilike', self)]"/>
+                    <field name="state_id" string ="Provinsi" filter_domain="[('state_id', 'ilike', self)]"/>
+                    <separator/>
+
+                    <filter name="inactive" string="Inactive Fasilitas Kesehatan" domain="[('active', '=', False)]"/>
+                    <separator/>
+                </search>
+
+            </field>
+        </record>
+
+        <!-- Action -->
+
+        <record id="master_fasilitas_kesehatan_action" model="ir.actions.act_window">
+            <field name="name">Fasilitas Kesehatan</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">master.fasilitas.kesehatan</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="master_fasilitas_kesehatan_view_search"/>
+            <field name="view_id" ref="master_fasilitas_kesehatan_view_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Tidak ada Data Fasilitas Kesehatan
+                </p>
+                <p>
+                    Buatlah Data Fasilitas Kesehatan
+                </p>
+            </field>
+        </record>
+
+        <record id="master_fasilitas_kesehatan_action_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="master_fasilitas_kesehatan_view_tree"/>
+            <field name="act_window_id" ref="master_fasilitas_kesehatan_action"/>
+        </record>
+
+        <record id="master_fasilitas_kesehatan_action_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="master_fasilitas_kesehatan_view_form"/>
+            <field name="act_window_id" ref="master_fasilitas_kesehatan_action"/>
+        </record>
+
+    </data>
+</odoo>

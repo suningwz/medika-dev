@@ -1,0 +1,13 @@
+<odoo>
+  <data>
+
+    <!-- Top menu item -->
+
+    <menuitem name="E-Claim" id="asb_eclaim.menu_root" web_icon="asb_eclaim,static/description/icon.png" groups="asb_eclaim.access_eclaim" />
+
+    <!-- menu categories -->
+
+    <menuitem name="Configuration" id="asb_configuration_menu" parent="asb_eclaim.menu_root" />
+
+  </data>
+</odoo>

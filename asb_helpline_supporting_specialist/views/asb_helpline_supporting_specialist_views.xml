@@ -1,0 +1,78 @@
+<odoo>
+  <data>
+
+    <!-- List View -->
+    <record model="ir.ui.view" id="helpline_supporting_specialist_tree_readonly">
+      <field name="name">helpline.supporting.specialist.tree</field>
+      <field name="model">helpline.supporting.specialist</field>
+      <field name="arch" type="xml">
+        <tree create="0" edit="0" delete="0">
+          <field name="name" />
+          <field name="position" />
+          <field name="contact" />
+        </tree>
+      </field>
+    </record>
+
+    <!-- action list view on call.record -->
+
+    <record id="guarantee_letter_specialist_list_action" model="ir.actions.act_window">
+      <field name="name">Specialist</field>
+      <field name="res_model">helpline.supporting.specialist</field>
+      <field name="view_mode">tree</field>
+      <field name="target">new</field>
+      <field name="view_id" ref="helpline_supporting_specialist_tree_readonly"/>
+      <field name="binding_model_id" ref="asb_helpline_call_record.model_call_record"/>
+    </record>
+
+    <!-- List View -->
+    <record model="ir.ui.view" id="helpline_supporting_specialist_tree">
+      <field name="name">helpline.supporting.specialist.tree</field>
+      <field name="model">helpline.supporting.specialist</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" />
+          <field name="position" />
+          <field name="contact" />
+        </tree>
+      </field>
+    </record>
+
+    <!-- Form View -->
+    <record model="ir.ui.view" id="helpline_supporting_specialist_form">
+      <field name="name">helpline.supporting.specialist.form</field>
+      <field name="model">helpline.supporting.specialist</field>
+      <field name="arch" type="xml">
+        <form>
+          <header></header>
+          <sheet>
+            <group>
+              <group>
+                <field name="name" />
+                <field name="position" />
+              </group>
+              <group>
+                <field name="contact" />
+              </group>
+            </group>
+          </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers" />
+            <field name="activity_ids" widget="mail_activity" />
+            <field name="message_ids" widget="mail_thread" />
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="helpline_supporting_specialist_action">
+      <field name="name">List Specialist</field>
+      <field name="res_model">helpline.supporting.specialist</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="asb_helpline_supporting_specialist.helpline_supporting_specialist_tree"/>
+    </record>
+
+    <menuitem id="submenu_helpline_supporting_specialist" name="List Specialist" parent="asb_helpline_supporting.asb_helpline_supporting_menu" action="helpline_supporting_specialist_action" />
+
+  </data>
+</odoo>

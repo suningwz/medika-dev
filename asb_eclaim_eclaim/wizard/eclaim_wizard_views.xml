@@ -1,0 +1,36 @@
+<odoo>
+  <data>
+
+    <!-- Form View -->
+
+    <record model="ir.ui.view" id="eclaim_invoice_detail_wizard_view_form">
+      <field name="name">eclaim.invoice.wizard.form</field>
+      <field name="model">eclaim.invoice.wizard</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <!-- <field name="case_ids" domain="['|',('provider_id','in',case_domain_ids),('provider_id','=',False)]"/> -->
+            <group>
+              <field name="eclaim_id" invisible="1"/>
+              <field name="provider_id" invisible="1" />
+              <field name="case_domain_ids" invisible="1" />
+            </group>
+          </sheet>
+          <!-- <footer>
+            <button string="Add" name="add_invoice_detail" type="object" class="oe_highlight"/>
+          </footer> -->
+        </form>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record id="add_invoice_detail" model="ir.actions.act_window">
+      <field name="name">Add Invoice Detail</field>
+      <field name="res_model">eclaim.invoice.wizard</field>
+      <field name="view_mode">form</field>
+      <field name="context">{'default_eclaim_id': active_id}</field>
+      <field name="target">new</field>
+    </record>
+  </data>
+</odoo>

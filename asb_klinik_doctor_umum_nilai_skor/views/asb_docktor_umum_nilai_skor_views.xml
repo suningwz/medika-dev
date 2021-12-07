@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <!-- Inherit form doctor umum antrian pasien -->
+        <record id="doctor_umum_antrian_pasien_form_inherit_nilai_skor" model="ir.ui.view">
+            <field name="name">master.registration.view.form.inherit</field>
+            <field name="model">master.registration</field>
+            <field name="inherit_id" ref="asb_klinik_doctor_umum_antrian_pasien.antrian_pasien_doctor_umum_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='jcs']/group/group[@name='jcs']" position="after">
+                    <group string='NILAI SKOR'>
+                        <h1 class="text-center badge-pill badge-success" style="width:105px">
+                            <field name="nilai_skor" />
+                        </h1>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+
+
+</odoo>

@@ -1,0 +1,6 @@
+<odoo>
+  <data>
+    <menuitem name="Configuration" id="menu_item_configuration" parent="asb_master.top_menu_master" sequence="100" />
+    <menuitem name="Provider" id="menu_item_provider" parent="menu_item_configuration" sequence="99" />
+  </data>
+</odoo>

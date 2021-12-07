@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="assets_helpline_case_monitoring_chart" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/asb_helpline_case_monitoring_chart/static/lib/js/Chart/Chart.js"/>
+
+            <script type="text/javascript" src="/asb_helpline_case_monitoring_chart/static/src/js/monitoring_chart.js"/>
+        </xpath>
+    </template>
+</odoo>

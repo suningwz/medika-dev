@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record id="antrian_pasien_dokter_mata_form_inherit_pemeriksaan_visus" model="ir.ui.view">
+            <field name="name">pemeriksaan.visus.doctor.mata.form.inherit</field>
+            <field name="model">master.registration</field>
+            <field name="inherit_id" ref="asb_klinik_doctor_mata_antrian_pasien.antrian_pasien_doctor_mata_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='pemeriksaan_visus']" position="inside">
+                    
+                    <div class="container">
+                        <table class="table table-bordered">
+                            <tr class="text-center">
+                                <th scope="col" rowspan="2"></th>
+                                <th scope="col" colspan="2" style="background: #C2571A; color: #FFF">Mata Kanan</th>
+                                <th scope="col" colspan="2" style="background: #BCA136; color: #FFF">Mata Kiri</th>
+                                <th scope="col" colspan="2" rowspan="2" style="background: #829356; color: #FFF; vertical-align : middle;">Baca</th>
+                            </tr>
+                            <tr class="text-center">
+                                <th scope="col" style="background: #0D3D56; color: #FFF">Jauh</th>
+                                <th scope="col" style="background: #107896; color: #FFF">Dekat</th>
+                                <th scope="col" style="background: #0D3D56; color: #FFF">Jauh</th>
+                                <th scope="col" style="background: #107896; color: #FFF">Dekat</th>
+                            </tr>
+                            <tr class="text-center">
+                                <th scope="row" style="width:20%">Kacamata Sebelumnya</th>
+                                <td colspan="2"><field name="kacamata_sebelumnya_kanan" nolabel="1"/></td>
+                                <td colspan="2"><field name="kacamata_sebelumnya_kiri" nolabel="1"/></td>
+                                <td colspan="2"><field name="kacamata_sebelumnya_baca" nolabel="1"/></td>
+                            </tr>
+                            <tr class="text-center">
+                                <th scope="row" style="width:20%">Tanpa Kacamata</th>
+                                <td><field name="tanpa_kacamata_jauh_kanan" nolabel="1"/></td>
+                                <td><field name="tanpa_kacamata_dekat_kanan" nolabel="1"/></td>
+                                <td><field name="tanpa_kacamata_jauh_kiri" nolabel="1"/></td>
+                                <td><field name="tanpa_kacamata_dekat_kiri" nolabel="1"/></td>
+                                <th scope="col" colspan="2">Depth Perception</th>
+                            </tr>
+                            <tr class="text-center">
+                                <th scope="row" style="width:20%">Koreksi</th>
+                                <td><field name="koreksi_jauh_kanan" nolabel="1"/></td>
+                                <td><field name="koreksi_dekat_kanan" nolabel="1"/></td>
+                                <td><field name="koreksi_jauh_kiri" nolabel="1"/></td>
+                                <td><field name="koreksi_dekat_kiri" nolabel="1"/></td>
+                                <td colspan="2"><field name="depth_perception" nolabel="1"/></td>
+                            </tr>
+                            <tr class="text-center">
+                                <th scope="row" style="width:20%">Tonometri (mmHg)</th>
+                                <td colspan="2"><field name="tonometri_kanan" nolabel="1"/></td>
+                                <td colspan="2"><field name="tonometri_kiri" nolabel="1"/></td>
+                                <td colspan="2"><field name="status_tonometri" widget="badge" decoration-warning="status_tonometri == 'Tidak Diketahui'" decoration-success="status_tonometri == 'Normal'" decoration-danger="status_tonometri == 'Abnormal'" nolabel="1"/></td>
+                            </tr>
+                            <tr class="text-center">
+                                <th scope="row" style="width:20%">Lensa</th>
+                                <td colspan="2"><field name="lensa_kanan" nolabel="1"/></td>
+                                <td colspan="2"><field name="lensa_kiri" nolabel="1"/></td>
+                            </tr>
+                            <tr class="text-center">
+                                <th scope="row" style="width:20%">Funduscopy</th>
+                                <td colspan="2"><field name="funduscopy_kanan" nolabel="1"/></td>
+                                <td colspan="2"><field name="funduscopy_kiri" nolabel="1"/></td>
+                            </tr>
+                            <tr class="text-center">
+                                <th scope="row" style="width:20%">Tes Buta Warna</th>
+                                <td colspan="4"><field name="tes_buta_warna" nolabel="1"/></td>
+                            </tr>
+                            <tr class="text-center">
+                                <th scope="row" style="width:20%">Lapang Pandang</th>
+                                <td colspan="4"><field name="lapang_pandang" nolabel="1"/></td>
+                            </tr>
+                            <tr class="text-center">
+                                <th scope="row" style="width:20%; vertical-align : middle;">Temuan Medis</th>
+                                <td colspan="4"><field name="temuan_medis" nolabel="1"/></td>
+                            </tr>
+                            <tr class="text-center">
+                                <th scope="row" style="width:20%">Kesimpulan</th>
+                                <td colspan="4"><field name="kesimpulan" nolabel="1"/></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </xpath>
+            </field>
+        </record>
+    
+    </data>
+</odoo>

@@ -1,0 +1,125 @@
+<odoo>
+  <data>
+
+    <record id="membership_client_gl_template_view_form" model="ir.ui.view">
+      <field name="name">res.partner.view.form.membership.client.gl.template</field>
+      <field name="model">res.partner</field>
+      <field name="arch" type="xml">
+        <form string="Guarantee Letter Template">
+          <sheet>
+            <div name="button_box" class="oe_button_box">
+              <button name="update_initial_qweb" string="Update Initial GL" type="object" icon="fa-code" class="oe_stat_button" groups="base.group_no_one" />
+              <button name="update_final_qweb" string="Update Final GL" type="object" icon="fa-code" class="oe_stat_button" groups="base.group_no_one" />
+            </div>
+            <group>
+              <group>
+                <field name="id" string='Company ID' />
+                <field name="name" />
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <record id="membership_client_gl_template_view_tree" model="ir.ui.view">
+      <field name="name">res.partner.client.gl.template</field>
+      <field name="model">res.partner</field>
+      <field name="arch" type="xml">
+        <tree create="0">
+          <field name="name" />
+        </tree>
+      </field>
+    </record>
+    <record id="membership_gl_template_action_partner_form" model="ir.actions.act_window">
+      <field name="name">GL Template Edit</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">res.partner</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('client', '=', True)]</field>
+      <field name="context">{'default_client': True, 'default_customer': 0, 'default_is_company': 1 }</field>
+      <!-- <field name="search_view_id" ref="view_res_partner_filter_add" /> -->
+      <field name="view_id" ref="membership_client_gl_template_view_tree" />
+    </record>
+    <record id="action_tree_membership_client_gl_template" model="ir.actions.act_window.view">
+      <field name="sequence" eval="1" />
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="membership_client_gl_template_view_tree" />
+      <field name="act_window_id" ref="membership_gl_template_action_partner_form" />
+    </record>
+    <record id="action_form_membership_client_gl_template" model="ir.actions.act_window.view">
+      <field name="sequence" eval="2" />
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="membership_client_gl_template_view_form" />
+      <field name="act_window_id" ref="membership_gl_template_action_partner_form" />
+    </record>
+
+    <!-- ################################ -->
+    <!-- GL Template (Client Branch) -->
+    <!-- ################################ -->
+    <record id="gl_template_base_client_branch_view_form" model="ir.ui.view">
+      <field name="name">gl.template.base.client.branch.form</field>
+      <field name="model">client.branch</field>
+      <field name="arch" type="xml">
+        <form string="GL Template (Client Branch)">
+          <sheet>
+            <div name="button_box" class="oe_button_box">
+              <button name="update_initial_qweb" string="Template Initial GL" type="object" icon="fa-code" class="oe_stat_button" groups="base.group_no_one" />
+              <button name="update_final_qweb" string="Template Final GL" type="object" icon="fa-code" class="oe_stat_button" groups="base.group_no_one" />
+            </div>
+            <group>
+              <group>
+                <field name="id" string='Branch ID' />
+                <field name="name" />
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <record id="gl_template_base_client_branch_view_tree" model="ir.ui.view">
+      <field name="name">gl.template.base.client.branch.tree</field>
+      <field name="model">client.branch</field>
+      <field name="arch" type="xml">
+        <tree create="0">
+          <field name="name" />
+        </tree>
+      </field>
+    </record>
+    <record id="gl_template_base_client_branch_action" model="ir.actions.act_window">
+      <field name="name">GL Template (Client Branch) Edit</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">client.branch</field>
+      <field name="view_mode">tree,form</field>
+      <!-- <field name="domain">[('client', '=', True)]</field> -->
+      <!-- <field name="context">{'default_client': True, 'default_customer': 0, 'default_is_company': 1 }</field> -->
+      <!-- <field name="search_view_id" ref="view_res_partner_filter_add" /> -->
+      <field name="view_id" ref="gl_template_base_client_branch_view_tree" />
+    </record>
+    <record id="action_tree_gl_template_base_client_branch" model="ir.actions.act_window.view">
+      <field name="sequence" eval="1" />
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="gl_template_base_client_branch_view_tree" />
+      <field name="act_window_id" ref="gl_template_base_client_branch_action" />
+    </record>
+    <record id="action_form_gl_template_base_client_branch" model="ir.actions.act_window.view">
+      <field name="sequence" eval="2" />
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="gl_template_base_client_branch_view_form" />
+      <field name="act_window_id" ref="gl_template_base_client_branch_action" />
+    </record>
+
+    <record id="action_ui_view_gl_template" model="ir.actions.act_window">
+      <field name="name">Views</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">ir.ui.view</field>
+      <field name="view_id" ref="base.view_view_tree" />
+      <field name="domain">[('name','like','GL')]</field>
+      <field name="context">{'search_default_active': 1}</field>
+    </record>
+
+    <menuitem id="res_partner_client_gl_template_menuitem" name="GL Template Edit" parent="asb_membership.menu_configuration" action="membership_gl_template_action_partner_form" />
+    <menuitem id="gl_template_base_client_branch_menuitem" name="GL Template (Client Branch) Edit" parent="asb_membership.menu_configuration" action="gl_template_base_client_branch_action" />
+    <menuitem id="client_gl_template_menuitem" name="GL Template" parent="asb_membership.menu_configuration" action="action_ui_view_gl_template" />
+
+  </data>
+</odoo>

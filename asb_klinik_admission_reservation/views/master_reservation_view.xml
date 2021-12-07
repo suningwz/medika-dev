@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <!-- View Reservasi -->
+        <record id="master_reservation_view_tree" model="ir.ui.view">
+            <field name="name">master.reservation.view.list</field>
+            <field name="model">master.reservation</field>
+            <field name="arch" type="xml">
+
+                <tree string="Daftar Reservasi" js_class="master_reservation_list_dashboard">
+                    <field name="name" />
+                    <field name="pasien_id" />
+                    <field name="jenis_kelamin" string="L/P"/>
+                    <field name="tanggal_lahir" />
+                    <field name="umur" />
+                    <field name="status_kunjungan" decoration-success="status_kunjungan == 'perjanjian'" decoration-warning="status_kunjungan == 'prioritas'" widget="badge"/>
+                    <field name="jenis_perjanjian" decoration-success="jenis_perjanjian == 'mc'" decoration-info="jenis_perjanjian == 'mcu'" decoration-warning="jenis_perjanjian == 'onsite'" widget="badge"/>
+                    <field name="tipe_rsv" decoration-success="tipe_rsv == 'direct'" decoration-info="tipe_rsv == 'online'" widget="badge"/>
+                    <field name="state" decoration-success="state == 'done'" decoration-info="state == 'confirm'" decoration-warning="state == 'draft'" decoration-danger="state == 'cancel'" widget="badge"/>
+                    <field name="faskes_id" />
+                    <field name="tanggal_reservasi" />
+                    <field name="tanggal_pembuatan" />
+                    <field name="user_create" />
+                    <button name="action_set_to_draft" type="object" states="confirm" string="Set to Draft" class="btn btn-info"/>
+                    <button name="action_confirm" type="object" states="draft" string="Confirm" class="btn btn-success" />
+                    <button name="action_cancel" type="object" states="confirm" string="Cancel" class="btn btn-danger" />
+                </tree>
+
+            </field>
+        </record>
+
+        <record id="master_reservation_view_form" model="ir.ui.view">
+            <field name="name">master.reservation.view.form</field>
+            <field name="model">master.reservation</field>
+            <field name="arch" type="xml">
+                <form string="Data Reservasi" duplicate="0">
+
+                    <header>
+                        <field name="list_package_ids" invisible="1"/>
+                        <field name="package_mcu_ids" invisible="1"/>
+                        <field name="perusahaan_ids" invisible="1"/>
+                        <field name="partner_ids" invisible="1"/>
+                        <field name="pasien_ids" invisible="1"/>
+                        <field name="poli_ids" invisible="1"/>
+                        <field name="dokter_ids" invisible="1"/>
+                        <field name="examination_ids" invisible="1"/>
+                        <button name="action_set_to_draft" type="object" states="confirm" string="Set to Draft" class="btn btn-info" groups="asb_klinik_admission_team.group_unit_admission_user"/>
+                        <button name="action_confirm" type="object" states="draft" string="Confirm" class="btn btn-success" groups="asb_klinik_admission_team.group_unit_admission_manager" />
+                        <button name="action_cancel" type="object" states="confirm" string="Cancel" class="btn btn-danger" groups="asb_klinik_admission_team.group_unit_admission_manager" />
+                        <field name="edit_hide_css" nolabel="1"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done,cancel"/>
+                    </header>
+
+                    <sheet>
+                        <group col="4" colspan="2" style="margin: 1px 0px;">
+                            <div class="oe_title" style="margin: 0px 50px 0px 0px;">
+                                <label for="name" string="No. Perjanjian"/>
+                                <h1>
+                                    <field name="name"/>
+                                </h1>
+                            </div>
+
+                            <div class="oe_title">
+                                <label for="display_name" string="Nama Pasien"/>
+                                <h1>
+                                    <field name="display_name"/>
+                                </h1>
+                            </div>
+                        </group>
+
+                        <group style="margin: 1px 0px;">
+                            <group string="Data Pasien" col="2" style="margin: 1px 0px;">
+                                <field name="pasien_id" domain="[('id', 'in', pasien_ids)]" context="{'tree_view_ref': 'asb_klinik_master_personil.master_pasien_view_template_tree', 'form_view_ref': 'asb_klinik_master_personil.master_pasien_view_form', 'default_customer': 0, 'default_supplier': 0, 'default_is_company': 0, 'default_is_pasien' : 1, 'default_type' : ''}" options="{'no_quick_create': True}"/>
+                                <field name="warga_negara" attrs="{'invisible' : [('pasien_id','=', False)]}"/>
+                                <field name="no_ktp" attrs="{'invisible' : [('pasien_id','=', False)]}"/>
+                                <field name="nik_pegawai" attrs="{'invisible' : [('pasien_id','=', False)]}"/>
+                                <field name="jenis_kelamin" attrs="{'invisible' : [('pasien_id','=', False)]}"/>
+                                <span class="o_form_label o_td_label" attrs="{'invisible' : [('pasien_id','=', False)]}">Tanggal Lahir</span>
+                                <div class="o_address_format" attrs="{'invisible' : [('pasien_id','=', False)]}">
+                                    <field name="tanggal_lahir" class="o_address_city"/>
+                                    <span class="o_form_label o_td_label" style="margin-left: 170px;">
+                                        <b>Umur </b>
+                                    </span>
+                                    <field name="umur" class="o_address_zip"/>
+                                </div>
+                                <field name="email" widget="email" attrs="{'invisible' : [('pasien_id','=', False)]}"/>
+                                <field name="mobile" widget="mobile" attrs="{'invisible' : [('pasien_id','=', False)]}"/>
+                                <span class="o_form_label o_td_label" name="address_name" attrs="{'invisible' : [('pasien_id', '=', False)]}">Address</span>
+                                <div class="o_address_format" attrs="{'invisible' : [('pasien_id', '=', False)]}">
+                                    <field name="street" class="o_address_street" placeholder="Street..." />
+                                    <field name="kelurahan_id" class="o_address_city" placeholder="Kelurahan" options="{'no_open': True, 'no_create': True}" domain="[('kecamatan_id', '=', kecamatan_id)]" context="{'tree_view_ref' : 'asb_state_city.kelurahan_ref_view_tree'}" />
+                                    <field name="kecamatan_id" class="o_address_state" placeholder="Kecamatan" options="{'no_open': True, 'no_create': True}" domain="[('city_id', '=', city_id)]" context="{'tree_view_ref' : 'asb_state_city.kecamatan_ref_view_tree'}" />
+                                    <field name="city_id" class="o_address_city" placeholder="City" options="{'no_open': True, 'no_create': True}" domain="[('state_id', '=', state_id)]" context="{'tree_view_ref' : 'asb_state_city.kota_kabupaten_ref_view_tree'}" />
+                                    <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_create': True}" domain="[('country_id', '=', country_id)]" />
+                                    <field name="country_id" class="o_address_city" placeholder="Country" options="{'no_open': True, 'no_create': True}" />
+                                    <field name="zip" class="o_address_state" placeholder="ZIP" />
+                                </div>
+                                <field name="status_pegawai" invisible="1"/>
+                                <field name="mulai_bekerja" invisible="1"/>
+                                <field name="jenis_pekerjaan_id" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}" invisible="1"/>
+                                <field name="shift_kerja" invisible="1"/>
+                                <field name="lokasi_pekerjaan_id" invisible="1"/>
+                                <field name="function" invisible="1"/>
+                            </group>
+
+                            <group string="Data Kunjungan" col="2" style="margin: 1px 0px;">
+                                <field name="tipe_rsv" />
+                                <field name="tanggal_reservasi" />
+                                <field name="status_kunjungan" />
+                                <field name="tipe_pengiriman" />
+                                <field name="status_gl" />
+                                <field name="no_gl" attrs="{'invisible' : [('status_gl','=','tidak')]}"/>
+                                <field name="bahasa_hasil" force_save="1" required="1" attrs="{'readonly': ['|', ('state', '!=', 'draft'), ('jenis_perjanjian', 'in', ['mcu', 'onsite'])]}"/>
+                                <field name="jenis_perjanjian" required="1" />
+                                <field name="poli_unit_ids" domain="[('id', 'in', poli_ids)]" attrs="{'invisible' : [('jenis_perjanjian', 'not in', ['mc'])], 'required' : [('jenis_perjanjian', '=', 'mc')]}" widget="many2many_tags" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True, 'color_field': 'color'}"/>
+                                <field name="dokter_id" domain="[('id', 'in', dokter_ids)]" attrs="{'invisible' : ['|', ('jenis_perjanjian', 'not in', ['mc']), ('poli_unit_ids', '=', [])], 'readonly': ['|', ('poli_unit_ids', '=', []), ('state', '!=', 'draft')], 'required' : ['&amp;', ('jenis_perjanjian', '=', 'mc'), ('is_poli_penunjang', '=', False)]}" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                                <field name="package_mcu_id" domain="[('id', 'in', package_mcu_ids)]" attrs="{'invisible' : [('jenis_perjanjian', 'not in', ['mcu', 'onsite'])], 'readonly': ['|', ('perusahaan_id', '=', False), ('state', '!=', 'draft')], 'required' : [('jenis_perjanjian', 'in', ['mcu', 'onsite'])]}" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                                <field name="list_package_id" domain="[('id', 'in', list_package_ids)]" attrs="{'invisible' : ['|', ('jenis_perjanjian', 'not in', ['mcu', 'onsite']), ('package_mcu_id', '=', False)], 'required' : [('jenis_perjanjian', 'in', ['mcu', 'onsite'])]}" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                                <field name="certificate_ids" widget="many2many_tags" options="{'color_field': 'color'}" attrs="{'invisible' : ['|', '|', ('jenis_perjanjian', 'not in', ['mcu', 'onsite']), ('package_mcu_id', '=', False), ('list_package_id', '=', False)]}"/>
+                                <field name="tanggal_pembuatan" invisible="1"/>
+                                <field name="user_create" invisible="1"/>
+                                <field name="tanggal_confirm" invisible="1"/>
+                                <field name="user_approve" invisible="1"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="faskes_id" invisible="1"/>
+                                <field name="code" invisible="1"/>
+                                <field name="is_poli_penunjang" invisible="1"/>
+                            </group>
+                        </group>
+
+                        <group string="Data Perusahaan" col="4" colspan="2" style="margin: 1px 0px;">
+                            <field name="perusahaan_id" force_save="1" domain="[('id', 'in', perusahaan_ids)]" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}" context="{'tree_view_ref': 'asb_klinik_master_personil.master_perusahaan_view_template_tree'}"/>
+                            <field name="partner_id" attrs="{'invisible' : [('perusahaan_id', '=', False)]}" domain="[('id', 'in', partner_ids)]" options="{'no_quick_create': True, 'no_open': True}" context="{'tree_view_ref' : 'asb_klinik_master_personil.pic_perusahaan_view_template_tree', 'form_view_ref': 'asb_klinik_master_personil.pic_perusahaan_view_form', 'default_customer': 0, 'default_supplier': 0, 'default_is_company': 0, 'default_type' : 'private', 'default_company_type' : 'person', 'default_is_perusahaan': 0, 'default_is_pic_perusahaan' : 1}"/>
+                            <field name="client_title_id" string="Posisi / Jabatan" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}" attrs="{'invisible' : ['|', ('perusahaan_id', '=', False), ('partner_id', '=', False)]}"/>
+                            <field name="email_pic" widget="email" attrs="{'invisible' : ['|', ('perusahaan_id', '=', False), ('partner_id', '=', False)]}"/>
+                            <field name="mobile_pic" widget="mobile" attrs="{'invisible' : ['|', ('perusahaan_id', '=', False), ('partner_id', '=', False)]}"/>
+                        </group>
+
+                        <notebook>
+                            <page name="master_examination_list" string="Examination List" attrs="{'invisible' : [('list_package_id', '=', False)]}">
+                                <field name="examination_list_ids" force_save="1">
+                                    <tree>
+                                        <field name="name" string="Examination List"/>
+                                        <field name="poli_unit_id" string="Poli / Unit"/>
+                                    </tree>
+                                    <form string="Examination List">
+                                        <sheet>
+                                            <group>
+                                                <field name="name" />
+                                                <field name="poli_unit_id"/>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                            <page name="master_sampling_list" string="Sampling List" attrs="{'invisible' : [('list_package_id', '=', False)]}">
+                                <field name="sampling_list_ids" force_save="1">
+                                    <tree>
+                                        <field name="name" string="Sampling"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="master_fixed_costing" string="Fixed Costing" attrs="{'invisible' : [('list_package_id', '=', False)]}">
+                                <field name="fixed_costing_line" readonly="1" force_save="1" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}">
+                                    <tree>
+                                        <field name="fixed_costing_id"/>
+                                        <field name="name" invisible="1"/>
+                                        <field name="cost_in_house" widget="monetary" invisible="1"/>
+                                        <field name="cost_onsite" widget="monetary" invisible="1"/>
+                                    </tree>
+                                    <form string="Fixed Costing" readonly="1" force_save="1">
+                                        <sheet>
+                                            <group col="4" colspan="2">
+                                                <field name="fixed_costing_id" />
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                            <page name="additional_examination_list" string="Additional Examination List" attrs="{'invisible' : [('is_poli_penunjang', '=', False)]}">
+                                <field name="additional_examination_ids" domain="[('id', 'in', examination_ids)]" force_save="1" widget="many2many" options="{'no_create': True}" context="{'tree_view_ref': 'asb_klinik_master_product.examination_list_view_tree', 'form_view_ref': 'asb_klinik_master_product.form_master_tindakan_layanan_inherit_product_template', 'default_is_product' : 1, 'default_is_service' : 1, 'default_purchase_ok' : 0, 'default_taxes_id' : [], 'default_type' : 'service'}">
+                                    <tree>
+                                        <field name="name" string="Nama Pemeriksaan" />
+                                        <field name="poli_unit_id" string="Poli / Unit" />
+                                        <field name="list_price" string="Harga Jual" widget="monetary" />
+                                        <field name="total_beban_langsung" widget="monetary" invisible="1" />
+                                    </tree>
+                                    <form string="Examination List">
+                                        <sheet>
+                                            <group col="4" colspan="2">
+                                                <field name="name" string="Nama Pemeriksaan" />
+                                                <field name="poli_unit_id" string="Poli / Unit" />
+                                                <field name="list_price" string="Harga Jual" widget="monetary" />
+                                                <field name="total_beban_langsung" widget="monetary" invisible="1" />
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+
+                        <div class="row" attrs="{'invisible' : [('list_package_id', '=', False)]}">
+                            <div class="col-md-9 text-right">
+                                <label for="total_list_price_id" class="o_light_label">Total Price Examination List (IDR)</label>
+                            </div>
+
+                            <div class="col-md-2 text-right">
+                                <field name="total_list_price" force_save="1" widget="monetary" id="total_list_price_id" class="oe_inline"/>
+                            </div>
+                        </div>
+
+                        <div class="row" attrs="{'invisible' : [('list_package_id', '=', False)]}">
+                            <div class="col-md-9 text-right">
+                                <label for="total_margin_id" class="o_light_label">Total Cost Margin (IDR)</label>
+                            </div>
+
+                            <div class="col-md-2 text-right">
+                                <field name="total_margin" force_save="1" widget="monetary" id="total_margin_id" class="oe_inline"/>
+                            </div>
+                        </div>
+
+                        <div class="row" attrs="{'invisible' : [('list_package_id', '=', False)]}">
+                            <hr style="width:50%;text-align:left;margin-left:auto;margin-right:0"/>
+                        </div>
+
+                        <div class="row" attrs="{'invisible' : [('list_package_id', '=', False)]}">
+                            <div class="col-md-9 text-right">
+                                <label for="total_cost_examination_list_id" class="o_light_label">Total Fixed Price Additional Examination List (IDR)</label>
+                            </div>
+
+                            <div class="col-md-2 text-right">
+                                <field name="total_cost_examination_list" force_save="1" widget="monetary" id="total_cost_examination_list_id" class="oe_inline"/>
+                            </div>
+                        </div>
+
+                        <div class="row" attrs="{'invisible' : [('list_package_id', '=', False)]}">
+                            <div class="col-md-9 text-right">
+                                <label for="price_paket_id" class="o_light_label">Price Paket MCU (IDR)</label>
+                            </div>
+
+                            <div class="col-md-2 text-right">
+                                <field name="price_paket" nolabel="1" force_save="1" widget="monetary" id="price_paket_id" class="oe_inline"/>
+                            </div>
+                        </div>
+
+                        <div class="row" attrs="{'invisible' : [('list_package_id', '=', False)]}">
+                            <div class="col-md-9 text-right">
+                                <label for="fix_price_paket_id" class="o_light_label">Total Cost Keseluruhan (IDR)</label>
+                            </div>
+
+                            <div class="col-md-2 text-right">
+                                <field name="fix_price_paket" nolabel="1" force_save="1" widget="monetary" id="fix_price_paket_id" class="oe_inline"/>
+                            </div>
+                        </div>
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <!-- Filter -->
+        <record id="view_master_reservation_filter" model="ir.ui.view">
+            <field name="name">master.reservation.view.search</field>
+            <field name="model">master.reservation</field>
+            <field name="arch" type="xml">
+
+                <search string="Search Reservasi">
+                    <field name="name" string="Nama Pasien" filter_domain="['|', ('display_name', 'ilike', self), ('name', 'ilike', self)]"/>
+                    <field name="no_ktp" string="No. KTP Pasien" filter_domain="[('no_ktp', 'ilike', self)]"/>
+                    <field name="tanggal_reservasi" string="Tanggal Reservasi" filter_domain="[('tanggal_reservasi', '=', self)]"/>
+                    <field name="jenis_perjanjian" string="Jenis Perjanjian" filter_domain="[('jenis_perjanjian', '=', self)]"/>
+                    <separator/>
+                    <filter name="today" string="Today" domain="[('tanggal_reservasi', '=', datetime.datetime.now())]"/>
+                    <filter name="tomorrow" string="Tomorrow" domain="[('tanggal_reservasi', '=', ((context_today()+datetime.timedelta(days=1)).strftime('%Y-%m-%d 23:59:59')))]"/>
+                    <separator/>
+                    <filter name="draft_reservasi" string="Waiting" domain="[('state', 'in', ['draft', 'confirm'])]"/>
+                    <filter name="confirm_reservasi" string="Waiting List" domain="[('state', '=', 'confirm')]"/>
+                    <filter name="registered_reservasi" string="Registered" domain="[('state', '=', 'done')]"/>
+                    <filter name="perjanjian_direct" string="Perjanjian Direct" domain="[('tipe_rsv', '=', 'direct')]"/>
+                    <filter name="perjanjian_online" string="Perjanjian Online" domain="[('tipe_rsv', '=', 'online')]"/>
+                    <separator/>
+                    <filter name="jenis_perjanjian_mc" string="Perjanjian MC" domain="[('jenis_perjanjian', '=', 'mc')]"/>
+                    <filter name="jenis_perjanjian_mcu" string="Perjanjian MCU" domain="[('jenis_perjanjian', 'in', ['mcu', 'onsite'])]"/>
+                    <separator/>
+                    <filter name="poli_umum" string="Poli Umum" domain="['|', '|', ('poli_unit_ids.nama_poli_unit', 'ilike', 'umum'), ('examination_list_ids.poli_unit_id.nama_poli_unit', 'ilike', 'umum'), ('additional_examination_ids.poli_unit_id.nama_poli_unit', 'ilike', 'umum')]"/>
+                    <filter name="poli_gigi" string="Poli Gigi" domain="['|', '|', ('poli_unit_ids.nama_poli_unit', 'ilike', 'gigi'), ('examination_list_ids.poli_unit_id.nama_poli_unit', 'ilike', 'gigi'), ('additional_examination_ids.poli_unit_id.nama_poli_unit', 'ilike', 'gigi')]"/>
+                    <filter name="spesialis_mata" string="Spesialis Mata" domain="['|', ('poli_unit_ids.nama_poli_unit', 'ilike', 'mata'), '|', '&amp;', ('examination_list_ids.poli_unit_id.nama_poli_unit', 'ilike', 'mata'), ('examination_list_ids.master_tindakan_id.kategori_produk_id.kategori_produk', 'ilike', 'konsul'), '&amp;', ('additional_examination_ids.poli_unit_id.nama_poli_unit', 'ilike', 'mata'), ('additional_examination_ids.kategori_produk_id.kategori_produk', 'ilike', 'konsul')]"/>
+                    <filter name="spesialis_jantung" string="Spesialis Jantung" domain="['|', ('poli_unit_ids.nama_poli_unit', 'ilike', 'jantung'), '|', '&amp;', ('examination_list_ids.poli_unit_id.nama_poli_unit', 'ilike', 'jantung'), ('examination_list_ids.master_tindakan_id.kategori_produk_id.kategori_produk', 'ilike', 'konsul'), '&amp;', ('additional_examination_ids.poli_unit_id.nama_poli_unit', 'ilike', 'jantung'), ('additional_examination_ids.kategori_produk_id.kategori_produk', 'ilike', 'konsul')]"/>
+                    <filter name="spesialis_tht" string="Spesialis THT" domain="['|', ('poli_unit_ids.nama_poli_unit', 'ilike', 'tht'), '|', '&amp;', ('examination_list_ids.poli_unit_id.nama_poli_unit', 'ilike', 'tht'), ('examination_list_ids.master_tindakan_id.kategori_produk_id.kategori_produk', 'ilike', 'konsul'), '&amp;', ('additional_examination_ids.poli_unit_id.nama_poli_unit', 'ilike', 'tht'), ('additional_examination_ids.kategori_produk_id.kategori_produk', 'ilike', 'konsul')]"/>
+                    <filter name="spesialis_dalam" string="Spesialis Penyakit Dalam" domain="['|', ('poli_unit_ids.nama_poli_unit', 'ilike', 'dalam'), '|', '&amp;', ('examination_list_ids.poli_unit_id.nama_poli_unit', 'ilike', 'dalam'), ('examination_list_ids.master_tindakan_id.kategori_produk_id.kategori_produk', 'ilike', 'konsul'), '&amp;', ('additional_examination_ids.poli_unit_id.nama_poli_unit', 'ilike', 'dalam'), ('additional_examination_ids.kategori_produk_id.kategori_produk', 'ilike', 'konsul')]"/>
+                    <filter name="spesialis_paru" string="Spesialis Paru" domain="['|', ('poli_unit_ids.nama_poli_unit', 'ilike', 'paru'), '|', '&amp;', ('examination_list_ids.poli_unit_id.nama_poli_unit', 'ilike', 'paru'), ('examination_list_ids.master_tindakan_id.kategori_produk_id.kategori_produk', 'ilike', 'konsul'), '&amp;', ('additional_examination_ids.poli_unit_id.nama_poli_unit', 'ilike', 'paru'), ('additional_examination_ids.kategori_produk_id.kategori_produk', 'ilike', 'konsul')]"/>
+                    <filter name="periksa_audiometri" string="Audiometri" domain="['|', ('examination_list_ids.name', 'ilike', 'audiom'), ('additional_examination_ids.name', 'ilike', 'audiom')]"/>
+                    <filter name="periksa_spirometri" string="Spirometri" domain="['|', ('examination_list_ids.name', 'ilike', 'spirom'), ('additional_examination_ids.name', 'ilike', 'spirom')]"/>
+                    <filter name="periksa_ekg" string="EKG" domain="['|', ('examination_list_ids.name', 'ilike', 'ekg'), ('additional_examination_ids.name', 'ilike', 'ekg')]"/>
+                    <filter name="periksa_treadmill" string="Treadmill" domain="['|', ('examination_list_ids.name', 'ilike', 'treadmill'), ('additional_examination_ids.name', 'ilike', 'treadmill')]"/>
+                    <separator/>
+                </search>
+
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="master_reservation_action" model="ir.actions.act_window">
+            <field name="name">Daftar Reservasi</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">master.reservation</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="master_reservation_view_tree"/>
+            <field name="search_view_id" ref="view_master_reservation_filter"/>
+            <field name="domain">[]</field>
+            <field name="context">{'search_default_today' : 1}</field>
+            <field name="help" type="html">
+                <p></p>
+            </field>
+        </record>
+
+        <record id="master_reservation_action_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="master_reservation_view_tree"/>
+            <field name="act_window_id" ref="master_reservation_action"/>
+        </record>
+
+        <record id="master_reservation_action_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="master_reservation_view_form"/>
+            <field name="act_window_id" ref="master_reservation_action"/>
+        </record>
+
+        <record id="master_reservation_action_dashboard_list" model="ir.actions.act_window">
+            <field name="name">Daftar Reservasi</field>
+            <field name="res_model">master.reservation</field>
+            <field name="view_mode">form,tree</field>
+            <field name="view_id" ref="master_reservation_view_tree"/>
+            <field name="search_view_id" ref="view_master_reservation_filter"/>
+            <field name="target">main</field>
+            <field name="help" type="html">
+                <p></p>
+            </field>
+        </record>
+
+        <record id="master_reservation_action_dashboard_list_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="master_reservation_view_tree"/>
+            <field name="act_window_id" ref="master_reservation_action_dashboard_list"/>
+        </record>
+
+        <record id="master_reservation_action_dashboard_list_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="master_reservation_view_form"/>
+            <field name="act_window_id" ref="master_reservation_action_dashboard_list"/>
+        </record>
+    
+    </data>
+</odoo>

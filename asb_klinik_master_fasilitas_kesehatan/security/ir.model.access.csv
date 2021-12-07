@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_master_jadwal_quota_mcu,master.jadwal.quota.mcu,model_master_jadwal_quota_mcu,base.group_user,1,1,1,1
+access_master_fasilitas_kesehatan,master.fasilitas.kesehatan,model_master_fasilitas_kesehatan,base.group_user,1,1,1,1

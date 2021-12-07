@@ -1,0 +1,89 @@
+<odoo>
+  <data>
+
+    <record id="preadmission_gl_smart_button" model="ir.actions.act_window">
+      <field name="name">Guarantee Letter</field>
+      <field name="res_model">guarantee.letter</field>
+      <field name="view_mode">form</field>
+    </record>
+
+    <!-- <record id="preadmission_inherit_create_gl" model="ir.ui.view">
+      <field name="name">pre.admission.view.form.inherit.create.gl</field>
+      <field name="model">pre.admission</field>
+      <field name="inherit_id" ref="asb_helpline_preadmission.pre_admission_view_form"/>
+      <field name="arch" type="xml">
+        <button name="action_close" position="after">
+          <button name="action_create_gl" type="object" string="Create GL" class="oe_highlight" attrs="{'invisible' : [('create_gl', '=', True)]}"/>
+        </button>
+        <xpath expr="//div[@name='button_box']" position="inside">
+          <field name="create_gl" invisible="1"/>
+          <button name="gl_smart_button" string="Claim Process" type="object" icon='fa-file-text' class="oe_stat_button" attrs="{'invisible':[('create_gl','=',False)]}"/>
+        </xpath>
+      </field>
+    </record> -->
+
+    <record id="view_preadmission_guarantee_letter_filter" model="ir.ui.view">
+      <field name="name">guarantee.letter.preadmission.select</field>
+      <field name="model">guarantee.letter</field>
+      <field name="arch" type="xml">
+        <search string="Search Preadmission">
+          <field name="member_id" string="Member"/>
+          <filter name="preadmission_case" string="Preadmission Case" domain="[('admission_date','=', datetime.datetime.now() + relativedelta(days=1))]"/>
+          <filter name="open_preadmission" string="Open Preadmission" domain="[('preadmission_state', '=', 'open'),('preadmission', '=', True)]"/>
+          <filter name="close_preadmission" string="Preadmission Closed" domain="[('preadmission_state', '=', 'close'),('preadmission', '=', True)]"/>
+        </search>
+      </field>
+    </record>
+
+
+    <!-- list view -->
+
+    <record model="ir.ui.view" id="preadmission_guarantee_letter_view_tree">
+      <field name="name">guarantee.letter.tree</field>
+      <field name="model">guarantee.letter</field>
+      <field name="arch" type="xml">
+        <tree string="Preadmission" js_class="preadmission_list_dashboard" default_order="preadmission_state desc">
+          <field name="name" />
+          <field name="client_id" />
+          <field name="provider_id" />
+          <field name="admission_date" />
+          <field name="gl_number" readonly="1"/>
+          <field name="remarks" />
+          <field name="preadmission_state" widget="badge" decoration-info="preadmission_state == 'open'" decoration-success="preadmission_state == 'close'" />
+        </tree>
+      </field>
+    </record>
+
+    <!-- Dashboard action button -->
+
+    <record id="preadmission_dashboard_list" model="ir.actions.act_window">
+      <field name="name">Preadmission</field>
+      <field name="res_model">guarantee.letter</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="asb_helpline_guarantee_letter.preadmission_guarantee_letter_view_tree"/>
+      <field name="search_view_id" ref="view_preadmission_guarantee_letter_filter"/>
+      <field name="target">main</field>
+      <field name="domain">[('preadmission','=',True)]</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_empty_folder">
+                No Preadmission Case to display
+        </p>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record id="preadmission_guarantee_letter_action_window" model="ir.actions.act_window">
+      <field name="name">Preadmission</field>
+      <field name="res_model">guarantee.letter</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('preadmission','=',True)]</field>
+      <field name="context">{'preadmission': True}</field>
+      <field name="view_id" ref="asb_helpline_guarantee_letter.preadmission_guarantee_letter_view_tree"/>
+      <field name="search_view_id" ref="view_preadmission_guarantee_letter_filter"/>
+    </record>
+
+    <menuitem name="Preadmission" id="asb_preadmission_guarantee_letter_menu" parent="asb_helpline.menu_root" action="preadmission_guarantee_letter_action_window" sequence="2"/>
+
+  </data>
+</odoo>

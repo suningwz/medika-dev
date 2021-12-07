@@ -1,0 +1,81 @@
+<odoo>
+  <data>
+
+    <!-- List View Readonly -->
+    <record model="ir.ui.view" id="helpline_supporting_ambulance_rental_tree_readonly">
+      <field name="name">helpline.supporting.ambulance.rental.tree.readonly</field>
+      <field name="model">helpline.supporting.ambulance.rental</field>
+      <field name="arch" type="xml">
+        <tree create="0" edit="0" delete="0">
+          <field name="name" />
+          <field name="remarks" />
+          <field name="ambulance_rental_from" />
+          <field name="ambulance_rental_to" />
+        </tree>
+      </field>
+    </record>
+
+    <!-- Action list view on call.record -->
+
+    <record id="guarantee_letter_ambulance_rental_list_action" model="ir.actions.act_window">
+      <field name="name">Ambulance Rental</field>
+      <field name="res_model">helpline.supporting.ambulance.rental</field>
+      <field name="view_mode">tree</field>
+      <field name="target">new</field>
+      <field name="view_id" ref="helpline_supporting_ambulance_rental_tree_readonly"/>
+      <field name="binding_model_id" ref="asb_helpline_call_record.model_call_record"/>
+    </record>
+
+    <!-- List View -->
+    <record model="ir.ui.view" id="helpline_supporting_ambulance_rental_tree">
+      <field name="name">helpline.supporting.ambulance.rental.tree</field>
+      <field name="model">helpline.supporting.ambulance.rental</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" />
+          <field name="remarks" />
+          <field name="ambulance_rental_from" />
+          <field name="ambulance_rental_to" />
+        </tree>
+      </field>
+    </record>
+
+    <!-- Form View -->
+    <record model="ir.ui.view" id="helpline_supporting_ambulance_rental_form">
+      <field name="name">helpline.supporting.ambulance.rental.form</field>
+      <field name="model">helpline.supporting.ambulance.rental</field>
+      <field name="arch" type="xml">
+        <form>
+          <header></header>
+          <sheet>
+            <group>
+              <group>
+                <field name="name" />
+                <field name="remarks" />
+              </group>
+              <group>
+                <field name="ambulance_rental_from" />
+                <field name="ambulance_rental_to" />
+              </group>
+            </group>
+          </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers" />
+            <field name="activity_ids" widget="mail_activity" />
+            <field name="message_ids" widget="mail_thread" />
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="helpline_supporting_ambulance_rental_action">
+      <field name="name">List Ambulance Rental</field>
+      <field name="res_model">helpline.supporting.ambulance.rental</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="asb_helpline_supporting_ambulance_rental.helpline_supporting_ambulance_rental_tree"/>
+    </record>
+
+    <menuitem id="submenu_helpline_supporting_ambulance_rental" name="List Ambulance Rental" parent="asb_helpline_supporting.asb_helpline_supporting_menu" action="helpline_supporting_ambulance_rental_action" />
+
+  </data>
+</odoo>

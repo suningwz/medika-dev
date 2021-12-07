@@ -1,0 +1,35 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="monitoring_detail_remarks_view_form">
+      <field name="name">monitoring.detail.remarks.form</field>
+      <field name="model">monitoring.detail.remarks</field>
+      <field name="arch" type="xml">
+        <form string="Add Remarks">
+          <sheet>
+            <group>
+              <field name="name" readonly="1"/>
+              <field name="remarks" widget="text"/>
+              <field name="detail_id" invisible="1" />
+            </group>
+          </sheet>
+          <footer>
+            <button name="add_remarks" type="object" string="Save" class="oe_highlight" />
+            <button special="cancel" string="Cancel" />
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record id="monitoring_detail_remarks_action_wizard" model="ir.actions.act_window">
+      <field name="name">Remarks</field>
+      <field name="res_model">monitoring.detail.remarks</field>
+      <field name="view_mode">form</field>
+      <field name="context">{'default_detail_id': active_id}</field>
+      <field name="target">new</field>
+    </record>
+
+  </data>
+</odoo>

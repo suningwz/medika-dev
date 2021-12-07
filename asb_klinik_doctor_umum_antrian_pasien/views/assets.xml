@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="antrian_pasien_assets_backend" name="antrian_pasien" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/scss" href="asb_klinik_doctor_umum_antrian_pasien/static/src/scss/antrian_pasien.scss" />
+        </xpath>
+    </template>
+
+</odoo>

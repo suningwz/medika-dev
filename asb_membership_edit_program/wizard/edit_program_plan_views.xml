@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="form_view_inherit_edit_header" model="ir.ui.view">
+            <field name="name">program.plan.header.view.form.inherit</field>
+            <field name="model">program.plan.header</field>
+            <field name="inherit_id" ref="asb_membership_client.client_program_plan_header_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="before">
+                    <header>
+                        <button string="Edit" name="action_edit_header" type="object" class="oe_highlight oe_read_only o_icon_white" attrs="{'invisible':[('is_editable','=',False)]}" icon="fa-pencil" />
+                    </header>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="form_view_inherit_client_edit_program_plan" model="ir.ui.view">
+            <field name="name">client.program.plan.view.form.inherit</field>
+            <field name="model">client.program.plan</field>
+            <field name="inherit_id" ref="asb_membership_client.client_program_plan_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="before">
+                    <header>
+                        <button string="Edit" name="action_edit_wizard" type="object" class="oe_highlight oe_read_only o_icon_white" attrs="{'invisible':[('is_editable','=',False)]}" icon="fa-pencil" />
+                        <button string="Add Header" name="action_add_header" type="object" class="oe_highlight oe_read_only" attrs="{'invisible':[('is_editable','=',False)]}" />
+                        <button string="Refresh" name="refresh" type="object" class="oe_highlight oe_read_only o_icon_white" attrs="{'invisible':[('is_editable','=',False)]}" icon="fa-refresh" />
+                    </header>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="edit_program_plan_form" model="ir.ui.view">
+            <field name="name">edit.program.plan.view.form</field>
+            <field name="model">edit.program.plan</field>
+            <field name="arch" type="xml">
+                <form string="Program Plan ">
+                    <sheet>
+                        <!-- <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" type="action" name="asb_membership_client.plan_header_action" icon="fa-user-o">
+                                <field string="Header" name="plan_header_count" widget="statinfo" />
+                            </button>
+                        </div> -->
+                        <group col='4'>
+                            <group colspan='2'>
+                                <field name="program_id" readonly="1" />
+                                <field name="program_plan_id" invisible="1" />
+                                <field name="entity" />
+                                <field name="name" required="1" />
+                                <field name="service" />
+                            </group>
+                            <group colspan='2'>
+                                <field name="fullcover" />
+                                <field name="created_by" readonly="1" />
+                                <field name="created_date" readonly="1" />
+                                <field name="existing_program_plan_line" invisible="1" />
+                                <field name="program_plan_line_count" invisible="1" />
+                                <field name="existing_header" invisible="1" />
+                                <field name="header_line_count" invisible="1" />
+                                <!-- <field name="existing_header" invisible="1"/> -->
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="header_lines" string="Header">
+                                <field name="header_line">
+                                    <tree create="0" editable="top">
+                                        <field name="temp_id" invisible="1" />
+                                        <field name="program_id" options="{'no_open': True}" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                        <field name="plan_id" options="{'no_open': True}" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                        <field name="benefit_category_id" force_save="1" options="{'no_open': True}" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                        <field name="annual_limit" force_save="1" attrs="{'readonly': [('is_editable','=', False)]}" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                                        <field name="daily_limit" force_save="1" widget="monetary" options="{'currency_field': 'currency_id'}" invisible="1" />
+                                        <field name="deductible" force_save="1" attrs="{'readonly': [('is_editable','=', False)]}" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                                        <field name="coinsurance" force_save="1" widget="percentage" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                        <field name="coshare" force_save="1" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                        <field name="currency_id" invisible="1" />
+                                        <field name="created_by" options="{'no_open': True}" readonly="1" />
+                                        <field name="created_date" readonly="1" />
+                                        <field name="is_editable" invisible="1" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="edc_remarks" string="EDC Remarks">
+                                <field name="program_plan_lines" widget='one2many' />
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <footer>
+                        <button name="save_program" type="object" string="Save" class="oe_highlight" />
+                        <button special="cancel" string="Cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="edit_program_plan_line_view_tree" model="ir.ui.view">
+            <field name="model">edit.program.plan.line</field>
+            <field name="name">edit.program.plan.line.view.tree</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="temp_id" invisible="1" />
+                    <field name="benefit_category_id" options="{'no_open': True, 'no_create': True}" />
+                    <field name="benefit_id" domain="[('id','=',get_benefit_id_domain)]" options="{'no_open': True, 'no_create': True}" />
+                    <field name="remarks" />
+                    <field name="edit_program_id" invisible="1" />
+                    <field name="get_benefit_id_domain" invisible="1" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="edit_program_plan_header_view_form" model="ir.ui.view">
+            <field name="name">edit.program.plan.header.view.form</field>
+            <field name="model">edit.program.plan.header</field>
+            <field name="arch" type="xml">
+                <form string="Plan Header">
+                    <sheet>
+                        <group col='4'>
+                            <group colspan='2' attrs="{'readonly': [('is_editable','=', False)]}">
+                                <field name="plan_id" readonly="1" />
+                                <field name="benefit_category_id" required="1" />
+                                <field name="annual_limit" force_save="1" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                                <field name="daily_limit" force_save="1" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                                <field name="deductible" force_save="1" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                                <field name="deductible_period" />
+                            </group>
+                            <group colspan='2'>
+                                <!-- <label for="coinsurance" string="Co-Insurance" />
+                                <div class="o_row"> -->
+                                <field name="coinsurance" widget="percentage" force_save="1" />
+                                <!-- %
+                                </div> -->
+                                <field name="coshare" force_save="1" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                                <field name="currency_id" force_save="1" />
+                                <field name="limit_selection" />
+                                <field name="created_by" readonly="1" />
+                                <field name="created_date" readonly="1" />
+                                <field name="edit_plan_id" invisible="1" />
+                                <field name="detail_line_count" invisible="1" />
+                                <field name="existing_detail" invisible="1" />
+                                <field name="onchange_count" invisible="1" />
+                                <field name="is_editable" invisible="1" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="header_detail_line" string="Detail">
+                                <field name="detail_line" force_save="1" />
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <footer>
+                        <field name="edit_header" invisible="1" />
+                        <button name="save_plan_header" type="object" string="Save" class="oe_highlight" attrs="{'invisible':[('edit_header','=',True)]}" />
+                        <button name="save_header" type="object" string="Save" class="oe_highlight" attrs="{'invisible':[('edit_header','=',False)]}" />
+                        <button special="cancel" string="Cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="edit_program_plan_header_view_tree" model="ir.ui.view">
+            <field name="model">edit.program.plan.header</field>
+            <field name="name">edit.program.plan.header.view.tree</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="temp_id" invisible="1" />
+                    <field name="program_id" options="{'no_open': True}" attrs="{'readonly': [('is_editable','=', False)]}" />
+                    <field name="plan_id" options="{'no_open': True}" attrs="{'readonly': [('is_editable','=', False)]}" />
+                    <field name="benefit_category_id" force_save="1" options="{'no_open': True}" attrs="{'readonly': [('is_editable','=', False)]}" />
+                    <field name="annual_limit" force_save="1" attrs="{'readonly': [('is_editable','=', False)]}" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                    <field name="daily_limit" force_save="1" widget="monetary" options="{'currency_field': 'currency_id'}" invisible="1" />
+                    <field name="deductible" force_save="1" attrs="{'readonly': [('is_editable','=', False)]}" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                    <field name="coinsurance" force_save="1" widget="percentage" attrs="{'readonly': [('is_editable','=', False)]}" />
+                    <field name="coshare" force_save="1" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('is_editable','=', False)]}" />
+                    <field name="currency_id" invisible="1" />
+                    <field name="created_by" options="{'no_open': True}" readonly="1" />
+                    <field name="created_date" readonly="1" />
+                    <field name="is_editable" invisible="1" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="edit_header_detail_view_tree" model="ir.ui.view">
+            <field name="model">edit.header.detail</field>
+            <field name="name">edit.header.detail.view.tree</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="temp_id" invisible="1" />
+                    <field name="benefit_id" domain="[('id','=',get_benefit_id_domain)]" options="{'no_open': True, 'no_create': True}" required="1" />
+                    <field name="cover" />
+                    <field name="max_per_visit" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                    <field name="max_day_per_year" />
+                    <field name="max_per_day" />
+                    <field name="inner_limit" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                    <field name="per_day_limit" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                    <field name="created_by" readonly="1" />
+                    <field name="created_date" readonly="1" />
+                    <field name="currency_id" invisible="1" />
+                    <field name="get_benefit_id_domain" invisible="1" />
+                    <field name="header_id" invisible="1" />
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

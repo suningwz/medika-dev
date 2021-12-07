@@ -1,0 +1,115 @@
+<odoo>
+  <data>
+
+    <!-- Form View -->
+
+    <record model="ir.ui.view" id="eclaim_eclaim_view_form">
+      <field name="name">eclaim.eclaim.form</field>
+      <field name="model">eclaim.eclaim</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+            <button name="action_receive" type="object" string="Receive" class="oe_highlight" attrs="{'invisible': [('document_status', '!=', 'submit')]}" />
+            <button name="action_scan" type="object" string="Scanned" class="oe_highlight" attrs="{'invisible': ['|',('document_status', '!=', 'receive'),('state', 'in', ['scan','batch'])]}" />
+            <button name="action_batch" type="object" string="Batch" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'scan')]}" />
+            <!-- <widget name="attach_document" string="Upload Scans" action="message_post" highlight="1" attrs="{'invisible': ['|',('document_status', '!=', 'receive'),('state', 'in', ['scan','batch'])]}" /> -->
+            <!-- <button name="action_cancel" type="object" string="Cancel"/> -->
+            <field name="state" widget="statusbar" statusbar_visible="draft,scan,batch" />
+            <field name="document_status" invisible="1" />
+          </header>
+          <sheet>
+            <!-- <div name="button_box" class="oe_button_box">
+              <button name="action_get_attachment_view" string="Scans" class="oe_stat_button" icon="fa-book" type="object"/>
+            </div> -->
+            <group>
+              <group>
+                <field name="receipt_number" required="1" />
+                <field name="claim_type" />
+                <field name="provider_id" attrs="{'invisible': [('claim_type','!=','cashless')]}" />
+                <field name="client_id" attrs="{'invisible': [('claim_type','!=','reimburse')]}" context="{'form_view_ref': 'asb_membership_client.membership_client_view_form'}" />
+                <field name="invoice_number" />
+              </group>
+              <group>
+                <field name="document_from" />
+                <field name="to" />
+                <field name="case_quantity" />
+                <field name="date" />
+                <!-- <field name="case_total" /> -->
+              </group>
+            </group>
+            <notebook>
+              <page name="invoice_detail_lines" string="Invoice Detail">
+              </page>
+              <page name="notes_page" string="Notes">
+                <field name="notes" widget="text" />
+              </page>
+            </notebook>
+          </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers" />
+            <field name="activity_ids" widget="mail_activity" />
+            <field name="message_ids" widget="mail_thread" />
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="eclaim_eclaim_view_tree">
+      <field name="name">eclaim.eclaim.tree</field>
+      <field name="model">eclaim.eclaim</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="receipt_number" />
+          <field name="invoice_number" />
+          <field name="document_from" />
+          <field name="to" />
+          <field name="date" />
+          <field name="document_status" />
+          <field name="state" />
+        </tree>
+      </field>
+    </record>
+
+    <!-- actions open attachment models -->
+
+    <!-- <record id="action_attachment_eclaim" model="ir.actions.act_window">
+      <field name="name">Attachments</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">ir.attachment</field>
+      <field name="view_id" eval="False"/>
+      <field name="domain">[('res_model','=','eclaim.eclaim'), ('res_id', '=', active_id)]</field>
+      <field name="context">{'default_res_model': 'eclaim.eclaim', 'default_res_id': active_id}</field>
+      <field name="search_view_id" ref="base.view_attachment_search"/>
+      <field name="view_id" ref="asb_binary_newtab.attachment_tree_view_dev"/>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+                    Create a new document
+        </p>
+        <p>
+                    Also you will find here all the related documents and download it by clicking on any individual document.
+        </p>
+      </field>
+    </record> -->
+
+    <!-- actions opening views on models -->
+
+    <record id="eclaim_eclaim_action_window" model="ir.actions.act_window">
+      <field name="name">Document</field>
+      <field name="res_model">eclaim.eclaim</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('state','!=','batch')]</field>
+    </record>
+
+    <!-- <record id="document_submit_eclaim_action_window" model="ir.actions.act_window">
+      <field name="name">Document</field>
+      <field name="res_model">eclaim.eclaim</field>
+      <field name="view_mode">form</field>
+      <field name="target">main</field>
+    </record> -->
+
+    <!-- menu categories -->
+
+    <menuitem name="Document and Batch" id="asb_eclaim_eclaim_submenu" parent="asb_eclaim.menu_root" action="eclaim_eclaim_action_window" sequence="1" />
+
+  </data>
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_member_deleted,asb_member_deleted.member_deleted,model_member_deleted,base.group_user,1,1,1,1
+access_remarks_member_deleted,asb_member_deleted.remarks_member_deleted,model_remarks_member_deleted,base.group_user,1,1,1,1

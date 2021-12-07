@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="master_cost_allocation_view_form" model="ir.ui.view">
+            <field name="name">master.cost.allocation.view.form</field>
+            <field name="model">master.cost.allocation</field>
+            <field name="arch" type="xml">
+                <form string="Master Allocation" create="0" duplicate="0">
+                    
+                    <sheet>
+                        <div class="oe_title">
+                            <h2>
+                                <field name="name"/>
+                            </h2>
+                        </div>
+
+                        <group col="6" colspan="2">
+                            <field name="direct_cost_allocation" widget="percentage" />
+                            <field name="fixed_cost_allocation" widget="percentage" />
+                            <field name="profit_margin_allocation" widget="percentage" />
+                        </group>
+
+                        <div class="oe_title">
+                            <h2>
+                                <field name="name_setting"/>
+                            </h2>
+                        </div>
+
+                        <group col="4" colspan="2">
+                            <field name="profit_margin_product" widget="percentage" />
+                            <field name="ppn_product" widget="percentage" />
+                        </group>
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="master_cost_allocation_action">
+            <field name="name">Master Cost Allocation</field>
+            <field name="model_id" ref="model_master_cost_allocation" />
+            <field name="state">code</field>
+            <field name="code">action=env['master.cost.allocation']._get_mysetting()
+            </field>
+        </record>
+        
+    </data>
+</odoo>

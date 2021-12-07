@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_case_monitoring,asb_helpline.case_monitoring,model_case_monitoring,base.group_user,1,1,1,1
+access_monitoring_detail_remarks,asb_helpline.monitoring_detail_remarks,model_monitoring_detail_remarks,base.group_user,1,1,1,1
+access_monitoring_detail,asb_helpline.monitoring_detail,model_monitoring_detail,base.group_user,1,1,1,1
+access_cost_containment_line,asb_helpline.cost_containment_line,model_cost_containment_line,base.group_user,1,1,1,1

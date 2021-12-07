@@ -1,0 +1,13 @@
+<odoo>
+  <data>
+
+    <!-- Top menu item -->
+
+    <menuitem name="Helpline" id="asb_helpline.menu_root" web_icon="asb_helpline,static/description/icon.png" groups="asb_helpline.user_helpline"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Configuration" id="asb_configuration_menu" parent="asb_helpline.menu_root" />
+
+  </data>
+</odoo>

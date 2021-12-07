@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+  
+    <menuitem id="master_data_klinik_menu" sequence="10" name="Master Data Klinik" web_icon="asb_klinik_master_data_klinik,static/description/icon.png"/>
+    
+    <!-- Menu Item Master Klinik-->
+    <menuitem id="master_klinik_menu" sequence="11" name="Master Klinik" parent="master_data_klinik_menu"/>
+    <menuitem id="master_poli_unit_menu" name="Poli / Unit" action="asb_klinik_master_poli_unit.master_poli_unit_action" parent="master_klinik_menu"/>
+    <menuitem id="master_fasilitas_kesehatan_menu" name="Fasilitas Kesehatan" action="asb_klinik_master_fasilitas_kesehatan.master_fasilitas_kesehatan_action" parent="master_klinik_menu"/>
+
+    <!-- Menu Item Master Personil -->
+    <menuitem id="master_personil_menu" sequence="12" name="Master Personil" parent="master_data_klinik_menu"/>    
+    <menuitem id="master_ketenagaan_menu" name="Master Ketenagaan" action="asb_klinik_master_ketenagaan.master_ketenagaan_action" parent="master_personil_menu"/>
+    <menuitem id="master_dokter_menu" name="Master Dokter" action="asb_klinik_master_personil.master_dokter_action" parent="master_personil_menu"/>
+    <menuitem id="master_perawat_menu" name="Master Perawat" action="asb_klinik_master_personil.master_perawat_action" parent="master_personil_menu"/>
+    <menuitem id="master_non_medis_menu" name="Master Tenaga Non-Medis" action="asb_klinik_master_personil.master_non_medis_action" parent="master_personil_menu" />
+
+    <!-- Menu Item Master Client -->
+    <menuitem id="master_client_menu" sequence="13" name="Master Client" parent="master_data_klinik_menu"/>
+    <menuitem id="master_pasien_menu" name="Master Pasien" action="asb_klinik_master_personil.master_pasien_action" parent="master_client_menu"/>
+    <menuitem id="master_perusahaan_menu" name="Master Perusahaan" action="asb_klinik_master_personil.master_perusahaan_action" parent="master_client_menu"/>
+    <menuitem id="master_membership_client_menu" name="Membership - Client" action="asb_membership_client.client_action_partner_form" parent="master_client_menu"/>
+
+    <!-- Menu Item Master Product -->
+    <menuitem id="master_produk_menu" sequence="14" name="Master Produk" parent="master_data_klinik_menu"/>
+    <menuitem id="master_kategori_produk_menu" name="Kategori Produk" action="asb_klinik_master_product.master_kategori_produk_action" parent="master_produk_menu"/>
+    <menuitem id="master_komponen_tarif_menu" name="Komponen Tarif" action="asb_klinik_master_product.master_komponen_tarif_action" parent="master_produk_menu"/>
+    <menuitem id="master_alat_obat_menu" name="Alat Kesehatan / Obat" action="asb_klinik_master_product.master_alat_kesehatan_obat_action" parent="master_produk_menu"/>
+    <menuitem id="master_jasa_menu" name="Master Jasa" action="asb_klinik_master_product.master_jasa_action" parent="master_produk_menu"/>
+    <menuitem id="master_tindakan_layanan_menu" name="Master Tindakan / Layanan" action="asb_klinik_master_product.master_tindakan_layanan_action" parent="master_produk_menu"/>
+    <menuitem id="master_sampling_menu" name="Master Sampling" action="asb_klinik_master_product.master_sampling_action" parent="master_produk_menu"/>
+    <menuitem id="master_pricelist_menu" name="Master Pricelist" action="asb_klinik_master_product.master_pricelist_action" parent="master_produk_menu"/>
+
+    <!-- Menu Item Master Configuration -->
+    <menuitem id="master_configuration_menu" sequence="15" name="Configuration" parent="master_data_klinik_menu"/>
+    
+    <menuitem id="master_pekerjaan_configuration_menu" name="Pekerjaan" parent="master_configuration_menu"/>
+    <menuitem id="master_lokasi_pekerjaan_menu" name="Lokasi Pekerjaan" action="asb_klinik_master_personil.master_lokasi_pekerjaan_action" parent="master_pekerjaan_configuration_menu" />
+    <menuitem id="master_jenis_pekerjaan_menu" name="Jenis Pekerjaan" action="asb_klinik_master_personil.master_jenis_pekerjaan_action" parent="master_pekerjaan_configuration_menu" />
+
+    <menuitem id="master_dokumen_configuration_menu" name="Dokumen" parent="master_configuration_menu"/>
+    <menuitem id="master_jenis_dokumen_menu" name="Jenis Dokumen" action="asb_klinik_master_dokumen.master_jenis_dokumen_action" parent="master_dokumen_configuration_menu" />
+
+    <menuitem id="master_obat_menu" name="Obat" parent="master_configuration_menu"/>
+    <menuitem id="master_bentuk_persediaan_menu" name="Bentuk Persediaan" action="asb_klinik_master_product.master_bentuk_persediaan_action" parent="master_obat_menu" />
+
+    <menuitem id="master_kategori_menu" name="Kategori Product" parent="master_configuration_menu"/>
+    <menuitem id="master_sub_kategori_menu" name="Sub - Kategori Product" action="asb_klinik_master_product.master_sub_kategori_produk_action" parent="master_kategori_menu" />
+
+    <menuitem id="master_cost_configuration_menu" name="Cost" parent="master_configuration_menu"/>
+    <menuitem id="master_cost_allocation_menu" name="Cost Allocation" parent="master_cost_configuration_menu" action="asb_klinik_master_cost_allocation.master_cost_allocation_action"/>
+
+    <menuitem id="master_banks_configuration_menu" name="Banks" parent="master_configuration_menu"/>
+    <menuitem id="master_banks_menu" name="Banks" parent="master_banks_configuration_menu" action="base.action_res_bank_form"/>
+    
+    <menuitem id="profile_user_menu" sequence="16" name="Profile User" parent="master_data_klinik_menu" action="profile_user_menu_action"/>
+
+  </data>
+</odoo>

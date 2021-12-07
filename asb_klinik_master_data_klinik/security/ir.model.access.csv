@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ir_server_object_lines_personal,ir.server.object.lines.personal,base.model_ir_server_object_lines,asb_klinik_master_data_klinik.group_profile_user_user,1,1,1,1
+access_ir_actions_server_personal,ir.actions.server.personal,base.model_ir_actions_server,asb_klinik_master_data_klinik.group_profile_user_user,1,1,1,1
+access_res_users_personal,res.users.personal,base.model_res_users,asb_klinik_master_data_klinik.group_profile_user_user,1,1,0,0

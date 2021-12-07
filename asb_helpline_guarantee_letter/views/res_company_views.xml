@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_company_form">
+            <field name="name">res.company.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='background']" position="after">
+                    <page string="GL Template" name="gl_template">
+                        <group>
+                            <group>
+                                <field name="gl_ttd" widget='image' />
+                                <field name="gl_ttd_name" />
+                                <field name="gl_title" />
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data >
+
+        <record id="source_call_in" model="helpline.source">
+            <field name="name">Call In</field>
+        </record>
+
+        <record id="source_call_out" model="helpline.source">
+            <field name="name">Call Out</field>
+        </record>
+
+        <record id="source_email_in" model="helpline.source">
+            <field name="name">Email In</field>
+        </record>
+
+        <record id="source_email_in" model="helpline.source">
+            <field name="name">Email Out</field>
+        </record>
+
+        <record id="source_whatsapp" model="helpline.source">
+            <field name="name">Whatsapp</field>
+        </record>
+
+        <record id="source_eclient" model="helpline.source">
+            <field name="name">E-Client</field>
+        </record>
+
+    </data>
+</odoo>

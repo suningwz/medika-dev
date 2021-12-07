@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record id="master_tindakan_layanan_view_tree" model="ir.ui.view">
+            <field name="name">master.tindakan.layanan.view.tree</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+
+                <tree string="Master Tindakan / Layanan">
+                    <field name="active" invisible="1"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="default_code" string="Kode Product"/>
+                    <field name="kode_lis" />
+                    <field name="kode_sap"/>
+                    <field name="name" string="Nama Tindakan / Layanan"/>
+                    <field name="type" string="Tipe"/>
+                    <field name="kategori_produk_id" />
+                    <field name="total_beban_langsung" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="total_beban_pokok" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="harga_jual_minimum" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="list_price" string="Harga Jual Jasa" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="poli_unit_id" string="Default Poli / Unit"/>
+                    <field name="status" decoration-success="active == True" decoration-warning="active == False" widget="badge"/>
+                </tree>
+
+            </field>
+        </record>
+
+        <record id="master_tindakan_layanan_simple_view_tree" model="ir.ui.view">
+            <field name="name">master.tindakan.layanan.simple.view.tree</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+
+                <tree string="Master Tindakan / Layanan">
+                    <field name="active" invisible="1"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="default_code" string="Kode Product"/>
+                    <field name="kode_lis" />
+                    <field name="kode_sap"/>
+                    <field name="name" string="Nama Tindakan / Layanan"/>
+                    <field name="poli_unit_id" string="Poli / Unit"/>
+                    <field name="total_beban_langsung" string="Harga Jasa" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                </tree>
+
+            </field>
+        </record>
+
+        <record id="examination_list_view_tree" model="ir.ui.view">
+            <field name="name">additional.examination.list.view.tree</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+
+                <tree string="Master Tindakan / Layanan">
+                    <field name="active" invisible="1"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="default_code" string="Kode Product"/>
+                    <field name="kode_lis" />
+                    <field name="kode_sap"/>
+                    <field name="name" string="Nama Tindakan / Layanan"/>
+                    <field name="poli_unit_id" string="Poli / Unit"/>
+                    <field name="list_price" string="Harga Jasa" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                </tree>
+
+            </field>
+        </record>
+
+        <record id="form_master_tindakan_layanan_inherit_product_template" model="ir.ui.view">
+            <field name="name">master.tindakan.layanan.view.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+
+            <field name="purchase_ok" position="attributes">
+                <attribute name='attrs'>
+                        {'invisible': ['|', ('is_service', '=', True), ('is_jasa', '=', True)]}
+                </attribute>
+            </field>
+
+            <xpath expr="//label[@for='purchase_ok']" position="attributes">
+                <attribute name='attrs'>
+                        {'invisible': ['|', ('is_service', '=', True), ('is_jasa', '=', True)]}
+                </attribute>
+            </xpath>
+
+            <field name="sale_ok" position="attributes">
+                <attribute name='attrs'>
+                        {'invisible': ['|', ('is_service', '=', True), ('is_jasa', '=', True)]}
+                </attribute>
+            </field>
+
+            <xpath expr="//label[@for='sale_ok']" position="attributes">
+                <attribute name='attrs'>
+                        {'invisible': ['|', ('is_service', '=', True), ('is_jasa', '=', True)]}
+                </attribute>
+            </xpath>
+
+            <xpath expr="//div[@name='button_box']" position="attributes">
+                <attribute name='attrs'>
+                        {'invisible': ['|', ('is_service', '=', True), ('is_jasa', '=', True)]}
+                </attribute>
+            </xpath>
+
+            <xpath expr="//notebook/page[@name='sales']" position="attributes">
+                <attribute name='attrs'>
+                        {'invisible': ['|', ('is_service', '=', True), ('is_jasa', '=', True)]}
+                </attribute>
+            </xpath>
+
+            <xpath expr="//notebook/page[@name='general_information']" position="attributes">
+                <attribute name='attrs'>
+                        {'invisible': ['|', ('is_service', '=', True), ('is_jasa', '=', True)]}
+                </attribute>
+            </xpath>
+
+            <xpath expr="//notebook" position="before">
+                <group style="margin: 1px 0px;" string="Informasi Tindakan / Layanan" attrs="{'invisible': [('is_service', '!=', True)]}">
+                    <group>
+                        <field name="is_laboratorium" invisible="1"/>
+                        <field name="master_sub_kategori_ids" invisible="1"/>
+                        <field name="default_code" string="Kode Product" attrs="{'required': [('is_service', '=', True)]}" />
+                        <field name="kode_lis" attrs="{'required': [('is_laboratorium', '=', True)]}" />
+                        <field name="kode_sap" string="Kode SAP" attrs="{'required': [('is_service', '=', True)]}" />
+                        <field name="type" force_save="1" readonly="1"/>
+                        <field name="kategori_produk_id" attrs="{'required': [('is_service', '=', True)]}" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                        <field name="sub_kategori_produk_id" domain="[('id', 'in', master_sub_kategori_ids)]" attrs="{'invisible': [('is_laboratorium', '=', False)], 'required': [('is_laboratorium', '=', True)]}" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                        <field name="currency_id" invisible="1"/>
+                    </group>
+
+                    <group>
+                        <field name="poli_unit_id" attrs="{'required': [('is_service', '=', True)]}" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                        <field name="semua_unit" widget="boolean_toggle" />
+                        <field name="poli_unit_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                        <field name="total_nominal_dokter" invisible="1"/>
+                        <field name="total_nominal_perawat" invisible="1"/>
+                        <field name="total_nominal_obat" invisible="1"/>
+                        <field name="total_nominal_alkes" invisible="1"/>
+                        <field name="total_nominal_jasa" invisible="1"/>
+                    </group>
+                </group>
+
+                <group style="margin: 1px 0px;" string="Informasi Cost / Biaya" attrs="{'invisible': [('is_service', '!=', True)]}">
+                    <group>
+                        <field name="master_dokter_ids" invisible="1"/>
+                        <field name="master_perawat_ids" invisible="1"/>
+                        <field name="master_obat_ids" invisible="1"/>
+                        <field name="master_alat_kesehatan_ids" invisible="1"/>
+                        <field name="master_jasa_ids" invisible="1"/>
+                        <field name="direct_cost" force_save="1" widget="percentage" />
+                        <field name="fixed_cost" force_save="1" widget="percentage" />
+                        <field name="profit_margin" force_save="1" widget="percentage" />
+                        <field name="alokasi_beban_tetap" force_save="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="profit_margin_rupiah" force_save="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="pengaturan_jasa" widget="boolean_toggle" />
+                    </group>
+
+                    <group>
+                        <field name="total_beban_langsung" force_save="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="total_beban_pokok" force_save="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="harga_jual_minimum" force_save="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="list_price" string="Harga Jual Jasa" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    </group>
+                </group>
+            </xpath>
+
+            <xpath expr="//notebook" position="inside">
+                <page name="master_jasa_dokter" string="Jasa Dokter" attrs="{'invisible': [('is_service', '!=', True)]}">
+                    <field name="master_dokter_line" attrs="{'readonly': [('pengaturan_jasa', '=', False)]}">
+                        <tree editable="bottom">
+                            <field name="partner_id" domain="[('id', 'in', parent.master_dokter_ids)]" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                            <field name="master_komponen_id" />
+                            <field name="jenis_tindakan" />
+                            <field name="persentase" attrs="{'readonly': [('jenis_tindakan', '=', 'mcu')]}"/>
+                            <field name="nominal" widget="monetary" attrs="{'readonly': [('persentase', '>', 0.0)]}"/>
+                        </tree>
+                        <form string="Jasa Dokter">
+                            <sheet>
+                                <group col="4" colspan="2">
+                                    <field name="master_komponen_id" />
+                                    <field name="persentase" />
+                                    <field name="jenis_tindakan" />
+                                    <field name="nominal" />
+                                    <field name="partner_id" />
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+                </page>
+
+                <page name="master_jasa_perawat" string="Jasa Perawat" attrs="{'invisible': [('is_service', '!=', True)]}">
+                    <field name="master_perawat_line" attrs="{'readonly': [('pengaturan_jasa', '=', False)]}">
+                        <tree editable="bottom">
+                            <field name="partner_id" domain="[('id', 'in', parent.master_perawat_ids)]" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                            <field name="master_komponen_id" />
+                            <field name="jenis_tindakan" />
+                            <field name="persentase" attrs="{'readonly': [('jenis_tindakan', '=', 'mcu')]}"/>
+                            <field name="nominal" widget="monetary" attrs="{'readonly': [('persentase', '>', 0.0)]}"/>
+                        </tree>
+                        <form string="Jasa Perawat">
+                            <sheet>
+                                <group col="4" colspan="2">
+                                    <field name="master_komponen_id" />
+                                    <field name="persentase" />
+                                    <field name="jenis_tindakan" />
+                                    <field name="nominal" />
+                                    <field name="partner_id" />
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+                </page>
+
+                <page name="master_obat" string="Obat" attrs="{'invisible': [('is_service', '!=', True)]}">
+                    <field name="master_obat_line" attrs="{'readonly': [('pengaturan_jasa', '=', False)]}">
+                        <tree editable="bottom">
+                            <field name="product_id" domain="[('id', 'in', parent.master_obat_ids)]" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                            <field name="quantity" />
+                            <field name="unit_price" widget="monetary"/>
+                            <field name="subtotal" widget="monetary" />
+                        </tree>
+                        <form string="Obat">
+                            <sheet>
+                                <group col="4" colspan="2">
+                                    <field name="product_id" />
+                                    <field name="unit_price" />
+                                    <field name="quantity" />
+                                    <field name="subtotal" />
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+                </page>
+
+                <page name="master_alat_kesehatan" string="Alat Kesehatan" attrs="{'invisible': [('is_service', '!=', True)]}">
+                    <field name="master_alat_kesehatan_line" attrs="{'readonly': [('pengaturan_jasa', '=', False)]}">
+                        <tree editable="bottom">
+                            <field name="product_id" domain="[('id', 'in', parent.master_alat_kesehatan_ids)]" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                            <field name="quantity" />
+                            <field name="unit_price" widget="monetary"/>
+                            <field name="subtotal" widget="monetary" />
+                        </tree>
+                        <form string="Alat Kesehatan">
+                            <sheet>
+                                <group col="4" colspan="2">
+                                    <field name="product_id" />
+                                    <field name="unit_price" />
+                                    <field name="quantity" />
+                                    <field name="subtotal" />
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+                </page>
+
+                <page name="master_jasa" string="Jasa Lainnya" attrs="{'invisible': [('is_service', '!=', True)]}">
+                    <field name="master_jasa_line" attrs="{'readonly': [('pengaturan_jasa', '=', False)]}">
+                        <tree editable="bottom">
+                            <field name="product_id" domain="[('id', 'in', parent.master_jasa_ids)]" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                            <field name="quantity" />
+                            <field name="unit_price" widget="monetary"/>
+                            <field name="subtotal" widget="monetary" />
+                        </tree>
+                        <form string="Jasa Lainnya">
+                            <sheet>
+                                <group col="4" colspan="2">
+                                    <field name="product_id" />
+                                    <field name="unit_price" />
+                                    <field name="quantity" />
+                                    <field name="subtotal" />
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+                
+            </field>
+        </record>
+
+        <record id="master_tindakan_layanan_action" model="ir.actions.act_window">
+            <field name="name">Master Tindakan / Layanan</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type', '=', 'service'), ('is_service', '=', True)]</field>
+            <field name="context">{ 'default_is_product' : 1,
+                                    'default_is_service' : 1,
+                                    'default_purchase_ok' : 0,
+                                    'default_taxes_id' : [],
+                                    'default_type' : 'service'}</field>
+            <field name="view_id" ref="master_tindakan_layanan_view_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                  Tidak ada Data Tindakan / Layanan
+                </p>
+            </field>
+        </record>
+
+        <record id="master_tindakan_layanan_action_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="master_tindakan_layanan_view_tree"/>
+            <field name="act_window_id" ref="master_tindakan_layanan_action"/>
+        </record>
+
+        <record id="master_tindakan_layanan_action_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="form_master_tindakan_layanan_inherit_product_template"/>
+            <field name="act_window_id" ref="master_tindakan_layanan_action"/>
+        </record>
+    
+    </data>
+</odoo>

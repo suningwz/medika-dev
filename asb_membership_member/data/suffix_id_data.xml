@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="a" model="suffix.id">
+            <field name="name">A</field>
+        </record>
+        <record id="b" model="suffix.id">
+            <field name="name">B</field>
+        </record>
+        <record id="c" model="suffix.id">
+            <field name="name">C</field>
+        </record>
+        <record id="d" model="suffix.id">
+            <field name="name">D</field>
+        </record>
+        <record id="e" model="suffix.id">
+            <field name="name">E</field>
+        </record>
+        <record id="f" model="suffix.id">
+            <field name="name">F</field>
+        </record>
+        <record id="g" model="suffix.id">
+            <field name="name">G</field>
+        </record>
+        <record id="h" model="suffix.id">
+            <field name="name">H</field>
+        </record>
+        <record id="i" model="suffix.id">
+            <field name="name">I</field>
+        </record>
+        <record id="j" model="suffix.id">
+            <field name="name">J</field>
+        </record>
+        <record id="k" model="suffix.id">
+            <field name="name">K</field>
+        </record>
+        <record id="l" model="suffix.id">
+            <field name="name">L</field>
+        </record>
+        <record id="m" model="suffix.id">
+            <field name="name">M</field>
+        </record>
+        <record id="n" model="suffix.id">
+            <field name="name">N</field>
+        </record>
+        <record id="o" model="suffix.id">
+            <field name="name">O</field>
+        </record>
+        <record id="p" model="suffix.id">
+            <field name="name">P</field>
+        </record>
+        <record id="q" model="suffix.id">
+            <field name="name">Q</field>
+        </record>
+        <record id="r" model="suffix.id">
+            <field name="name">R</field>
+        </record>
+        <record id="s" model="suffix.id">
+            <field name="name">S</field>
+        </record>
+        <record id="t" model="suffix.id">
+            <field name="name">T</field>
+        </record>
+        <record id="u" model="suffix.id">
+            <field name="name">U</field>
+        </record>
+        <record id="v" model="suffix.id">
+            <field name="name">V</field>
+        </record>
+        <record id="w" model="suffix.id">
+            <field name="name">W</field>
+        </record>
+        <record id="x" model="suffix.id">
+            <field name="name">X</field>
+        </record>
+        <record id="y" model="suffix.id">
+            <field name="name">Y</field>
+        </record>
+        <record id="z" model="suffix.id">
+            <field name="name">Z</field>
+        </record>
+    </data>
+</odoo>

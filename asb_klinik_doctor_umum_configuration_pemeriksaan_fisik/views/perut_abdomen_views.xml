@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit form doctor umum antrian pasien -->
+        <record id="doctor_umum_antrian_pasien_form_inherit_perut_abdomen" model="ir.ui.view">
+            <field name="name">master.registration.view.form.inherit</field>
+            <field name="model">master.registration</field>
+            <field name="inherit_id" ref="asb_klinik_doctor_umum_antrian_pasien.antrian_pasien_doctor_umum_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='perut']" position="after">
+                    <!-- <group string="PERUT/ABDOMEN" class="o_group_selection"> -->
+                    <group string="PERUT/ABDOMEN">
+                        <field name="bentuk" class="o_width_200px" widget='radio' options="{'horizontal': true}" />
+                        <field name="palpasi" class="o_width_200px" widget='radio' options="{'horizontal': true}" />
+                        <field name="hati" class="o_width_200px" widget='radio' options="{'horizontal': true}" />
+                        <field name="limpa" class="o_width_200px" widget='radio' options="{'horizontal': true}" />
+                        <field name="ginjal" class="o_width_200px" widget='radio' options="{'horizontal': true}" />
+                        <label for="hernia_inguinal" />
+                        <div class="o_row">
+                            <field name="hernia_inguinal" class="o_width_200px" widget='radio' options="{'horizontal': true}" />
+                            <field name="des_hernia_inguinal" attrs="{'required':[('hernia_inguinal','=','ya')]}" />
+                        </div>
+                        <label for="nyeri_ketok" />
+                        <div class="o_row">
+                            <field name="nyeri_ketok" class="o_width_200px" widget='radio' options="{'horizontal': true}" />
+                            <field name="des_nyeri_ketok" attrs="{'required':[('nyeri_ketok','=','ya')]}" />
+                        </div>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

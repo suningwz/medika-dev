@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="1">
+        <record id="card_member_email_template" model="mail.template">
+            <field name="name">Card Member: Send by email</field>
+            <field name="model_id" ref="base.model_res_partner" />
+            <field name="email_from">${object.user_id.email_formatted |safe}</field>
+            <field name="email_to">${object.email}</field>
+            <field name="subject">Card Member ${object.name}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding:0px;">
+                    <p style="margin: 0px; padding:0px; font-size: 13px;">
+                        Dear ${object.name}
+                        <br />
+                        <br />
+                        Here is your card member with reference ${object.card_number}
+                        <br />
+                        Name : ${object.name}
+                        <br />
+                        Client Name : ${object.member_client_id.name}
+                        <br />
+                        <br />
+                        If you have queries feel free to ask.
+                    </p>
+                </div>
+            </field>
+            <field name="report_template" ref="asb_membership_member.action_print_card_member" />
+            <field name="report_name">Card Member ${object.name}</field>
+        </record>
+    </data>
+
+
+</odoo>

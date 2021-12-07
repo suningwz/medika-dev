@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+
+        <template id="assets_backend_helpline" name="Helpline" inherit_id="web.assets_backend">
+            <xpath expr=".">
+                <link rel="stylesheet" href="/asb_helpline_guarantee_letter/static/src/scss/form_view.scss"/>
+            </xpath>
+        </template>
+
+        <template id="preadmission_assets_backend" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" type="text/scss" href="/asb_helpline_guarantee_letter/static/src/scss/preadmission_dashboard.scss"/>
+                <script type="text/javascript" src="/asb_helpline_guarantee_letter/static/src/js/preadmission_dashboard.js"/>
+            </xpath>
+        </template>
+
+        <template id="guarantee_letter_assets_backend" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" type="text/scss" href="/asb_helpline_guarantee_letter/static/src/scss/guarantee_letter_dashboard.scss" />
+                <script type="text/javascript" src="/asb_helpline_guarantee_letter/static/src/js/guarantee_letter_dashboard.js" />
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

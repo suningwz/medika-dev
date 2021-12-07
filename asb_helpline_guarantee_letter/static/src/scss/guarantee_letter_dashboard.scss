@@ -1,0 +1,44 @@
+.o_guarantee_letter_dashboard {
+    flex: 1 0 100%;
+    padding: 10px 10px 18px 10px;
+    background-color: $o-view-background-color;
+    position: relative;
+    max-width:100%;
+
+    .row {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .o_dashboard_action {
+        cursor: pointer;
+    }
+    
+    .table {
+        margin-bottom: 0;
+        table-layout: fixed;
+        border-spacing: 10px 0px;
+        border-collapse: separate;
+        width: 100%;
+        height: 100%;
+        vertical-align: middle;
+
+        &.o_main {
+            background-color: #ffffff;
+            &:hover {
+                background-color: darken(#ffffff, 10%);
+            }
+        }
+        
+        > tbody > tr > td {
+            vertical-align: middle;
+            &.o_remarks {
+                width:80%;
+                font-size: 15px;
+                font-weight: bold;
+                text-align: left;
+                vertical-align: middle;
+            }
+        }
+    }
+}

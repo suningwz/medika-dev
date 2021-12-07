@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="client_branch_member_action" model="ir.actions.act_window">
+            <field name="name">Member</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('member', '=', True),('client_branch_id', '=', active_id)]</field>
+            <field name="context">{'default_client_branch_id': active_id, 'default_member': True, 'default_customer': 0}</field>
+            <field name="target">main</field>
+        </record>
+
+        <record id="client_program_member_action" model="ir.actions.act_window">
+            <field name="name">Program</field>
+            <field name="res_model">client.program</field>
+            <field name="view_mode">form</field>
+            <field name="domain">[('client_branch_id', '=', active_id)]</field>
+            <field name="context">{'default_client_branch_id': active_id}</field>
+            <field name="target">main</field>
+        </record>
+
+        <record id="client_branch_view_form" model="ir.ui.view">
+            <field name="name">client.branch.view.form</field>
+            <field name="model">client.branch</field>
+            <field name="arch" type="xml">
+                <form string="Contract">
+                    <header>
+                        <button string="Enable" name="enable" type="object" class="oe_highlight" attrs="{'invisible':[('state','not in','draft')]}" />
+                        <button string="Disable" name="disable" type="object" class="oe_highlight" attrs="{'invisible':[('state','not in','enabled')]}" />
+                        <button string="Set to Draft" name="draft" type="object" class="oe_highlight" attrs="{'invisible':[('state','in','draft')]}" />
+                        <button string="Refresh" name="refresh" type="object" class="oe_highlight o_icon_white" attrs="{'invisible':[('state','not in','draft')]}" icon="fa-refresh" />
+                        <field name="state" widget="statusbar" />
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box" invisible="1">
+                            <button class="oe_stat_button" type="action" name="asb_membership_client.client_program_member_action" icon="fa-files-o">
+                                <field string="Program" name="branch_program_count" widget="statinfo" />
+                            </button>
+                            <button class="oe_stat_button" type="action" name="asb_membership_client.client_branch_member_action" icon="fa-user-o">
+                                <field string="Member" name="branch_member_count" widget="statinfo" />
+                            </button>
+                        </div>
+                        <group col='4'>
+                            <group colspan="2">
+                                <field name="client_id" readonly="1" context="{'form_view_ref' :'asb_membership_client.membership_client_view_form'}" />
+                                <field name="name" required="1" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                <field name="id" string="Entity ID" readonly="1" />
+                                <field name="contract_number" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                <label for="street" string="Address" class="oe_edit_only" attrs="{'readonly': [('is_editable', '=', False)]}" />
+                                <div class="o_address_format oe_edit_only" attrs="{'readonly': [('is_editable', '=', False)]}">
+                                    <field name="country_id" class="o_address_state" style="width: 31%%" placeholder="Country" options="{'no_open': True, 'no_create': True}" />
+                                    <field name="state_id" class="o_address_state" style="width: 31%%" placeholder="State" options="{'no_open': True, 'no_create': True}" domain="[('country_id','=',country_id)]" />
+                                    <field name="city_id" style="width: 34%%" placeholder="City" options="{'no_open': True, 'no_create': True}" domain="[('state_id','=',state_id)]" />
+                                    <field name="kecamatan_id" class="o_address_state" style="width: 31%%" placeholder="Kecamatan" options="{'no_open': True, 'no_create': True}" domain="[('city_id','=',city_id)]" />
+                                    <field name="kelurahan_id" class="o_address_state" style="width: 31%%" placeholder="Kelurahan" options="{'no_open': True, 'no_create': True}" domain="[('kecamatan_id','=',kecamatan_id)]" />
+                                    <field name="zip" style="width: 34%%" placeholder="ZIP" />
+                                    <field name="street" class="o_address_street" placeholder="Street..." />
+                                </div>
+                                <label for="street" string="Address" class="oe_read_only" attrs="{'readonly': [('is_editable', '=', False)]}" />
+                                <div class="o_address_format oe_read_only" attrs="{'readonly': [('is_editable', '=', False)]}">
+                                    <field name="street" class="o_address_street" placeholder="Street..." />
+                                    <field name="kelurahan_id" class="o_address_state" placeholder="Kelurahan" options="{'no_open': True, 'no_create': True}" domain="[('kecamatan_id','=',kecamatan_id)]" />
+                                    <field name="kecamatan_id" class="o_address_state" placeholder="Kecamatan" options="{'no_open': True, 'no_create': True}" domain="[('city_id','=',city_id)]" />
+                                    <field name="city_id" class="o_address_state" placeholder="City" options="{'no_open': True, 'no_create': True}" domain="[('state_id','=',state_id)]" />
+                                    <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_create': True}" domain="[('country_id','=',country_id)]" />
+                                    <field name="country_id" class="o_address_state" placeholder="Country" options="{'no_open': True, 'no_create': True}" />
+                                    <field name="zip" class="o_address_state" placeholder="ZIP" />
+                                </div>
+                            </group>
+                            <group colspan="2">
+                                <field name="start_date" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                <field name="end_date" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                <field name="created_by" readonly="1" />
+                                <field name="created_date" readonly="1" />
+                                <field name="is_editable" invisible="1" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="program" string="Program">
+                                <field name="client_program_line" attrs="{'readonly': [('is_editable','=', False)]}" context="{'default_client_branch_id': id, 'default_start_date': start_date, 'default_end_date': end_date}">
+                                    <tree>
+                                        <field name="client_branch_id" class='oe_read_only' />
+                                        <field name="name" />
+                                        <field name="claim_by" />
+                                        <field name="floatfund" />
+                                        <field name="floatfund_warning_tree" invisible="1" />
+                                        <field name="start_date" />
+                                        <field name="end_date" />
+                                        <field name="create_uid" class="oe_read_only" optional='hide' />
+                                        <field name="create_date" class="oe_read_only" optional='hide' />
+                                    </tree>
+                                </field>
+                            </page>
+                            <!-- <page name="member" string="Member">
+                                <field name="partner_line" context="{'default_member': True, 'default_is_membership': 1, 'default_customer': 0, 'default_member_client_id': client_id}" attrs="{'readonly': [('is_editable','=', False)]}">
+                                    <tree>
+                                        <field name="display_name" string='Name' />
+                                        <field name="street" />
+                                        <field name="mobile" />
+                                        <field name="email" />
+                                    </tree>
+                                </field>
+                            </page> -->
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="activity_ids" widget="mail_activity" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="client_branch_view_tree" model="ir.ui.view">
+            <field name="model">client.branch</field>
+            <field name="name">client.branch.view.tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="client_id" />
+                    <field name="name" />
+                    <field name="id" string='Entity ID' />
+                    <field name="street" string="Address" />
+                    <field name="start_date" />
+                    <field name="end_date" />
+                    <field name="created_by" />
+                    <field name="created_date" />
+                </tree>
+            </field>
+        </record>
+
+    </data>
+
+
+</odoo>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="report.paperformat" id="report_correspondence_format">
+        <field name="name">Report correspondence Format</field>
+        <field name="default" eval="False" />
+        <field name="format">custom</field>
+        <field name="page_width">210</field>
+        <field name="page_height">297</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">25</field>
+        <field name="margin_right">25</field>
+        <field name="header_line" eval="False" />
+    </record>
+
+
+    <template id="report_correspondence_perjanjian_kerjasama">
+        <t t-call="web.html_container">
+            <style>
+        p.big {
+        line-height: 1.4;
+        }
+        </style>
+            <div class="page" style="font-size:12pt; font-family:Arial; page-break-before:always;">
+                <t t-foreach="docs" t-as="doc">
+                    <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)" style="max-height: 150px;" alt="Logo" />
+                    <p class="big">
+                        Jakarta,
+                        <span t-field='doc.created_date' />
+                        <br />
+                        No :
+                        <span t-field='doc.name' />
+                        <br />
+                    </p>
+
+                    <p class="big">
+                        Kepada Yth.
+                        <br />
+                        <b>
+                            <span t-field='doc.partner_id.name' />
+                        </b>
+                        <br />
+                        <t t-esc="', '.join([item for item in [
+                            ', '.join([item for item in [doc.partner_id.street, doc.partner_id.street2] if item]),
+                            doc.partner_id.city,
+                            doc.partner_id.state_id and doc.partner_id.state_id.name,
+                            doc.partner_id.zip,
+                            doc.partner_id.country_id and doc.partner_id.country_id.name] if item])" />
+                        <br />
+                    </p>
+
+                    <p>
+                        <b>
+                            Up
+                            <span style="padding-left:38px;">
+                                :
+                                <span t-field='doc.name_up_id' />
+                            </span>
+                            <br />
+                            Perihal
+                            <span style="padding-left:6px;"> : Perjanjian Kerjasama Pelayanan Kesehatan</span>
+                            <br />
+                        </b>
+                    </p>
+
+                    <br />
+                    <p style="text-align: justify" class="big">
+                        Dengan hormat,
+                        <br />
+                        Sebelumnya kami mengucapkan terima kasih untuk terjalinnya kerjasama ini antara
+                        <b>PT. Kartika Bina Medikatama (Medika Plaza)</b>
+                        dengan
+                        <b>
+                            <span t-field='doc.partner_id.name' />
+                        </b>
+                        .
+                        <br />
+                    </p>
+                    <p style="text-align: justify" class="big">
+                        Bersama ini kami kirimkan 2 (dua) Perjanjian Kerjasama Pelayanan Kesehatan antara
+                    PT. Kartika Bina Medikatama (Medika Plaza) dan
+                        <span t-field='doc.partner_id.name' />
+                        yang telah disepakati sebelumnya dan telah ditandatangani oleh direksi kami.
+                        <br />
+                    </p>
+                    <p style="text-align: justify" class="big">
+                        Selanjutnya mohon
+                        <b>dikirim kembali 1 (satu) berkas</b>
+                        untuk PT. Kartika Bina Medikatama (Medika Plaza) 
+                    setelah ditandatangani oleh pejabat yang berwenang dan dicap perusahaan/rs.
+                        <br />
+                    </p>
+                    <p style="text-align: justify" class="big">
+                        Demikianlah kami sampaikan, atas perhatian dan kerjasamanya kami ucapkan terima kasih.
+                        <br />
+                    </p>
+                    <br />
+                    <p> Hormat kami,
+                </p>
+                    <img t-if="doc.type_id.ttd" t-att-src="image_data_uri(doc.type_id.ttd)" style="max-height: 100px;" alt="Logo" />
+                    <p>
+                        <u>
+                            <b>
+                                <span t-field='doc.type_id.ttd_name' />
+                            </b>
+                        </u>
+                        <br />
+                        <span t-field='doc.type_id.title' />
+                        <br />
+                    </p>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <record id="action_report_correspondence_perjanjian_kerjasama" model="ir.actions.report">
+        <field name="name">Perjanjian Kerjasama</field>
+        <field name="model">correspondence.correspondence</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">asb_master_provider_correspondence.report_correspondence_perjanjian_kerjasama</field>
+        <field name="report_file">asb_master_provider_correspondence.report_correspondence_perjanjian_kerjasama</field>
+        <field name="paperformat_id" ref="asb_master_provider_correspondence.report_correspondence_format" />
+    </record>
+
+</odoo>

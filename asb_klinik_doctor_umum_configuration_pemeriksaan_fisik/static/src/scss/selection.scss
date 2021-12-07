@@ -1,0 +1,35 @@
+// per group
+.o_group_selection {
+    &.o_inner_group {
+        > tbody > tr > td > div {
+            &.o_row { 
+                > div > div > label {
+                &.o_form_label {
+                    margin-left: 0px !important; 
+                    width:200px !important;
+                }
+            }
+            }
+        } 
+        
+        div > label {
+                &.o_form_label {
+                    margin-left: 0px !important; 
+                    width:200px !important;
+                }
+            }
+    }
+}
+
+// per field
+.o_width_200px {
+    &.o_field_widget {
+        > div 
+            > label {
+                &.o_form_label {
+                    margin-left: 0px !important; 
+                    width:200px !important;
+                }
+            }
+    }
+}

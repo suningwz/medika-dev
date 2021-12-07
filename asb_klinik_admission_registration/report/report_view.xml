@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <report
+            id="print_data_pasien" 
+            model="master.registration" 
+            string="Data Pasien" 
+            report_type="qweb-html" 
+            name="asb_klinik_admission_registration.report_data_pasien" 
+            file="asb_klinik_admission_registration.report_data_pasien" 
+            print_report_name="('Report Data Pasien - %s' % (object.pasien_id.name))" />
+        />
+    
+    </data>
+</odoo>

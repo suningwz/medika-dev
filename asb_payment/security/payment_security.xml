@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.module.category" id="module_payment">
+        <field name="name">Unit Payment</field>
+        <field name="sequence">4</field>
+    </record>
+
+    <record id="access_payment" model="res.groups">
+        <field name="name">Access Payment</field>
+        <field name="category_id" ref="module_payment" />
+    </record>
+
+    <record id="user_payment" model="res.groups">
+        <field name="name">User Payment</field>
+        <field name="category_id" ref="module_payment" />
+        <field name="implied_ids" eval="[(4, ref('access_payment'))]" />
+    </record>
+
+    <record id="manager_payment" model="res.groups">
+        <field name="name">Manager Payment</field>
+        <field name="category_id" ref="module_payment" />
+        <field name="implied_ids" eval="[(4, ref('access_payment'))]" />
+    </record>
+
+    <record id="base.group_system" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('asb_payment.manager_payment'))]" />
+    </record>
+
+</odoo>

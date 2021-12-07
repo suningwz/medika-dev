@@ -1,0 +1,27 @@
+<odoo>
+  <data>
+
+    <record id="client_policy_action" model="ir.actions.act_window">
+      <field name="name">Policy</field>
+      <field name="res_model">policy.policy</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('client_id', '=', active_id)]</field>
+      <field name="context">{'default_partner_id': active_id, 'default_client_id': active_id}</field>
+      <!-- <field name="search_view_id" ref="view_policy_filter" /> -->
+    </record>
+
+    <record id="membership_client_view_form_inherit_policy" model="ir.ui.view">
+      <field name="name">res.partner.view.form.inherit.policy</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="asb_membership_client.membership_client_view_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//div[@name='client_button_box']" position="inside">
+          <button class="oe_stat_button" type="action" name="asb_membership_policy.client_policy_action" icon="fa-pencil-square-o">
+            <field string="Contract" name="policy_count" widget="statinfo" />
+          </button>
+        </xpath>
+      </field>
+    </record>
+
+  </data>
+</odoo>

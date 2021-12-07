@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record id="master_jasa_view_tree" model="ir.ui.view">
+            <field name="name">master.jasa.view.tree</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+
+                <tree string="Master Jasa">
+                    <field name="currency_id" invisible="1"/>
+                    <field name="default_code" string="Kode SAP"/>
+                    <field name="name" string="Nama Produk"/>
+                    <field name="type" string="Tipe"/>
+                    <field name="standard_price" string="Cost Jasa" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="list_price" string="Harga Jual Jasa" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="uom_id" />
+                </tree>
+
+            </field>
+        </record>
+
+        <record id="form_master_jasa_inherit_product_template" model="ir.ui.view">
+            <field name="name">master.jasa.view.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+
+                <field name="purchase_ok" position="attributes">
+                    <attribute name='attrs'>
+                        {'invisible': ['|', ('is_service', '=', True), ('is_jasa', '=', True)]}
+                    </attribute>
+                </field>
+
+                <xpath expr="//label[@for='purchase_ok']" position="attributes">
+                    <attribute name='attrs'>
+                        {'invisible': ['|', ('is_service', '=', True), ('is_jasa', '=', True)]}
+                    </attribute>
+                </xpath>
+
+                <field name="sale_ok" position="attributes">
+                    <attribute name='attrs'>
+                        {'invisible': ['|', ('is_service', '=', True), ('is_jasa', '=', True)]}
+                    </attribute>
+                </field>
+
+                <xpath expr="//label[@for='sale_ok']" position="attributes">
+                    <attribute name='attrs'>
+                        {'invisible': ['|', ('is_service', '=', True), ('is_jasa', '=', True)]}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//div[@name='button_box']" position="attributes">
+                    <attribute name='attrs'>
+                        {'invisible': ['|', ('is_service', '=', True), ('is_jasa', '=', True)]}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//notebook/page[@name='sales']" position="attributes">
+                    <attribute name='attrs'>
+                        {'invisible': ['|', ('is_service', '=', True), ('is_jasa', '=', True)]}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//notebook/page[@name='general_information']" position="attributes">
+                    <attribute name='attrs'>
+                        {'invisible': ['|', ('is_service', '=', True), ('is_jasa', '=', True)]}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//notebook" position="before">
+                    <group string="Informasi Jasa" style="margin: 1px 0px;" attrs="{'invisible': [('is_jasa', '!=', True)]}">
+                        <group name="group_general">
+                            <field name="active" invisible="1"/>
+                            <field name="default_code" string="Kode SAP"/>
+                            <field name="type" force_save="1" readonly="1"/>
+                        </group>
+                        <group name="group_standard_price">
+                            <field name="company_id" force_save="1" options="{'no_create': True}" invisible="1"/>
+                            <label for="standard_price" string="Cost Jasa" groups="base.group_user"/>
+                            <div name="standard_price_uom" groups="base.group_user" class="o_row">
+                                <field name="standard_price" widget="monetary" options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+                            </div>
+                            <label for="list_price" string="Harga Jual Jasa"/>
+                            <div name="pricing">
+                                <field name="list_price" class="oe_inline" widget="monetary" options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+                            </div>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="cost_currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                </xpath>
+                
+            </field>
+        </record>
+
+        <record id="master_jasa_action" model="ir.actions.act_window">
+            <field name="name">Master Jasa</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type', '=', 'service'), ('is_jasa', '=', True)]</field>
+            <field name="context">{ 'default_is_jasa' : 1, 
+                                    'default_is_product' : 1,
+                                    'default_purchase_ok' : 0,
+                                    'default_taxes_id' : [],
+                                    'default_type' : 'service'}</field>
+            <field name="view_id" ref="master_jasa_view_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                  Tidak ada Data Jasa
+                </p>
+            </field>
+        </record>
+
+        <record id="master_jasa_action_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="master_jasa_view_tree"/>
+            <field name="act_window_id" ref="master_jasa_action"/>
+        </record>
+
+        <record id="master_jasa_action_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="form_master_jasa_inherit_product_template"/>
+            <field name="act_window_id" ref="master_jasa_action"/>
+        </record>
+    
+    </data>
+</odoo>

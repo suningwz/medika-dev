@@ -1,0 +1,28 @@
+<odoo>
+  <data>
+
+    <record id="asb_helpline_call_record_inherit_source" model="ir.ui.view">
+      <field name="name">call.record.view.form.inherit</field>
+      <field name="model">call.record</field>
+      <field name="inherit_id" ref="asb_helpline_call_record.call_record_view_form"/>
+      <field name="arch" type="xml">
+        <field name="job_position" position="after">
+          <field name="source_id" />
+        </field>
+      </field>
+    </record>
+
+    <record id="asb_helpline_call_record_lines_inherit_source" model="ir.ui.view">
+      <field name="name">call.record.lines.view.form.inherit</field>
+      <field name="model">call.record.lines</field>
+      <field name="inherit_id" ref="asb_helpline_call_record.call_record_lines_view_form"/>
+      <field name="arch" type="xml">
+        <field name="email" position="after">
+          <field name="source_id" />
+        </field>
+      </field>
+    </record>
+
+
+  </data>
+</odoo>

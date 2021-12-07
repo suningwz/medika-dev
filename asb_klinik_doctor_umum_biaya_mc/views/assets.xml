@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="biaya_mc_assets_backend" name="Biaya MC Assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/scss" href="asb_klinik_doctor_umum_biaya_mc/static/src/scss/biaya_mc.scss" />
+        </xpath>
+    </template>
+
+</odoo>

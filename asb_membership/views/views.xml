@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <!-- Menubar Membership -->
+
+        <menuitem id="membership_menubar" name="Membership" web_icon="asb_membership,static/description/icon.png" groups="asb_membership.user_mas" />
+
+        <!-- <menuitem id="group_menuitem" name="Group" parent="membership_menubar" action="group_action_partner_form"/> -->
+        <!-- <menuitem id="entity_menuitem" name="Entity" parent="membership_menubar" action="entity_action_partner_form" /> -->
+        <!-- <menuitem id="client_menuitem" name="Client" parent="membership_menubar" sequence='1' /> -->
+        <menuitem id="menu_configuration" name="Configuration" parent="membership_menubar" sequence='99' />
+
+    </data>
+
+
+</odoo>

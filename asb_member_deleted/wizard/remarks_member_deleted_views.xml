@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="inherit_view_member_tree">
+        <field name="name">res.partner.tree</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="asb_membership_member.view_member_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="delete">0</attribute>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="before">
+                <header>
+                    <button name="delete_member" string="Delete Member" type="object" />
+                </header>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="partner_view_form_inherit_asb_member_deleted" model="ir.ui.view">
+        <field name="name">res.partner.view.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="asb_membership_member.member_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="delete">0</attribute>
+            </xpath>
+            <xpath expr="//button[@name='print_card_member']" position="after">
+                <button name="delete_member" string="Delete Member" type="object" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_remarks_member_deleted_wizard" model="ir.actions.act_window">
+        <field name="name">Delete Member</field>
+        <field name="res_model">remarks.member.deleted</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="remarks_member_deleted_view_form" model="ir.ui.view">
+        <field name="name">remarks.member.deleted.view.form</field>
+        <field name="model">remarks.member.deleted</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="partner_ids" invisible="1" />
+                        <field name="name" widget='text' />
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="delete_member" type="object" string="Delete" class="oe_highlight" />
+                    <button special="cancel" string="Cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record id="antrian_pasien_dokter_gigi_form_inherit_pemeriksaan_gigi" model="ir.ui.view">
+            <field name="name">pemeriksaan.gigi.doctor.gigi.form.inherit</field>
+            <field name="model">master.registration</field>
+            <field name="inherit_id" ref="asb_klinik_doctor_gigi_antrian_pasien.antrian_pasien_doctor_gigi_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='pemeriksaan_gigi']" position="inside">
+                    <group>
+                        <field name="subjektif_anamnesa" string="Subjektif (Anamnesa)"/>
+                        <field name="objektif" readonly="1" />
+                    </group>
+                    
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+
+                            <div class="col d-flex justify-content-center">
+                                <hr/>
+                            </div>
+
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col text-center">
+                                <field name="gaki1" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gaki2" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gaki3" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gaki4" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gaki5" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gaki6" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gaki7" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gaki8" nolabel="1"/>
+                            </div>
+
+                            <div class="col">
+                                <hr/>
+                            </div>
+
+                            <div class="col text-center">
+                                <field name="gaka1" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gaka2" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gaka3" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gaka4" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gaka5" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gaka6" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gaka7" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gaka8" nolabel="1"/>
+                            </div>
+                            
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col text-center">
+                                <field name="gbki1" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gbki2" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gbki3" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gbki4" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gbki5" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gbki6" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gbki7" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gbki8" nolabel="1"/>
+                            </div>
+
+                            <div class="col">
+                                <hr/>
+                            </div>
+
+                            <div class="col text-center">
+                                <field name="gbka1" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gbka2" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gbka3" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gbka4" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gbka5" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gbka6" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gbka7" nolabel="1"/>
+                            </div>
+                            <div class="col text-center">
+                                <field name="gbka8" nolabel="1"/>
+                            </div>
+                            
+                        </div>
+
+                        <div class="row" style="margin-top: 3px;">
+
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+
+                            <div class="col d-flex justify-content-center">
+                                <hr/>
+                            </div>
+
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <img style="width: 20px; height: 20px;" src='/asb_klinik_doctor_gigi_antrian_pasien/static/img/tooth.png'/>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <group col="4" colspan="2">
+                        <field name="assessment" />
+                        <field name="plan_dokter_gigi"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    
+    </data>
+</odoo>

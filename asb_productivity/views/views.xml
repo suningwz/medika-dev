@@ -1,0 +1,9 @@
+<odoo>
+  <data>
+
+    <!-- Top menu item -->
+
+    <menuitem name="Productivity" id="asb_productivity.menu_root" web_icon="asb_productivity,static/description/icon.png" groups="asb_productivity.eclaim_user_productivity"/>
+
+  </data>
+</odoo>

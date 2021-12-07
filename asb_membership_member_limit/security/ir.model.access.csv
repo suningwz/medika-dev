@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_member_benefit_limit,asb_membership_member.member_benefit_limit,model_member_benefit_limit,base.group_user,1,1,1,1
+access_member_deductible_remaining,asb_membership_member.member_deductible_remaining,model_member_deductible_remaining,base.group_user,1,1,1,1
+access_member_per_day_limit,asb_membership_member.member_per_day_limit,model_member_per_day_limit,base.group_user,1,1,1,1

@@ -1,0 +1,22 @@
+<odoo>
+  <data>
+
+
+    <record id="call_record_view_form_inherit_preadmission_smart_button" model="ir.ui.view">
+      <field name="name">call.record.view.form.inherit</field>
+      <field name="model">call.record</field>
+      <field name="inherit_id" ref="asb_helpline_call_record.call_record_view_form"/>
+      <field name="arch" type="xml">
+        <button name="action_close" position="after">
+          <button name="action_create_preadmission" type="object" string="Create Preadmission" class="oe_highlight" attrs="{'invisible' : ['|',('create_preadmission', '=', True),('state','!=','process')]}"/>
+          <field name="create_preadmission" invisible="1"/>
+        </button>
+        <xpath expr="//div[@name='button_box']" position="inside">
+          <field name="create_preadmission" invisible="1" />
+          <button name="preadmission_smart_button" string="Preadmission" type="object" icon='fa-file-text' class="oe_stat_button" attrs="{'invisible':[('create_preadmission','=',False)]}"/>
+        </xpath>
+      </field>
+    </record>
+
+  </data>
+</odoo>

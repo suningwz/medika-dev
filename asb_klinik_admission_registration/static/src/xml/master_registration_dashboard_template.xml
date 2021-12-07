@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <!-- This template is for a table at the top of purchase views that shows some KPIs. -->
+    <t t-name="asb_klinik_admission_registration.RegistrationDashboard">
+        <div class="o_registration_dashboard container">
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr>
+                                <td class="o_text">
+                                    <b>Total Registrasi [Today]</b>
+                                </td>
+                                <td>
+                                    <span style="color:white;">
+                                        <t t-esc="values['total_registrasi_today']"/>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="o_text">
+                                    <b>Waiting List [Today]</b>
+                                </td>
+                                <td class="o_main o_registration_action" name="asb_klinik_admission_reservation.master_reservation_action_dashboard" context='{"search_default_confirm_reservasi": true, "search_default_today" : true}'>
+                                    <a href="#">
+                                        <t t-esc="values['waiting_list_today']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-sm-6">
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr>
+                                <td class="o_text">
+                                    <b>Total MCU [Today]</b>
+                                </td>
+                                <td class="o_main o_registration_action" name="asb_klinik_admission_registration.master_registration_action_dashboard" context='{"search_default_total_mcu": true, "search_default_today" : true}'>
+                                    <a href="#">
+                                        <t t-esc="values['total_mcu']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="o_text">
+                                    <b>Total Medical Center [Today]</b>
+                                </td>
+                                <td class="o_main o_registration_action" name="asb_klinik_admission_registration.master_registration_action_dashboard" context='{"search_default_total_mc": true, "search_default_today" : true}'>
+                                    <a href="#">
+                                        <t t-esc="values['total_mc']"/>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </t>
+</templates>

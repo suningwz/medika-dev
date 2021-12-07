@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <template id="information_popup_assets_backend" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/asb_helpline_call_record_information/static/src/css/custom_popup.css"/>
+        </xpath>
+    </template>
+</odoo>

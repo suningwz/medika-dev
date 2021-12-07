@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit form doctor umum antrian pasien -->
+        <record id="doctor_umum_antrian_pasien_form_inherit_reflek_examination" model="ir.ui.view">
+            <field name="name">master.registration.view.form.inherit</field>
+            <field name="model">master.registration</field>
+            <field name="inherit_id" ref="asb_klinik_doctor_umum_antrian_pasien.antrian_pasien_doctor_umum_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='reflek']" position="after">
+                    <group string="PEMERIKSAAN FUNGSI REFLEK/REFLEX EXAMINATION">
+                        <field name="reflek_examination_line" nolabel="1" context="{'form_view_ref': 'asb_klinik_doctor_umum_configuration_pemeriksaan_fisik.reflek_examination_form'}">
+                            <tree create="false" delete="false" editable="top">
+                                <field name="pemeriksaan_fisik_master_id" style="width: 45%%" force_save="1" readonly="1" options="{'no_open': True, 'no_create': True}" />
+                                <field name="normal" style="width: 5%%" widget="boolean_toggle" class="oe_edit_only" />
+                                <field name="tidak_normal" style="width: 5%%" widget="boolean_toggle" class="oe_edit_only" />
+                                <field name="tidak_diperiksa" style="width: 5%%" widget="boolean_toggle" class="oe_edit_only" />
+                                <field name="status" style="width: 5%%" force_save="1" readonly="1" class="oe_read_only" />
+                                <field name="deskripsi" style="width: 100%%" attrs="{'required':[('status', '!=', 'normal')]}" />
+                                <field name="registration_id" invisible="1" />
+                            </tree>
+                        </field>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- List View -->
+        <record model="ir.ui.view" id="reflek_examination_tree">
+            <field name="name">reflek.examination.tree</field>
+            <field name="model">reflek.examination</field>
+            <field name="arch" type="xml">
+                <tree create="false" delete="false" editable="top">
+                    <field name="pemeriksaan_fisik_master_id" force_save="1" readonly="1" options="{'no_open': True, 'no_create': True}" />
+                    <field name="status" force_save="1" readonly="1" class="oe_read_only" />
+                    <field name="normal" widget="boolean_toggle" class="oe_edit_only" />
+                    <field name="tidak_normal" widget="boolean_toggle" class="oe_edit_only" />
+                    <field name="tidak_diperiksa" widget="boolean_toggle" class="oe_edit_only" />
+                    <field name="deskripsi" />
+                    <field name="registration_id" invisible="1" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record model="ir.ui.view" id="reflek_examination_form">
+            <field name="name">reflek.examination.form</field>
+            <field name="model">reflek.examination</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header></header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="pemeriksaan_fisik_master_id" />
+                                <field name="status" />
+                            </group>
+                            <group>
+                                <field name="deskripsi" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="reflek_examination_action">
+            <field name="name">Reflex Examination</field>
+            <field name="res_model">reflek.examination</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

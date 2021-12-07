@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_master_reservation_user,master.reservation.user,model_master_reservation,asb_klinik_admission_team.group_unit_admission_user,1,1,1,0
+access_master_reservation_manager,master.reservation.manager,model_master_reservation,asb_klinik_admission_team.group_unit_admission_manager,1,1,1,1

@@ -1,0 +1,55 @@
+<odoo>
+  <data>
+
+
+    <record model="ir.ui.view" id="helpline_activity_log_view_form">
+      <field name="name">helpline.activity.log.form</field>
+      <field name="model">helpline.activity.log</field>
+      <field name="arch" type="xml">
+        <form string="Activity Log">
+          <sheet>
+            <group>
+              <field name="contact_type" required="1"/>
+              <field name="contact_info" />
+              <field name="contact_person" />
+              <field name="description" />
+              <field name="created_date" />
+              <field name="created_by" />
+              <field name="write_date" />
+              <field name="write_uid" />
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- explicit list view  -->
+
+    <record model="ir.ui.view" id="helpline_activity_log_view_tree">
+      <field name="name">helpline.activity.log.tree</field>
+      <field name="model">helpline.activity.log</field>
+      <field name="arch" type="xml">
+        <tree string="Activity Log" editable="bottom">
+          <field name="contact_type" required="1"/>
+          <field name="contact_info" />
+          <field name="contact_person" />
+          <field name="description" />
+          <field name="created_date" />
+          <field name="created_by" />
+          <field name="write_date" />
+          <field name="write_uid" />
+        </tree>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record id="helpline_activity_log_action_window" model="ir.actions.act_window">
+      <field name="name">Activity Log</field>
+      <field name="res_model">helpline.activity.log</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('letter_id', '=', active_id)]</field>
+    </record>
+
+  </data>
+</odoo>

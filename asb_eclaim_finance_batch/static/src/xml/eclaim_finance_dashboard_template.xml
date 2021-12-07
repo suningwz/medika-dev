@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates>
+    <t t-name="asb_eclaim_finance_batch.EclaimFinanceBatchDashboard">
+        <div class="o_eclaim_finance_dashboard container" style="position: sticky;left: 0px;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <td class="o_main_call o_dashboard_action" title="SO &amp; PR Pending" context='{"search_default_so_pr_pending": true}' name="asb_eclaim_finance_batch.eclaim_batch_finance_dashboard_list" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <img src='/asb_eclaim_finance_batch/static/src/img/SO PR Pending.png' style="max-width: 75%;" />
+                                            </td>
+                                            <td class="o_remarks">
+                                                <span>SO &amp; PR Pending</span>
+                                                <br />
+                                                <span>
+                                                    <t t-esc="values['total_so_pr_pending']" />
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="o_main_call o_dashboard_action" title="AR Pending" context='{"search_default_ar_pending": true}' name="asb_eclaim_finance_batch.eclaim_batch_finance_dashboard_list" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <img src='/asb_eclaim_finance_batch/static/src/img/AR Pending.png' style="max-width: 75%;" />
+                                            </td>
+                                            <td class="o_remarks">
+                                                <span>AR Pending</span>
+                                                <br />
+                                                <span>
+                                                    <t t-esc="values['total_ar_pending']" />
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="o_main_call o_dashboard_action" title="PO Pending" context='{"search_default_po_pending": true}' name="asb_eclaim_finance_batch.eclaim_batch_finance_dashboard_list" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <img src='/asb_eclaim_finance_batch/static/src/img/PO Pending.png' style="max-width: 75%;" />
+                                            </td>
+                                            <td class="o_remarks">
+                                                <span>PO Pending</span>
+                                                <br />
+                                                <span>
+                                                    <t t-esc="values['total_po_pending']" />
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="o_main_call o_dashboard_action" title="AP Pending" context='{"search_default_ap_pending": true}' name="asb_eclaim_finance_batch.eclaim_batch_finance_dashboard_list" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>
+                                                <img src='/asb_eclaim_finance_batch/static/src/img/AP Pending.png' style="max-width: 75%;" />
+                                            </td>
+                                            <td class="o_remarks">
+                                                <span>AP Pending</span>
+                                                <br />
+                                                <span>
+                                                    <t t-esc="values['total_ap_pending']" />
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

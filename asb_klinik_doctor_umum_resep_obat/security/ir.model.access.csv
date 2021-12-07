@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_resep_obat_base,resep_obat.base,model_resep_obat,base.group_user,1,0,0
+access_resep_obat_user,resep_obat.user,model_resep_obat,asb_klinik_doctor_team.group_unit_doctor_user,1,1,1,1
+access_resep_obat_manager,resep_obat.manager,model_resep_obat,asb_klinik_doctor_team.group_unit_doctor_manager,1,1,1,1
+
+access_detail_obat_base,detail_obat.base,model_detail_obat,base.group_user,1,0,0,0
+access_detail_obat_user,detail_obat.user,model_detail_obat,asb_klinik_doctor_team.group_unit_doctor_user,1,1,1,1
+access_detail_obat_manager,detail_obat.manager,model_detail_obat,asb_klinik_doctor_team.group_unit_doctor_manager,1,1,1,1

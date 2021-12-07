@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="master_pasien_view_tree" model="ir.ui.view">
+            <field name="name">master.pasien.view.tree</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+
+                <tree string="Master Pasien" default_order="name">
+                    <field name="name" string="Nama Pasien"/>
+                    <field name="jenis_kelamin" />
+                    <field name="tempat_lahir" />
+                    <field name="tanggal_lahir" />
+                    <field name="umur" />
+                    <field name="email" />
+                    <field name="mobile" />
+                </tree>
+
+            </field>
+        </record>
+
+        <record id="master_pasien_view_template_tree" model="ir.ui.view">
+            <field name="name">master.pasien.view.template.tree</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+
+                <tree string="Master Pasien" default_order="name">
+                    <field name="name" string="Nama Pasien"/>
+                    <field name="jenis_kelamin" />
+                    <field name="umur" />
+                    <field name="email" />
+                    <field name="mobile" />
+                    <field name="perusahaan_id"/>
+                </tree>
+
+            </field>
+        </record>
+
+        <record id="master_pasien_view_form" model="ir.ui.view">
+            <field name="name">master.pasien.view.form</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form string="Data Pasien">
+
+                    <sheet>
+                        <field name="image_1920" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;image_128&quot;}"/>
+                        <div class="oe_title">
+                            <field name="is_pasien" force_save="1" invisible="1"/>
+                            <field name="type" invisible="1"/>
+                            <field name="is_company" invisible="1"/>
+                            <field name="active" invisible="1"/>
+                            <field name="company_type" invisible="1" widget="radio" class="oe_edit_only" options="{'horizontal': true}"/>
+                            <h1>
+                                <field name="name" required="1" default_focus="1" placeholder="Nama Pasien"/>
+                            </h1>
+                        </div>
+
+                        <group>
+                            <group>
+                                <label for="street" string="Alamat" class="oe_edit_only" />
+                                <div class="o_address_format oe_edit_only">
+                                    <field name="street" class="o_address_street" placeholder="Street..." />
+                                    <field name="country_id" class="o_address_state" style="width: 31%" placeholder="Country" options="{'no_open': True, 'no_create': True}" />
+                                    <field name="state_id" class="o_address_state" style="width: 31%" placeholder="State" options="{'no_open': True, 'no_create': True}" domain="[('country_id', '=', country_id)]" />
+                                    <field name="city_id" style="width: 34%" placeholder="City" options="{'no_open': True, 'no_create': True}" domain="[('state_id', '=', state_id)]" context="{'tree_view_ref' : 'asb_state_city.kota_kabupaten_ref_view_tree'}" />
+                                    <field name="kecamatan_id" class="o_address_state" style="width: 37%" placeholder="Kecamatan" options="{'no_open': True, 'no_create': True}" domain="[('city_id', '=', city_id)]" context="{'tree_view_ref' : 'asb_state_city.kecamatan_ref_view_tree'}" />
+                                    <field name="kelurahan_id" class="o_address_state" style="width: 37%" placeholder="Kelurahan" options="{'no_open': True, 'no_create': True}" domain="[('kecamatan_id', '=', kecamatan_id)]" context="{'tree_view_ref' : 'asb_state_city.kelurahan_ref_view_tree'}" />
+                                    <field name="zip" style="width: 22%" placeholder="ZIP" />
+                                </div>
+
+                                <label for="street" string="Alamat" class="oe_read_only" />
+                                <div class="o_address_format oe_read_only">
+                                    <field name="street" class="o_address_street" placeholder="Street..." />
+                                    <field name="kelurahan_id" class="o_address_city" placeholder="Kelurahan" options="{'no_open': True, 'no_create': True}" domain="[('kecamatan_id', '=', kecamatan_id)]" context="{'tree_view_ref' : 'asb_state_city.kelurahan_ref_view_tree'}" />
+                                    <field name="kecamatan_id" class="o_address_state" placeholder="Kecamatan" options="{'no_open': True, 'no_create': True}" domain="[('city_id', '=', city_id)]" context="{'tree_view_ref' : 'asb_state_city.kecamatan_ref_view_tree'}" />
+                                    <field name="city_id" class="o_address_city" placeholder="City" options="{'no_open': True, 'no_create': True}" domain="[('state_id', '=', state_id)]" context="{'tree_view_ref' : 'asb_state_city.kota_kabupaten_ref_view_tree'}" />
+                                    <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_create': True}" domain="[('country_id', '=', country_id)]" />
+                                    <field name="country_id" class="o_address_city" placeholder="Country" options="{'no_open': True, 'no_create': True}" />
+                                    <field name="zip" class="o_address_state" placeholder="ZIP" />
+                                </div>
+                            </group>
+
+                            <group>
+                                <field name="perusahaan_id" string="Perusahaan Pasien" options="{'no_quick_create': True}" context="{'tree_view_ref' : 'asb_klinik_master_personil.master_perusahaan_view_template_tree', 'form_view_ref': 'asb_klinik_master_personil.master_perusahaan_view_form', 'default_customer': 0, 'default_supplier': 0, 'default_is_company': 1, 'default_is_perusahaan': 1, 'default_type' : 'contact'}"/>
+                                <field name="mobile" required="1" widget="phone"/>
+                                <field name="email" required="1" widget="email" context="{'gravatar_image': True}"/>
+                                <field name="is_pekerjaan" force_save="1" invisible="1"/>
+                                <field name="user_ids" invisible="1"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page name="informasi_pasien" string="Informasi Pasien" >
+                                <group>
+                                    <group>
+                                        <field name="warga_negara" required="1" />
+                                        <field name="no_ktp" required="1" />
+                                        <field name="jenis_kelamin" required="1"/>
+                                        <field name="status_perkawinan" required="1"/>
+                                    </group>
+
+                                    <group>
+                                        <field name="tempat_lahir" required="1"/>
+                                        <field name="tanggal_lahir" required="1"/>
+                                        <field name="umur" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="informasi_pekerjaan" string="Informasi Pekerjaan">
+                                <group>
+                                    <group>
+                                        <field name="nik_pegawai" attrs="{ 'required' : [('is_pekerjaan', '=', False)]}" />
+                                        <field name="function" string="Posisi / Jabatan" attrs="{ 'required' : [('is_pekerjaan', '=', False)]}" />
+                                        <field name="status_pegawai" attrs="{ 'required' : [('is_pekerjaan', '=', False)]}" />
+                                        <field name="mulai_bekerja" attrs="{ 'required' : [('is_pekerjaan', '=', False)]}" />
+                                    </group>
+
+                                    <group>
+                                        <field name="shift_kerja" attrs="{ 'required' : [('is_pekerjaan', '=', False)]}" />
+                                        <field name="lokasi_pekerjaan_id" options="{'no_open': True}" attrs="{ 'required' : [('is_pekerjaan', '=', False)]}" />
+                                        <field name="jenis_pekerjaan_id" options="{'no_open': True}" attrs="{ 'required' : [('is_pekerjaan', '=', False)]}" />
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                
+                </form>
+            </field>
+        </record>
+
+        <record id="master_pasien_view_search" model="ir.ui.view">
+            <field name="name">master.pasien.view.search</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+
+                <search string="Master Pasien">
+                    <field name="name" string="Nama Pasien" filter_domain="['|', ('display_name', 'ilike', self), ('name', 'ilike', self)]"/>
+                    <field name="email" string="Email Pasien" filter_domain="[('email', 'ilike', self)]"/>
+                    <field name="mobile" string="Kontak Pasien" filter_domain="['|', ('phone', 'ilike', self), ('mobile', 'ilike', self)]"/>
+                    <separator/>
+                </search>
+                
+            </field>
+        </record>
+
+        <record id="master_pasien_action" model="ir.actions.act_window">
+            <field name="name">Master Pasien</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('is_pasien', '=', True)]</field>
+            <field name="context">{ 'search_default_customer': 0, 
+                                    'default_customer': 0, 
+                                    'search_default_supplier': 0, 
+                                    'default_supplier': 0, 
+                                    'default_is_company': 0, 
+                                    'default_is_pasien' : 1, 
+                                    'default_jenis_kelamin' : 'laki', 
+                                    'default_status_perkawinan' : 'lajang',
+                                    'default_type' : ''}</field>
+            <field name="search_view_id" ref="master_pasien_view_search"/>
+            <field name="filter" eval="True"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                  Tidak ada Data Pasien
+                </p>
+            </field>
+        </record>
+
+        <record id="master_pasien_action_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="master_pasien_view_tree"/>
+            <field name="act_window_id" ref="master_pasien_action"/>
+        </record>
+
+        <record id="master_pasien_action_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="master_pasien_view_form"/>
+            <field name="act_window_id" ref="master_pasien_action"/>
+        </record>
+
+    </data>
+</odoo>

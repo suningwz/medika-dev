@@ -1,0 +1,16 @@
+<odoo>
+  <data>
+    <record id="view_view_form_inherit_asb_settings_report" model="ir.ui.view">
+      <field name="name">ir.ui.view.view.form.inherit</field>
+      <field name="model">ir.ui.view</field>
+      <field name="inherit_id" ref="base.view_view_form" />
+      <field name="arch" type="xml">
+        <sheet position="before">
+          <header>
+            <button name="print_view" string="Print View" type="object" />
+          </header>
+        </sheet>
+      </field>
+    </record>
+  </data>
+</odoo>

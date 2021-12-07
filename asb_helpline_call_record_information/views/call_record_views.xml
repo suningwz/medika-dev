@@ -1,0 +1,16 @@
+<odoo>
+  <data>
+
+    <record id="call_record_view_form_inherit_information" model="ir.ui.view">
+      <field name="name">call.record.view.form.inherit.information</field>
+      <field name="model">call.record</field>
+      <field name="inherit_id" ref="asb_helpline_call_record.call_record_view_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//button[@name='action_close']" position="after">
+          <button name="action_information" style="background-color: rgb(167 184 23); border-color: rgb(167 184 23)" type="object" string="Information" class="oe_highlight"/>
+        </xpath>
+      </field>
+    </record>
+
+  </data>
+</odoo>

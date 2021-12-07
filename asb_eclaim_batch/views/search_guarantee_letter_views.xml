@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- List View -->
+        <record model="ir.ui.view" id="search_guarantee_letter_tree">
+            <field name="name">guarantee.letter.tree</field>
+            <field name="model">guarantee.letter</field>
+            <field name="arch" type="xml">
+                <tree create="false" export_xlsx="false">
+                    <field name="claim_number" readonly="1" />
+                    <field name="batch_id" />
+                    <field name="name" string="Member Name" />
+                    <field name="client_id" />
+                    <field name="provider_id" />
+                    <field name="member" />
+                    <field name="service_type" />
+                    <field name="claim_status" widget="badge" decoration-danger="claim_status == 'decline'" decoration-bf="claim_status == 'approve'" decoration-it="claim_status == 'verified'" decoration-success="claim_status == 'paid'" decoration-warning="claim_status == 'release'" decoration-primary="claim_status == 'open'" />
+                    <button name="open_gl" string="View" type="object" class="oe_highlight" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Search View -->
+        <record model="ir.ui.view" id="search_guarantee_letter_search">
+            <field name="name">guarantee.letter.search</field>
+            <field name="model">guarantee.letter</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+                    <field name="claim_number" />
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="search_guarantee_letter_action">
+            <field name="name">Claim Analyst</field>
+            <field name="res_model">guarantee.letter</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="search_guarantee_letter_tree" />
+            <field name="search_view_id" ref="search_guarantee_letter_search" />
+        </record>
+
+    </data>
+</odoo>    
+    

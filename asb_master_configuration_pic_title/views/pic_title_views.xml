@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- List View -->
+        <record model="ir.ui.view" id="pic_title_tree">
+            <field name="name">pic.title.tree</field>
+            <field name="model">pic.title</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="type" required="1" />
+                    <field name="name" required="1" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record model="ir.ui.view" id="pic_title_form">
+            <field name="name">pic.title.form</field>
+            <field name="model">pic.title</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header></header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="type" required="1" />
+                            </group>
+                            <group>
+                                <field name="name" required="1" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="pic_title_action">
+            <field name="name">PIC Title</field>
+            <field name="res_model">pic.title</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="submenu_pic_title" sequence="20" name="PIC Title" parent="asb_master_configuration.menu_item_provider" action="pic_title_action" />
+
+    </data>
+</odoo>

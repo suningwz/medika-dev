@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record id="master_pricelist_view_tree" model="ir.ui.view">
+            <field name="name">master.pricelist.view.tree</field>
+            <field name="model">master.pricelist</field>
+            <field name="arch" type="xml">
+                <tree string="Master Pricelist">
+                    <field name="perusahaan_id" />
+                    <field name="examination_list_count" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="master_pricelist_view_form" model="ir.ui.view">
+            <field name="name">master.pricelist.view.form</field>
+            <field name="model">master.pricelist</field>
+            <field name="arch" type="xml">
+                <form string="Master Pricelist">
+
+                    <header>
+                        <field name="examination_list_count" invisible="1"/>
+                        <field name="master_tindakan_ids" invisible="1"/>
+                        <field name="product_count" invisible="1"/>
+                        <field name="product_ids" invisible="1"/>
+                        <field name="name" invisible="1"/>
+                        <field name="is_pricelist" force_save="1" invisible="1"/>
+                        <field name="perusahaan_ids" invisible="1"/>
+                    </header>
+
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="perusahaan_id" string="Nama Perusahaan"/>
+                            <h1>
+                                <field name="perusahaan_id" domain="[('id', 'in', perusahaan_ids)]" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}" context="{'tree_view_ref' : 'asb_klinik_master_personil.master_perusahaan_simple_view_tree'}"/>
+                            </h1>
+                        </div>
+
+                        <notebook>
+                            <page name="examination_list" string="Examination List">
+                                <field name="examination_list_line">
+                                    <tree editable="bottom">
+                                        <field name="master_tindakan_id" domain="[('id', 'in', parent.master_tindakan_ids)]" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}" context="{'tree_view_ref' : 'asb_klinik_master_product.examination_list_view_tree'}" />
+                                        <field name="poli_unit_id" />
+                                        <field name="list_price" />
+                                        <field name="margin" widget="monetary"/>
+                                        <field name="harga_khusus" widget="monetary" />
+                                    </tree>
+                                    <form string="Examination List">
+                                        <sheet>
+                                            <group col="4" colspan="2">
+                                                <field name="master_tindakan_id" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}" />
+                                                <field name="poli_unit_id" />
+                                                <field name="list_price" />
+                                                <field name="margin" />
+                                                <field name="harga_khusus" />
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                            <page name="product_list" string="Product List">
+                                <field name="product_line">
+                                    <tree editable="bottom">
+                                        <field name="master_alat_obat_id" domain="[('id', 'in', parent.product_ids)]" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}" context="{'tree_view_ref' : 'asb_klinik_master_product.master_alat_kesehatan_obat_simple_view_tree'}" />
+                                        <field name="jenis_persediaan" />
+                                        <field name="list_price" />
+                                        <field name="margin" widget="monetary" />
+                                        <field name="harga_khusus" widget="monetary" />
+                                    </tree>
+                                    <form string="Product List">
+                                        <sheet>
+                                            <group col="4" colspan="2">
+                                                <field name="master_alat_obat_id" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}" />
+                                                <field name="jenis_persediaan" />
+                                                <field name="list_price" />
+                                                <field name="margin" />
+                                                <field name="harga_khusus" />
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="master_pricelist_action" model="ir.actions.act_window">
+            <field name="name">Master Pricelist</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">master.pricelist</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{'default_is_pricelist' : 1}</field>
+            <field name="view_id" ref="master_pricelist_view_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Tidak ada Data Pricelist
+                </p>
+            </field>
+        </record>
+
+        <record id="master_pricelist_action_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="master_pricelist_view_tree"/>
+            <field name="act_window_id" ref="master_pricelist_action"/>
+        </record>
+
+        <record id="master_pricelist_action_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="master_pricelist_view_form"/>
+            <field name="act_window_id" ref="master_pricelist_action"/>
+        </record>
+    
+    </data>
+</odoo>

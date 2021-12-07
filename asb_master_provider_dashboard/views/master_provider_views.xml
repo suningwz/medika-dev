@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- <record model="ir.ui.view" id="master_provider_dashboard_tree_inherit">
+            <field name="name">res.partner.tree</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="asb_master_provider.master_provider_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//tree[@name='provider']" position="attributes">
+                    <attribute name="js_class">master_provider_list_dashboard</attribute>
+                </xpath>
+            </field>
+        </record> -->
+
+        <record model="ir.ui.view" id="provider_search_inherit">
+            <field name="name">provider.search.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="asb_master_provider.provider_search" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='provider_code']" position="after">
+                    <filter name="klinik" string="Klinik" domain="[('provider','=',True),('provider_category','=','klinik')]" />
+                    <filter name="apotik" string="Apotik" domain="[('provider','=',True),('provider_category','=','apotik')]" />
+                    <filter name="laboratorium" string="Laboratorium" domain="[('provider','=',True),('provider_category','=','lab')]" />
+                    <filter name="optik" string="Optik" domain="[('provider','=',True),('provider_category','=','optik')]" />
+                    <filter name="rumah_sakit" string="Rumah Sakit" domain="[('provider','=',True),('provider_category','=','rs')]" />
+                    <filter name="rebate" string="With Rebate" domain="[('provider','=',True),('rebate_detail_count','>',0)]" />
+                    <filter name="discount" string="With Discount" domain="[('provider','=',True),('provider_discount_count','>',0)]" />
+                    <filter name="contract_&#60;_60_Days" string="Contract &#60; 60 Days" domain="[('provider','=',True),('remaining_contract_int', '>=', -60)]" />
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Dashboard action button -->
+        <record id="master_provider_dashboard_list" model="ir.actions.act_window">
+            <field name="name">Provider</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="asb_master_provider.master_provider_tree" />
+            <field name="search_view_id" ref="asb_master_provider.provider_search" />
+            <field name="domain">[('provider','=',True)]</field>
+            <field name="context">{'default_provider': True, 'default_customer': 0, 'default_is_company': 1 }</field>
+            <field name="target">main</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_empty_folder">
+                No Provider to display
+                </p>
+            </field>
+        </record>
+        <record id="action_form_master_provider_dashboard" model="ir.actions.act_window.view">
+            <field name="sequence" eval="3" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="asb_master_provider.master_provider_form" />
+            <field name="act_window_id" ref="master_provider_dashboard_list" />
+        </record>
+        <record id="action_tree_master_provider_dashboard" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="asb_master_provider.master_provider_tree" />
+            <field name="act_window_id" ref="master_provider_dashboard_list" />
+        </record>
+
+
+    </data>
+</odoo>

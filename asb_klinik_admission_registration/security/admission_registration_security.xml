@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="admission_registration_rule" model="ir.rule">
+        <field name="name">Admission : Registration Data</field>
+        <field ref="model_master_registration" name="model_id"/>
+        <field name="domain_force">[('faskes_id', '=', user.faskes_id.id)]</field>
+        <field name="groups" eval="[(4, ref('asb_klinik_admission_team.group_unit_admission_user'))]"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+
+        <!-- Action Magic Button -->
+        <record id="view_correspondance_filter" model="ir.ui.view">
+            <field name="name">correspondence.select</field>
+            <field name="model">correspondence.correspondence</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name="partner_id" operator="child_of" />
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="correspondence_action">
+            <field name="name">Correspondence</field>
+            <field name="res_model">correspondence.correspondence</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('partner_id','=',active_id)]</field>
+            <field name="context">{'default_partner_id': active_id}</field>
+            <field name="search_view_id" ref="view_correspondance_filter" />
+        </record>
+        <record id="master_provider_form_inherit_asb_master_provider_correspondence" model="ir.ui.view">
+            <field name="name">res.partner.view.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="asb_master_provider.master_provider_form" />
+            <field name="arch" type="xml">
+                <div name='provider_box' position='inside'>
+                    <button class="oe_stat_button" type="action" name="asb_master_provider_correspondence.correspondence_action" icon="fa-pencil-square-o">
+                        <field string="Correspondence" name="correspondence_count" widget="statinfo" />
+                    </button>
+                </div>
+            </field>
+        </record>
+
+        <!-- List View -->
+        <record model="ir.ui.view" id="correspondence_tree">
+            <field name="name">correspondence.correspondence.tree</field>
+            <field name="model">correspondence.correspondence</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" string="Letter Number" />
+                    <field name="type_id" />
+                    <field name="partner_id" />
+                    <field name="created_date" />
+                    <field name="created_by" />
+                    <button string=" Print Letter" name="print_letter" type="object" icon='fa-print' />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record model="ir.ui.view" id="correspondence_form">
+            <field name="name">correspondence.correspondence.form</field>
+            <field name="model">correspondence.correspondence</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button string=" Print Letter" name="print_letter" type="object" icon='fa-print' />
+                    </header>
+                    <sheet>
+                        <div name="button_box" class="oe_button_box">
+                            <button name="associated_view_correspondence" string="Update QWeb" type="object" help="Open Report Template" icon="fa-code" class="oe_stat_button" groups="base.group_no_one" />
+                        </div>
+                        <h1>
+                            <field name="name" readonly="1" />
+                        </h1>
+                        <group col='12'>
+                            <group colspan='5'>
+                                <field name="type_id" options="{'no_open': True, 'no_create': True}" />
+                                <field name="partner_id" options="{'no_create': True}" domain="[('provider', '=', True)]" context="{'form_view_ref': 'asb_master_provider.master_provider_form'}" />
+                                <field name="up_id" options="{'no_open': True, 'no_create': True}" required="1" domain="[('id','=',up_ids)]" />
+                                <field name="policy_id" invisible="1" />
+                                <field name="up_ids" invisible="1" />
+                            </group>
+
+                            <group colspan='4'>
+                                <field name="created_by" options="{'no_open': True, 'no_create': True}" readonly="1" />
+                                <field name="created_date" readonly="1" />
+                                <field name="name_up_id" invisible="1" />
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="activity_ids" widget="mail_activity" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.sequence" id="correspondence_sequence">
+            <field name="name">Correspondence</field>
+            <field name="code">correspondence.correspondence</field>
+            <field name="padding">3</field>
+            <field name="suffix">/KBM-</field>
+            <field name="company_id" eval="False" />
+        </record>
+
+    </data>
+
+
+</odoo>

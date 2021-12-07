@@ -1,0 +1,16 @@
+<odoo>
+  <data>
+
+    <record id="guarantee_letter_inherit_activity_log" model="ir.ui.view">
+      <field name="name">guarantee.letter.view.form.inherit.activity.log</field>
+      <field name="model">guarantee.letter</field>
+      <field name="inherit_id" ref="asb_helpline_guarantee_letter.guarantee_letter_view_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//div[@name='button_box']" position="inside">
+          <button name="activity_log" string="Activity Log" type="object" icon='fa-tasks' class="oe_stat_button"/>
+        </xpath>
+      </field>
+    </record>
+
+  </data>
+</odoo>

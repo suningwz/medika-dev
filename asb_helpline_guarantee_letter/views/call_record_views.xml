@@ -1,0 +1,29 @@
+<odoo>
+  <data>
+
+    <record id="call_record_gl_smart_button" model="ir.actions.act_window">
+      <field name="name">Guarantee Letter</field>
+      <field name="res_model">guarantee.letter</field>
+      <field name="view_mode">form</field>
+    </record>
+
+    <record id="call_record_inherit_create_gl" model="ir.ui.view">
+      <field name="name">call.record.view.form.inherit.create.gl</field>
+      <field name="model">call.record</field>
+      <field name="inherit_id" ref="asb_helpline_call_record.call_record_view_form"/>
+      <field name="arch" type="xml">
+        <button name="action_close" position="before">
+          <button name="action_create_preadmission" type="object" string="Create Preadmission" class="oe_highlight" attrs="{'invisible' : ['|',('create_gl', '=', True),('state','!=','open')]}"/>
+          <button name="action_create_gl" style="background-color: rgb(23 117 184); border-color: rgb(23 117 184)" type="object" string="Claim Process" class="oe_highlight" attrs="{'invisible' : ['|',('create_gl', '=', True),('state','!=','open')]}"/>
+          <field name="create_gl" invisible="1"/>
+          <field name="no_preadmission" invisible="1"/>
+        </button>
+        <xpath expr="//div[@name='button_box']" position="inside">
+          <button name="claim_history" string="Claim History" type="object" icon='fa-file-text' class="oe_stat_button"/>
+          <!-- <button name="gl_smart_button" string="Claim Process" type="object" icon='fa-file-text' class="oe_stat_button" attrs="{'invisible':[('create_gl','=',False)]}"/> -->
+        </xpath>
+      </field>
+    </record>
+
+  </data>
+</odoo>

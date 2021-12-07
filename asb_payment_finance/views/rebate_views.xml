@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Form View -->
+        <record id="payment_rebate_view_form" model="ir.ui.view">
+            <field name="name">payment.rebate.view.form</field>
+            <field name="model">payment.rebate</field>
+            <field name="arch" type="xml">
+                <form string="Payment Rebate">
+                    <sheet>
+                        <group>
+                            <field name="payment_number" />
+                            <field name="provider_id" />
+                            <field name="payment_date" />
+                            <field name="member" />
+                            <field name="rebate_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <!-- <field name="total_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/> -->
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="payment_rebate_view_tree" model="ir.ui.view">
+            <field name="name">payment.rebate.view.tree</field>
+            <field name="model">payment.rebate</field>
+            <field name="arch" type="xml">
+                <tree create='0' delete='0'>
+                    <field name="payment_number" />
+                    <field name="provider_id" />
+                    <field name="payment_date" />
+                    <field name="member" />
+                    <field name="rebate_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="currency_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="payment_rebate_action" model="ir.actions.act_window">
+            <field name="name">Payment Rebate</field>
+            <field name="res_model">payment.rebate</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="submenu_payment_rebate" sequence="3" name="Rebate" parent="asb_payment.menu_root" action="payment_rebate_action" />
+
+    </data>
+</odoo>

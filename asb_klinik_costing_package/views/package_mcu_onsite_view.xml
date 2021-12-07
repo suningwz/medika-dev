@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record id="package_mcu_onsite_view_tree" model="ir.ui.view">
+            <field name="name">package.mcu.onsite.view.tree</field>
+            <field name="model">package.mcu</field>
+            <field name="arch" type="xml">
+
+                <tree string="Package MCU Onsite" expand="1">
+                    <field name="name" />
+                    <field name="start_date" />
+                    <field name="end_date" />
+                    <field name="property_payment_term_id" string="Payment Terms"/>
+                    <field name="bahasa_hasil" />
+                    <field name="jumlah_package_mcu" />
+                    <field name="delivery_days" />
+                    <field name="working_days" />
+                    <field name="state" decoration-success="state == 'approved'" decoration-info="state == 'waiting'" decoration-warning="state == 'rejected'" decoration-danger="state == 'expired'" decoration-primary="state == 'draft'" widget="badge"/>
+                    <field name="status" widget="badge" decoration-success="status == 'Active'" decoration-danger="status == 'Expired'"/>
+                    <field name="keterangan" />
+                    <field name="tanggal_pembuatan" />
+                    <field name="user_create" />
+                    <field name="perusahaan_id" invisible="1"/>
+                </tree>
+
+            </field>
+        </record>
+
+        <record id="package_mcu_onsite_view_form" model="ir.ui.view">
+            <field name="name">package.mcu.onsite.view.form</field>
+            <field name="model">package.mcu</field>
+            <field name="arch" type="xml">
+                <form string="Package MCU Onsite">
+
+                    <header>
+                        <field name="partner_ids" invisible="1"/>
+                        <field name="team_member_ids" invisible="1"/>
+                        <field name="equipment_status_ids" invisible="1"/>
+                        <field name="transportasi_akomodasi_ids" invisible="1"/>
+                        <field name="is_approval_2" invisible="1" />
+                        <button name="action_set_to_draft" type="object" states="waiting,rejected" string="Set to Draft" class="btn btn-info" />
+                        <button name="action_confirm" type="object" states="draft" string="Confirm" class="btn btn-success" />
+                        <button name="action_approve" type="object" string="Medika Approval Level 1" class="btn btn-success" groups="asb_klinik_costing_team.group_master_costing_level_1" attrs="{'invisible' : ['|', ('state', '!=', 'waiting'), ('is_approval_2', '=', True)]}"/>
+                        <button name="action_approve_2" type="object" string="Medika Approval Level 2" class="btn btn-success" groups="asb_klinik_costing_team.group_master_costing_level_2" attrs="{'invisible' : ['|', ('state', '!=', 'waiting'), ('is_approval_2', '=', False)]}"/>
+                        <button name="action_reject" type="object" string="Medika Rejection Level 1" class="btn btn-danger" groups="asb_klinik_costing_team.group_master_costing_level_1" attrs="{'invisible' : ['|', ('state', '!=', 'waiting'), ('is_approval_2', '=', True)]}"/>
+                        <button name="action_reject_2" type="object" string="Medika Rejection Level 2" class="btn btn-danger" groups="asb_klinik_costing_team.group_master_costing_level_2" attrs="{'invisible' : ['|', ('state', '!=', 'waiting'), ('is_approval_2', '=', False)]}"/>
+                        <button name="action_client_approval" type="object" string="Client Approval" class="btn btn-success" attrs="{'invisible' : [('state', '!=', 'client')]}"/>
+                        <button name="action_client_reject" type="object" string="Client Rejection" class="btn btn-danger" attrs="{'invisible' : [('state', '!=', 'client')]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,waiting,approved,rejected"/>
+                    </header>
+
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="%(list_package_onsite_action)d" icon="fa-th-list" type="action" attrs="{'invisible': [('state', 'in', ['approved', 'rejected'])]}" context="{'default_package_mcu_id' : active_id, 'search_default_package_mcu_id': active_id}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="list_package_count" />
+                                    </span>
+                                    <span class="o_stat_text"> List Package</span>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" name="%(preview_list_package_onsite_action)d" icon="fa-th-list" type="action" attrs="{'invisible': [('state', 'not in', ['approved', 'rejected'])]}" context="{'default_package_mcu_id' : active_id, 'search_default_package_mcu_id': active_id}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="list_package_count" />
+                                    </span>
+                                    <span class="o_stat_text"> List Package</span>
+                                </div>
+                            </button>
+                        </div>
+
+                        <div class="oe_title" style="margin: 0px 0px;">
+                            <label for="name" string="No. Costing"/>
+                            <h1 style="margin: 0px 0px;">
+                                <field name="name"/>
+                            </h1>
+                        </div>
+
+                        <group style="margin: 1px 0px;">
+                            <group string="Data Perusahaan" col="2" style="margin: 0px 0px;">
+                                <field name="onsite" force_save="1" invisible="1"/>
+                                <field name="in_house" force_save="1" invisible="1"/>
+                                <field name="perusahaan_id" domain="[('is_company', '=', True), '|', '&amp;', ('is_perusahaan', '=', True), ('status_perusahaan', '!=', 'rejected'), '&amp;', ('client', '=', True), ('client_state', '!=', 'disabled')]" options="{'no_open': True, 'no_quick_create': True}" context="{'tree_view_ref' : 'asb_klinik_master_personil.master_perusahaan_view_template_tree', 'form_view_ref': 'asb_klinik_master_personil.master_perusahaan_view_form', 'default_customer': 0, 'default_supplier': 0, 'default_is_company': 1, 'default_is_perusahaan': 1, 'default_type' : 'contact'}"/>
+                                <field name="property_payment_term_id" string="Payment Terms" attrs="{ 'invisible' : [('perusahaan_id', '=', False)]}" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                                <span class="o_form_label o_td_label" name="address_name" attrs="{ 'invisible' : [('perusahaan_id', '=', False)]}">Address</span>
+                                <div class="o_address_format" attrs="{ 'invisible' : [('perusahaan_id', '=', False)]}">
+                                    <field name="street" force_save="1" readonly="1" class="o_address_street" placeholder="Street..." />
+                                    <field name="kelurahan_id" force_save="1" readonly="1" class="o_address_city" placeholder="Kelurahan" options="{'no_open': True, 'no_create': True}" domain="[('kecamatan_id', '=', kecamatan_id)]" context="{'tree_view_ref' : 'asb_state_city.kelurahan_ref_view_tree'}" />
+                                    <field name="kecamatan_id" force_save="1" readonly="1"  class="o_address_state" placeholder="Kecamatan" options="{'no_open': True, 'no_create': True}" domain="[('city_id', '=', city_id)]" context="{'tree_view_ref' : 'asb_state_city.kecamatan_ref_view_tree'}" />
+                                    <field name="city_id" force_save="1" readonly="1" class="o_address_city" placeholder="City" options="{'no_open': True, 'no_create': True}" domain="[('state_id', '=', state_id)]" context="{'tree_view_ref' : 'asb_state_city.kota_kabupaten_ref_view_tree'}" />
+                                    <field name="state_id" force_save="1" readonly="1" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_create': True}" domain="[('country_id', '=', country_id)]" />
+                                    <field name="country_id" force_save="1" readonly="1" class="o_address_city" placeholder="Country" options="{'no_open': True, 'no_create': True}" />
+                                    <field name="zip" force_save="1" readonly="1" class="o_address_state" placeholder="ZIP" />
+                                </div>
+                                <field name="partner_id" domain="[('id', 'in', partner_ids)]" attrs="{ 'invisible' : [('perusahaan_id', '=', False)]}" options="{'no_quick_create': True, 'no_open': True}" context="{'tree_view_ref' : 'asb_klinik_master_personil.pic_perusahaan_view_template_tree', 'form_view_ref': 'asb_klinik_master_personil.pic_perusahaan_view_form', 'default_customer': 0, 'default_supplier': 0, 'default_is_company': 0, 'default_type' : 'private', 'default_company_type' : 'person', 'default_is_perusahaan': 0, 'default_is_pic_perusahaan' : 1}" />
+                                <field name="client_title_id" string="Posisi / Jabatan" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}" attrs="{ 'invisible' : [('partner_id', '=', False)]}"/>
+                                <field name="email_pic" widget="email" attrs="{ 'invisible' : [('partner_id', '=', False)]}"/>
+                                <field name="mobile_pic" widget="mobile" attrs="{ 'invisible' : [('partner_id', '=', False)]}"/>
+
+                                <field name="keterangan" />
+                            </group>
+
+                            <group string="Conditional Term" col="2" style="margin: 0px 0px;">
+                                <field name="currency_id" invisible="1"/>
+                                <field name="start_date" attrs="{ 'required' : [('onsite', '=', True)]}" />
+                                <field name="end_date" attrs="{ 'required' : [('onsite', '=', True)]}" />
+                                <field name="jumlah_package_mcu" />
+                                <field name="bahasa_hasil" attrs="{ 'required' : [('onsite', '=', True)]}" />
+                                <field name="delivery_days" attrs="{ 'required' : [('onsite', '=', True)]}" />
+                                <field name="working_days" attrs="{ 'required' : [('onsite', '=', True)]}" />
+                                <field name="total_patient" attrs="{ 'required' : [('onsite', '=', True)]}" />
+                                <field name="status" widget="badge" decoration-success="status == 'Active'" decoration-danger="status == 'Expired'"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page name="master_team_member" string="Team Member">
+                                <field name="team_member_line" context="{'default_days': working_days}">
+                                    <tree editable="bottom">
+                                        <field name="team_member_id" domain="[('id', 'in', parent.team_member_ids)]" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}" context="{'tree_view_ref' : 'asb_klinik_costing_setting_onsite.config_team_member_view_tree'}"/>
+                                        <field name="internal_quantity" />
+                                        <field name="internal_cost" widget="monetary"/>
+                                        <field name="external_quantity" />
+                                        <field name="external_cost" widget="monetary"/>
+                                        <field name="days" force_save="1" />
+                                        <field name="total_price" widget="monetary"/>
+                                        <field name="updated_date" />
+                                        <field name="updated_user" />
+                                    </tree>
+                                    <form string="Team Member">
+                                        <sheet>
+                                            <group col="4" colspan="2">
+                                                <field name="name" />
+                                                <field name="days"/>
+                                                <field name="internal_quantity" />
+                                                <field name="total_price" />
+                                                <field name="internal_cost" />
+                                                <field name="updated_date" />
+                                                <field name="external_quantity" />
+                                                <field name="updated_user" />
+                                                <field name="external_cost" />
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="data_total_price_team_member">
+                                    <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                        <label for="total_price_team_member" />
+                                    </div>
+                                    <field name="total_price_team_member" widget="monetary" nolabel="1" class="oe_subtotal_footer_separator"/>
+                                    <field name="total_fixed_price_team_member" invisible="1"/>
+                                </group>
+                            </page>
+                            <page name="master_equipment_status" string="Equipment Status">
+                                <field name="equipment_status_line" context="{'default_days': working_days}">
+                                    <tree editable="bottom">
+                                        <field name="equipment_list_id" domain="[('id', 'in', parent.equipment_status_ids)]" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}" context="{'tree_view_ref' : 'asb_klinik_costing_setting_onsite.config_equipment_list_view_tree'}"/>
+                                        <field name="owned_quantity" />
+                                        <field name="owned_cost" widget="monetary"/>
+                                        <field name="rental_quantity" />
+                                        <field name="rental_cost" widget="monetary"/>
+                                        <field name="days" force_save="1" />
+                                        <field name="total_price" widget="monetary"/>
+                                        <field name="updated_date" />
+                                        <field name="updated_user" />
+                                    </tree>
+                                    <form string="Equipment Status">
+                                        <sheet>
+                                            <group col="4" colspan="2">
+                                                <field name="name" />
+                                                <field name="days"/>
+                                                <field name="owned_quantity" />
+                                                <field name="total_price" />
+                                                <field name="owned_cost" />
+                                                <field name="updated_date" />
+                                                <field name="rental_quantity" />
+                                                <field name="updated_user" />
+                                                <field name="rental_cost" />
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="data_total_price_equipment_status">
+                                    <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                        <label for="total_price_equipment_status" />
+                                    </div>
+                                    <field name="total_price_equipment_status" widget="monetary" nolabel="1" class="oe_subtotal_footer_separator"/>
+                                    <field name="total_fixed_price_equipment_status" invisible="1"/>
+                                </group>
+                            </page>
+                            <page name="master_transportasi_akomodasi" string="Transportasi / Akomodasi">
+                                <field name="transportasi_akomodasi_line" context="{'default_days': working_days}">
+                                    <tree editable="bottom">
+                                        <field name="transportasi_akomodasi_id" domain="[('id', 'in', parent.transportasi_akomodasi_ids)]" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}" context="{'tree_view_ref' : 'asb_klinik_costing_setting_onsite.config_transportasi_akomodasi_view_tree'}"/>
+                                        <field name="transako_quantity" />
+                                        <field name="transako_cost" widget="monetary"/>
+                                        <field name="days" force_save="1" />
+                                        <field name="total_price" widget="monetary"/>
+                                        <field name="updated_date" />
+                                        <field name="updated_user" />
+                                    </tree>
+                                    <form string="Transportasi / Akomodasi">
+                                        <sheet>
+                                            <group col="4" colspan="2">
+                                                <field name="name" string="Name"/>
+                                                <field name="total_price"/>
+                                                <field name="days" />
+                                                <field name="updated_date" />
+                                                <field name="transako_quantity" />
+                                                <field name="updated_user" />
+                                                <field name="transako_cost" />
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="data_total_price_transportasi_akomodasi">
+                                    <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                        <label for="total_price_transportasi_akomodasi" />
+                                    </div>
+                                    <field name="total_price_transportasi_akomodasi" widget="monetary" nolabel="1" class="oe_subtotal_footer_separator"/>
+                                    <field name="total_fixed_price_transportasi_akomodasi" invisible="1"/>
+                                </group>
+                            </page>
+                            <page name="master_list_package" string="List Package">
+                                <field name="list_package_line">
+                                    <tree editable="bottom">
+                                        <field name="name" />
+                                        <field name="nama_paket" />
+                                        <field name="certificate_ids" widget="many2many_tags" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True, 'color_field': 'color'}"/>
+                                        <field name="total_direct_cost" widget="monetary" string="Direct Cost (IDR)"/>
+                                        <field name="total_fixed_cost" widget="monetary" string="Fixed Cost (IDR)"/>
+                                        <field name="total_cost" widget="monetary"/>
+                                        <field name="profit" string="Profit (%)"/>
+                                        <field name="price_paket" widget="monetary"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="total_price_all_package">
+                                    <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                        <label for="total_price_package" />
+                                    </div>
+                                    <field name="total_price_package" widget="monetary" nolabel="1" class="oe_subtotal_footer_separator"/>
+                                </group>
+                                <div class="oe_clear"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <!-- Search -->
+
+        <record id="package_mcu_onsite_view_search" model="ir.ui.view">
+            <field name="name">package.mcu.onsite.view.search</field>
+            <field name="model">package.mcu</field>
+            <field name="arch" type="xml">
+
+                <search string="Package MCU Onsite">
+                    <group expand="1" string="Group By">
+                        <filter string="Company" name="company" domain="[]" context="{'group_by': 'perusahaan_id'}"/>
+                    </group>
+                </search>
+
+            </field>
+        </record>
+
+        <!-- Action -->
+
+        <record id="package_mcu_onsite_action" model="ir.actions.act_window">
+            <field name="name">Package MCU Onsite</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">package.mcu</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="package_mcu_onsite_view_tree"/>
+            <field name="search_view_id" ref="package_mcu_onsite_view_search"/>
+            <field name="domain">[('onsite', '=', True)]</field>
+            <field name="context">{'search_default_company' : 1, 'default_onsite' : 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Tidak ada Data Package MCU
+                </p>
+            </field>
+        </record>
+
+        <record id="package_mcu_onsite_action_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="package_mcu_onsite_view_tree"/>
+            <field name="act_window_id" ref="package_mcu_onsite_action"/>
+        </record>
+
+        <record id="package_mcu_onsite_action_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="package_mcu_onsite_view_form"/>
+            <field name="act_window_id" ref="package_mcu_onsite_action"/>
+        </record>
+    
+    </data>
+</odoo>

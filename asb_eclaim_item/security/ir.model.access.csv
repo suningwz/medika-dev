@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_eclaim_item_type,asb_eclaim_item.eclaim_item_type,model_eclaim_item_type,base.group_user,1,1,1,1
+access_eclaim_item,asb_eclaim_item.eclaim_item,model_eclaim_item,base.group_user,1,1,1,1

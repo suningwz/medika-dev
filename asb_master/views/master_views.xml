@@ -1,0 +1,5 @@
+<odoo>
+  <data>
+    <menuitem name="Master" id="top_menu_master" web_icon="asb_master,static/description/icon.png" />
+  </data>
+</odoo>

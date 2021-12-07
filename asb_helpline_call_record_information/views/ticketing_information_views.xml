@@ -1,0 +1,333 @@
+<odoo>
+  <data>
+
+    <record id="ticketing_information_view_form" model="ir.ui.view">
+      <field name="name">ticketing.information.view.form</field>
+      <field name="model">ticketing.information</field>
+      <field name="arch" type="xml">
+        <form string="Information">
+          <sheet>
+            <p>
+            Choose one of the selection below 
+            </p>
+            <group>
+              <field name="call_id" invisible="1" />
+              <field name="information" widget="radio" />
+            </group>
+            <footer>
+              <button string="Open" name="open_information" type="object" class="btn-primary" />
+              <button string="Close" class="btn-default" special="cancel" />
+            </footer>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_ticketing_information" model="ir.actions.act_window">
+      <field name="name">Information</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">ticketing.information</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+    </record>
+
+    <!-- Provider List View -->
+
+    <record model="ir.ui.view" id="information_provider_list">
+      <field name="name">res.partner.provider.tree.ticketing</field>
+      <field name="model">res.partner</field>
+      <field name="arch" type="xml">
+        <tree create="0" edit="0" delete="0">
+          <field name="name" />
+          <field name="street" />
+          <field name="city_id" string="city"/>
+          <field name="provider_type" />
+          <field name="provider_code" />
+          <field name="edc_number" />
+          <field name="phone" />
+          <field name="mobile" />
+          <field name="category_id" widget="many2many_tags"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="information_provider_filter" model="ir.ui.view">
+      <field name="name">res.partner.provider.filter.ticketing</field>
+      <field name="model">res.partner</field>
+      <field name="arch" type="xml">
+        <search string="Search Provider">
+          <field name="name" />
+          <field name="street" />
+          <field name="city_id" string="City" />
+          <field name="category_id" />
+        </search>
+      </field>
+    </record>
+
+    <record id="action_ticketing_information_provider" model="ir.actions.act_window">
+      <field name="name">Provider</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">res.partner</field>
+      <field name="view_mode">tree,form</field>
+      <field name="target">new</field>
+      <field name="search_view_id" ref="information_provider_filter"/>
+      <field name="view_id" ref="information_provider_list" />
+    </record>
+
+    <!-- Product Information List View -->
+
+    <record id="information_product_list" model="ir.ui.view">
+      <field name="name">costing.product.information.view.tree.ticketing</field>
+      <field name="model">costing.product.information</field>
+      <field name="arch" type="xml">
+        <tree create="0" edit="0" delete="0">
+          <field name="name" />
+          <field name="description" />
+          <field name="start_from" />
+          <field name="start_to" />
+          <field name="state" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="action_ticketing_information_product" model="ir.actions.act_window">
+      <field name="name">Product Information</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">costing.product.information</field>
+      <field name="view_mode">tree</field>
+      <field name="target">new</field>
+      <field name="view_id" ref="information_product_list" />
+    </record>
+
+    <!-- Package MCU List View -->
+
+    <record id="information_list_package_house_view_form" model="ir.ui.view">
+      <field name="name">list.package.house.view.form.ticketing</field>
+      <field name="model">list.package</field>
+      <field name="arch" type="xml">
+        <form edit="0" create="0" delete="0" string="List Package" duplicate="0">
+
+          <header>
+            <field name="list_package_ids" invisible="1"/>
+          </header>
+
+          <sheet style="max-width:40%;">
+            <div class="oe_title">
+              <h1>
+                <field name="perusahaan_id" force_save="1" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+              </h1>
+            </div>
+
+            <div class="oe_title">
+              <label for="nama_paket" string="Nama Paket"/>
+              <h2>
+                <field name="nama_paket" readonly="1"/>
+              </h2>
+            </div>
+
+            <group style="margin: 1px 0px;">
+              <group style="margin: 1px 0px;">
+                <field name="package_mcu_id" force_save="1" invisible="1"/>
+                <field name="bahasa_hasil" force_save="1" invisible="1"/>
+                <field name="in_house" force_save="1" invisible="1"/>
+                <field name="onsite" force_save="1" invisible="1"/>
+                <field name="currency_id" force_save="1" invisible="1"/>
+                <field name="name" readonly="1"/>
+                <field name="certificate_ids" readonly="1" widget="many2many_tags" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True, 'color_field': 'color'}" context="{'tree_view_ref': 'asb_klinik_costing_setting_general.config_certificate_list_view_tree'}"/>
+              </group>
+
+              <group style="margin: 1px 0px;">
+                <field name="option" widget="boolean_toggle" invisible="1" />
+                <field name="data_perusahaan_id" attrs="{ 'invisible' : [('option', '=', False)]}" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}" context="{'tree_view_ref' : 'asb_klinik_master_personil.master_perusahaan_view_template_tree'}"/>
+                <field name="list_package_id" domain="[('id', 'in', list_package_ids)]" attrs="{ 'invisible' : ['|', ('data_perusahaan_id', '=', False), ('option', '=', False)]}" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+              </group>
+            </group>
+
+            <notebook>
+              <page name="master_list_package" string="Daftar Package">
+                <field name="examination_list_ids" readonly="1" widget="many2many" options="{'no_create': True}" force_save="1" context="{'tree_view_ref': 'asb_klinik_costing_package.config_examination_list_view_tree'}">
+                  <tree>
+                    <field name="name" string="Examination List"/>
+                  </tree>
+                  <form string="Examination List">
+                    <sheet>
+                      <group>
+                        <field name="name" />
+                        <field name="poli_unit_id"/>
+                      </group>
+                    </sheet>
+                  </form>
+                </field>
+                <div class="row">
+                  <hr style="width:50%;text-align:left;margin-left:auto;margin-right:0"/>
+                </div>
+                <div class="row">
+                  <div class="col-md-8 text-right">
+                    <h1>Price (IDR)</h1>
+                  </div>
+                  <div class="col-md-2 text-right">
+                    <h1>
+                      <field name="price_paket" widget="monetary" class="oe_inline"/>
+                    </h1>
+                  </div>
+                </div>
+              </page>
+            </notebook>
+          </sheet>
+          <footer style="text-align: right">
+            <button name="download_examination" string="Download" type="object" class="oe_highlight" />
+          </footer>
+        </form>
+      </field>
+    </record>
+
+
+    <record id="information_list_package_list" model="ir.ui.view">
+      <field name="name">list.package.view.tree.ticketing</field>
+      <field name="model">list.package</field>
+      <field name="arch" type="xml">
+        <tree create="0" edit="0" delete="0">
+          <field name="name" />
+          <field name="nama_paket" />
+          <field name="certificate_ids" widget="many2many_tags" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True, 'color_field': 'color'}" />
+          <field name="price_paket" widget="monetary" />
+          <button name="open_form" string="View" type="object" class="oe_highlight" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="action_ticketing_information_package_mcu" model="ir.actions.act_window">
+      <field name="name">Package MCU In House</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">list.package</field>
+      <field name="view_mode">tree</field>
+      <field name="target">new</field>
+      <field name="view_id" ref="information_list_package_list" />
+    </record>
+
+    <!-- diagnosis List View -->
+
+    <record id="information_diagnosa_list" model="ir.ui.view">
+      <field name="name">diagnosis.tree.ticketing</field>
+      <field name="model">diagnosis.diagnosis</field>
+      <field name="arch" type="xml">
+        <tree create="0" edit="0" delete="0" string="Diagnosis">
+          <field name="diagnosis_code" />
+          <field name="name" required="1" />
+          <field name="description" />
+          <field name="edc_code" />
+          <field name="initial_symptom" optional='hide' />
+          <field name="vital_sign" optional='hide' />
+          <field name="length_stay" optional="hide" />
+          <field name="estimated_cost" optional="hide" widget='monetary' />
+          <field name="company_id" invisible="1" />
+          <field name="currency_id" invisible="1" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="action_ticketing_information_diagnosa" model="ir.actions.act_window">
+      <field name="name">Diagnosa</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">diagnosis.diagnosis</field>
+      <field name="view_mode">tree</field>
+      <field name="target">new</field>
+      <field name="view_id" ref="information_diagnosa_list" />
+    </record>
+
+    <!-- Ambulance Rental List View Readonly -->
+
+    <record id="action_ticketing_information_ambulance_rental" model="ir.actions.act_window">
+      <field name="name">Ambulance Rental</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">helpline.supporting.ambulance.rental</field>
+      <field name="view_mode">tree</field>
+      <field name="target">new</field>
+      <field name="view_id" ref="asb_helpline_supporting_ambulance_rental.helpline_supporting_ambulance_rental_tree_readonly" />
+    </record>
+
+    <!-- Ambulance RS List View Readonly -->
+
+    <record id="action_ticketing_information_ambulance_rs" model="ir.actions.act_window">
+      <field name="name">Ambulance RS</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">helpline.supporting.ambulance.rs</field>
+      <field name="view_mode">tree</field>
+      <field name="target">new</field>
+      <field name="view_id" ref="asb_helpline_supporting_ambulance_rs.helpline_supporting_ambulance_rs_tree_readonly" />
+    </record>
+
+    <!-- Assistance List View Readonly -->
+
+    <record id="action_ticketing_information_assistance" model="ir.actions.act_window">
+      <field name="name">Assistance</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">helpline.supporting.assistance</field>
+      <field name="view_mode">tree</field>
+      <field name="target">new</field>
+      <field name="view_id" ref="asb_helpline_supporting_assistance.helpline_supporting_assistance_tree_readonly" />
+    </record>
+
+    <!-- EAP List View Readonly -->
+
+    <record id="action_ticketing_information_eap" model="ir.actions.act_window">
+      <field name="name">EAP</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">helpline.supporting.eap</field>
+      <field name="view_mode">tree</field>
+      <field name="target">new</field>
+      <field name="view_id" ref="asb_helpline_supporting_eap.helpline_supporting_eap_tree_readonly" />
+    </record>
+
+    <!-- Embassy List View Readonly -->
+
+    <record id="action_ticketing_information_embassy" model="ir.actions.act_window">
+      <field name="name">Embassy</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">helpline.supporting.embassy</field>
+      <field name="view_mode">tree</field>
+      <field name="target">new</field>
+      <field name="view_id" ref="asb_helpline_supporting_embassy.helpline_supporting_embassy_tree_readonly" />
+    </record>
+
+    <!-- Specialist List View Readonly -->
+
+    <record id="action_ticketing_information_specialist" model="ir.actions.act_window">
+      <field name="name">Specialist</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">helpline.supporting.specialist</field>
+      <field name="view_mode">tree</field>
+      <field name="target">new</field>
+      <field name="view_id" ref="asb_helpline_supporting_specialist.helpline_supporting_specialist_tree_readonly" />
+    </record>
+
+    <!-- Benefit List View Readonly -->
+
+    <record id="benefit_tree_view_readonly" model="ir.ui.view">
+      <field name="name">benefit.tree</field>
+      <field name="model">benefit.benefit</field>
+      <field name="arch" type="xml">
+        <tree create="0" edit="0" delete="0" string="Benefit">
+          <field name="master_id" />
+          <field name="item_code" />
+          <field name="name" />
+          <field name="description" />
+          <field name="edc_code_id" optional="show" />
+          <field name="edc_name" optional="show" />
+          <field name="state" optional="show" />
+          <field name="alternate_code" optional="hide" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="action_ticketing_information_benefit" model="ir.actions.act_window">
+      <field name="name">Benefit</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">benefit.benefit</field>
+      <field name="view_mode">tree</field>
+      <field name="target">new</field>
+      <field name="view_id" ref="benefit_tree_view_readonly" />
+    </record>
+
+  </data>
+</odoo>

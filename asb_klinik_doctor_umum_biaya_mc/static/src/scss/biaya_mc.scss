@@ -1,0 +1,46 @@
+.o_group_biaya_mc {
+    display: inline-block;
+    width: 100%;
+    margin: 10px 0;
+
+    // o_group contains nested groups
+    @for $i from 1 through $o-form-group-cols {
+        .o_group_col_#{$i} {
+            display: inline-block;
+            width: floor(100% / 12 * $i);
+            vertical-align: top;
+        }
+    }
+
+    &.o_inner_group {
+        display: inline-table;
+        text-align: left !important;
+
+        > tbody > tr > td {
+            &.o_td_label {
+                padding: 0 15px 0 0;
+                min-width: 150px;
+                text-align: left !important;
+            }
+            vertical-align: top;
+            text-align: right !important;
+
+            span, .o_field_boolean, .oe_avatar, .o_form_uri {
+                &.o_field_widget {
+                    width: auto;
+                }
+                &.o_total_biaya {
+                    // color: #134F7C !important;
+                    font-weight: bold !important;
+                    font-size: 16px !important;
+                    width: auto !important;
+                }
+            }
+            > div {
+                &.o_horizontal_separator {
+                    text-align: left !important;
+                }
+            }
+        }
+    }
+}

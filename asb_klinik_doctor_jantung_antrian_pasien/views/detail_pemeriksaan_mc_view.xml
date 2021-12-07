@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record id="antrian_pasien_dokter_jantung_form_inherit_pemeriksaan_pemeriksaan_mc" model="ir.ui.view">
+            <field name="name">pemeriksaan.mc.doctor.jantung.form.inherit</field>
+            <field name="model">master.registration</field>
+            <field name="inherit_id" ref="asb_klinik_doctor_jantung_antrian_pasien.antrian_pasien_doctor_jantung_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='detail_pemeriksaan_mc']" position="inside">
+                    <group>
+                        <field name="detail_pemeriksaan_mc_ids" nolabel='1'>
+                            <tree editable="top">
+                                <field name="product_ids" invisible="1" />
+                                <field name="product_id" style="width: 40%;" string='Nama Pemeriksaan' required="1" domain="[('id','=',product_ids)]" options="{'no_open': False, 'no_create': True}" context="{'tree_view_ref' : 'asb_klinik_master_product.examination_list_view_tree'}" />
+                                <field name="poli_unit_id" style="width: 15%;"/>
+                                <field name="tenaga_medis" style="width: 15%;" options="{'no_open': True, 'no_create': True}" force_save="1" readonly="1" />
+                                <field name="qty" />
+                                <field name="harga_satuan" string="Harga Satuan" widget="monetary" />
+                                <field name="sub_total" />
+                                <field name="registration_id" invisible="1" />
+                                <field name="currency_id" invisible="1" />
+                            </tree>
+                        </field>
+                    </group>
+                    <group class="oe_subtotal_footer oe_right">
+                        <div class="oe_subtotal_footer_separator oe_inline">
+                            <label for="total_pemeriksaan_mc" />
+                        </div>
+                        <field name="total_pemeriksaan_mc" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    
+    </data>
+</odoo>

@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- <data noupdate="1"> -->
+    <data noupdate="0">
+
+        <record model="report.paperformat" id="report_template_gl_format">
+            <field name="name">GL Template Format</field>
+            <field name="default" eval="False" />
+            <field name="format">custom</field>
+            <field name="page_width">210</field>
+            <field name="page_height">297</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">50</field>
+            <field name="margin_bottom">23</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False" />
+        </record>
+
+        <template id="template_initial_gl">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="header">
+                        <table style="width:100%;">
+                            <tr>
+                                <th style="text-align: left;">
+                                    <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)" style="max-height: 150px;" alt="Logo" />
+                                </th>
+                                <th style="text-align: right;">
+                                    <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)" style="max-height: 150px;" alt="Logo" />
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+                    <style>
+                        p.big {
+                        font-size: 14px;
+                        font-family: Arial;
+                        }                
+                        p.small {
+                        font-size: 10px;
+                        font-family: Arial;
+                        }
+                        table, th, td {
+                        border-collapse: ;
+                        font-size: 14px;
+                        font-family: Arial;
+                        }
+                        p.tab {
+                        margin-left 10000px;
+                        }
+                    </style>
+                    <div class="page tab" style="font-size:12pt; font-family:Arial; page-break-before:always; padding-left: 60px; padding-right: 60px;">
+                        <p class="big">
+                            Jakarta,
+                            <span t-field="doc.create_date" t-options='{"format": "dd MMMM yyyy"}' />
+                        </p>
+
+                        <p class="big">
+                            Kepada Yth.
+                            <br />
+                            <span t-field="doc.client_id.name" />
+                            <br />
+                            <t t-esc="', '.join([item for item in [', '.join([item for item in [doc.client_id.street, doc.client_id.street2] if item]),doc.client_id.city_id.name,                             doc.client_id.state_id and doc.client_id.state_id.name,                             doc.client_id.zip,                             doc.client_id.country_id and doc.client_id.country_id.name] if item])" />
+                        </p>
+
+                        <p class="big">
+                            UP :
+                            <span t-field="doc.up" />
+                        </p>
+                        <t t-if="doc.member">
+                            MEMBER
+                            <br />
+                        </t>
+                        <t t-if="not doc.member">
+                            NON MEMBER
+                            <br />
+                        </t>
+                        <p style="text-align: center; font-size: 20px;">
+                            <u>
+                                <b>
+                                    <t t-if="doc.benefit_master_id.category in ['ma','ip']">
+                                        SURAT JAMINAN RAWAT INAP<br />
+                                    </t>
+                                    <t t-if="not doc.benefit_master_id.category in ['ma','ip']">
+                                        SURAT JAMINAN RAWAT JALAN<br />
+                                    </t>
+                                </b>
+                            </u>
+                            <span style="text-align: center; font-size: 14px;" t-field="doc.claim_number" />
+                        </p>
+
+                        <p style="text-align: left" class="big">
+                            <t t-if="doc.benefit_master_id.category in ['ma','ip']">Mohon agar dapat diberikan pelayanan rawat inap untuk :</t>
+                            <t t-if="not doc.benefit_master_id.category in ['ma','ip']">Mohon agar dapat diberikan pelayanan rawat jalan untuk :</t>
+                            <br />
+                        </p>
+
+                        <table style="width:100%">
+                            <tr>
+                                <td style="width:35%">1. Nama Pasien</td>
+                                <td>
+                                    :
+                                    <span t-field="doc.name" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2. Hubungan dengan Karyawan</td>
+                                <td>
+                                    :
+                                    <span t-field="doc.member_id.relationship" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3. Nama Karyawan</td>
+                                <td>
+                                    :
+                                    <span t-field="doc.name" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4. Tanggal Lahir</td>
+                                <td>
+                                    :
+                                    <span t-field="doc.member_id.birth_date" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>5. No Kartu Karyawan</td>
+                                <td>
+                                    :
+                                    <span t-field="doc.member_id.card_number" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>6. Perusahaan</td>
+                                <td>
+                                    :
+                                    <span t-field="doc.member_id.member_client_id" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>7. PRO / Rujukan</td>
+                                <td>
+                                    :
+                                    <span t-field="doc.header_id" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>8. Tanggal Rawat</td>
+                                <td>
+                                    :
+                                    <span t-field="doc.admission_date" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>9. Nama Dokter</td>
+                                <td>
+                                    :
+                                    <span t-field="doc.practitioner_id" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>10. Diagnosa</td>
+                                <td>
+                                    :
+                                    <span t-field="doc.doctor_diagnosis" />
+                                </td>
+                            </tr>
+                        </table>
+
+                        <p style="text-align: justify" class="big">
+                            Semua Biaya yang berhubungan dengan perawatan dan pengobatan tersebut akan ditanggung dan ditagihkan
+                      kepada :
+                            <br />
+                        </p>
+                        <p style="text-align: center;" class="big">
+                            <b>
+                                PT. KARTIKA BINA MEDIKATAMA (MEDIKA PLAZA)
+                                <br />
+                                BELTWAY OFFICE PARK, ANNEX BUILDING
+                                <br />
+                                Jl. TB Simatupang Kav 41. Jakarta Selatan 12550
+                            </b>
+                        </p>
+
+                        <p style="text-align: justify" class="big">
+                      Atas bantuan dan kerjasama yang telah diberikan, kami ucapkan terima kasih
+                        </p>
+
+                        <p class="big">
+                            Hormat kami :
+                            <br />
+                            Persetujuan Administrasi :
+                        </p>
+
+                        <img t-if="doc.company_id.gl_ttd" t-att-src="image_data_uri(doc.company_id.gl_ttd)" style="max-height: 100px;" />
+
+                        <p class="big">
+                            <u>
+                                <b>
+                                    <span t-field="doc.company_id.gl_ttd_name" />
+                                </b>
+                            </u>
+                            <br />
+                            <span t-field="doc.company_id.gl_title" />
+                            <br />
+                        </p>
+
+                        <p style="text-align: justify;" class="small">
+                            <b>
+                                Notes :
+                                <br />
+                            </b>
+                            1. Jaminan ini hanya berlaku jika diagnosa akhir sesuai dengan polis yang berlaku, jika diagnosa akhir termasuk dalam pengecualian
+                        maka jaminan ini dibatalkan dan seluruh biaya akan menjadi tanggung jawab pasien. Medika Plaza akan menerbitkan surat penolakan
+                        jaminan.
+                        </p>
+                    </div>
+                    <div class="footer">
+                        <hr size="10px;" color="black" />
+                        <p style="text-align: center; font-size: 10px;">
+                            <b>
+                                <u>
+                                    PT. KARTIKA BINA MEDIKATAMA
+                                    <br />
+                                </u>
+                            </b>
+                            HEAD OFFICE: BELTWAY OFFICE PARK, TOWER C, 2nd Floor, Jl. TB. SImatupang Kav 41. Jakarta Selatan 12550, Phone : +62 21 808 66 088, Fax : +62 21 808 66 089
+                            <br />
+                            BELTWAY CLINIC: BELTWAY OFFICE PARK ANNEX BUILDING, Ground Floor, Jl. TB. SImatupang Kav 41. Jakarta Selatan 12550, Phone : +62 21 808 66 099, Fax : +62 21 808 66 098
+                            <br />
+                            WTC 2 CLINIC: World Trade Center 2, Lower Ground Floor, Jl. Jend. Sudirman, Kav. 29 Jakarta Selatan, Jakarta 12920, Phone : +62 21 295 22 611, Fax : +62 21 295 22 610
+                            <br />
+                            www.medikaplaza.com
+                        </p>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <template id="template_final_gl">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="header">
+                        <table style="width:100%;">
+                            <tr>
+                                <th style="text-align: left;">
+                                    <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)" style="max-height: 150px;" alt="Logo" />
+                                </th>
+                                <th style="text-align: right;">
+                                    <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)" style="max-height: 150px;" alt="Logo" />
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+                    <style>
+                p.big {
+                font-size: 14px;
+                font-family: Arial;
+                }                
+                p.small {
+                font-size: 10px;
+                font-family: Arial;
+                }
+                table, th, td {
+                  border-collapse: ;
+                  font-size: 14px;
+                  font-family: Arial;
+                }
+                p.tab {
+                margin-left 10000px;
+                }
+                    </style>
+                    <div class="page tab" style="font-size:12pt; font-family:Arial; page-break-before:always; padding-left: 60px; padding-right: 60px;">
+                        <p class="big">
+                            Jakarta,
+                            <span t-field="doc.create_date" t-options='{"format": "dd MMMM yyyy"}' />
+                        </p>
+
+                        <p class="big">
+                            Kepada Yth.
+                            <br />
+                            <span t-field="doc.client_id.name" />
+                            <br />
+                            <t t-esc="', '.join([item for item in [', '.join([item for item in [doc.client_id.street, doc.client_id.street2] if item]),doc.client_id.city_id.name,                             doc.client_id.state_id and doc.client_id.state_id.name,                             doc.client_id.zip,                             doc.client_id.country_id and doc.client_id.country_id.name] if item])" />
+                        </p>
+
+                        <p class="big">
+                            UP :
+                            <span t-field="doc.up" />
+                        </p>
+                        <t t-if="doc.member">
+                            MEMBER
+                            <br />
+                        </t>
+                        <t t-if="not doc.member">
+                            NON MEMBER
+                            <br />
+                        </t>
+                        <p style="text-align: center; font-size: 20px;">
+                            <u>
+                                <b>
+                                    <t t-if="doc.benefit_master_id.category in ['ma','ip']">
+                                        SURAT JAMINAN RAWAT INAP<br />
+                                    </t>
+                                    <t t-if="not doc.benefit_master_id.category in ['ma','ip']">
+                                        SURAT JAMINAN RAWAT JALAN<br />
+                                    </t>
+                                </b>
+                            </u>
+                            <span style="text-align: center; font-size: 14px;" t-field="doc.claim_number" />
+                        </p>
+
+                        <p style="text-align: left" class="big">
+                            <t t-if="doc.benefit_master_id.category in ['ma','ip']">Mohon agar dapat diberikan pelayanan rawat inap untuk :</t>
+                            <t t-if="not doc.benefit_master_id.category in ['ma','ip']">Mohon agar dapat diberikan pelayanan rawat jalan untuk :</t>
+                            <br />
+                        </p>
+
+                        <table style="width:100%">
+                            <tr>
+                                <td style="width:35%">1. Nama Pasien</td>
+                                <td>
+                                    :
+                                    <span t-field="doc.name" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2. Hubungan dengan Karyawan</td>
+                                <td>
+                                    :
+                                    <span t-field="doc.member_id.relationship" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3. Nama Karyawan</td>
+                                <td>
+                                    :
+                                    <span t-field="doc.name" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4. Tanggal Lahir</td>
+                                <td>
+                                    :
+                                    <span t-field="doc.member_id.birth_date" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>5. No Kartu Karyawan</td>
+                                <td>
+                                    :
+                                    <span t-field="doc.member_id.card_number" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>6. Perusahaan</td>
+                                <td>
+                                    :
+                                    <span t-field="doc.member_id.member_client_id" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>7. PRO / Rujukan</td>
+                                <td>
+                                    :
+                                    <span t-field="doc.header_id" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>8. Tanggal Rawat</td>
+                                <td>
+                                    :
+                                    <span t-field="doc.admission_date" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>9. Nama Dokter</td>
+                                <td>
+                                    :
+                                    <span t-field="doc.practitioner_id" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>10. Diagnosa</td>
+                                <td>
+                                    :
+                                    <span t-field="doc.doctor_diagnosis" />
+                                </td>
+                            </tr>
+                        </table>
+
+                        <p style="text-align: justify" class="big">
+                            Semua Biaya yang berhubungan dengan perawatan dan pengobatan tersebut akan ditanggung dan ditagihkan
+                      kepada :
+                            <br />
+                        </p>
+                        <p style="text-align: center;" class="big">
+                            <b>
+                                PT. KARTIKA BINA MEDIKATAMA (MEDIKA PLAZA)
+                                <br />
+                                BELTWAY OFFICE PARK, ANNEX BUILDING
+                                <br />
+                                Jl. TB Simatupang Kav 41. Jakarta Selatan 12550
+                            </b>
+                        </p>
+
+                        <p style="text-align: justify" class="big">
+                      Atas bantuan dan kerjasama yang telah diberikan, kami ucapkan terima kasih
+                        </p>
+
+                        <p class="big">
+                            Hormat kami :
+                            <br />
+                            Persetujuan Administrasi :
+                        </p>
+
+                        <img t-if="doc.company_id.gl_ttd" t-att-src="image_data_uri(doc.company_id.gl_ttd)" style="max-height: 100px;" />
+
+                        <p class="big">
+                            <u>
+                                <b>
+                                    <span t-field="doc.company_id.gl_ttd_name" />
+                                </b>
+                            </u>
+                            <br />
+                            <span t-field="doc.company_id.gl_title" />
+                            <br />
+                        </p>
+
+                        <p style="text-align: justify;" class="small">
+                            <b>
+                                Notes :
+                                <br />
+                            </b>
+                            1. Jaminan ini hanya berlaku jika diagnosa akhir sesuai dengan polis yang berlaku, jika diagnosa akhir termasuk dalam pengecualian
+                        maka jaminan ini dibatalkan dan seluruh biaya akan menjadi tanggung jawab pasien. Medika Plaza akan menerbitkan surat penolakan
+                        jaminan.
+                        </p>
+                    </div>
+                    <div class="footer">
+                        <hr size="10px;" color="black" />
+                        <p style="text-align: center; font-size: 10px;">
+                            <b>
+                                <u>
+                                    PT. KARTIKA BINA MEDIKATAMA
+                                    <br />
+                                </u>
+                            </b>
+                            HEAD OFFICE: BELTWAY OFFICE PARK, TOWER C, 2nd Floor, Jl. TB. SImatupang Kav 41. Jakarta Selatan 12550, Phone : +62 21 808 66 088, Fax : +62 21 808 66 089
+                            <br />
+                            BELTWAY CLINIC: BELTWAY OFFICE PARK ANNEX BUILDING, Ground Floor, Jl. TB. SImatupang Kav 41. Jakarta Selatan 12550, Phone : +62 21 808 66 099, Fax : +62 21 808 66 098
+                            <br />
+                            WTC 2 CLINIC: World Trade Center 2, Lower Ground Floor, Jl. Jend. Sudirman, Kav. 29 Jakarta Selatan, Jakarta 12920, Phone : +62 21 295 22 611, Fax : +62 21 295 22 610
+                            <br />
+                            www.medikaplaza.com
+                        </p>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <record id="action_print_initial_gl" model="ir.actions.report">
+            <field name="name">Template Initial GL</field>
+            <field name="model">guarantee.letter</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">asb_helpline_guarantee_letter.template_initial_gl</field>
+            <field name="report_file">asb_helpline_guarantee_letter.template_initial_gl</field>
+            <field name="paperformat_id" ref="asb_helpline_guarantee_letter.report_template_gl_format" />
+        </record>
+
+        <record id="action_print_final_gl" model="ir.actions.report">
+            <field name="name">Template Final GL</field>
+            <field name="model">guarantee.letter</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">asb_helpline_guarantee_letter.template_final_gl</field>
+            <field name="report_file">asb_helpline_guarantee_letter.template_final_gl</field>
+            <field name="paperformat_id" ref="asb_helpline_guarantee_letter.report_template_gl_format" />
+        </record>
+
+
+    </data>
+</odoo>

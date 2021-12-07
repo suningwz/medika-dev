@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="guarantee_letter_view_form_inherit_asb_help_line_decline" model="ir.ui.view">
+            <field name="name">guarantee.letter.view.form.inherit</field>
+            <field name="model">guarantee.letter</field>
+            <field name="inherit_id" ref="asb_helpline_guarantee_letter.guarantee_letter_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='case_status']" position="before">
+                    <button name="decline_reason_wizard" string="Decline" type="object" attrs="{'invisible' : [('case_status', 'in', ['approved','discharge','decline'])]}" class="btn btn-danger" />
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

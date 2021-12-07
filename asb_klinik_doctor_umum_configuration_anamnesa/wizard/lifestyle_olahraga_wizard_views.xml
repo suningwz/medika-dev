@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Form View -->
+        <record model="ir.ui.view" id="lifestyle_olahraga_wizard_form">
+            <field name="name">lifestyle.olahraga.wizard.form</field>
+            <field name="model">lifestyle.olahraga.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header></header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="lifestyle_id" options="{'no_open': True, 'no_create': True}" force_save="1" readonly="1" />
+                                <field name="status" required="1" />
+                            </group>
+                            <group>
+                                <field name="deskripsi" required="1" />
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="save" type="object" string="Save" class="oe_highlight" />
+                        <button special="cancel" string="Cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

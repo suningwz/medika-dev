@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record id="master_alat_kesehatan_obat_view_tree" model="ir.ui.view">
+            <field name="name">master.alat.kesehatan.obat.view.tree</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+
+                <tree string="Alat Kesehatan / Obat">
+                    <field name="currency_id" invisible="1"/>
+                    <field name="default_code" string="Kode SAP"/>
+                    <field name="name" string="Nama Produk"/>
+                    <field name="jenis_persediaan" string="Kategori" widget="badge" decoration-success="jenis_persediaan == 'obat'" decoration-warning="jenis_persediaan == 'alkes'"/>
+                    <field name="type" string="Tipe Product"/>
+                    <field name="standard_price" string="Cost Product" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="list_price" string="Harga Jual Product" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="uom_id" />
+                </tree>
+
+            </field>
+        </record>
+
+        <record id="master_alat_kesehatan_obat_simple_view_tree" model="ir.ui.view">
+            <field name="name">master.alat.kesehatan.obat.simple.view.tree</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+
+                <tree string="Alat Kesehatan / Obat">
+                    <field name="currency_id" invisible="1"/>
+                    <field name="default_code" string="Kode SAP"/>
+                    <field name="name" string="Nama Produk"/>
+                    <field name="jenis_persediaan" string="Kategori" widget="badge" decoration-success="jenis_persediaan == 'obat'" decoration-warning="jenis_persediaan == 'alkes'"/>
+                    <field name="list_price" string="Harga Jual Product" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                </tree>
+
+            </field>
+        </record>
+
+        <record id="master_alat_kesehatan_simple_view_tree" model="ir.ui.view">
+            <field name="name">master.alat.kesehatan.simple.view.tree</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+
+                <tree string="Alat Kesehatan / Obat">
+                    <field name="currency_id" invisible="1"/>
+                    <field name="default_code" string="Kode SAP"/>
+                    <field name="name" string="Nama Produk"/>
+                    <field name="jenis_persediaan" string="Kategori" widget="badge" decoration-success="jenis_persediaan == 'obat'" decoration-warning="jenis_persediaan == 'alkes'"/>
+                    <field name="standard_price" string="Cost Product" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                </tree>
+
+            </field>
+        </record>
+
+        <record id="form_master_alat_obat_inherit_product_template" model="ir.ui.view">
+            <field name="name">master.alat.obat.view.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                
+                <xpath expr="//notebook" position="before">
+                    <group>
+                        <field name="is_alat_obat" force_save="1" invisible="1" readonly="1"/>
+                        <field name="is_jasa" force_save="1" invisible="1" readonly="1"/>
+                        <field name="is_service" force_save="1" invisible="1" readonly="1"/>
+                        <field name="is_product" force_save="1" invisible="1" readonly="1"/>
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="form_only_master_alat_obat_inherit_product_template" model="ir.ui.view">
+            <field name="name">only.master.alat.obat.view.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+
+                <field name="default_code" position="attributes">
+                    <attribute name='string'>Kode SAP</attribute>
+                </field>
+                
+                <xpath expr="//label[@for='list_price']" position="replace">
+                    <label for="list_price" string="Harga Jual Product"/>
+                </xpath>
+
+                <xpath expr="//label[@for='standard_price']" position="replace">
+                    <label for="standard_price" string="Cost Product"/>
+                </xpath>
+
+                <field name="categ_id" position="after">
+                    <field name="jenis_persediaan" attrs="{'invisible': [('is_alat_obat', '=', False)], 'required' : [('is_alat_obat', '=', True)]}"/>
+                    <field name="bentuk_persediaan_id" attrs="{'invisible': ['|', ('is_alat_obat', '=', False), ('jenis_persediaan', '!=', 'obat')], 'required' : [('jenis_persediaan', '=', 'obat')]}"/>
+                    <field name="kelompok_obat" attrs="{'invisible': ['|', ('is_alat_obat', '=', False), ('jenis_persediaan', '!=', 'obat')], 'required' : [('jenis_persediaan', '=', 'obat')]}"/>
+                    <field name="golongan_obat" attrs="{'invisible': ['|', ('is_alat_obat', '=', False), ('jenis_persediaan', '!=', 'obat')], 'required' : [('jenis_persediaan', '=', 'obat')]}"/>
+                    <field name="nama_generik" attrs="{'invisible': ['|', ('is_alat_obat', '=', False), ('jenis_persediaan', '!=', 'obat')], 'required' : [('jenis_persediaan', '=', 'obat')]}"/>
+                </field>
+
+                <xpath expr="//label[@for='list_price']" position="before">
+                    <field name="harga_jual_product_fix" force_save="1" invisible="1"/>
+                    <field name="profit_margin_product" widget="percentage" force_save="1" attrs="{'invisible': [('is_alat_obat', '=', False)]}"/>
+                    <field name="ppn_product" widget="percentage" force_save="1" attrs="{'invisible': [('is_alat_obat', '=', False)]}"/>
+                    <field name="harga_jual_product" force_save="1" attrs="{'invisible': [('is_alat_obat', '=', False)]}"/>
+                </xpath>
+
+                <field name="list_price" position="attributes">
+                    <attribute name='attrs'>
+                        {'readonly': [('is_alat_obat', '=', True)]}
+                    </attribute>
+                </field>
+
+                <field name="taxes_id" position="attributes">
+                    <attribute name='attrs'>
+                        {'invisible': [('is_alat_obat', '=', True)]}
+                    </attribute>
+                </field>
+
+                <field name="company_id" position="attributes">
+                    <attribute name='attrs'>
+                        {'invisible': [('is_alat_obat', '=', True)]}
+                    </attribute>
+                </field>
+
+                <xpath expr="//button[@name='open_pricelist_rules']" position="attributes">
+                    <attribute name='attrs'>
+                        {'invisible': [('is_alat_obat', '=', True)]}
+                    </attribute>
+                </xpath>
+
+                <field name="categ_id" position="attributes">
+                    <attribute name='attrs'>
+                        {'invisible': [('is_product', '=', True)]}
+                    </attribute>
+                </field>
+
+                <field name="barcode" position="attributes">
+                    <attribute name='attrs'>
+                        {'invisible': [('is_product', '=', True)]}
+                    </attribute>
+                </field>
+
+                <xpath expr="//button[@id='stock.view_diagram_button']" position="attributes">
+                    <attribute name='attrs'>
+                        {'invisible': [('is_product', '=', True)]}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//notebook/page[@name='inventory']/group[@name='inventory']/group[@name='group_lots_and_weight']" position="attributes">
+                    <attribute name='attrs'>
+                        {'invisible': [('is_product', '=', True)]}
+                    </attribute>
+                </xpath>
+                
+            </field>
+        </record>
+
+        <record id="form_inherit_stock_form" model="ir.ui.view">
+            <field name="name">product.template.stock.property.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.view_template_property_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//notebook/page[@name='inventory']/group[@name='inventory']/group[@name='operations']" position="attributes">
+                    <attribute name='attrs'>
+                        {'invisible': [('is_product', '=', True)]}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//notebook/page[@name='inventory']/group[@name='inventory']/group[@name='stock_property']" position="attributes">
+                    <attribute name='attrs'>
+                        {'invisible': [('is_product', '=', True)]}
+                    </attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="master_alat_kesehatan_obat_action" model="ir.actions.act_window">
+            <field name="name">Alat Kesehatan / Obat</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('jenis_persediaan', 'in', ['obat','alkes'])]</field>
+            <field name="context">{ 'default_is_alat_obat' : 1, 
+                                    'default_is_product' : 1,
+                                    'default_jenis_persediaan' : 'obat',
+                                    'default_type' : 'product',
+                                    'default_taxes_id' : [], 
+                                    'default_use_expiration_date' : 1}</field>
+            <field name="view_id" ref="master_alat_kesehatan_obat_view_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Tidak ada Data Alat Kesehatan / Obat
+                </p>
+            </field>
+        </record>
+
+        <record id="master_alat_kesehatan_obat_action_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="master_alat_kesehatan_obat_view_tree"/>
+            <field name="act_window_id" ref="master_alat_kesehatan_obat_action"/>
+        </record>
+
+        <record id="master_alat_kesehatan_obat_action_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="form_only_master_alat_obat_inherit_product_template"/>
+            <field name="act_window_id" ref="master_alat_kesehatan_obat_action"/>
+        </record>
+    
+    </data>
+</odoo>

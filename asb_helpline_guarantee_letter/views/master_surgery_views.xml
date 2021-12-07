@@ -1,0 +1,73 @@
+<odoo>
+  <data>
+
+    <!-- explicit list view  -->
+
+    <record model="ir.ui.view" id="configuration_claim_primary_surgery_view_form">
+      <field name="name">claim.primary.surgery.form</field>
+      <field name="model">claim.primary.surgery</field>
+      <field name="arch" type="xml">
+        <form string="Primary Surgery">
+          <sheet>
+            <group>
+              <field name="name" />
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="configuration_claim_secondary_surgery_view_form">
+      <field name="name">claim.secondary.surgery.form</field>
+      <field name="model">claim.secondary.surgery</field>
+      <field name="arch" type="xml">
+        <form string="Secondary Surgery">
+          <sheet>
+            <group>
+              <field name="name" />
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="configuration_claim_primary_surgery_view_tree">
+      <field name="name">claim.primary.surgery.tree</field>
+      <field name="model">claim.primary.surgery</field>
+      <field name="arch" type="xml">
+        <tree editable="top">
+          <field name="name" required="1"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="configuration_claim_secondary_surgery_view_tree">
+      <field name="name">claim.secondary.surgery.tree</field>
+      <field name="model">claim.secondary.surgery</field>
+      <field name="arch" type="xml">
+        <tree editable="top">
+          <field name="name" required="1"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record id="configuration_claim_primary_surgery_action_window" model="ir.actions.act_window">
+      <field name="name">Primary Surgery</field>
+      <field name="res_model">claim.primary.surgery</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="configuration_claim_secondary_surgery_action_window" model="ir.actions.act_window">
+      <field name="name">Secondary Surgery</field>
+      <field name="res_model">claim.secondary.surgery</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Submenu actions -->
+    <menuitem name="Primary Surgery" id="asb_claim_primary_surgery_submenu" parent="asb_helpline.asb_configuration_menu" action="configuration_claim_primary_surgery_action_window" sequence="6"/>
+    <menuitem name="Secondary Surgery" id="asb_claim_secondary_surgery_submenu" parent="asb_helpline.asb_configuration_menu" action="configuration_claim_secondary_surgery_action_window" sequence="7"/>
+
+  </data>
+</odoo>

@@ -1,0 +1,71 @@
+<odoo>
+  <data>
+
+    <record id="guarantee_letter_view_form_inherit_batch" model="ir.ui.view">
+      <field name="name">guarantee.letter.view.form.inherit.batch</field>
+      <field name="model">guarantee.letter</field>
+      <field name="inherit_id" ref="asb_helpline_guarantee_letter.guarantee_letter_view_form"/>
+      <field name="arch" type="xml">
+        <field name="service_type" position="before">
+          <field name="batch_id" readonly="1" force_save="1"/>
+          <field name="attachment_ids" invisible="1"/>
+        </field>
+      </field>
+    </record>
+
+    <record id="guarantee_letter_view_tree_inherit_batch" model="ir.ui.view">
+      <field name="name">guarantee.letter.view.tree.inherit.batch</field>
+      <field name="model">guarantee.letter</field>
+      <field name="inherit_id" ref="asb_helpline_guarantee_letter.guarantee_letter_view_tree"/>
+      <field name="arch" type="xml">
+        <field name="claim_number" position="after">
+          <field name="batch_id" />
+        </field>
+      </field>
+    </record>
+
+    <record id="eclaim_eclaim_view_tree_inherit_batch" model="ir.ui.view">
+      <field name="name">eclaim.eclaim.view.tree.inherit.batch</field>
+      <field name="model">eclaim.eclaim</field>
+      <field name="inherit_id" ref="asb_eclaim_eclaim.eclaim_eclaim_view_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//page[@name='invoice_detail_lines']" position="inside">
+          <field name="letter_ids" domain="[('id','=',0)]" context="{'default_claim_source': 'eclaim'}">
+            <tree editable="bottom">
+              <field name="claim_number" readonly="1"/>
+              <field name="receive_date" readonly="1"/>
+              <field name="batch_id" readonly="1"/>
+              <field name="name" string="Member Name" readonly="1"/>
+              <field name="client_id" readonly="1"/>
+              <field name="provider_id" />
+              <field name="member" readonly="1"/>
+              <field name="service_type" readonly="1"/>
+              <field name="claim_due_date" invisible="1" />
+              <field name="claim_due_days" readonly="1" widget="badge" decoration-success="claim_due_date &lt; -60" decoration-warning="claim_due_date &gt; -60 and claim_due_date &lt; -30" decoration-danger="claim_due_date &gt; -30 and claim_due_date &lt; 1" decoration-bf="claim_due_date &gt; 0"/>
+              <field name="attachment_ids" widget="many2many_binary" />
+              <field name="claim_status" widget="badge" decoration-danger="claim_status in ['reject','decline']" decoration-info="claim_status == 'verified'" decoration-it="claim_status == 'open'" decoration-success="claim_status == 'paid'" decoration-warning="claim_status == 'release'" decoration-primary="claim_status == 'approved'" />
+            </tree>
+          </field>
+        </xpath>
+      </field>
+    </record>
+
+    <!-- Guarantee Letter Search -->
+
+    <record id="view_guarantee_letter_case_monitoring_filter_inherit_batch" model="ir.ui.view">
+      <field name="name">guarantee.letter.case.monitoring.batch</field>
+      <field name="model">guarantee.letter</field>
+      <field name="inherit_id" ref="asb_helpline_guarantee_letter.view_guarantee_letter_case_monitoring_filter"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='claim_number']" position="after">
+          <field name="batch_id" />
+          <separator/>
+          <group expand="0" name="group_by" string="Group By">
+            <filter name="batch_number" string="Batch Number" context="{'group_by' : 'batch_id'}"/>
+          </group>
+        </xpath>
+      </field>
+    </record>
+
+  </data>
+</odoo>

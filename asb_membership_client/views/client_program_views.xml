@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <record id="plan_header_action" model="ir.actions.act_window">
+            <field name="name">Plan Header</field>
+            <field name="res_model">program.plan.header</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('plan_id', '=', active_id)]</field>
+            <field name="context">{'default_plan_id': active_id}</field>
+            <field name="target">main</field>
+        </record>
+
+        <record id="program_plan_action" model="ir.actions.act_window">
+            <field name="name">Program Plan</field>
+            <field name="res_model">client.program.plan</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('program_id', '=', active_id)]</field>
+            <field name="context">{'default_program_id': active_id}</field>
+            <field name="target">main</field>
+        </record>
+
+        <record id="program_floatfund_action" model="ir.actions.act_window">
+            <field name="name">Program Floatfund</field>
+            <field name="res_model">client.program.floatfund</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('program_id', '=', active_id)]</field>
+            <field name="context">{'default_program_id': active_id}</field>
+            <field name="target">main</field>
+        </record>
+
+        <record id="client_program_view_form" model="ir.ui.view">
+            <field name="name">client.program.view.form</field>
+            <field name="model">client.program</field>
+            <field name="arch" type="xml">
+                <form string="Client Program">
+                    <header>
+                        <button string="Enable" name="enable" type="object" class="oe_highlight" attrs="{'invisible':[('state','not in','draft')]}" />
+                        <button string="Disable" name="disable" type="object" class="oe_highlight" attrs="{'invisible':[('state','not in','enabled')]}" />
+                        <button string="Set to Draft" name="draft" type="object" class="oe_highlight" attrs="{'invisible':[('state','in','draft')]}" />
+                        <field name="state" widget="statusbar" />
+                    </header>
+                    <sheet>
+                        <group col='4'>
+                            <group colspan='2'>
+                                <field name="client_branch_id" attrs="{'readonly': [('is_editable','=', False)]}" class="oe_read_only" />
+                                <field name="name" attrs="{'readonly': [('is_editable','=', False)]}" required="1" />
+                                <field name="currency_id" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                <field name="claim_by" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                <field name="floatfund" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                <field name="basic_floatfund" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                                <field name="remaining_floatfund" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                                <field name="used_floatfund" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                                <label for="floatfund_warning" string="Remaining Percentage" />
+                                <div class="o_row">
+                                    <field name="floatfund_warning" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                    %
+                                </div>
+                            </group>
+                            <group colspan='2'>
+                                <field name="start_date" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                <field name="end_date" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                <field name="created_by" readonly="1" />
+                                <field name="created_date" readonly="1" />
+                                <field name="is_editable" invisible="1" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="plan_lines" string="Plan">
+                                <field name="plan_line" attrs="{'readonly': [('is_editable','=', False)]}">
+                                    <tree>
+                                        <field name="program_id" invisible="1" />
+                                        <field name="entity" />
+                                        <field name="name" />
+                                        <field name="service" />
+                                        <field name="fullcover" />
+                                        <field name="created_by" />
+                                        <field name="created_date" />
+                                        <button string="Header" type="action" name="asb_membership_client.plan_header_action" class="oe_highlight" />
+                                        <button string="Duplicate" type="object" name="copy" class="btn btn-plan-duplicate" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="floatfund_lines" string="Floatfund">
+                                <field name="floatfund_line" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                <group name="note_group" col="12" class="mt-2 mt-md-0">
+                                    <group class="oe_subtotal_footer oe_right" colspan="4" name="claim_total">
+                                        <field name="currency_id" invisible="1" />
+                                        <field name="floatfund_total" widget="monetary" options="{'currency_field': 'currency_id'}" modifiers="{'readonly':true}" />
+                                    </group>
+                                    <div class="oe_clear" />
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="activity_ids" widget="mail_activity" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="client_program_view_tree" model="ir.ui.view">
+            <field name="model">client.program</field>
+            <field name="name">client.program.view.tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="client_branch_id" />
+                    <field name="name" />
+                    <field name="claim_by" />
+                    <field name="floatfund" />
+                    <field name="start_date" />
+                    <field name="end_date" />
+                    <field name="create_uid" class="oe_read_only" />
+                    <field name="create_date" class="oe_read_only" />
+                </tree>
+            </field>
+        </record>
+
+    </data>
+
+
+</odoo>

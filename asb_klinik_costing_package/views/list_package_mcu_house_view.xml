@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record model="ir.ui.view" id="list_package_house_kanban_view">
+            <field name="name">list.package.house.kanban</field>
+            <field name="model">list.package</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_small_column o_opportunity_kanban">
+                    <field name="currency_id" invisible="1"/>
+                    <field name="name"/>
+                    <field name="nama_paket"/>
+                    <field name="package_mcu_id"/>
+                    <field name="perusahaan_id"/>
+                    <field name="certificate_ids" />
+                    <field name="bahasa_hasil" />
+                    <field name="price_paket" />
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="o_dropdown_kanban dropdown">
+
+                                    <a class="dropdown-toggle o-no-caret btn" role="button" data-toggle="dropdown" data-display="static" href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                        <span class="fa fa-ellipsis-v"/>
+                                    </a>
+                                    <div class="dropdown-menu" role="menu">
+                                        <t t-if="widget.editable">
+                                            <a role="menuitem" type="edit" class="dropdown-item">Edit</a>
+                                        </t>
+                                        <t t-if="widget.deletable">
+                                            <a role="menuitem" type="delete" class="dropdown-item">Delete</a>
+                                        </t>
+                                    </div>
+                                </div>
+                                <div class="oe_kanban_content">
+                                    <div class="o_kanban_record_title">
+                                        <strong>
+                                            <field name="perusahaan_id"/>
+                                        </strong>
+                                    </div>
+                                    <div class="o_kanban_record_subtitle">
+                                        <t t-if="record.name.raw_value">
+                                            <strong>
+                                                <field name="name"/>
+                                            </strong>
+                                        </t>
+                                    </div>
+                                    <div class="o_kanban_record_subtitle">
+                                        <t t-if="record.nama_paket.raw_value">
+                                            <strong>
+                                                <field name="nama_paket"/>
+                                            </strong>
+                                        </t>
+                                    </div>
+                                    <div class="o_kanban_record_subtitle">
+                                        <field name="certificate_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                    </div>
+                                    <div class="o_kanban_record_bottom">
+                                        <div class="oe_kanban_bottom_left">
+                                            <field name="bahasa_hasil"/>
+                                        </div>
+                                        <div class="oe_kanban_bottom_right">
+                                            <field name="price_paket" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="oe_clear"/>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="list_package_house_view_form" model="ir.ui.view">
+            <field name="name">list.package.house.view.form</field>
+            <field name="model">list.package</field>
+            <field name="arch" type="xml">
+                <form string="List Package" duplicate="0">
+
+                    <header>
+                        <field name="list_package_ids" invisible="1"/>
+                    </header>
+
+                    <sheet style="max-width:40%;">
+                        <div class="oe_title">
+                            <h1>
+                                <field name="perusahaan_id" force_save="1" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                            </h1>
+                        </div>
+
+                        <div class="oe_title">
+                            <label for="nama_paket" string="Nama Paket"/>
+                            <h2>
+                                <field name="nama_paket"/>
+                            </h2>
+                        </div>
+
+                        <group style="margin: 1px 0px;">
+                            <group style="margin: 1px 0px;">
+                                <field name="package_mcu_id" force_save="1" invisible="1"/>
+                                <field name="bahasa_hasil" force_save="1" invisible="1"/>
+                                <field name="in_house" force_save="1" invisible="1"/>
+                                <field name="onsite" force_save="1" invisible="1"/>
+                                <field name="currency_id" force_save="1" invisible="1"/>
+                                <field name="name" />
+                                <field name="certificate_ids" widget="many2many_tags" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True, 'color_field': 'color'}" context="{'tree_view_ref': 'asb_klinik_costing_setting_general.config_certificate_list_view_tree'}"/>
+                            </group>
+
+                            <group style="margin: 1px 0px;">
+                                <field name="option" widget="boolean_toggle" />
+                                <field name="data_perusahaan_id" attrs="{ 'invisible' : [('option', '=', False)]}" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}" context="{'tree_view_ref' : 'asb_klinik_master_personil.master_perusahaan_view_template_tree'}"/>
+                                <field name="list_package_id" domain="[('id', 'in', list_package_ids)]" attrs="{ 'invisible' : ['|', ('data_perusahaan_id', '=', False), ('option', '=', False)]}" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page name="master_list_package" string="Daftar Package">
+                                <field name="examination_list_ids" widget="many2many" options="{'no_create': True}" force_save="1" context="{'tree_view_ref': 'asb_klinik_costing_package.config_examination_list_view_tree'}">
+                                    <tree>
+                                        <field name="name" string="Examination List"/>
+                                        <field name="poli_unit_id" />
+                                        <field name="total_beban_langsung" string="Cost" widget="monetary"/>
+                                        <field name="master_tindakan_id" invisible="1"/>
+                                        <field name="list_price" string="Harga Jual" widget="monetary" invisible="1"/>
+                                    </tree>
+                                    <form string="Examination List">
+                                        <sheet>
+                                            <group>
+                                                <field name="name" />
+                                                <field name="poli_unit_id"/>
+                                                <field name="total_beban_langsung" string="Cost" widget="monetary"/>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+
+                                <field name="sampling_list_ids" widget="many2many" readonly="1" force_save="1" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}">
+                                    <tree>
+                                        <field name="name" string="Sampling"/>
+                                        <field name="total_cost" string="Cost" widget="monetary"/>
+                                    </tree>
+                                    <form string="Sampling List">
+                                        <sheet>
+                                            <field name="name" string="Sampling"/>
+                                            <field name="total_cost" string="Cost" widget="monetary"/>
+                                        </sheet>
+                                    </form>
+                                </field>
+
+                                <field name="fixed_costing_line" readonly="1" force_save="1" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}">
+                                    <tree>
+                                        <field name="fixed_costing_id"/>
+                                        <field name="name" invisible = "1"/>
+                                        <field name="cost_in_house" widget="monetary"/>
+                                    </tree>
+                                    <form string="Fixed Costing" readonly="1" force_save="1">
+                                        <sheet>
+                                            <group col="4" colspan="2">
+                                                <field name="fixed_costing_id" />
+                                                <field name="cost_in_house" widget="monetary"/>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+
+                                <div class="row">
+                                    <div class="col-md-9 text-right">
+                                        <label for="total_cost_examination_list_id" class="o_light_label">Total Cost Examination List (IDR)</label>
+                                    </div>
+
+                                    <div class="col-md-2 text-right">
+                                        <field name="total_cost_examination_list" widget="monetary" id="total_cost_examination_list_id" class="oe_inline"/>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-9 text-right">
+                                        <label for="total_cost_sampling_id" class="o_light_label">Total Cost Sampling (IDR)</label>
+                                    </div>
+
+                                    <div class="col-md-2 text-right">
+                                        <field name="total_cost_sampling" widget="monetary" id="total_cost_sampling_id" class="oe_inline"/>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-9 text-right">
+                                        <label for="total_cost_certificate_id" class="o_light_label">Total Cost Certificate (IDR)</label>
+                                    </div>
+
+                                    <div class="col-md-2 text-right">
+                                        <field name="total_cost_certificate" widget="monetary" id="total_cost_certificate_id" class="oe_inline"/>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-9 text-right">
+                                        <label for="total_cost_fixed_costing_id" class="o_light_label">Total Cost Fixed Costing (IDR)</label>
+                                    </div>
+
+                                    <div class="col-md-2 text-right">
+                                        <field name="total_cost_fixed_costing" widget="monetary" id="total_cost_fixed_costing_id" class="oe_inline"/>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <hr style="width:50%;text-align:left;margin-left:auto;margin-right:0"/>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-7 text-right">
+                                        <label for="direct_cost_id" class="o_light_label">Direct Cost Allocation</label>
+                                    </div>
+
+                                    <div class="col-md-2 text-right">
+                                        <field name="direct_cost" widget="percentage" id="direct_cost_id"/>
+                                    </div>
+
+                                    <div class="col-md-2 text-right">
+                                        <field name="total_direct_cost" widget="monetary" class="oe_inline"/>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-7 text-right">
+                                        <label for="fixed_cost_id" class="o_light_label">Direct Cost Allocation</label>
+                                    </div>
+
+                                    <div class="col-md-2 text-right">
+                                        <field name="fixed_cost" widget="percentage" id="fixed_cost_id"/>
+                                    </div>
+
+                                    <div class="col-md-2 text-right">
+                                        <field name="total_fixed_cost" widget="monetary" class="oe_inline"/>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <hr style="width:50%;text-align:left;margin-left:auto;margin-right:0"/>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-8 text-right">
+                                        <h3>Total Cost (IDR)</h3>
+                                    </div>
+
+                                    <div class="col-md-2 text-right">
+                                        <h3>
+                                            <field name="total_cost" widget="monetary" class="oe_inline"/>
+                                        </h3>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <hr style="width:50%;text-align:left;margin-left:auto;margin-right:0"/>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 text-right">
+                                        <label for="profit_id" class="o_light_label">Profit</label>
+                                    </div>
+
+                                    <div class="col-md-2 text-right">
+                                        <field name="profit" widget="percentage" id="profit_id" class="oe_inline"/>
+                                    </div>
+
+                                    <div class="col-md-1 text-right">
+                                    </div>
+
+                                    <div class="col-md-2 text-right">
+                                        <field name="profit_rupiah" widget="monetary" nolabel="1" class="oe_inline"/>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-9 text-right">
+                                        <label for="manual_fee_id" class="o_light_label">Manual Fee (IDR)</label>
+                                    </div>
+
+                                    <div class="col-md-2 text-right">
+                                        <field name="manual_fee" widget="monetary" id="manual_fee_id" class="oe_inline"/>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <hr style="width:50%;text-align:left;margin-left:auto;margin-right:0"/>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-8 text-right">
+                                        <h1>Price (IDR)</h1>
+                                    </div>
+
+                                    <div class="col-md-2 text-right">
+                                        <h1>
+                                            <field name="price_paket" widget="monetary" class="oe_inline"/>
+                                        </h1>
+                                    </div>
+                                </div>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="list_package_house_view_search" model="ir.ui.view">
+            <field name="name">list.package.house.view.search</field>
+            <field name="model">list.package</field>
+            <field name="arch" type="xml">
+
+                <search string="List Package">
+                    <field name="package_mcu_id" filter_domain="[('package_mcu_id', 'child_of', raw_value)]"/>
+                    <separator/>
+                </search>
+
+            </field>
+        </record>
+
+        <record id="list_package_house_action" model="ir.actions.act_window">
+            <field name="name">List Package</field>
+            <field name="res_model">list.package</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">kanban,form</field>
+            <field name="view_id" ref="list_package_house_kanban_view"/>
+            <field name="search_view_id" ref="list_package_house_view_search"/>
+            <field name="domain">[('package_mcu_id', '=', active_id)]</field>
+            <field name="context">{'default_package_mcu_id' : active_id, 'search_default_package_mcu_id': active_id}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Tidak ada Daftar Package
+                </p>
+            </field>
+        </record>
+
+        <record id="list_package_house_action_kanban" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="list_package_house_kanban_view"/>
+            <field name="act_window_id" ref="list_package_house_action"/>
+        </record>
+
+        <record id="list_package_house_action_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="list_package_house_view_form"/>
+            <field name="act_window_id" ref="list_package_house_action"/>
+        </record>
+    
+    </data>
+</odoo>

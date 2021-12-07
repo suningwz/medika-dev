@@ -1,0 +1,165 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="monitoring_detail_view_billing_chart">
+      <field name="name">monitoring.detail.billing.chart</field>
+      <field name="model">monitoring.detail</field>
+      <field name="arch" type="xml">
+        <graph string="Billing Monitoring" type="line" sample="1" disable_linking="1">
+          <field name="last_fu" type="row" interval="day"/>
+          <field name="billing" type="measure"/>
+        </graph>
+      </field>
+    </record>
+
+    <record id="billing_monitoring_smart_button" model="ir.actions.act_window">
+      <field name="name">Billing Monitoring</field>
+      <field name="res_model">monitoring.detail</field>
+      <field name="view_mode">graph,tree</field>
+      <field name="domain">[]</field>
+      <field name="context">{}</field>
+      <field name="view_id" ref="monitoring_detail_view_billing_chart"/>
+    </record>
+
+    <record model="ir.ui.view" id="monitoring_detail_view_form">
+      <field name="name">monitoring.detail.form</field>
+      <field name="model">monitoring.detail</field>
+      <field name="arch" type="xml">
+        <form string="Case Detail">
+          <!-- <header>
+            <button name="action_process" type="object" states="pending" string="On Process" class="oe_highlight" />
+            <button name="action_close" type="object" states="pending,process" string="Close" />
+            <field name="state" widget="statusbar" statusbar_visible="pending,process,close"/>
+          </header> -->
+          <sheet>
+            <group col="12">
+              <group colspan="4" style="width: 25%">
+                <div class="o_row ">
+                  <field name="upcoding" readonly="1" nolabel="1"/>
+                  <button name="action_add_remarks" context="{'default_name' : 'Upcoding'}" type="object" string="Upcoding" />
+                </div>
+                <br/>
+                <div class="o_row ">
+                  <field name="unbundling" readonly="1" nolabel="1"/>
+                  <button name="action_add_remarks_unbundling" context="{'default_name' : 'Unbundling'}" type="object" string="Unbundling" />
+                </div>
+                <br/>
+                <div class="o_row ">
+                  <field name="time_in_or" readonly="1"/>
+                  <button name="action_add_remarks_time_in_or" context="{'default_name' : 'Time in OR'}" type="object" string="Time in OR" />
+                </div>
+              </group>
+              <group colspan="4" style="width: 35%">
+                <div class="o_row ">
+                  <field name="phantom_billing" readonly="1"/>
+                  <button name="action_add_remarks_phantom_billing" context="{'default_name' : 'Phantom Billing'}" type="object" string="Phantom Billing" />
+                </div>
+                <br/>
+                <div class="o_row ">
+                  <field name="self_referrals" readonly="1"/>
+                  <button name="action_add_remarks_self_referrals" context="{'default_name' : 'Self-Referrals'}" type="object" string="Self-Referrals" />
+                </div>
+                <br/>
+                <div class="o_row ">
+                  <field name="cancelled_service" readonly="1"/>
+                  <button name="action_add_remarks_cancelled_service" context="{'default_name' : 'Cancelled Service'}" type="object" string="Cancelled Service" />
+                </div>
+              </group>
+              <group colspan="6" style="width: 40%">
+                <div class="o_row ">
+                  <field name="inflated_hospital" readonly="1"/>
+                  <button name="action_add_remarks_inflated_hospital" context="{'default_name' : 'Inflated Hospital Bills'}" type="object" string="Inflated Hospital Bills" />
+                </div>
+                <br/>
+                <div class="o_row ">
+                  <field name="incorrect_charge" readonly="1"/>
+                  <button name="action_add_remarks_incorrect_charge" style="width: 225px; text-align: left" context="{'default_name' : 'Incorrect Charge for Type Room'}" type="object" string="Incorrect Charge for Type Room" />
+                </div>
+                <br/>
+                <div class="o_row ">
+                  <field name="unnecessary_treatment" readonly="1"/>
+                  <button name="action_add_remarks_unnecessary_treatment" context="{'default_name' : 'Unnecessary Treatment'}" type="object" string="Unnecessary Treatment" />
+                </div>
+              </group>
+            </group>
+            <group string="General">
+              <group>
+                <field name="name" />
+                <field name="sistole" />
+                <field name="diastole" />
+                <field name="temperature" />
+                <field name="physical_examination" />
+                <field name="laboratory" />
+                <field name="imaging" />
+                <field name="other" />
+              </group>
+              <group>
+                <field name="drugs" />
+                <field name="heart_rate" />
+                <field name="respiratory_rate" />
+                <field name="infusion" />
+                <field name="physical_examination_date" />
+                <field name="laboratory_date" />
+                <field name="imaging_date" />
+                <field name="other_date" />
+              </group>
+            </group>
+            <group string="Billing">
+              <group>
+                <field name="billing" widget="monetary"/>
+                <field name="plan_discharge" />
+                <field name="informer" />
+                <field name="diagnosis" />
+                <field name="file_upload" filename="filename" />
+                <field name="filename" invisible="1" />
+                <field name="currency_id" invisible="1"/>
+              </group>
+              <group>
+                <field name="type_selection" />
+                <field name="date_discharge" />
+                <field name="department_informer" />
+                <field name="last_fu" required="1"/>
+              </group>
+            </group>
+            <notebook>
+              <page name="remarks_notebook" string="Remarks">
+                <field name="remarks" widget="text"/>
+              </page>
+              <page name="cost_containment_lines" string="Cost Containment">
+                <field name="cost_containment_line"/>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="monitoring_detail_view_tree">
+      <field name="name">monitoring.detail.tree</field>
+      <field name="model">monitoring.detail</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="last_fu"/>
+          <field name="billing" widget="monetary"/>
+          <field name="remarks" widget="text"/>
+          <field name="created_by"/>
+          <field name="created_date"/>
+          <!-- <field name="state"/> -->
+          <field name="currency_id" invisible="1"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="cost_containment_view_tree">
+      <field name="name">cost.containment.line.tree</field>
+      <field name="model">cost.containment.line</field>
+      <field name="arch" type="xml">
+        <tree editable="top" create="0">
+          <field name="name" readonly="1"/>
+          <field name="remarks"/>
+        </tree>
+      </field>
+    </record>
+
+  </data>
+</odoo>

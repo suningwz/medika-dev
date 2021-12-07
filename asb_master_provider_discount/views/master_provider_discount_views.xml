@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Action Magic Button -->
+        <record id="view_provider_dicount_filter" model="ir.ui.view">
+            <field name="name">Provider Discount</field>
+            <field name="model">provider.discount</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name="partner_id" operator="child_of" />
+                </search>
+            </field>
+        </record>
+        <record id="provider_discount_action" model="ir.actions.act_window">
+            <field name="name">Discount Detail</field>
+            <field name="res_model">provider.discount</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('partner_id','=',active_id)]</field>
+            <field name="context">{'default_partner_id': active_id}</field>
+            <field name="search_view_id" ref="view_provider_dicount_filter" />
+        </record>
+        <record id="master_provider_form_inherit_asb_master_provider_discount" model="ir.ui.view">
+            <field name="name">res.partner.view.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="asb_master_provider.master_provider_form" />
+            <field name="arch" type="xml">
+                <div name='provider_box' position='inside'>
+                    <button class="oe_stat_button" type="action" name="asb_master_provider_discount.provider_discount_action" icon="fa-percent">
+                        <field string="Discount Detail" name="provider_discount_count" widget="statinfo" />
+                    </button>
+                </div>
+                <xpath expr="//page[@name='edc_information']" position="after">
+                    <page name="provider_discount" string="Provider Discount Line" invisible="1">
+                        <field name="provider_discount_line" />
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="provider_discount_view_form" model="ir.ui.view">
+            <field name="name">provider.discount.view.form</field>
+            <field name="model">provider.discount</field>
+            <field name="arch" type="xml">
+                <form string="Discount Detail">
+                    <sheet>
+                        <group col='12'>
+                            <group colspan="5">
+                                <field name="partner_id" required="1" domain="[('provider', '=', True)]" options="{'no_create': True}" />
+                                <field name="benefit_option" widget="radio" />
+                                <field name="benefit_category_id" attrs="{'invisible' : [('benefit_option','=','all')]}" />
+                                <field name="discount" widget="percentage" attrs="{'invisible' : [('benefit_option','=','partial')]}" />
+                            </group>
+                            <group colspan="5">
+                                <field name="remarks" />
+                                <field name="start_date" />
+                                <field name="created_by" readonly="1" />
+                                <field name="created_date" readonly="1" />
+                            </group>
+                            <field name="get_benefit_id_domain" invisible="1" />
+                        </group>
+                        <notebook>
+                            <page name="benefit_lines" string="Benefit">
+                                <field name="benefit_line" />
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="activity_ids" widget="mail_activity" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="provider_discount_view_tree" model="ir.ui.view">
+            <field name="name">provider.discount.view.tree</field>
+            <field name="model">provider.discount</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="partner_id" />
+                    <field name="benefit_category_id" />
+                    <field name="discount" widget="percentage" />
+                    <field name="remarks" />
+                    <field name="start_date" />
+                    <field name="create_uid" />
+                    <field name="create_date" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="discount_benefit_view_form" model="ir.ui.view">
+            <field name="name">discount.benefit.view.form</field>
+            <field name="model">discount.benefit</field>
+            <field name="arch" type="xml">
+                <form string="Discount Detail">
+                    <sheet>
+                        <group col='4'>
+                            <field name="benefit_id" domain="[('id','=',get_benefit_id_domain)]" options="{'no_create': True}" />
+                            <field name="discount" widget="percentage" />
+                            <field name="get_benefit_id_domain" invisible="1" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="discount_benefit_view_tree" model="ir.ui.view">
+            <field name="name">discount.benefit.view.tree</field>
+            <field name="model">discount.benefit</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="benefit_id" />
+                    <field name="discount" widget="percentage" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="provider_discount_action_form_submenu" model="ir.actions.act_window">
+            <field name="name">Provider Discount</field>
+            <field name="res_model">provider.discount</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="discount_submenuitem" name="Discount" parent="asb_master_provider.provider_menuitem" action="provider_discount_action_form_submenu" sequence='6' />
+
+    </data>
+</odoo>

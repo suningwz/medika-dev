@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record id="faskes_form_inherit_res_users" model="ir.ui.view">
+            <field name="name">res.users.faskes.view.form.inherit</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                
+                <xpath expr="//page[@name='access_rights']/group[1]" position="after">
+                    <group name="faskes_group" string="Fasilitas Kesehatan dan Poli Unit User">
+                        <field name="poli_unit_ids" invisible="1"/>
+                        <field name="faskes_ids" widget="many2many_tags" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True, 'color_field': 'color'}"/>
+                        <field name="poli_unit_id" domain="[('id', 'in', poli_unit_ids)]" attrs="{ 'invisible' : [('faskes_ids', '=', [])]}" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                        <field name="faskes_id" string="Check - In Klinik" domain="[('id', 'in', faskes_ids)]" attrs="{ 'invisible' : [('faskes_ids', '=', [])]}" options="{'no_open': True, 'no_create': True, 'no_create_edit':True, 'no_quick_create': True}"/>
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+    
+    </data>
+</odoo>

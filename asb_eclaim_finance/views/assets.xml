@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <template id="eclaim_finance_asset_backend" inherit_id="web.assets_backend">
+    <xpath expr="." position="inside">
+      <link rel="stylesheet" type="text/scss" href="/asb_eclaim_finance/static/src/scss/eclaim_finance_dashboard.scss" />
+      <script type="text/javascript" src="/asb_eclaim_finance/static/src/js/eclaim_finance_dashboard.js" />
+    </xpath>
+  </template>
+</odoo>

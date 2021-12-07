@@ -1,0 +1,231 @@
+<odoo>
+  <data>
+
+
+    <!-- List View -->
+    <record model="ir.ui.view" id="master_provider_tree">
+      <field name="name">res.partner.tree</field>
+      <field name="model">res.partner</field>
+      <field name="arch" type="xml">
+        <tree name='provider' default_order="remaining_contract_int desc">
+          <field name="name" />
+          <field name="street" />
+          <field name="provider_type" />
+          <field name="provider_code" />
+          <field name="edc_number" />
+          <field name="remaining_contract" widget="badge" decoration-success="remaining_contract_int &#60; -60" decoration-warning="remaining_contract_int > -60 and remaining_contract_int &#60; -30" decoration-danger="remaining_contract_int > -30 and remaining_contract_int &#60; 1" decoration-bf="remaining_contract_int > 0" />
+          <field name="remaining_contract_int" invisible="1" />
+          <field name="edit" invisible="1" />
+        </tree>
+      </field>
+    </record>
+
+    <!-- Form View -->
+    <record model="ir.ui.view" id="master_provider_form">
+      <field name="name">res.partner.form</field>
+      <field name="model">res.partner</field>
+      <field name="arch" type="xml">
+        <form string="Provider" confirm="The provider code already belongs to another Provider!">
+          <div class="alert alert-warning oe_edit_only" role="alert" attrs="{'invisible': [('same_vat_partner_id', '=', False)]}">
+            A partner with the same
+            <span>
+              <span class="o_vat_label">Tax ID</span>
+            </span>
+            already exists (
+            <field name="same_vat_partner_id" />
+            ), are you sure to create a new one?
+          </div>
+          <header name="header_provider">
+            <button string="Enable" name="action_provider_enable" type="object" class="oe_highlight" attrs="{'invisible':[('provider_state','not in','draft')]}" />
+            <button string="Disable" name="action_provider_disable" type="object" class="oe_highlight" attrs="{'invisible':[('provider_state','not in','enabled')]}" />
+            <button string="Set to Draft" name="action_provider_draft" type="object" class="oe_highlight" attrs="{'invisible':[('provider_state','in','draft')]}" />
+            <field name="provider_state" widget="statusbar" />
+          </header>
+          <sheet>
+            <div class="oe_button_box" name="provider_box"></div>
+            <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}" />
+            <field name="image_1920" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;image_128&quot;}" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+            <div class="oe_title">
+              <field name="is_company" invisible="1" />
+              <field name="commercial_partner_id" invisible="1" />
+              <field name="active" invisible="1" />
+              <field name="company_type" widget="radio" invisible="1" class="oe_edit_only" options="{'horizontal': true}" />
+              <h1>
+                <field name="name" default_focus="1" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+              </h1>
+              <div class="o_row">
+                <field name="parent_id" invisible="1" />
+                <field name="company_name" invisible="1" />
+                <button name="create_company" invisible="1" />
+              </div>
+            </div>
+
+            <group>
+              <group>
+                <field name="type" invisible="1" />
+                <field name="edit" invisible="1" />
+                <field name="provider_sap_code" string='SAP Code' attrs="{'readonly' : [('provider_state' ,'!=' ,'draft' )]}" />
+                <field name="id_char" readonly="1" string='Provider ID' />
+                <label for="street" string="Address" class="oe_edit_only" />
+                <div class="o_address_format oe_edit_only">
+                  <field name="country_id" class="o_address_state" style="width: 31%%" placeholder="Country" options="{'no_open': True, 'no_create': True}" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                  <field name="state_id" class="o_address_state" style="width: 31%%" placeholder="State" options="{'no_open': True, 'no_create': True}" domain="[('country_id','=',country_id)]" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                  <field name="city_id" style="width: 34%%" placeholder="City" options="{'no_open': True, 'no_create': True}" domain="[('state_id','=',state_id)]" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                  <field name="kecamatan_id" class="o_address_state" style="width: 31%%" placeholder="Kecamatan" options="{'no_open': True, 'no_create': True}" domain="[('city_id','=',city_id)]" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                  <field name="kelurahan_id" class="o_address_state" style="width: 31%%" placeholder="Kelurahan" options="{'no_open': True, 'no_create': True}" domain="[('kecamatan_id','=',kecamatan_id)]" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                  <field name="zip" style="width: 34%%" placeholder="ZIP" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                  <field name="street" class="o_address_street" placeholder="Street..." attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                </div>
+                <label for="street" string="Address" class="oe_read_only" />
+                <div class="o_address_format oe_read_only">
+                  <field name="street" class="o_address_street" placeholder="Street..." />
+                  <field name="kelurahan_id" class="o_address_state" placeholder="Kelurahan" options="{'no_open': True, 'no_create': True}" domain="[('kecamatan_id','=',kecamatan_id)]" />
+                  <field name="kecamatan_id" class="o_address_state" placeholder="Kecamatan" options="{'no_open': True, 'no_create': True}" domain="[('city_id','=',city_id)]" />
+                  <field name="city_id" class="o_address_state" placeholder="City" options="{'no_open': True, 'no_create': True}" domain="[('state_id','=',state_id)]" />
+                  <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_create': True}" domain="[('country_id','=',country_id)]" />
+                  <field name="country_id" class="o_address_state" placeholder="Country" options="{'no_open': True, 'no_create': True}" />
+                  <field name="zip" class="o_address_state" placeholder="ZIP" />
+                </div>
+                <field name="vat" placeholder="e.g. BE0477472701" attrs="{'readonly': ['|',('provider_state','!=','draft'),('parent_id','!=',False)]}" />
+                <field name="provider_category" required="1" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                <field name="provider_code" attrs="{'required' : [('provider', '=', True)], 'readonly' : [('provider_state' ,'!=' ,'draft' )]}" />
+                <field name="provider_type" required="1" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                <label for="top" />
+                <div class="o_row">
+                  <field name="top" attrs="{'readonly' : [('provider_state' ,'!=' ,'draft' )]}" />
+                  <field name="top_type" attrs="{'required' : [('top', '!=', 0)], 'readonly' : [('provider_state' ,'!=' ,'draft' )]}" />
+                </div>
+                <field name="remaining_contract" widget="badge" decoration-success="remaining_contract_int &#60; -60" decoration-warning="remaining_contract_int > -60 and remaining_contract_int &#60; -30" decoration-danger="remaining_contract_int > -30 and remaining_contract_int &#60; 1" decoration-bf="remaining_contract_int > 0" />
+                <field name="remaining_contract_int" invisible="1" />
+              </group>
+              <group>
+                <!-- <field name="function" placeholder="e.g. Sales Director" attrs="{'invisible': [('is_company','=', True)]}" /> -->
+                <field name="phone" widget="phone" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                <field name="mobile" widget="phone" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                <field name="user_ids" invisible="1" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                <field name="email" widget="email" context="{'gravatar_image': True}" attrs="{'required': [('user_ids','!=', [])],'readonly' : [('provider_state' ,'!=' ,'draft' )]}" />
+                <field name="website" widget="url" placeholder="e.g. https://www.odoo.com" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                <!-- <field name="title" options="{&quot;no_open&quot;: True}" placeholder="e.g. Mister" attrs="{'invisible': [('is_company', '=', True)]}" /> -->
+                <field name="active_lang_count" invisible="1" />
+                <label for="lang" attrs="{'invisible': [('active_lang_count', '&lt;=', 1)]}" />
+                <div class="o_row" attrs="{'invisible': [('active_lang_count', '&lt;=', 1)]}">
+                  <field name="lang" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                  <button type="action" name="53" class="btn-sm btn-link mb4 fa fa-globe" aria-label="More languages" groups="base.group_system" title="More languages" />
+                </div>
+                <field name="category_id" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" placeholder="Tags..." attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                <label for="qr_code_name" string="QR Code" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                <div>
+                  <field name="qr_code_name" widget='text' attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                  <field name="qr_code" force_save="1" readonly="1" widget="image" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                </div>
+              </group>
+            </group>
+
+            <notebook colspan="4">
+              <page string="PIC" name="provider_pic_line" autofocus="autofocus">
+                <field name="child_ids" context="{'default_provider': False, 'default_is_pic': True, 'default_parent_id': active_id, 'default_lang': None, 'default_user_id': user_id, 'default_type': 'other'}" id="child_ids">
+                  <tree editable="top">
+                    <field name="name" required="1" />
+                    <field name="street" required="1" />
+                    <field name="mobile" required="1" />
+                    <field name="email" required="1" />
+                    <field name="pic_title_id" domain="[('type', '=', 'provider')]" required="1" options="{'no_open': True, 'no_create': True}" />
+                    <field name="provider" invisible="1" />
+                    <field name="is_pic" invisible="1" />
+                    <field name="parent_id" invisible="1" />
+                    <field name="lang" invisible="1" />
+                    <field name="user_id" invisible="1" />
+                    <field name="type" invisible="1" />
+                  </tree>
+                </field>
+              </page>
+              <page string="Hospital Assessment" name="provider_facility_line_ids">
+                <header>
+                  <button string='Create all be "Yes"' name="create_all_be_yes" type="object" class="oe_highlight" confirm='Are you sure?' attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                  <button string='Create all be "No"' name="create_all_be_no" type="object" class="oe_highlight" confirm='Are you sure?' attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                </header>
+                <field name="provider_facility_line_ids" domain="[]" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+              </page>
+              <page name="bank_account" string="Bank Account">
+                <group col='12'>
+                  <group colspan='5'>
+                    <field name="bank_id" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                    <field name="swift_code" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                    <field name="account_name" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                  </group>
+                  <group colspan='5'>
+                    <field name="bank_account" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                    <field name="bank_branch" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                  </group>
+                </group>
+              </page>
+              <page name="edc_information" string="EDC Information">
+                <group>
+                  <group>
+                    <field name="edc_number" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                  </group>
+                  <group></group>
+                </group>
+                <field name="tid_information_line" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+              </page>
+              <page name="invisible" string="Invisible" invisible="1">
+                <group>
+                  <field name="provider" />
+                  <field name="user_id" />
+                </group>
+              </page>
+            </notebook>
+
+          </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers" />
+            <field name="activity_ids" widget="mail_activity" />
+            <field name="message_ids" widget="mail_thread" />
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <!-- Search View -->
+    <record model="ir.ui.view" id="provider_search">
+      <field name="name">provider.search</field>
+      <field name="model">res.partner</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="name" />
+          <field name="provider_type" />
+          <field name="provider_code" />
+        </search>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="master_provider_action">
+      <field name="name">Provider</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">res.partner</field>
+      <field name="view_mode">kanban,tree,form</field>
+      <field name="search_view_id" ref="provider_search" />
+      <field name="domain">[('provider','=',True)]</field>
+      <field name="context">{'default_provider': True, 'default_customer': 0, 'default_is_company': 1 }</field>
+      <field name="view_id" ref="asb_master_provider.master_provider_tree" />
+    </record>
+
+    <record id="action_form_master_provider" model="ir.actions.act_window.view">
+      <field name="sequence" eval="3" />
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="master_provider_form" />
+      <field name="act_window_id" ref="master_provider_action" />
+    </record>
+    <record id="action_tree_master_provider" model="ir.actions.act_window.view">
+      <field name="sequence" eval="1" />
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="master_provider_tree" />
+      <field name="act_window_id" ref="master_provider_action" />
+    </record>
+
+
+    <menuitem id="provider_menuitem" name="Provider" parent="asb_master.top_menu_master" sequence='3' />
+    <menuitem id="provider_submenuitem" name="Provider" parent="provider_menuitem" action="master_provider_action" sequence='2' />
+
+  </data>
+</odoo>

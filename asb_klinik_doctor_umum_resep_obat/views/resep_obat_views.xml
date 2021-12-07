@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!--  List View  -->
+        <record model="ir.ui.view" id="resep_obat_tree">
+            <field name="name">resep.obat.tree</field>
+            <field name="model">resep.obat</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="detail_obat_line" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" string='Nama Obat' />
+                    <field name="package" />
+                    <field name="qty" />
+                    <field name="on_hand" attrs="{'invisible':[('package', '=', 'racikan')]}" />
+                    <field name="uom_id" attrs="{'invisible':[('package', '=', 'racikan')]}" />
+                    <field name="harga_jual" string="Harga Jual" widget="monetary" attrs="{'invisible':[('package', '=', 'racikan')]}" />
+                    <field name="total_detail_obat" widget="monetary" />
+                    <field name="signa" string="Signa/Frekuensi" />
+                    <field name="deskripsi" string="Keterangan" />
+                    <field name="registration_id" invisible="1" />
+                    <field name="currency_id" invisible="1" />
+                </tree>
+            </field>
+        </record>
+        <!--  Form View  -->
+        <record model="ir.ui.view" id="resep_obat_form">
+            <field name="name">resep.obat.form</field>
+            <field name="model">resep.obat</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header />
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="package" required="1" />
+                                <field name="product_id" options="{'no_create': True}" domain="[('jenis_persediaan','=','obat')]" attrs="{'invisible':[('package', '!=', 'item')], 'required':[('package', '=', 'item')]}" context="{'tree_view_ref' : 'asb_klinik_master_product.master_alat_kesehatan_obat_simple_view_tree'}" />
+                                <field name="jenis_racikan" attrs="{'invisible':[('package', '!=', 'racikan')], 'required':[('package', '!=', 'item')]}" />
+                                <field name="qty" attrs="{'invisible':[('package', '=', False)]}" required="1" />
+                                <field name="signa" string="Signa/Frekuensi" attrs="{'invisible':[('package', '=', False)]}" required="1" />
+                                <field name="deskripsi" string="Keterangan" attrs="{'invisible':[('package', '=', False)]}" required="1" />
+                                <field name="registration_id" invisible="1" />
+                                <field name="currency_id" invisible="1" />
+                            </group>
+                            <group>
+                                <field name="on_hand" attrs="{'invisible':[('product_id', '=', False)]}" />
+                                <field name="uom_id" options="{'no_open': True, 'no_create': True}" attrs="{'invisible':[('product_id', '=', False)]}" />
+                                <field name="harga_jual" string="Harga Jual" widget="monetary" attrs="{'invisible':[('product_id', '=', False)]}" />
+                                <field name="total_detail_obat" widget="monetary" attrs="{'invisible':[('product_id', '=', False)]}" />
+                            </group>
+                        </group>
+                        <notebook attrs="{'invisible':[('package', '!=', 'racikan')]}">
+                            <page string="Detail Obat">
+                                <field name="detail_obat_line" />
+                                <group class="oe_subtotal_footer oe_right">
+                                    <div class="oe_subtotal_footer_separator oe_inline">
+                                        <label for="total_detail_obat" />
+                                    </div>
+                                    <field name="total_detail_obat" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" />
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="activity_ids" widget="mail_activity" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="resep_obat_action">
+            <field name="name">Resep Obat</field>
+            <field name="res_model">resep.obat</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

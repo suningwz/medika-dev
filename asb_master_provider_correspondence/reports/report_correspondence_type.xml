@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="report.paperformat" id="report_correspondence_format">
+        <field name="name">Report correspondence Format</field>
+        <field name="default" eval="False" />
+        <field name="format">custom</field>
+        <field name="page_width">210</field>
+        <field name="page_height">297</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">25</field>
+        <field name="margin_right">25</field>
+        <field name="header_line" eval="False" />
+    </record>
+
+
+    <template id="report_correspondence_type">
+        <t t-call="web.html_container">
+            <style>
+        p.big {
+        line-height: 1.4;
+        }
+        </style>
+            <div class="page" style="font-size:12pt; font-family:Arial; page-break-before:always;">
+                <t t-foreach="docs" t-as="doc">
+                    <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)" style="max-height: 150px;" alt="Logo" />
+                    <p class="big">
+                        Jakarta,
+                        <span t-field='doc.created_date' />
+                        <br />
+                        No :
+                        <span t-field='doc.name' />
+                        <br />
+                    </p>
+
+                    <p class="big">
+                        Kepada Yth.
+                        <br />
+                        <b>
+                            <span t-field='doc.partner_id.name' />
+                        </b>
+                        <br />
+                        <t t-esc="', '.join([item for item in [
+                            ', '.join([item for item in [doc.partner_id.street, doc.partner_id.street2] if item]),
+                            doc.partner_id.city,
+                            doc.partner_id.state_id and doc.partner_id.state_id.name,
+                            doc.partner_id.zip,
+                            doc.partner_id.country_id and doc.partner_id.country_id.name] if item])" />
+                        <br />
+                    </p>
+
+                    <p>
+                        <b>
+                            Up
+                            <span style="padding-left:38px;">
+                                :
+                                <span t-field='doc.name_up_id' />
+                            </span>
+                            <br />
+                            Perihal
+                            <span style="padding-left:6px;"> : Penawaran Kerjasama Pelayanan Kesehatan</span>
+                            <br />
+                        </b>
+                    </p>
+
+                    <br />
+                    <p style="text-align: justify" class="big">
+                        Dengan hormat,
+                        <br />
+                        Perkenankan kami untuk memperkenalkan diri, kami adalah
+                        <b>PT. Kartika Bina
+                    Medikatama (Medika Plaza)</b>
+                        berlokasi di Beltway Office Park, Tower C Lt. 2, Jl.
+                    Ampera Raya No. 09-10 – Jakarta Selatan 12550, adalah suatu peusahaan yang
+                    bergerak dalam bidang pelayanan kesehatan yaitu rawat jalan, kesehatan gigi, rawat
+                    inap, pelayanan medis, khususnya pada tindakan emergency yang berhubungan
+                    dengan medical evakuasi dan juga
+                        <i>medical administration services</i>
+                        untuk layanan ASO.
+                    </p>
+                    <p style="text-align: justify" class="big">
+                        Dalam kesempatan ini kami mengajukan permohonan kerjasama pelayanan kesehatan
+                    kepada RS Tiara Sella sebagai rujukan untuk pasien/klien kami, yang meliputi rawat
+                    jalan dan emergency. Sebagai informasi kami sudah bekerjasama dengan 3225 (tiga ribu
+                    dua ratus dua lima) terdiri dari rumah sakit, klinik, apotek, optik yang tersebar diseluruh
+                    Indonesia dan International.
+                        <br />
+                    </p>
+                    <p style="text-align: justify" class="big">
+                        <b>
+                            Besar harapan kami dapat terjalin kerjasama antara
+                            <span t-field='doc.partner_id.name' />
+                            dengan PT. Kartika
+                    Bina Medikatama (Medika Plaza).
+                        </b>
+                        <br />
+                    </p>
+                    <p style="text-align: justify" class="big">
+                        Demikianlah surat permohonan ini kami sampaikan, atas perhatian dan kesempatan
+                    kerjasamanya kami ucapkan terima kasih.
+                        <br />
+                    </p>
+                    <br />
+                    <p> Hormat kami,
+                </p>
+                    <img t-if="doc.type_id.ttd" t-att-src="image_data_uri(doc.type_id.ttd)" style="max-height: 100px;" />
+                    <p>
+                        <u>
+                            <b>
+                                <span t-field='doc.type_id.ttd_name' />
+                            </b>
+                        </u>
+                        <br />
+                        <span t-field='doc.type_id.title' />
+                        <br />
+                    </p>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <record id="action_report_correspondence_type" model="ir.actions.report">
+        <field name="name">Penawaran Kerjasama</field>
+        <field name="model">correspondence.correspondence</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">asb_master_provider_correspondence.report_correspondence_type</field>
+        <field name="report_file">asb_master_provider_correspondence.report_correspondence_type</field>
+        <field name="paperformat_id" ref="asb_master_provider_correspondence.report_correspondence_format" />
+    </record>
+
+</odoo>

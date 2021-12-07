@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_provider_discount,provider_discount,model_provider_discount,base.group_user,1,1,1,1
+access_discount_benefit,discount_benefit,model_discount_benefit,base.group_user,1,1,1,1
+

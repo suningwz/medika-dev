@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+  
+    <menuitem id="master_costing_menu" sequence="10" name="Master Costing" web_icon="asb_klinik_costing,static/description/icon.png"/>
+    
+    <!-- Menu Item Package MCU -->
+    <menuitem id="master_package_mcu_menu" sequence="11" name="Package MCU" parent="master_costing_menu" />
+    <menuitem id="master_package_mcu_house_menu" name="Package MCU in House" parent="master_package_mcu_menu" action="asb_klinik_costing_package.package_mcu_house_action" groups="asb_klinik_costing_team.group_master_costing_sales"/>
+    <menuitem id="master_package_mcu_onsite_menu" name="Package MCU Onsite" parent="master_package_mcu_menu" action="asb_klinik_costing_package.package_mcu_onsite_action" groups="asb_klinik_costing_team.group_master_costing_sales"/>
+
+    <!-- Menu Item Setting Costing -->
+    <menuitem id="setting_costing_menu" sequence="12" name="Setting Costing" parent="master_costing_menu"/>
+    <menuitem id="setting_costing_general_menu" name="Setting Costing General" parent="setting_costing_menu" action="asb_klinik_costing_setting_general.costing_setting_general_action" groups="asb_klinik_costing_team.group_master_costing_sales"/>
+    <menuitem id="setting_costing_onsite_menu" name="Setting Costing Onsite" parent="setting_costing_menu" action="asb_klinik_costing_setting_onsite.costing_setting_onsite_action" groups="asb_klinik_costing_team.group_master_costing_sales"/>
+
+  </data>
+</odoo>

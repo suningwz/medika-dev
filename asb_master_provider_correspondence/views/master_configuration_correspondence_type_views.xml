@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <!-- List View -->
+        <record model="ir.ui.view" id="correspondence_type_tree">
+            <field name="name">correspondence.type.tree</field>
+            <field name="model">correspondence.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" required="1" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record model="ir.ui.view" id="correspondence_type_form">
+            <field name="name">correspondence.type.form</field>
+            <field name="model">correspondence.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header></header>
+                    <sheet>
+                        <div name="button_box" class="oe_button_box">
+                            <button name="associated_view_correspondence" string="Update QWeb" type="object" help="Open Report Template" icon="fa-code" class="oe_stat_button" groups="base.group_no_one" />
+                            <button name="add_correspondence" string="Add Correspondence" type="object" help="Add Correspondence" icon="fa-plus-square" class="oe_stat_button" groups="base.group_no_one" />
+                        </div>
+                        <group col="12">
+                            <group colspan="5">
+                                <field name="name" required="1" />
+                                <field name="ttd" widget='image' />
+                            </group>
+                            <group colspan='5'>
+                                <field name="ttd_name" />
+                                <field name="title" />
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="activity_ids" widget="mail_activity" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="provider_correspondence_type_action" model="ir.actions.act_window">
+            <field name="name">Correspondence Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">correspondence.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="provider_correspondence_type" name="Correspondence Type" parent="asb_master_configuration.menu_item_provider" action="provider_correspondence_type_action" />
+
+    </data>
+
+
+</odoo>

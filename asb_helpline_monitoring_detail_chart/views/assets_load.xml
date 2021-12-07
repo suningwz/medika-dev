@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="assets_helpline_monitoring_detail_chart" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/web/static/lib/Chart/Chart.js"/>
+            <!-- <script type="text/javascript" src="/asb_helpline_monitoring_detail_chart/static/lib/js/Chart/Chart.js"/> -->
+
+            <script type="text/javascript" src="/asb_helpline_monitoring_detail_chart/static/src/js/monitoring_chart.js"/>
+            <script type="text/javascript" src="/asb_helpline_monitoring_detail_chart/static/src/js/billing_chart.js"/>
+        </xpath>
+    </template>
+</odoo>

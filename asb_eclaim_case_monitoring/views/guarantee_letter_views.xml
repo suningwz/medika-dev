@@ -1,0 +1,23 @@
+<odoo>
+  <data>
+
+    <!-- Form View -->
+
+    <!-- actions opening views on models -->
+
+    <record id="eclaim_guarantee_letter_action_window" model="ir.actions.act_window">
+      <field name="name">Case Monitoring</field>
+      <field name="res_model">guarantee.letter</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('preadmission_state','!=','open')]</field>
+      <field name="context">{'search_default_batch_number': 1}</field>
+      <field name="view_id" ref="asb_helpline_guarantee_letter.guarantee_letter_view_tree" />
+      <field name="search_view_id" ref="asb_helpline_guarantee_letter.view_guarantee_letter_case_monitoring_filter" />
+    </record>
+
+    <!-- menu item -->
+
+    <!-- <menuitem name="Case Monitoring" id="asb_eclaim_case_monitoring_menuitem" parent="asb_eclaim_batch.asb_eclaim_batch_submenu" action="eclaim_guarantee_letter_action_window" sequence="3" /> -->
+
+  </data>
+</odoo>

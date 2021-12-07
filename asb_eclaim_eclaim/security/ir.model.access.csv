@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_eclaim_eclaim,asb_eclaim_eclaim.eclaim_eclaim,model_eclaim_eclaim,base.group_user,1,1,1,1
+access_eclaim_invoice_detail,asb_eclaim_eclaim.eclaim_invoice_detail,model_eclaim_invoice_detail,base.group_user,1,1,1,1
+access_eclaim_invoice_wizard,asb_eclaim_eclaim.eclaim_invoice_wizard,model_eclaim_invoice_wizard,base.group_user,1,1,1,1
+access_invoice_detail_item,asb_eclaim_eclaim.invoice_detail_item,model_invoice_detail_item,base.group_user,1,1,1,1

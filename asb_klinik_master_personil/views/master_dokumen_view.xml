@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="list_partner_inherit_master_dokumen" model="ir.ui.view">
+            <field name="name">master.dokumen.partner.view.list.inherit</field>
+            <field name="model">master.dokumen</field>
+            <field name="inherit_id" ref="asb_klinik_master_dokumen.master_dokumen_partner_view_tree"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="display_name" />
+                </xpath>
+
+            </field>
+        </record>
+    
+        <record id="partner_form_inherit_master_dokumen" model="ir.ui.view">
+            <field name="name">master.dokumen.partner.view.form.inherit</field>
+            <field name="model">master.dokumen</field>
+            <field name="inherit_id" ref="asb_klinik_master_dokumen.master_dokumen_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//group[@name='data_dokumen']" position="after">
+                    <group name="personil" string="Data Personil" attrs="{'invisible': [('kategori','not in',['dokter', 'perawat', 'nonmedis'])]}">
+                        <group>
+                            <field name="kode_personil" />
+                            <field name="unit_kerja" />
+                            <field name="jenis_kelamin" />
+                        </group>
+
+                        <group>
+                            <field name="poli_unit_id" />
+                            <field name="master_ketenagaan_id" />
+                            <field name="faskes_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            <field name="display_name" invisible="1"/>
+                        </group>
+                    </group>
+                </xpath>
+                
+            </field>
+        </record>
+    
+    </data>
+</odoo>

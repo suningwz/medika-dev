@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="member_history_action_form" model="ir.actions.act_window">
+            <field name="name">Member History</field>
+            <field name="res_model">member.history</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('member_id','=',active_id)]</field>
+        </record>
+
+        <!-- =========== -->
+        <!-- VIEW MEMBER -->
+        <!-- =========== -->
+        <record id="member_view_form" model="ir.ui.view">
+            <field name="name">res.partner.view.form</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form string="Member">
+                    <header>
+                        <button name="print_card_member" string="Print Card Member" type="object" />
+                    </header>
+                    <sheet>
+                        <div name="member_box" class="oe_button_box">
+                            <button class="oe_stat_button" type="action" name="asb_membership_member.member_history_action_form" icon="fa-tasks">
+                                <field string="History" name="history_count" widget="statinfo" />
+                            </button>
+                            <button class="oe_stat_button" type="object" name="member_relation" icon="fa-users">
+                                <field string="Relation" name="member_relation_count" widget="statinfo" />
+                            </button>
+                            <!-- <button class="oe_stat_button" type="action" name="asb_membership_member.member_history_action_form" icon="fa-tasks">
+                                <field string="Claim" name="member_claim_count" widget="statinfo" />
+                            </button>
+                            <button class="oe_stat_button" type="action" name="asb_membership_member.member_history_action_form" icon="fa-tasks">
+                                <field string="Annual Limit" name="member_annual_limit_count" widget="statinfo" />
+                            </button>
+                            <button class="oe_stat_button" type="action" name="asb_membership_member.member_history_action_form" icon="fa-tasks">
+                                <field string="Inner Limit" name="member_inner_limit_count" widget="statinfo" />
+                            </button> -->
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" default_focus="1" />
+                            </h1>
+                        </div>
+                        <field name="image_1920" widget="image" class="oe_avatar" options="{'preview_image': 'image_128'}" />
+                        <group name='group_member_1'>
+                            <group>
+                                <field name="nik" attrs="{'required': [('member', '=', True)]}" />
+                                <field name="card_number" />
+                                <field name="member_number" force_save="1" readonly="1" />
+                                <field name="suffix_id" options="{'no_open': True, 'no_create': True}" attrs="{'required': [('member', '=', True)]}" />
+                                <field name="marital_status" attrs="{'required': [('member', '=', True)]}" />
+                                <field name="relationship" attrs="{'required': [('member', '=', True)]}" />
+                                <field name="record_mode" invisible="1" />
+                                <field name="member" invisible="1" />
+                            </group>
+                            <group>
+                                <field name="policy_number" />
+                                <field name="join_date" />
+                                <field name="start_date" />
+                                <field name="effective_date_member" />
+                                <field name="end_date" attrs="{'required': [('effective_date_member','!=',False)]}" />
+                                <field name="end_policy_date" />
+                            </group>
+                        </group>
+                        <notebook name="notebook_member">
+                            <page name="work_information" string="Work Information">
+                                <group>
+                                    <group>
+                                        <field name="member_client_id" context="{'form_view_ref':'asb_membership_client.membership_client_view_form'}" attrs="{'required': [('member', '=', True)]}" />
+                                        <field name="get_domain_client_branch_ids" invisible="1" />
+                                        <field name="client_branch_id" domain="[('id', '=', get_domain_client_branch_ids)]" attrs="{'required': [('member', '=', True)]}" />
+                                        <field name="division" />
+                                    </group>
+                                    <group>
+                                        <field name="division_id" />
+                                        <field name="employment_status" />
+                                        <field name="salary" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="private_information" string="Private Information">
+                                <group>
+                                    <group string='Contact'>
+                                        <label for="street" string="Address" class="oe_edit_only" />
+                                        <div class="o_address_format oe_edit_only">
+                                            <field name="country_id" class="o_address_state" style="width: 31%%" placeholder="Country" options="{'no_open': True, 'no_create': True}" />
+                                            <field name="state_id" class="o_address_state" style="width: 31%%" placeholder="State" options="{'no_open': True, 'no_create': True}" domain="[('country_id','=',country_id)]" />
+                                            <field name="city_id" style="width: 34%%" placeholder="City" options="{'no_open': True, 'no_create': True}" domain="[('state_id','=',state_id)]" />
+                                            <field name="kecamatan_id" class="o_address_state" style="width: 31%%" placeholder="Kecamatan" options="{'no_open': True, 'no_create': True}" domain="[('city_id','=',city_id)]" />
+                                            <field name="kelurahan_id" class="o_address_state" style="width: 31%%" placeholder="Kelurahan" options="{'no_open': True, 'no_create': True}" domain="[('kecamatan_id','=',kecamatan_id)]" />
+                                            <field name="zip" style="width: 34%%" placeholder="ZIP" />
+                                            <field name="street" class="o_address_street" placeholder="Street..." />
+                                        </div>
+                                        <label for="street" string="Address" class="oe_read_only" />
+                                        <div class="o_address_format oe_read_only">
+                                            <field name="street" class="o_address_street" placeholder="Street..." />
+                                            <field name="kelurahan_id" class="o_address_state" placeholder="Kelurahan" options="{'no_open': True, 'no_create': True}" domain="[('kecamatan_id','=',kecamatan_id)]" />
+                                            <field name="kecamatan_id" class="o_address_state" placeholder="Kecamatan" options="{'no_open': True, 'no_create': True}" domain="[('city_id','=',city_id)]" />
+                                            <field name="city_id" class="o_address_state" placeholder="City" options="{'no_open': True, 'no_create': True}" domain="[('state_id','=',state_id)]" />
+                                            <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_create': True}" domain="[('country_id','=',country_id)]" />
+                                            <field name="country_id" class="o_address_state" placeholder="Country" options="{'no_open': True, 'no_create': True}" />
+                                            <field name="zip" class="o_address_state" placeholder="ZIP" />
+                                        </div>
+                                        <field name="tlp_office" />
+                                        <field name="tlp_residence" />
+                                        <field name="mobile" string='Telephone (Mobile)' />
+                                        <field name="email" widget='email' />
+                                    </group>
+                                    <group string='Citizenship'>
+                                        <field name="identification_no" />
+                                        <field name="passport_no" />
+                                        <field name="passport_country" />
+                                        <field name="language" />
+                                        <field name="gender" />
+                                        <field name="birth_date" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="bank_account" string="Bank Account">
+                                <group>
+                                    <group>
+                                        <field name="bank_id" can_create="true" can_write="true" id="bank" />
+                                        <field name="swift_code" id="swift_code" />
+                                        <field name="account_name" id="account_name" />
+                                    </group>
+                                    <group>
+                                        <field name="bank_account" id="bank_account" />
+                                        <field name="bank_branch" id="bank_branch" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page name='member_information' string="Member Information">
+                                <group>
+                                    <group>
+                                        <field name="employee_name" />
+                                        <field name="record_type" attrs="{'required': [('member', '=', True)]}" />
+                                        <field name="payor_id" />
+                                        <field name="rule_bpjs" />
+                                        <field name="bpjs_number" />
+                                        <field name="bpjs_classes_room" />
+                                        <field name="name_faskes_fktp" />
+                                        <field name="classification_member" />
+                                        <field name="pre_existing" />
+                                        <field name="remarks" />
+                                    </group>
+                                    <group>
+                                        <field name="endorsement_date" />
+                                        <field name="member_since" />
+                                        <field name="policy_status" />
+                                        <field name="member_suspend" />
+                                        <field name="renewal_activation_date" />
+                                        <field name="internal_use" />
+                                        <field name="option_mode" />
+                                        <field name="request_date" />
+                                        <field name="print_card_date" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page name='Plan Information' string='Plan Information'>
+                                <group>
+                                    <group>
+                                        <field name="get_program_id_domain" invisible="1" />
+                                        <field name="program_id" domain="[('id','=',get_program_id_domain)]" options="{'no_open': True, 'no_create': True}" />
+                                        <field name="get_program_plan_id_domain" invisible="1" />
+                                        <field name="program_plan_id" domain="[('id','=',get_program_plan_id_domain)]" options="{'no_open': True, 'no_create': True}" attrs="{'invisible':[('program_id', '=', False)]}" />
+                                    </group>
+                                    <field name="program_plan_header_line" options="{'no_create':True}" force_save="1" readonly="1" attrs="{'invisible':[('program_plan_id', '=', False)]}">
+                                        <tree>
+                                            <field name="benefit_category_id" />
+                                            <field name="annual_limit" />
+                                            <field name="deductible" />
+                                            <field name="coinsurance" />
+                                            <field name="coshare" />
+                                        </tree>
+                                        <form string="Plan Header">
+                                            <sheet>
+                                                <group col='4'>
+                                                    <group colspan='2'>
+                                                        <field name="plan_id" readonly="1" />
+                                                        <field name="benefit_category_id" required="1" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                        <field name="annual_limit" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                        <field name="daily_limit" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                        <field name="deductible" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                    </group>
+                                                    <group colspan='2'>
+                                                        <label for="coinsurance" string="Co-Insurance" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                        <div class="o_row">
+                                                            <field name="coinsurance" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                            %
+                                                        </div>
+                                                        <field name="coshare" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                        <field name="currency_id" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                        <field name="created_by" readonly="1" />
+                                                        <field name="created_date" readonly="1" />
+                                                        <field name="is_editable" invisible="1" />
+                                                    </group>
+                                                </group>
+                                                <notebook>
+                                                    <page name="header_detail_line" string="Detail">
+                                                        <field name="detail_line" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                    </page>
+                                                </notebook>
+                                            </sheet>
+                                            <div class="oe_chatter">
+                                                <field name="message_follower_ids" widget="mail_followers" />
+                                                <field name="activity_ids" widget="mail_activity" />
+                                                <field name="message_ids" widget="mail_thread" />
+                                            </div>
+                                        </form>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_member_tree" model="ir.ui.view">
+            <field name="name">res.partner.member</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="member_client_id" context="{'form_view_ref':'asb_membership_client.membership_client_view_form'}" />
+                    <field name="client_branch_id" />
+                    <field name="nik" />
+                    <field name="name" />
+                    <field name="member_number" />
+                    <field name="card_number" />
+                    <field name="relationship" />
+                    <field name="policy_number" />
+                    <field name="effective_date_member" />
+                    <field name="end_policy_date" />
+                    <field name="program_id" />
+                    <field name="program_plan_id" />
+                    <field name="policy_status" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Search View -->
+        <record model="ir.ui.view" id="member_search">
+            <field name="name">member.search</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+                    <field name="nik" />
+                    <field name="member_number" />
+                    <field name="card_number" />
+                    <field name="employment_status" />
+                    <field name="member_client_id" />
+                    <field name="client_branch_id" />
+                </search>
+            </field>
+        </record>
+
+        <record id="member_action_partner_form" model="ir.actions.act_window">
+            <field name="name">Member</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="member_search" />
+            <field name="domain">[('member', '=', True)]</field>
+            <field name="context">{'default_member': True, 'default_is_membership': 1, 'default_customer': 0}</field>
+            <!-- <field name="search_view_id" ref="asb_membership.view_res_partner_filter_add" /> -->
+            <field name="view_id" ref="view_member_tree" />
+        </record>
+        <record id="action_form_member" model="ir.actions.act_window.view">
+            <field name="sequence" eval="3" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="member_view_form" />
+            <field name="act_window_id" ref="member_action_partner_form" />
+        </record>
+        <record id="action_tree_member" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_member_tree" />
+            <field name="act_window_id" ref="member_action_partner_form" />
+        </record>
+
+
+        <!-- ==================== -->
+        <!-- VIEW MEMBER RELATION -->
+        <!-- ==================== -->
+        <record id="member_relation_view_form" model="ir.ui.view">
+            <field name="name">res.partner.view.form</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form string="Member" create="false" edit="false">
+                    <!-- <header>
+                        <button name="print_card_member" string="Print Card Member" type="object" />
+                    </header> -->
+                    <sheet>
+                        <!-- <div name="member_box" class="oe_button_box">
+                            <button class="oe_stat_button" type="action" name="asb_membership_member.member_history_action_form" icon="fa-tasks">
+                                <field string="History" name="history_count" widget="statinfo" />
+                            </button>
+                            <button class="oe_stat_button" type="object" name="member_relation" icon="fa-tasks">
+                                <field string="Relation" name="member_relation_count" widget="statinfo" />
+                            </button>
+                        </div> -->
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" default_focus="1" />
+                            </h1>
+                        </div>
+                        <field name="image_1920" widget="image" class="oe_avatar" options="{'preview_image': 'image_128'}" />
+                        <group name='group_member_1'>
+                            <group>
+                                <field name="nik" attrs="{'required': [('member', '=', True)]}" />
+                                <field name="card_number" />
+                                <field name="member_number" force_save="1" readonly="1" />
+                                <field name="suffix_id" options="{'no_open': True, 'no_create': True}" attrs="{'required': [('member', '=', True)]}" />
+                                <field name="marital_status" attrs="{'required': [('member', '=', True)]}" />
+                                <field name="relationship" attrs="{'required': [('member', '=', True)]}" />
+                                <field name="record_mode" invisible="1" />
+                                <field name="member" invisible="1" />
+                            </group>
+                            <group>
+                                <field name="policy_number" />
+                                <field name="join_date" />
+                                <field name="start_date" />
+                                <field name="effective_date_member" />
+                                <field name="end_date" attrs="{'required': [('effective_date_member','!=',False)]}" />
+                                <field name="end_policy_date" />
+                            </group>
+                        </group>
+                        <notebook name="notebook_member">
+                            <page name="work_information" string="Work Information">
+                                <group>
+                                    <group>
+                                        <field name="member_client_id" context="{'form_view_ref':'asb_membership_client.membership_client_view_form'}" attrs="{'required': [('member', '=', True)]}" />
+                                        <field name="get_domain_client_branch_ids" invisible="1" />
+                                        <field name="client_branch_id" domain="[('id', '=', get_domain_client_branch_ids)]" attrs="{'required': [('member', '=', True)]}" />
+                                        <field name="division" />
+                                    </group>
+                                    <group>
+                                        <field name="division_id" />
+                                        <field name="employment_status" />
+                                        <field name="salary" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="private_information" string="Private Information">
+                                <group>
+                                    <group string='Contact'>
+                                        <label for="street" string="Address" class="oe_edit_only" />
+                                        <div class="o_address_format oe_edit_only">
+                                            <field name="country_id" class="o_address_state" style="width: 31%%" placeholder="Country" options="{'no_open': True, 'no_create': True}" />
+                                            <field name="state_id" class="o_address_state" style="width: 31%%" placeholder="State" options="{'no_open': True, 'no_create': True}" domain="[('country_id','=',country_id)]" />
+                                            <field name="city_id" style="width: 34%%" placeholder="City" options="{'no_open': True, 'no_create': True}" domain="[('state_id','=',state_id)]" />
+                                            <field name="kecamatan_id" class="o_address_state" style="width: 31%%" placeholder="Kecamatan" options="{'no_open': True, 'no_create': True}" domain="[('city_id','=',city_id)]" />
+                                            <field name="kelurahan_id" class="o_address_state" style="width: 31%%" placeholder="Kelurahan" options="{'no_open': True, 'no_create': True}" domain="[('kecamatan_id','=',kecamatan_id)]" />
+                                            <field name="zip" style="width: 34%%" placeholder="ZIP" />
+                                            <field name="street" class="o_address_street" placeholder="Street..." />
+                                        </div>
+                                        <label for="street" string="Address" class="oe_read_only" />
+                                        <div class="o_address_format oe_read_only">
+                                            <field name="street" class="o_address_street" placeholder="Street..." />
+                                            <field name="kelurahan_id" class="o_address_state" placeholder="Kelurahan" options="{'no_open': True, 'no_create': True}" domain="[('kecamatan_id','=',kecamatan_id)]" />
+                                            <field name="kecamatan_id" class="o_address_state" placeholder="Kecamatan" options="{'no_open': True, 'no_create': True}" domain="[('city_id','=',city_id)]" />
+                                            <field name="city_id" class="o_address_state" placeholder="City" options="{'no_open': True, 'no_create': True}" domain="[('state_id','=',state_id)]" />
+                                            <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_create': True}" domain="[('country_id','=',country_id)]" />
+                                            <field name="country_id" class="o_address_state" placeholder="Country" options="{'no_open': True, 'no_create': True}" />
+                                            <field name="zip" class="o_address_state" placeholder="ZIP" />
+                                        </div>
+                                        <field name="tlp_office" />
+                                        <field name="tlp_residence" />
+                                        <field name="mobile" string='Telephone (Mobile)' />
+                                        <field name="email" widget='email' />
+                                    </group>
+                                    <group string='Citizenship'>
+                                        <field name="identification_no" />
+                                        <field name="passport_no" />
+                                        <field name="passport_country" />
+                                        <field name="language" />
+                                        <field name="gender" />
+                                        <field name="birth_date" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="bank_account" string="Bank Account">
+                                <group>
+                                    <group>
+                                        <field name="bank_id" can_create="true" can_write="true" id="bank" />
+                                        <field name="swift_code" id="swift_code" />
+                                        <field name="account_name" id="account_name" />
+                                    </group>
+                                    <group>
+                                        <field name="bank_account" id="bank_account" />
+                                        <field name="bank_branch" id="bank_branch" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page name='member_information' string="Member Information">
+                                <group>
+                                    <group>
+                                        <field name="record_type" attrs="{'required': [('member', '=', True)]}" />
+                                        <field name="payor_id" />
+                                        <field name="rule_bpjs" />
+                                        <field name="bpjs_number" />
+                                        <field name="bpjs_classes_room" />
+                                        <field name="name_faskes_fktp" />
+                                        <field name="classification_member" />
+                                        <field name="pre_existing" />
+                                        <field name="remarks" />
+                                    </group>
+                                    <group>
+                                        <field name="endorsement_date" />
+                                        <field name="member_since" />
+                                        <field name="policy_status" />
+                                        <field name="member_suspend" />
+                                        <field name="renewal_activation_date" />
+                                        <field name="internal_use" />
+                                        <field name="option_mode" />
+                                        <field name="request_date" />
+                                        <field name="print_card_date" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page name='Plan Information' string='Plan Information'>
+                                <group>
+                                    <group>
+                                        <field name="get_program_id_domain" invisible="1" />
+                                        <field name="program_id" domain="[('id','=',get_program_id_domain)]" options="{'no_open': True, 'no_create': True}" />
+                                        <field name="get_program_plan_id_domain" invisible="1" />
+                                        <field name="program_plan_id" domain="[('id','=',get_program_plan_id_domain)]" options="{'no_open': True, 'no_create': True}" attrs="{'invisible':[('program_id', '=', False)]}" />
+                                    </group>
+                                    <field name="program_plan_header_line" options="{'no_create':True}" force_save="1" readonly="1" attrs="{'invisible':[('program_plan_id', '=', False)]}">
+                                        <tree>
+                                            <field name="benefit_category_id" />
+                                            <field name="annual_limit" />
+                                            <field name="deductible" />
+                                            <field name="coinsurance" />
+                                            <field name="coshare" />
+                                        </tree>
+                                        <form string="Plan Header">
+                                            <sheet>
+                                                <group col='4'>
+                                                    <group colspan='2'>
+                                                        <field name="plan_id" readonly="1" />
+                                                        <field name="benefit_category_id" required="1" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                        <field name="annual_limit" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                        <field name="daily_limit" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                        <field name="deductible" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                    </group>
+                                                    <group colspan='2'>
+                                                        <label for="coinsurance" string="Co-Insurance" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                        <div class="o_row">
+                                                            <field name="coinsurance" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                            %
+                                                        </div>
+                                                        <field name="coshare" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                        <field name="currency_id" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                        <field name="created_by" readonly="1" />
+                                                        <field name="created_date" readonly="1" />
+                                                        <field name="is_editable" invisible="1" />
+                                                    </group>
+                                                </group>
+                                                <notebook>
+                                                    <page name="header_detail_line" string="Detail">
+                                                        <field name="detail_line" attrs="{'readonly': [('is_editable','=', False)]}" />
+                                                    </page>
+                                                </notebook>
+                                            </sheet>
+                                            <div class="oe_chatter">
+                                                <field name="message_follower_ids" widget="mail_followers" />
+                                                <field name="activity_ids" widget="mail_activity" />
+                                                <field name="message_ids" widget="mail_thread" />
+                                            </div>
+                                        </form>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_member_tree_relation" model="ir.ui.view">
+            <field name="name">res.partner.member</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree create="false" edit="false">
+                    <field name="name" />
+                    <field name="nik" />
+                    <field name="member_number" />
+                </tree>
+            </field>
+        </record>
+        <record id="member_relation_action" model="ir.actions.act_window">
+            <field name="name">Relation</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="search_view_id" ref="asb_membership.view_res_partner_filter_add" /> -->
+            <field name="view_id" ref="view_member_tree_relation" />
+        </record>
+        <record id="action_form_member_relation" model="ir.actions.act_window.view">
+            <field name="sequence" eval="3" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="member_relation_view_form" />
+            <field name="act_window_id" ref="member_relation_action" />
+        </record>
+        <record id="action_tree_member_relation" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_member_tree_relation" />
+            <field name="act_window_id" ref="member_relation_action" />
+        </record>
+
+
+        <record model="ir.sequence" id="member_number_sequence">
+            <field name="name">Member Number</field>
+            <field name="code">member.number.sequence</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False" />
+        </record>
+
+        <menuitem id="member_menuitem" name="Member" parent="asb_membership.membership_menubar" action="asb_membership_member.member_action_partner_form" />
+    </data>
+</odoo>

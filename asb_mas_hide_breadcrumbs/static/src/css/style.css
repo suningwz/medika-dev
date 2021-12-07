@@ -1,0 +1,30 @@
+/* .breadcrumb > li {
+  display: none !important;
+} */
+/* .breadcrumb > .o_back_button {
+  display: none !important;
+} */
+/* .breadcrumb > .active {
+  display: none !important;
+} */
+
+.breadcrumb-item + .breadcrumb-item {
+  display: none !important;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  display: none !important;
+
+}
+
+.breadcrumb-item + .breadcrumb-item:hover::before {
+  display: none !important;
+}
+
+.breadcrumb-item + .breadcrumb-item:hover::before {
+  display: none !important;
+}
+
+/* .breadcrumb-item.active {
+  display: none !important;
+} */

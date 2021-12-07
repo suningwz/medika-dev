@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+
+
+    <!-- list view -->
+
+    <record model="ir.ui.view" id="ticketing_claim_history_tree_view">
+      <field name="name">guarantee.letter.tree</field>
+      <field name="model">guarantee.letter</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="claim_number" readonly="1" />
+          <field name="name" string="Member Name" />
+          <field name="client_id" />
+          <field name="provider_id" />
+          <field name="member" />
+          <field name="service_type" />
+          <field name="currency_id" invisible="1"/>
+          <field name="amount_cover" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+          <field name="amount_excess" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+          <field name="amount_total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+          <field name="claim_status" widget="badge" decoration-danger="claim_status in ['reject','decline']" decoration-info="claim_status == 'verified'" decoration-it="claim_status == 'open'" decoration-success="claim_status == 'paid'" decoration-warning="claim_status == 'release'" decoration-primary="claim_status == 'approved'" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="gl_case_history_smart_button" model="ir.actions.act_window">
+      <field name="name">Claim History</field>
+      <field name="res_model">guarantee.letter</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('member_id', '=', 0)]</field>
+      <field name="view_id" ref="asb_helpline_guarantee_letter.ticketing_claim_history_tree_view" />
+    </record>
+
+    <record id="guarantee_letter_inherit_case_history" model="ir.ui.view">
+      <field name="name">guarantee.letter.view.form.inherit.case.history</field>
+      <field name="model">guarantee.letter</field>
+      <field name="inherit_id" ref="asb_helpline_guarantee_letter.guarantee_letter_view_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//div[@name='button_box']" position="inside">
+          <button name="case_history" string="Claim History" type="object" icon='fa-file-text' class="oe_stat_button" />
+        </xpath>
+      </field>
+    </record>
+
+    <record id="member_view_form_inherit_case_history" model="ir.ui.view">
+      <field name="name">res.partner.view.form.inherit.case.history</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="asb_membership_member.member_view_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//div[@name='member_box']" position="inside">
+          <button name="case_history" string="Claim History" type="object" icon='fa-file-text' class="oe_stat_button" />
+        </xpath>
+      </field>
+    </record>
+
+
+
+  </data>
+</odoo>

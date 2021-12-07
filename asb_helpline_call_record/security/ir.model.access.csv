@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_call_record,asb_helpline_call_record.call_record,model_call_record,base.group_user,1,1,1,1
+access_call_record_lines,asb_helpline_call_record.call_record_lines,model_call_record_lines,base.group_user,1,1,1,1
+access_helpline_source,asb_helpline_source.helpline_source,model_helpline_source,base.group_user,1,1,1,1

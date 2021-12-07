@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Riwayat Penyakit Terdahulu -->
+        <record id="1" model="anamnesa.master">
+            <field name="tipe_anamnesa">riwayat_penyakit_terdahulu</field>
+            <field name="anamnesa_type">medical_history</field>
+            <field name="name">Alergy</field>
+            <field name="nama">Alergi</field>
+        </record>
+        <record id="2" model="anamnesa.master">
+            <field name="tipe_anamnesa">riwayat_penyakit_terdahulu</field>
+            <field name="anamnesa_type">medical_history</field>
+            <field name="name">Immunization</field>
+            <field name="nama">Imunisasi</field>
+        </record>
+        <record id="3" model="anamnesa.master">
+            <field name="tipe_anamnesa">riwayat_penyakit_terdahulu</field>
+            <field name="anamnesa_type">medical_history</field>
+            <field name="name">Surgery</field>
+            <field name="nama">Operasi</field>
+        </record>
+        <record id="4" model="anamnesa.master">
+            <field name="tipe_anamnesa">riwayat_penyakit_terdahulu</field>
+            <field name="anamnesa_type">medical_history</field>
+            <field name="name">Hospitalization</field>
+            <field name="nama">Rawat Inap</field>
+        </record>
+        <record id="5" model="anamnesa.master">
+            <field name="tipe_anamnesa">riwayat_penyakit_terdahulu</field>
+            <field name="anamnesa_type">medical_history</field>
+            <field name="name">Disease</field>
+            <field name="nama">Penyakit</field>
+        </record>
+
+        <!-- Khusus Wanita -->
+        <record id="6" model="anamnesa.master">
+            <field name="tipe_anamnesa">khusus_wanita</field>
+            <field name="anamnesa_type">special_for_woman</field>
+            <field name="name">Regular Periode</field>
+            <field name="nama">Haid Teratur</field>
+        </record>
+        <record id="7" model="anamnesa.master">
+            <field name="tipe_anamnesa">khusus_wanita</field>
+            <field name="anamnesa_type">special_for_woman</field>
+            <field name="name">Dysmenorhea</field>
+            <field name="nama">Sakit Waktu Haid</field>
+        </record>
+        <record id="8" model="anamnesa.master">
+            <field name="tipe_anamnesa">khusus_wanita</field>
+            <field name="anamnesa_type">special_for_woman</field>
+            <field name="name">Pregnancy History</field>
+            <field name="nama">Riwayat Kehamilan</field>
+        </record>
+        <record id="9" model="anamnesa.master">
+            <field name="tipe_anamnesa">khusus_wanita</field>
+            <field name="anamnesa_type">special_for_woman</field>
+            <field name="name">Vaginal Discharge</field>
+            <field name="nama">Keputihan</field>
+        </record>
+
+        <!-- Kebiasaan -->
+        <record id="10" model="anamnesa.master">
+            <field name="tipe_anamnesa">kebiasaan</field>
+            <field name="anamnesa_type">lifestyle</field>
+            <field name="name">Alcohol Intake</field>
+            <field name="nama">Alkohol</field>
+            <field name="form">False</field>
+        </record>
+        <record id="11" model="anamnesa.master">
+            <field name="tipe_anamnesa">kebiasaan</field>
+            <field name="anamnesa_type">lifestyle</field>
+            <field name="name">Smoking</field>
+            <field name="nama">Merokok</field>
+            <field name="form">True</field>
+            <field name="lifestyle_form">merokok</field>
+        </record>
+        <record id="12" model="anamnesa.master">
+            <field name="tipe_anamnesa">kebiasaan</field>
+            <field name="anamnesa_type">lifestyle</field>
+            <field name="name">Exercise</field>
+            <field name="nama">Olahraga</field>
+            <field name="form">True</field>
+            <field name="lifestyle_form">olahraga</field>
+        </record>
+
+        <!-- Riwayat Penyakit Keluarga -->
+        <record id="13" model="anamnesa.master">
+            <field name="tipe_anamnesa">riwayat_penyakit_keluarga</field>
+            <field name="anamnesa_type">family_history</field>
+            <field name="name">Diabetes Melitus</field>
+            <field name="nama">Kencing Manis</field>
+        </record>
+        <record id="14" model="anamnesa.master">
+            <field name="tipe_anamnesa">riwayat_penyakit_keluarga</field>
+            <field name="anamnesa_type">family_history</field>
+            <field name="name">Hypertension</field>
+            <field name="nama">Darah Tinggi</field>
+        </record>
+        <record id="15" model="anamnesa.master">
+            <field name="tipe_anamnesa">riwayat_penyakit_keluarga</field>
+            <field name="anamnesa_type">family_history</field>
+            <field name="name">Heart Disease</field>
+            <field name="nama">Sakit Jantung</field>
+        </record>
+        <record id="16" model="anamnesa.master">
+            <field name="tipe_anamnesa">riwayat_penyakit_keluarga</field>
+            <field name="anamnesa_type">family_history</field>
+            <field name="name">Lung TB</field>
+            <field name="nama">TBC Paru</field>
+        </record>
+        <record id="17" model="anamnesa.master">
+            <field name="tipe_anamnesa">riwayat_penyakit_keluarga</field>
+            <field name="anamnesa_type">family_history</field>
+            <field name="name">Astma</field>
+            <field name="nama">Asma</field>
+        </record>
+        <record id="18" model="anamnesa.master">
+            <field name="tipe_anamnesa">riwayat_penyakit_keluarga</field>
+            <field name="anamnesa_type">family_history</field>
+            <field name="name">Mental Disease</field>
+            <field name="nama">Gangguan Jiwa</field>
+        </record>
+        <record id="19" model="anamnesa.master">
+            <field name="tipe_anamnesa">riwayat_penyakit_keluarga</field>
+            <field name="anamnesa_type">family_history</field>
+            <field name="name">Epilepsy</field>
+            <field name="nama">Epilepsi</field>
+        </record>
+        <record id="20" model="anamnesa.master">
+            <field name="tipe_anamnesa">riwayat_penyakit_keluarga</field>
+            <field name="anamnesa_type">family_history</field>
+            <field name="name">Cancer</field>
+            <field name="nama">Kanker</field>
+        </record>
+        <record id="21" model="anamnesa.master">
+            <field name="tipe_anamnesa">riwayat_penyakit_keluarga</field>
+            <field name="anamnesa_type">family_history</field>
+            <field name="name">Color Bllind</field>
+            <field name="nama">Buta Warna</field>
+        </record>
+        <record id="22" model="anamnesa.master">
+            <field name="tipe_anamnesa">riwayat_penyakit_keluarga</field>
+            <field name="anamnesa_type">family_history</field>
+            <field name="name">Stroke</field>
+            <field name="nama">Stroke</field>
+        </record>
+        <record id="23" model="anamnesa.master">
+            <field name="tipe_anamnesa">riwayat_penyakit_keluarga</field>
+            <field name="anamnesa_type">family_history</field>
+            <field name="name">Liver Disease</field>
+            <field name="nama">Liver</field>
+        </record>
+        <record id="24" model="anamnesa.master">
+            <field name="tipe_anamnesa">riwayat_penyakit_keluarga</field>
+            <field name="anamnesa_type">family_history</field>
+            <field name="name">Bone &amp; Joint</field>
+            <field name="nama">Penyakit Sendi &amp; Tulang</field>
+        </record>
+        <record id="25" model="anamnesa.master">
+            <field name="tipe_anamnesa">riwayat_penyakit_keluarga</field>
+            <field name="anamnesa_type">family_history</field>
+            <field name="name">Others Disease</field>
+            <field name="nama">Penyakit Lainnya </field>
+        </record>
+        <record id="26" model="anamnesa.master">
+            <field name="tipe_anamnesa">riwayat_penyakit_keluarga</field>
+            <field name="anamnesa_type">family_history</field>
+            <field name="name">Kidney  Disease</field>
+            <field name="nama">Ginjal</field>
+        </record>
+
+        <!-- Paparan Fisik -->
+        <record id="27" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_fisik</field>
+            <field name="anamnesa_type">exposure_physical</field>
+            <field name="name">Noise</field>
+            <field name="nama">Kebisingan</field>
+        </record>
+        <record id="28" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_fisik</field>
+            <field name="anamnesa_type">exposure_physical</field>
+            <field name="name">Heat Stress</field>
+            <field name="nama">Suhu Sangat Panas</field>
+        </record>
+        <record id="29" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_fisik</field>
+            <field name="anamnesa_type">exposure_physical</field>
+            <field name="name">Cold Stress</field>
+            <field name="nama">Suhu Sangat Dingin</field>
+        </record>
+        <record id="30" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_fisik</field>
+            <field name="anamnesa_type">exposure_physical</field>
+            <field name="name">Vibration</field>
+            <field name="nama">Getaran</field>
+        </record>
+        <record id="31" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_fisik</field>
+            <field name="anamnesa_type">exposure_physical</field>
+            <field name="name">Involving Height</field>
+            <field name="nama">Bekerja Pada Ketinggian</field>
+        </record>
+        <record id="32" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_fisik</field>
+            <field name="anamnesa_type">exposure_physical</field>
+            <field name="name">Radiation</field>
+            <field name="nama">Radiasi</field>
+        </record>
+
+        <!-- Paparan Kimia -->
+        <record id="33" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_kimia</field>
+            <field name="anamnesa_type">exposure_chemical</field>
+            <field name="name">Dust</field>
+            <field name="nama">Debu</field>
+        </record>
+        <record id="34" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_kimia</field>
+            <field name="anamnesa_type">exposure_chemical</field>
+            <field name="name">Toxic Chemical</field>
+            <field name="nama">Bahan Kimia Berbahaya</field>
+        </record>
+        <record id="35" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_kimia</field>
+            <field name="anamnesa_type">exposure_chemical</field>
+            <field name="name">Iritating Fluid</field>
+            <field name="nama">Cairan Iritan</field>
+        </record>
+        <record id="36" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_kimia</field>
+            <field name="anamnesa_type">exposure_chemical</field>
+            <field name="name">Heat Stress</field>
+            <field name="nama">Asap</field>
+        </record>
+
+        <!-- Paparan Biology -->
+        <record id="37" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_biologi</field>
+            <field name="anamnesa_type">exposure_biology</field>
+            <field name="name">Bacterium/Virus/Parasite</field>
+            <field name="nama">Bakteri/Virus/Parasit</field>
+        </record>
+        <record id="38" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_biologi</field>
+            <field name="anamnesa_type">exposure_biology</field>
+            <field name="name">Blood</field>
+            <field name="nama">Darah/Cairan Tubuh</field>
+        </record>
+        <record id="39" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_biologi</field>
+            <field name="anamnesa_type">exposure_biology</field>
+            <field name="name">Animal</field>
+            <field name="nama">Hewan</field>
+        </record>
+
+        <!-- Paparan Ergonomic -->
+        <record id="40" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_ergonomi</field>
+            <field name="anamnesa_type">exposure_ergonomics</field>
+            <field name="name">Operating Heavy Mobile Equipment</field>
+            <field name="nama">Mengoperasikan Alat Berat yang Bergerak</field>
+        </record>
+        <record id="41" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_ergonomi</field>
+            <field name="anamnesa_type">exposure_ergonomics</field>
+            <field name="name">Manual Handling</field>
+            <field name="nama">Penanganan Manual</field>
+        </record>
+        <record id="42" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_ergonomi</field>
+            <field name="anamnesa_type">exposure_ergonomics</field>
+            <field name="name">Sitting Continuously Over 4 Hours</field>
+            <field name="nama">Duduk Lama > 4 Jam Terus Menerus</field>
+        </record>
+        <record id="43" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_ergonomi</field>
+            <field name="anamnesa_type">exposure_ergonomics</field>
+            <field name="name">Stand Continuously Over 4 Hours</field>
+            <field name="nama">Berdiri Lama > 4 Jam Terus Menerus</field>
+        </record>
+        <record id="44" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_ergonomi</field>
+            <field name="anamnesa_type">exposure_ergonomics</field>
+            <field name="name">Menggunakan Layar Monitor > 4 Jam/Hari</field>
+            <field name="nama">Menggunakan Layar Monitor > 4 Jam/Hari</field>
+        </record>
+        <record id="45" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_ergonomi</field>
+            <field name="anamnesa_type">exposure_ergonomics</field>
+            <field name="name">Exposure</field>
+            <field name="nama">Pencahayaan</field>
+        </record>
+        <record id="46" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_ergonomi</field>
+            <field name="anamnesa_type">exposure_ergonomics</field>
+            <field name="name">Posisi Tubuh Tidak Ergonomi</field>
+            <field name="nama">Posisi Tubuh Tidak Ergonomi</field>
+        </record>
+
+        <!-- Paparan Psikologi -->
+        <record id="47" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_psikologi</field>
+            <field name="anamnesa_type">exposure_psyichology</field>
+            <field name="name">Shift Work</field>
+            <field name="nama">Bekerja Shift</field>
+        </record>
+        <record id="48" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_psikologi</field>
+            <field name="anamnesa_type">exposure_psyichology</field>
+            <field name="name">Pekerjaan Tidak Sesuai Pengetahuan dan Keterampilan</field>
+            <field name="nama">Pekerjaan Tidak Sesuai Pengetahuan dan Keterampilan</field>
+        </record>
+        <record id="49" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_psikologi</field>
+            <field name="anamnesa_type">exposure_psyichology</field>
+            <field name="name">Beban Kerja Tidak Sesuai Waktu</field>
+            <field name="nama">Beban Kerja Tidak Sesuai Waktu</field>
+        </record>
+        <record id="50" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_psikologi</field>
+            <field name="anamnesa_type">exposure_psyichology</field>
+            <field name="name">Konflik Kerja</field>
+            <field name="nama">Konflik Kerja</field>
+        </record>
+        <record id="51" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_psikologi</field>
+            <field name="anamnesa_type">exposure_psyichology</field>
+            <field name="name">Ketidakjelasan Tugas</field>
+            <field name="nama">Ketidakjelasan Tugas</field>
+        </record>
+        <record id="52" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_psikologi</field>
+            <field name="anamnesa_type">exposure_psyichology</field>
+            <field name="name">Hambatan Jenjang Karir</field>
+            <field name="nama">Hambatan Jenjang Karir</field>
+        </record>
+        <record id="53" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_psikologi</field>
+            <field name="anamnesa_type">exposure_psyichology</field>
+            <field name="name">Konflik Keluarga</field>
+            <field name="nama">Konflik Keluarga</field>
+        </record>
+
+        <!-- Paparan Lain-lain -->
+        <record id="54" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_lain</field>
+            <field name="anamnesa_type">exposure_other</field>
+            <field name="name">Working Arround Rotating Machinery</field>
+            <field name="nama">Bekerja di Sekitar Mesin yang Bergerak </field>
+        </record>
+        <record id="55" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_lain</field>
+            <field name="anamnesa_type">exposure_other</field>
+            <field name="name">Administration Work</field>
+            <field name="nama">Pekerjaan Kantor</field>
+        </record>
+        <record id="56" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_lain</field>
+            <field name="anamnesa_type">exposure_other</field>
+            <field name="name">Handling Food product</field>
+            <field name="nama">Mengelola Produk Makanan</field>
+        </record>
+        <record id="57" model="anamnesa.master">
+            <field name="tipe_anamnesa">paparan_lain</field>
+            <field name="anamnesa_type">exposure_other</field>
+            <field name="name">Other Disease</field>
+            <field name="nama">Lain-lain</field>
+        </record>
+
+    </data>
+</odoo>

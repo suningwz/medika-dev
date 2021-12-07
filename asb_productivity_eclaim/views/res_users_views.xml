@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="res_users_inherit_productivity" model="ir.ui.view">
+            <field name="name">res.users.view.form.inherit</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='references']" position="after">
+                    <page name="productivity" string="Productivity">
+                        <field name="user_productivity_line" />
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="user_productivity_view_form" model="ir.ui.view">
+            <field name="name">user.productivity.view.form</field>
+            <field name="model">user.productivity</field>
+            <field name="arch" type="xml">
+                <form string="User Productivity">
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="eclaim_category" />
+                            <field name="point" />
+                            <field name="create_date" />
+                            <field name="create_uid" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="user_productivity_view_tree" model="ir.ui.view">
+            <field name="name">user.productivity.view.tree</field>
+            <field name="model">user.productivity</field>
+            <field name="arch" type="xml">
+                <tree string="User Productivity" editable="bottom">
+                    <field name="name" />
+                    <field name="eclaim_category" />
+                    <field name="point" />
+                    <field name="create_date" />
+                    <field name="create_uid" />
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

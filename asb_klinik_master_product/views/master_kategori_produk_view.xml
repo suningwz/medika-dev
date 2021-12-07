@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record id="master_kategori_produk_view_tree" model="ir.ui.view">
+            <field name="name">master.kategori.produk.view.tree</field>
+            <field name="model">master.kategori.produk</field>
+            <field name="arch" type="xml">
+
+                <tree string="Kategori Produk">
+                    <field name="name" />
+                    <field name="kategori_produk" />
+                </tree>
+
+            </field>
+        </record>
+
+        <!-- Form View -->
+
+        <record id="master_kategori_produk_view_form" model="ir.ui.view">
+            <field name="name">master.kategori.produk.view.form</field>
+            <field name="model">master.kategori.produk</field>
+            <field name="arch" type="xml">
+                <form string="Kategori Produk">
+
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                        </div>
+
+                        <group col="4" colspan="2">
+                            <div class="oe_title align-middle" style="margin: 0px 25px 0px 0px;">
+                                <label for="name" string="Kode Kategori Produk"/>
+                                <h1>
+                                    <field name="name"/>
+                                </h1>
+                            </div>
+
+                            <div class="oe_title align-middle">
+                                <label for="kategori_produk" string="Kategori Produk"/>
+                                <h1>
+                                    <field name="kategori_produk"/>
+                                </h1>
+                            </div>
+                        </group>
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <!-- Action -->
+
+        <record id="master_kategori_produk_action" model="ir.actions.act_window">
+            <field name="name">Kategori Produk</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">master.kategori.produk</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="master_kategori_produk_view_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Tidak ada Data Kategori Produk
+                </p>
+            </field>
+        </record>
+
+        <record id="master_kategori_produk_action_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="master_kategori_produk_view_tree"/>
+            <field name="act_window_id" ref="master_kategori_produk_action"/>
+        </record>
+
+        <record id="master_kategori_produk_action_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="master_kategori_produk_view_form"/>
+            <field name="act_window_id" ref="master_kategori_produk_action"/>
+        </record>
+    
+    </data>
+</odoo>
