@@ -71,7 +71,7 @@
             <field name="name">provider.provider.view.tree</field>
             <field name="model">provider.provider</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree export_xlsx="false" js_class="export_button">
                     <field name="partner_id" />
                     <field name="activity_id" />
                     <field name="activity_date" />
@@ -88,7 +88,7 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem id="provider_activity_menuitem" sequence="4" name="Activity" parent="asb_master_provider.provider_menuitem" action="provider_activity_action_form_submenu" />
+        <menuitem id="provider_activity_menuitem" sequence="6" name="Activity" parent="asb_master_provider.provider_menuitem" action="provider_activity_action_form_submenu" />
 
     </data>
 

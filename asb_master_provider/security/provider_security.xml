@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.module.category" id="menu_provider">
+        <field name="name">Provider</field>
+        <field name="sequence">99</field>
+    </record>
+
+    <record id="user_provider" model="res.groups">
+        <field name="name">User Provider</field>
+        <field name="category_id" ref="menu_provider" />
+    </record>
+
+    <record id="manager_provider" model="res.groups">
+        <field name="name">Manager Provider</field>
+        <field name="category_id" ref="menu_provider" />
+        <field name="implied_ids" eval="[(4, ref('user_provider'))]" />
+    </record>
+
+    <record id="base.group_system" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('asb_master_provider.manager_provider'))]" />
+    </record>
+
+</odoo>

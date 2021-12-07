@@ -64,13 +64,12 @@ class CorrespondenceType(models.Model):
         })
 
     def create_ir_actions_report(self, num_id):
-        paperformat_id = self.env['report.paperformat'].sudo().search([('name', '=', 'Correspondence Type')])
         self.env['ir.actions.report'].sudo().create({
             'name': '%s Correspondence Type' % num_id,
             'report_type': 'qweb-pdf',
-            'paperformat_id': paperformat_id.id,
             'model': 'correspondence.correspondence',
             'report_name': '%s.correspondence.type' % num_id,
+            'paperformat_id': self.env.ref('asb_master_provider_correspondence.report_correspondence_format').id
         })
 
     def add_correspondence(self):

@@ -9,6 +9,10 @@ class RebateDetail(models.Model):
     _inherit = ['portal.mixin', 'mail.thread', 'mail.activity.mixin']
     _description = 'Provider Rebate Detail'
     _rec_name = 'partner_id'
+    _sql_constraints = [
+        ('partner_id_uniq', 'Check(1=1)',  'Provider already has Rebate!'),
+        ('provider_contract_id_uniq', 'UNIQUE (provider_contract_id)',  'Provider already has Rebate!'),
+    ]
 
     partner_id = fields.Many2one('res.partner', string='Provider Name', tracking=True, ondelete='cascade')
     benefit_category_id = fields.Many2one('benefit.master', string='Item Category', tracking=True)
@@ -22,10 +26,26 @@ class RebateDetail(models.Model):
     rebate = fields.Float(string='Rebate', tracking=True)
     top = fields.Integer(related='partner_id.top', tracking=True)
     top_type = fields.Selection(related='partner_id.top_type', tracking=True)
-    start_date = fields.Date(string='Start Date', default=date.today(), tracking=True)
+    start_date = fields.Date(string='Start Date', tracking=True)
     created_date = fields.Date(string='Created Date', default=lambda self: fields.datetime.now(), required=True, tracking=True)
     created_by = fields.Many2one('res.users', string='Created By', default=lambda self: self.env.user.id, required=True, tracking=True)
     benefit_line = fields.One2many('rebate.benefit', 'rebate_id', string='Benefit Lines')
+
+    created_date_month = fields.Char(compute='_compute_created_date_month', string='Created Date Month', store=True,)
+    
+    @api.depends('created_date')
+    def _compute_created_date_month(self):
+        self.created_date_month = False
+        for rec in self:
+            rec.created_date_month = rec.created_date.month
+
+    created_date_year = fields.Char(compute='_compute_created_date_year', string='Created Date Year', store=True,)
+    
+    @api.depends('created_date')
+    def _compute_created_date_year(self):
+        self.created_date_year = False
+        for rec in self:
+            rec.created_date_year = rec.created_date.year
 
     # @api.onchange('top')
     # def _onchange_top(self):
@@ -86,6 +106,14 @@ class RebateDetail(models.Model):
         for rec in self:
             rec.partner_id.rebate_detail_line.append((0, 0, vals))
         return res
+
+    provider_contract_id = fields.Many2one('provider.contract', string='Contract', )
+    provider_contract_ids = fields.Many2many('provider.contract', string='Contract ids', )
+
+    @api.onchange('partner_id')
+    def _onchange_partner_id(self):
+        for rec in self:
+            rec.provider_contract_ids = self.env['provider.contract'].sudo().search([('partner_id','=',rec.partner_id.id)])
 
 
 class RebateBenefit(models.Model):

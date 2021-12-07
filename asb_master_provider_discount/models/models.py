@@ -8,6 +8,10 @@ class ProviderDiscount(models.Model):
     _inherit = ['portal.mixin', 'mail.thread', 'mail.activity.mixin']
     _description = 'Provider Discount'
     _rec_name = 'partner_id'
+    _sql_constraints = [
+        ('partner_id_uniq', 'Check(1=1)',  'Provider already has Discount!'),
+        ('provider_contract_id_uniq', 'UNIQUE (provider_contract_id)',  'Provider already has Rebate!'),
+    ]
 
     partner_id = fields.Many2one('res.partner', string='Provider Name', tracking=True, ondelete='cascade')
     benefit_category_id = fields.Many2one('benefit.master', string='Item Category', tracking=True)
@@ -78,6 +82,14 @@ class ProviderDiscount(models.Model):
         for rec in self:
             rec.partner_id.provider_discount_line.append((0, 0, vals))
         return res
+    
+    provider_contract_id = fields.Many2one('provider.contract', string='Contract', )
+    provider_contract_ids = fields.Many2many('provider.contract', string='Contract ids', )
+
+    @api.onchange('partner_id')
+    def _onchange_partner_id(self):
+        for rec in self:
+            rec.provider_contract_ids = self.env['provider.contract'].sudo().search([('partner_id', '=', rec.partner_id.id)])
 
 class DiscountBenefit(models.Model):
     _name = 'discount.benefit'

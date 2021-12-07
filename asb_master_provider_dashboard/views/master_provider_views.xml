@@ -18,14 +18,16 @@
             <field name="inherit_id" ref="asb_master_provider.provider_search" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='provider_code']" position="after">
-                    <filter name="klinik" string="Klinik" domain="[('provider','=',True),('provider_category','=','klinik')]" />
-                    <filter name="apotik" string="Apotik" domain="[('provider','=',True),('provider_category','=','apotik')]" />
-                    <filter name="laboratorium" string="Laboratorium" domain="[('provider','=',True),('provider_category','=','lab')]" />
-                    <filter name="optik" string="Optik" domain="[('provider','=',True),('provider_category','=','optik')]" />
-                    <filter name="rumah_sakit" string="Rumah Sakit" domain="[('provider','=',True),('provider_category','=','rs')]" />
-                    <filter name="rebate" string="With Rebate" domain="[('provider','=',True),('rebate_detail_count','>',0)]" />
-                    <filter name="discount" string="With Discount" domain="[('provider','=',True),('provider_discount_count','>',0)]" />
-                    <filter name="contract_&#60;_60_Days" string="Contract &#60; 60 Days" domain="[('provider','=',True),('remaining_contract_int', '>=', -60)]" />
+                    <filter name="provider" string="Provider Type: Provider" domain="[('provider','=',True),('provider_type','=','provider')]" />
+                    <filter name="non_provider" string="Provider Type: Non Provider" domain="[('provider','=',True),('provider_type','=','non')]" />
+                    <filter name="klinik" string="Klinik" domain="[('provider','=',True),('provider_type','=','provider'),('provider_category','=','klinik')]" />
+                    <filter name="apotik" string="Apotik" domain="[('provider','=',True),('provider_type','=','provider'),('provider_category','=','apotik')]" />
+                    <filter name="laboratorium" string="Laboratorium" domain="[('provider','=',True),('provider_type','=','provider'),('provider_category','=','lab')]" />
+                    <filter name="optik" string="Optik" domain="[('provider','=',True),('provider_type','=','provider'),('provider_category','=','optik')]" />
+                    <filter name="rumah_sakit" string="Rumah Sakit" domain="[('provider','=',True),('provider_type','=','provider'),('provider_category','=','rs')]" />
+                    <filter name="rebate" string="With Rebate" domain="[('provider','=',True),('provider_type','=','provider'),('rebate_detail_count','>',0)]" />
+                    <filter name="discount" string="With Discount" domain="[('provider','=',True),('provider_type','=','provider'),('provider_discount_count','>',0)]" />
+                    <filter name="contract_&#60;_60_Days" string="Contract &#60; 60 Days" domain="[('provider','=',True),('provider_type','=','provider'),('remaining_contract_int', '>=', -60)]" />
                 </xpath>
             </field>
         </record>
@@ -34,7 +36,7 @@
         <record id="master_provider_dashboard_list" model="ir.actions.act_window">
             <field name="name">Provider</field>
             <field name="res_model">res.partner</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,google_map</field>
             <field name="view_id" ref="asb_master_provider.master_provider_tree" />
             <field name="search_view_id" ref="asb_master_provider.provider_search" />
             <field name="domain">[('provider','=',True)]</field>

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 from odoo import models, fields, api, _
-from datetime import date
+from datetime import date, datetime
 from odoo.exceptions import UserError, ValidationError
 
 import qrcode
@@ -27,7 +27,7 @@ class ResPartner(models.Model):
     provider_type = fields.Selection([
         ('non', 'Non Provider'),
         ('provider', 'Provider'),
-    ], string='Provider Type')
+    ], string='Provider Type', default='non', store=True)
     provider_code = fields.Char(string='Provider Code', tracking=True)
     edc_number = fields.Char(string='EDC Number', tracking=True)
     qr_code_name = fields.Char(string='QR Code Name', tracking=True)
@@ -45,6 +45,28 @@ class ResPartner(models.Model):
     bank_account = fields.Char(string='Bank Account', tracking=True)
     bank_branch = fields.Char(string='Bank Branch', tracking=True)
     account_name = fields.Char(string='Account Name', tracking=True)
+    provider_join_date = fields.Date(string='Provider Join Date', tracking=True, store=True)
+
+    provider_join_date_month = fields.Char(compute='_compute_provider_join_date_month', string='Provider Join Date Month', store=True,)
+    
+    @api.depends('provider_join_date')
+    def _compute_provider_join_date_month(self):
+        self.provider_join_date_month = False
+        for rec in self:
+            if rec.provider and rec.provider_join_date:
+                rec.provider_join_date_month = rec.provider_join_date.month
+                    
+
+    provider_join_date_year = fields.Char(compute='_compute_provider_join_date_year', string='Provider Join Date Year', store=True,)
+    
+    @api.depends('provider_join_date')
+    def _compute_provider_join_date_year(self):
+        self.provider_join_date_year = False
+        for rec in self:
+            if rec.provider and rec.provider_join_date:
+                rec.provider_join_date_year = rec.provider_join_date.year
+                    
+
 
     # @api.constrains('provider_code')
     # def check_name(self):
@@ -99,10 +121,30 @@ class ResPartner(models.Model):
                     for code in text:
                         if not code.isupper():
                             text = text.replace(code, '')
-                    if rec.name[0] in ('R', 'r') and rec.name[1] in ('S', 's'):
-                        text = text[1:]
-                        text = 'RS' + text
+                    if len(rec.name) > 1:
+                        if rec.name[0] in ('R', 'r') and rec.name[1] in ('S', 's'):
+                            text = text[1:]
+                            text = 'RS' + text
                     rec.provider_code = text
+                if not rec.provider_join_date:
+                    rec.provider_join_date = fields.Date.today()
+                if not rec.provider_type:
+                    rec.provider_type = "non"
+                if rec.provider_type == 'provider':
+                    # history = self.env['history.join']
+                    # create_history = history.create({
+                    #     'partner_id': rec.id,
+                    #     'provider_join_date': rec.provider_join_date,
+                    # })
+                    history_join = []
+                    value = {
+                        'partner_id': rec.id,
+                        'provider_join_date': rec.provider_join_date,
+                    }
+                    history_join.append((0, 0, value))
+                    rec.history_join_line = history_join
+
+
 
     @api.model
     def check_condition_show_dialog(self, record_id, data_changed):
@@ -131,9 +173,10 @@ class ResPartner(models.Model):
                 for code in text:
                     if not code.isupper():
                         text = text.replace(code, '')
-                if rec.name[0] in ('R', 'r') and rec.name[1] in ('S', 's'):
-                    text = text[1:]
-                    text = 'RS' + text
+                if len(rec.name) > 1:
+                    if rec.name[0] in ('R', 'r') and rec.name[1] in ('S', 's'):
+                        text = text[1:]
+                        text = 'RS' + text
                 rec.provider_code = text
 
     @api.onchange('qr_code_name')
@@ -240,3 +283,42 @@ class ResPartner(models.Model):
 
     remaining_contract = fields.Char(string='Remaining Contract', store=True,)
     remaining_contract_int = fields.Integer(string='Order Remaining Contract', default=-999999999)
+
+    history_join_line = fields.One2many('history.join', 'partner_id', string='History Join Line')
+    history_finished_line = fields.One2many('history.finished', 'partner_id', string='History Join Finished')
+
+    def set_to_non_provider(self):
+        for rec in self:
+            rec.provider_type = 'non'
+            rec.provider_join_date = fields.Date.today()
+            # history = self.env['history.finished']
+            # create_history = history.create({
+            #     'partner_id': rec.id,
+            #     'provider_finished_date': rec.provider_join_date,
+            # })
+
+            history_finished = []
+            value = {
+                'partner_id': rec.id,
+                'provider_finished_date': rec.provider_join_date,
+            }
+            history_finished.append((0, 0, value))
+            rec.history_finished_line = history_finished
+
+    def set_to_provider(self):
+        for rec in self:
+            rec.provider_type = 'provider'
+            rec.provider_join_date = fields.Date.today()
+            # history = self.env['history.join']
+            # create_history = history.create({
+            #     'partner_id': rec.id,
+            #     'provider_join_date': rec.provider_join_date,
+            # })
+
+            history_join = []
+            value = {
+                'partner_id': rec.id,
+                'provider_join_date': rec.provider_join_date,
+            }
+            history_join.append((0, 0, value))
+            rec.history_join_line = history_join

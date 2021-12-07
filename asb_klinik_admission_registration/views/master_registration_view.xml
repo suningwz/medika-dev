@@ -45,7 +45,7 @@
                         <button name="action_set_to_draft" type="object" states="confirm" string="Set to Draft" class="btn btn-info"/>
                         <button name="action_confirm" type="object" states="draft" string="Confirm" class="btn btn-success" />
                         <button name="action_cancel" type="object" states="confirm" string="Cancel" class="btn btn-danger" />
-                        <button name="print_data_pasien" type="object" string="Cetak" class="oe_highlight" attrs="{'invisible':['|', ('state', '!=', 'confirm'), ('jenis_perjanjian', 'not in', ['mcu', 'onsite'])]}" />
+                        <button name="print_data_pasien" type="object" string="Cetak Data Pasien" class="oe_highlight" attrs="{'invisible':['|', ('state', '!=', 'confirm'), ('jenis_perjanjian', 'not in', ['mcu', 'onsite'])]}" />
                         <field name="state" widget="statusbar" statusbar_visible="draft,confirm,cancel"/>
                     </header>
 

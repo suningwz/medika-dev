@@ -4,9 +4,39 @@ odoo.define('asb_master_provider_dashboard.provider_qweb_dashboard', function (r
     var view_registry = require('web.view_registry');
     var rpc = require('web.rpc');
 
-    
-
     var CustomLineChart = qweb.Renderer.extend({
+        init(parent, state, params){
+            this._super.apply(this, arguments)
+            this.subViewsFields = params.subViewmap
+        },
+
+        willStart() {
+            // dijalankan setelah init
+            const subviewParams = {
+                modelName: "res.partner",
+                useSampleModel: false,
+                withButtons: false,
+                withSearchPanel: false,
+                withControlPanel: false,
+                limit: 100000000,
+            }
+            subviewParams.searchQuery = {
+                domain: [['provider', '=', true]],
+            }
+
+            // get view map dari view registri
+            const GoogleMapView = view_registry.get("google_map");
+            // create new objek dari view yang ditambahin
+            const subViewmap = new GoogleMapView(this.subViewsFields["google_map"], subviewParams);
+            // get controller dari view yang ditambahin
+            const defMap = subViewmap.getController(this).then((controller) => {
+                this.controllerMap = controller;
+                return this.controllerMap.appendTo(document.createDocumentFragment());
+            })
+            return Promise.all([this._super.apply(this, arguments), defMap])
+
+        },
+
         async _render() {
             await this._super.apply(this, arguments);
             this.active_id = this.state.context.active_id;
@@ -14,6 +44,8 @@ odoo.define('asb_master_provider_dashboard.provider_qweb_dashboard', function (r
             this.render_penambahan_jumlah_provider_chart(this.active_id);
             this.render_penambahan_rebate_chart(this.active_id);
             this.render_provider_base_location(this.active_id);
+
+            this.$el.find('.map_view').html(this.controllerMap.$el)
         },
 
         render_jumlah_provider_chart: function (active_id) {
@@ -26,48 +58,66 @@ odoo.define('asb_master_provider_dashboard.provider_qweb_dashboard', function (r
                 var count = result.count;
                 var labels = result.labels; // Add labels to array
                 // End Defining data
-
+                
                 // Create Chart 
                 if (window.myCharts1 != undefined)
-                    window.myCharts1.destroy();
-                    window.myCharts1 = new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: labels,
-                            datasets: [{
-                                label: 'Jumlah Provider', // Name the series
-                                data: count, // Specify the data values array
-                                backgroundColor: '#FF5C58',
-                                borderColor: '#FF5C58',
-
-                                borderWidth: 1, // Specify bar border width
-                                type: 'line', // Set this data to a line chart
-                                fill: false
-                            },
-                            ]
+                window.myCharts1.destroy();
+                window.myCharts1 = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Jumlah Provider', // Name the series
+                            data: count, // Specify the data values array
+                            backgroundColor: '#FF5C58',
+                            borderColor: '#FF5C58',
+                            
+                            borderWidth: 1, // Specify bar border width
+                            type: 'line', // Set this data to a line chart
+                            fill: false
                         },
-                        options: {
-                            responsive: true, // Instruct chart js to respond nicely.
-                            maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height
-                            title: {
-                                display: true,
-                                text: result.title,
-                            },
-                            scales: {
-                                xAxes: [{
-                                    gridLines: {
-                                        drawOnChartArea: false
-                                    }
-                                }],
-                                yAxes: [{
-                                    gridLines: {
-                                        drawOnChartArea: false
-                                    }
-                                }]
-                            },
-                            legend: { display: false },
-                            responsive: false,
-                        }
+                    ]
+                },
+                options: {
+                    maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height
+                    title: {
+                        display: true,
+                        text: result.title,
+                    },
+                    scales: {
+                        xAxes: [{
+                            gridLines: {
+                                drawOnChartArea: false
+                            }
+                        }],
+                        yAxes: [{
+                            gridLines: {
+                                drawOnChartArea: false
+                            }
+                        }]
+                    },
+                    legend: { display: false },
+                    responsive: false,
+                    tooltips: {enabled: false},
+                    animation: {
+                        duration: 0.5,
+                        onComplete: function () {
+                            // render the value of the chart above the bar
+                            // alert("idihhhh");
+                            var ctx = this.chart.ctx;
+                            ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, 'normal', Chart.defaults.global.defaultFontFamily);
+                                    ctx.fillStyle = this.chart.config.options.defaultFontColor;
+                                    ctx.textAlign = 'center';
+                                    ctx.textBaseline = 'bottom';
+                                    this.data.datasets.forEach(function (dataset) {
+                                        for (var i = 0; i < dataset.data.length; i++) {
+                                            var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
+                                            ctx.fillText(dataset.data[i], model.x, model.y - 5);
+                                        }
+                                    });
+                                }
+                            }
+                        },
                     });
                 });
             },
@@ -103,7 +153,6 @@ odoo.define('asb_master_provider_dashboard.provider_qweb_dashboard', function (r
                             ]
                         },
                         options: {
-                            responsive: true, // Instruct chart js to respond nicely.
                             maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height
                             title: {
                                 display: true,
@@ -123,6 +172,25 @@ odoo.define('asb_master_provider_dashboard.provider_qweb_dashboard', function (r
                             },
                             legend: { display: false },
                             responsive: false,
+                            tooltips: { enabled: false },
+                            animation: {
+                                duration: 0.5,
+                                onComplete: function () {
+                                    // render the value of the chart above the bar
+                                    // alert("idihhhh");
+                                    var ctx = this.chart.ctx;
+                                    ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, 'normal', Chart.defaults.global.defaultFontFamily);
+                                    ctx.fillStyle = this.chart.config.options.defaultFontColor;
+                                    ctx.textAlign = 'center';
+                                    ctx.textBaseline = 'bottom';
+                                    this.data.datasets.forEach(function (dataset) {
+                                        for (var i = 0; i < dataset.data.length; i++) {
+                                            var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
+                                            ctx.fillText(dataset.data[i], model.x, model.y - 5);
+                                        }
+                                    });
+                                }
+                            }
                         }
                     });
 
@@ -160,7 +228,6 @@ odoo.define('asb_master_provider_dashboard.provider_qweb_dashboard', function (r
                             ]
                         },
                         options: {
-                            responsive: true, // Instruct chart js to respond nicely.
                             maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height
                             title: {
                                 display: true,
@@ -180,6 +247,25 @@ odoo.define('asb_master_provider_dashboard.provider_qweb_dashboard', function (r
                             },
                             legend: {display: false},
                             responsive: false,
+                            tooltips: { enabled: false },
+                            animation: {
+                                duration: 100,
+                                onComplete: function () {
+                                    // render the value of the chart above the bar
+                                    // alert("idihhhh");
+                                    var ctx = this.chart.ctx;
+                                    ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, 'normal', Chart.defaults.global.defaultFontFamily);
+                                    ctx.fillStyle = this.chart.config.options.defaultFontColor;
+                                    ctx.textAlign = 'center';
+                                    ctx.textBaseline = 'bottom';
+                                    this.data.datasets.forEach(function (dataset) {
+                                        for (var i = 0; i < dataset.data.length; i++) {
+                                            var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
+                                            ctx.fillText(dataset.data[i], model.x, model.y - 5);
+                                        }
+                                    });
+                                }
+                            }
                         }
                     });
                 });
@@ -221,6 +307,7 @@ odoo.define('asb_master_provider_dashboard.provider_qweb_dashboard', function (r
                 });
             },
 
+
     });
 
     var QwebProviderController = qweb.Controller.extend({
@@ -242,6 +329,18 @@ odoo.define('asb_master_provider_dashboard.provider_qweb_dashboard', function (r
             Renderer: CustomLineChart,
         }),
         withSearchBar: false,
+
+        // ambil data google map (semacam request api)
+        _loadData(model){
+            const loadViewsMap = model.loadViews("res.partner", {}, [[false, 'google_map']])
+                                .then( viewFields => {
+                                    this.rendererParams.subViewmap = viewFields
+                                })
+            return Promise.all([this._super.apply(this, arguments), loadViewsMap])
+                                .then( results => results[0])
+        },
+
+
     })
 
     view_registry.add('QwebProvider', QwebProviderView);

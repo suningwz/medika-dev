@@ -1,2 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 tid_information,tid_information,model_tid_information,base.group_user,1,1,1,1
+history_join,history_join,model_history_join,base.group_user,1,1,1,1
+history_finished,history_finished,model_history_finished,base.group_user,1,1,1,1

@@ -6,9 +6,9 @@
         <template id="report_data_pasien">
             <t t-call="web.basic_layout">
                 <t t-foreach="docs" t-as="doc">
-                    <div class="page">
-
+                    <div class="page" style="page-break-after: always;">
                         <div class="container">
+
                             <div class="row" style="border-bottom: 2px solid black">
                                 <div class="col align-bottom">
                                     <h4 class="text-center float-left font-weight-bold ">MEDIKA PLAZA INDONESIA</h4>
@@ -19,8 +19,288 @@
                                     </span>
                                 </div>
                             </div>
-                        </div>
 
+                            <div class="row" style="border-bottom: 2px solid black; font-size: 14px;">
+                                <table class="table table-borderless">
+                                    <tr class="text-left">
+                                        <td colspan="2" class="pb-1">
+                                            <strong>Reg. Number (No. Registrasi)</strong>
+                                        </td>
+                                        <td colspan="2" class="pb-1">
+                                            <span t-field="doc.name"/>
+                                        </td>
+                                        <td colspan="2" class="pb-1">
+                                            <strong>Medical Record (Rekam Medis)</strong>
+                                        </td>
+                                        <td colspan="2" class="pb-1">
+                                            <span t-field="doc.no_medical_report"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-left">
+                                        <td colspan="2" class="py-1">
+                                            <strong>Name (Nama)</strong>
+                                        </td>
+                                        <td colspan="2" class="py-1">
+                                            <span t-field="doc.pasien_id.name"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-left">
+                                        <td colspan="2" class="py-1">
+                                            <strong>Date of Birth (Tanggal Lahir)</strong>
+                                        </td>
+                                        <td colspan="2" class="py-1">
+                                            <span t-field="doc.pasien_id.tanggal_lahir"/>
+                                        </td>
+                                        <td colspan="2" class="py-1">
+                                            <strong>Gender (Jenis Kelamin)</strong>
+                                        </td>
+                                        <td colspan="2" class="py-1">
+                                            <span t-field="doc.pasien_id.jenis_kelamin"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-left">
+                                        <td colspan="2" class="py-1">
+                                            <strong>Citizen (Warganegara)</strong>
+                                        </td>
+                                        <td colspan="2" class="py-1">
+                                            <span t-field="doc.pasien_id.warga_negara"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-left">
+                                        <td colspan="2" class="py-1">
+                                            <strong>Address (Alamat)</strong>
+                                        </td>
+                                        <td colspan="4" class="py-1">
+                                            <span t-field="doc.pasien_id.street"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-left">
+                                        <td colspan="2" class="py-1">
+                                            <strong>Email (Email)</strong>
+                                        </td>
+                                        <td colspan="2" class="py-1">
+                                            <span t-field="doc.pasien_id.email"/>
+                                        </td>
+                                        <td colspan="2" class="py-1">
+                                            <strong>Phone (Telepon)</strong>
+                                        </td>
+                                        <td colspan="2" class="py-1">
+                                            <span t-field="doc.pasien_id.mobile"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-left">
+                                        <td colspan="2" class="py-1">
+                                            <strong>Company (Perusahaan)</strong>
+                                        </td>
+                                        <td colspan="2" class="py-1">
+                                            <span t-field="doc.pasien_id.perusahaan_id.name"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-left">
+                                        <td colspan="2" class="py-1">
+                                            <strong>Jenis Pekerjaan (Jenis Pekerjaan)</strong>
+                                        </td>
+                                        <td colspan="2" class="py-1">
+                                            <span t-field="doc.pasien_id.jenis_pekerjaan_id.name"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-left">
+                                        <td colspan="2" class="py-1">
+                                            <strong>Job Title (Jabatan)</strong>
+                                        </td>
+                                        <td colspan="2" class="py-1">
+                                            <span t-field="doc.pasien_id.function"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-left">
+                                        <td colspan="2" class="py-1">
+                                            <strong>Emp. Status (Status Karyawan)</strong>
+                                        </td>
+                                        <td colspan="2" class="py-1">
+                                            <span t-field="doc.pasien_id.status_pegawai"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            
+                            <div class="row" style="font-size: 14px;">
+                                <table class="table table-borderless">
+                                    <tr class="text-left">
+                                        <td colspan="2" class="pb-1">
+                                            <strong>MCU Type (Tipe MCU)</strong>
+                                        </td>
+                                        <td colspan="2" class="pb-1">
+                                            <span t-field="doc.jenis_perjanjian"/>
+                                        </td>
+                                        <td colspan="2" class="pb-1">
+                                            <strong>GL (Surat Pengantar)</strong>
+                                        </td>
+                                        <td colspan="2" class="pb-1">
+                                            <span t-field="doc.status_gl"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-left">
+                                        <td colspan="2" class="py-1">
+                                            <strong>MCU Package (Paket MCU)</strong>
+                                        </td>
+                                        <td colspan="2" class="py-1">
+                                            <span t-field="doc.package_mcu_id.name"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-left">
+                                        <td colspan="2" class="py-1">
+                                            <strong>Language (Bahasa)</strong>
+                                        </td>
+                                        <td colspan="2" class="py-1">
+                                            <span t-field="doc.bahasa_hasil"/>
+                                        </td>
+                                        <td colspan="2" class="py-1">
+                                            <strong>Delivery Type (Tipe Pengiriman)</strong>
+                                        </td>
+                                        <td colspan="2" class="py-1">
+                                            <span t-field="doc.tipe_pengiriman"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <p class="mt-3" style="font-size: 12px;">yang bertanda tangan di bawah ini menyatakan:</p>
+                            <p style="font-size: 12px; margin-top: -10px;">1. Saya menyatakan telah mengikuti safety induction sebelum melakukan test.</p>
+                            <p style="font-size: 12px; margin-top: -10px;">2. Bersedia dilakukan pemeriksaan fisik, diagnostik dan tindakan medis sesuai dengan daftar terlampir.</p>
+                            <p style="font-size: 12px; margin-top: -10px;">3. Mengerti segala hal berhubungan dengan tindakan medis yang akan dilakukan dan resiko yang mungkin timbul.</p>
+                            <p style="font-size: 12px; margin-top: -10px;">4. Memberi kuasa kepada Medika Plaza untuk memberi informasi medis kepada perusahaan sesuai kebijakan yang berlaku.</p>
+
+                            <hr style="border: 1px solid black;"/>
+                            <p class="font-italic" style="font-size: 12px;">I hereby declare that:</p>
+                            <p class="font-italic" style="font-size: 12px; margin-top: -10px;">1. I declare that already done safety induction before do the test.</p>
+                            <p class="font-italic" style="font-size: 12px; margin-top: -10px;">2. I agree to be subjected to physical examination, medical diagnostic procedures, and subsequent treatment specified in the attachment.</p>
+                            <p class="font-italic" style="font-size: 12px; margin-top: -10px;">3. I am fully informed about these medical procedures and any risks related to the procedures.</p>
+                            <p class="font-italic" style="font-size: 12px; margin-top: -10px;">4. I authorise Medika Plaza in releasing medical information to the above mentioned company according to MP's policy.</p>
+
+                            <table class="mb-4" style="font-size: 14px;">
+                                <tr>
+                                    <td style="padding-bottom: 90px;">
+                                        Jakarta, <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%d %B %Y')"/>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <td>
+                                        ( <span t-field="doc.pasien_id.name"/> )
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div>
+
+                    <div class="page" style="page-break-after: always;">
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <table class="table table-bordered">
+                                        <tr class="text-center font-weight-bold">
+                                            <th colspan="8">DETAIL PEMERIKSAAN</th>
+                                        </tr>
+                                        <tr class="font-weight-bold">
+                                            <td colspan="3">Nama : <t t-esc="doc.pasien_id.name"/> </td>
+                                            <td colspan="1">RM : <t t-esc="doc.no_medical_report"/></td>
+                                            <td colspan="2">#ONO : <t t-esc="doc.name"/></td>
+                                            <td colspan="2">#REG : <t t-esc="doc.name"/></td>
+                                        </tr>
+                                        <tr class="font-weight-bold">
+                                            <td colspan="2">Tanggal Lahir : <t t-esc="doc.pasien_id.tanggal_lahir.strftime('%d-%m-%Y')" /> - (<t t-esc="doc.pasien_id.umur"/> y.o) </td>
+                                            <td colspan="1">Tanggal Kunjungan : <t t-esc="doc.tanggal_registrasi.strftime('%d-%m-%Y')" /></td>
+                                            <td colspan="5">Perusahaan : <t t-esc="doc.perusahaan_id.name"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-6">
+                                    <table class="table table-bordered" >
+                                        <tr class="text-center font-weight-bold">
+                                            <th>Detail Paket MCU</th>
+                                        </tr>
+                                    </table>
+                                    <div style="border:1.5px solid #EDEDED;">
+                                        <t t-set="poli_unit" t-value="[]"/>
+                                        <t t-set="sub_kategori" t-value="[]"/>
+                                        <t t-foreach="doc.examination_list_ids" t-as="data">
+                                            <t t-set="poli_unit" t-value="poli_unit+[data.poli_unit_id]"/>
+                                        </t>
+                                        <t t-foreach="doc.additional_examination_ids" t-as="data">
+                                                <t t-set="poli_unit" t-value="poli_unit+[data.poli_unit_id]"/>
+                                            </t>
+                                        <t t-foreach="set(poli_unit)" t-as="category">
+                                            <div class="my-2" style="margin-left:10px;"><strong t-esc="category.nama_poli_unit"/></div>
+                                            <t t-foreach="doc.examination_list_ids" t-as="data">
+                                                <t t-if="category.id == data.poli_unit_id.id and data.is_laboratorium and data.sub_kategori_produk_id.id not in sub_kategori">
+                                                    <div><span style="padding-left:25px;">- <t t-esc="data.sub_kategori_produk_id.name"/> </span></div>
+                                                    <t t-set="sub_kategori" t-value="sub_kategori+[data.sub_kategori_produk_id.id]"/>
+                                                </t>
+                                                <t t-if="category.id == data.poli_unit_id.id and not data.is_laboratorium">
+                                                    <div><span style="padding-left:25px;">- <t t-esc="data.name"/> </span></div>
+                                                </t>
+                                            </t>
+                                            <t t-foreach="doc.additional_examination_ids" t-as="data">
+                                                <t t-if="category.id == data.poli_unit_id.id and data.is_laboratorium and data.sub_kategori_produk_id.id not in sub_kategori">
+                                                    <div><span style="padding-left:25px;">- <t t-esc="data.sub_kategori_produk_id.name"/> </span></div>
+                                                    <t t-set="sub_kategori" t-value="sub_kategori+[data.sub_kategori_produk_id.id]"/>
+                                                </t>
+                                                <t t-if="category.id == data.poli_unit_id.id and not data.is_laboratorium">
+                                                    <div><span style="padding-left:25px;">- <t t-esc="data.name"/> [Additional] </span></div>
+                                                </t>
+                                            </t>
+                                        </t>
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <table class="table table-bordered">
+                                        <tr class="text-center font-weight-bold">
+                                            <th>Detail Laboratorium</th>
+                                        </tr>
+                                    </table>
+                                   <div style="border:1.5px solid #EDEDED;">
+                                        <t t-set="sub_kategori" t-value="[]"/>
+                                        <t t-foreach="doc.examination_list_ids" t-as="data">
+                                            <t t-set="sub_kategori" t-value="sub_kategori+[data.sub_kategori_produk_id]"/>
+                                        </t>
+                                        <t t-foreach="doc.additional_examination_ids" t-as="data">
+                                            <t t-set="sub_kategori" t-value="sub_kategori+[data.sub_kategori_produk_id]"/>
+                                        </t>
+                                        <t t-foreach="set(sub_kategori)" t-as="category">
+                                            <div class="my-2" style="margin-left:10px;"><strong t-esc="category.name"/></div>
+                                            <t t-foreach="doc.examination_list_ids" t-as="data">
+                                                <t t-if="category.id == data.sub_kategori_produk_id.id and data.is_laboratorium">
+                                                    <div><span style="padding-left:25px;">- <t t-esc="data.name"/> </span></div>
+                                                </t>
+                                            </t>
+                                            <t t-foreach="doc.additional_examination_ids" t-as="data">
+                                                <t t-if="category.id == data.sub_kategori_produk_id.id and data.is_laboratorium">
+                                                    <div><span style="padding-left:25px;">- <t t-esc="data.name"/> [Additional] </span></div>
+                                                </t>
+                                            </t>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <table style="font-size: 14px;">
+                                <tr>
+                                    <td style="padding-bottom: 90px;">
+                                        Jakarta, <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%d %B %Y')"/>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <td>
+                                        ( <span t-field="doc.pasien_id.name"/> )
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        
                     </div>
                 </t>
             </t>

@@ -14,7 +14,7 @@
                             <div class="o_form_sheet" >
                                 <div class="row">
                                     <div class="col-sm-12 o_total_provider">
-                                        <table class="table table-borderless o_dashboard_action" context='{}' name="asb_master_provider_dashboard.master_provider_dashboard_list" type="button" action="asb_master_provider.master_provider_action" title="TOTAL PROVIDER" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                        <table class="table table-borderless o_dashboard_action" context='{"search_default_provider": true}' name="asb_master_provider_dashboard.master_provider_dashboard_list" type="button" action="asb_master_provider.master_provider_action" title="TOTAL PROVIDER" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
                                             <tbody>
                                                 <tr>
                                                     <td>
@@ -185,12 +185,16 @@
                                         </table>
                                     </div>
                                 </div>
+                                <br />
+                                <br />
+                                <div class="row">
+                                    <div class="col-sm-12 map_view"></div>
+                                </div>
                                 <br/>
-                                <!-- <hr color="blue" size="10" /> -->
                                 <br/>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <table class="table table-borderless" title="CHART 1" style="height: 350px; box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                        <table class="table table-borderless" title="Jumlah Provider" style="height: 350px; box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
                                             <tbody>
                                                 <tr>
                                                     <td class="o_name">
@@ -205,7 +209,7 @@
                                         </table>
                                     </div>
                                     <div class="col-sm-6">
-                                        <table class="table table-borderless" title="CHART 2" style="height: 350px; box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                        <table class="table table-borderless" title="Penambahan Jumlah Provider" style="height: 350px; box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
                                             <tbody>
                                                 <tr>
                                                     <td class="o_name">
@@ -220,7 +224,7 @@
                                         </table>
                                     </div>
                                     <div class="col-sm-6">
-                                        <table class="table table-borderless" title="CHART 3" style="height: 350px; box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                        <table class="table table-borderless" title="Penambahan Rebate" style="height: 350px; box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
                                             <tbody>
                                                 <tr>
                                                     <td class="o_name">
@@ -235,7 +239,7 @@
                                         </table>
                                     </div>
                                     <div class="col-sm-6">
-                                        <table class="table table-borderless" title="CHART 4" style="height: 350px; box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
+                                        <table class="table table-borderless" title="Provider Location" style="height: 350px; box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
                                             <tbody>
                                                 <tr>
                                                     <td class="o_name">
@@ -250,22 +254,6 @@
                                         </table>
                                     </div>
                                 </div>
-                                <br />
-                                <!-- <hr color="blue" size="10" /> -->
-                                <br />
-                                <!-- <div class="row">
-                                    <div class="col-sm-12">
-                                        <table class="table table-borderless" title="CHART 3" style="height: 750px; box-shadow: 0 2px 5px 0 rgb(0 0 0 / 50%), 0 2px 10px 0 rgb(0 0 0 / 12%);">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <span>MAPS</span>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
                     </div>

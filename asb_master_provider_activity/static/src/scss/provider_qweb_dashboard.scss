@@ -1,0 +1,390 @@
+.o_total_provider {
+    .o_dashboard_action {
+        cursor: pointer;
+                }
+
+    .table {
+        table-layout: fixed;
+        border-spacing: 10px 0px;
+        border-collapse: separate;
+        font-size: 13px;
+        background-image: linear-gradient(to bottom right, #2E3192 , #1BFFFF);
+        border-radius: 10px;
+        cursor: pointer;
+
+        > tbody {
+            & > tr > td {
+                vertical-align: middle;
+                
+                &.o_name {
+                    color : white;
+                    width:74%;
+                    text-align: left;
+                    font-size: 18px;
+                    font-weight: bold;
+                }
+                
+                &.o_value {
+                    color: white;
+                    width:20%;
+                    text-align: right;
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+            }
+        }  
+    }
+
+    .table:hover{
+        background-image: linear-gradient(to bottom right, #23265e , #1BFFFF);
+    }
+}
+
+
+.o_klinik {
+    .o_dashboard_action {
+        cursor: pointer;
+    }
+    .table {
+        table-layout: fixed;
+        border-spacing: 10px 0px;
+        border-collapse: separate;
+        font-size: 13px;
+        background-image: linear-gradient(to bottom right, #D4145A , #FBB03B);
+        border-radius: 10px;
+        cursor: pointer;
+        > tbody {
+            & > tr > td {
+                    vertical-align: middle;
+                    
+                    &.o_name {
+                        color : white;
+                        width:55%;
+                        text-align: left;
+                        font-size: 12px;
+                        font-weight: bold;
+                    }
+                    
+                    &.o_value {
+                        color: white;
+                        width:20%;
+                        text-align: right;
+                        font-size: 14px;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+        .table:hover{
+        background-image: linear-gradient(to bottom right, #a71249 , #FBB03B);
+    }
+}
+
+.o_apotik {
+    .o_dashboard_action {
+        cursor: pointer;
+    }
+    .table {
+        table-layout: fixed;
+        border-spacing: 10px 0px;
+        border-collapse: separate;
+        font-size: 13px;
+        background-image: linear-gradient(to bottom right, #662D8C , #ED1E79);
+        border-radius: 10px;
+        cursor: pointer;
+        > tbody {
+            & > tr > td {
+                    vertical-align: middle;
+                    
+                    &.o_name {
+                        color : white;
+                        width:55%;
+                        text-align: left;
+                        font-size: 12px;
+                        font-weight: bold;
+                    }
+                    
+                    &.o_value {
+                        color: white;
+                        width:20%;
+                        text-align: right;
+                        font-size: 14px;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+            .table:hover{
+        background-image: linear-gradient(to bottom right, #552575 , #ED1E79);
+    }
+}
+
+.o_laboratorium {
+    .o_dashboard_action {
+        cursor: pointer;
+    }
+    .table {
+        table-layout: fixed;
+        border-spacing: 10px 0px;
+        border-collapse: separate;
+        font-size: 13px;
+        background-image: linear-gradient(to bottom right, #C33764 , #1D2671);
+        border-radius: 10px;
+        cursor: pointer;
+        > tbody {
+            & > tr > td {
+                    vertical-align: middle;
+                    
+                    &.o_name {
+                        color : white;
+                        width:55%;
+                        text-align: left;
+                        font-size: 12px;
+                        font-weight: bold;
+                    }
+                    
+                    &.o_value {
+                        color: white;
+                        width:20%;
+                        text-align: right;
+                        font-size: 14px;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+            .table:hover{
+        background-image: linear-gradient(to bottom right, #a33155 , #1D2671);
+    }
+}
+
+.o_optik {
+    .o_dashboard_action {
+        cursor: pointer;
+    }
+    .table {
+        table-layout: fixed;
+        border-spacing: 10px 0px;
+        border-collapse: separate;
+        font-size: 13px;
+        background-image: linear-gradient(to bottom right, #09203f , #537895);
+        border-radius: 10px;
+        cursor: pointer;
+        > tbody {
+            & > tr > td {
+                    vertical-align: middle;
+                    
+                    &.o_name {
+                        color : white;
+                        width:55%;
+                        text-align: left;
+                        font-size: 12px;
+                        font-weight: bold;
+                    }
+                    
+                    &.o_value {
+                        color: white;
+                        width:20%;
+                        text-align: right;
+                        font-size: 14px;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+        .table:hover{
+        background-image: linear-gradient(to bottom right, #1c2f49 , #537895);
+    }
+}
+
+.o_rumah_sakit {
+    .o_dashboard_action {
+        cursor: pointer;
+    }
+    .table {
+        table-layout: fixed;
+        border-spacing: 10px 0px;
+        border-collapse: separate;
+        font-size: 13px;
+        background-image: linear-gradient(to bottom right, #57327c , #66c5ea);
+        border-radius: 10px;
+        cursor: pointer;
+        > tbody {
+            & > tr > td {
+                    vertical-align: middle;
+                    
+                    &.o_name {
+                        color : white;
+                        width:55%;
+                        text-align: left;
+                        font-size: 12px;
+                        font-weight: bold;
+                    }
+                    
+                    &.o_value {
+                        color: white;
+                        width:20%;
+                        text-align: right;
+                        font-size: 14px;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+        .table:hover{
+        background-image: linear-gradient(to bottom right, #7e619c , #667EEA);
+    }
+}
+
+.o_rebate {
+    .o_dashboard_action {
+        cursor: pointer;
+    }
+    .table {
+        table-layout: fixed;
+        border-spacing: 10px 0px;
+        border-collapse: separate;
+        font-size: 13px;
+        background-image: linear-gradient(to bottom right, #6d1a62 , #0e67af);
+        border-radius: 10px;
+        cursor: pointer;
+        > tbody {
+            & > tr > td {
+                    vertical-align: middle;
+                    
+                    &.o_name {
+                        color : white;
+                        width:55%;
+                        text-align: left;
+                        font-size: 12px;
+                        font-weight: bold;
+                    }
+                    
+                    &.o_value {
+                        color: white;
+                        width:20%;
+                        text-align: right;
+                        font-size: 14px;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+        .table:hover{
+        background-image: linear-gradient(to bottom right, #a14595 , #0e67af);
+    }
+}
+
+.o_discount {
+    .o_dashboard_action {
+        cursor: pointer;
+    }
+    .table {
+        table-layout: fixed;
+        border-spacing: 10px 0px;
+        border-collapse: separate;
+        font-size: 13px;
+        background-image: linear-gradient(to bottom right, #bb4c0c , #6287ec);
+        border-radius: 10px;
+        cursor: pointer;
+        > tbody {
+            & > tr > td {
+                    vertical-align: middle;
+                    
+                    &.o_name {
+                        color : white;
+                        width:55%;
+                        text-align: left;
+                        font-size: 12px;
+                        font-weight: bold;
+                    }
+                    
+                    &.o_value {
+                        color: white;
+                        width:20%;
+                        text-align: right;
+                        font-size: 14px;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+        .table:hover{
+        background-image: linear-gradient(to bottom right, #ec9562 , #6287ec);
+    }
+}
+
+.o_contract {
+    .o_dashboard_action {
+        cursor: pointer;
+    }
+    .table {
+        table-layout: fixed;
+        border-spacing: 10px 0px;
+        border-collapse: separate;
+        font-size: 13px;
+        background-image: linear-gradient(to bottom right, #9c1d23 , #ff1be1);
+        border-radius: 10px;
+        cursor: pointer;
+        > tbody {
+            & > tr > td {
+                    vertical-align: middle;
+                    
+                    &.o_name {
+                        color : white;
+                        width:55%;
+                        text-align: left;
+                        font-size: 12px;
+                        font-weight: bold;
+                    }
+                    
+                    &.o_value {
+                        color: white;
+                        width:20%;
+                        text-align: right;
+                        font-size: 14px;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+        .table:hover{
+        background-image: linear-gradient(to bottom right, #df464d , #ff1be1);
+    }
+}
+
+.o_chart {
+    .o_dashboard_action {
+        cursor: pointer;
+    }
+    .table {
+        table-layout: fixed;
+        border-spacing: 10px 0px;
+        border-collapse: separate;
+        font-size: 13px;
+        background-image: linear-gradient(to bottom right, #2E3192 , #1BFFFF);
+        border-radius: 10px;
+        cursor: pointer;
+        > tbody {
+            & > tr > td {
+                    // vertical-align: middle;
+                    
+                    &.o_name {
+                        color : white;
+                        // width:55%;
+                        // text-align: left;
+                        // font-size: 12px;
+                        // font-weight: bold;
+                    }
+                    
+                    // &.o_value {
+                    //     color: white;
+                    //     width:20%;
+                    //     text-align: right;
+                    //     font-size: 14px;
+                    //     font-weight: bold;
+                    // }
+                }
+            }
+        }
+    }

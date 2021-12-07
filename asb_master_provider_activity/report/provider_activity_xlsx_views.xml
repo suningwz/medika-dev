@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+    
+        <report id="action_report_provider_activity" model="export.provider.activity" string="Provider Activity XLSX" report_type="xlsx" name="asb_master_provider_activity.provider_activity_xlsx" file="Provider Activity XLSX" />
+    
+    </data>
+    
+
+</odoo>
