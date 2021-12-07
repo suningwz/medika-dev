@@ -10,7 +10,7 @@
     'website': "http://www.arkana.co.id",
     'category': 'Uncategorized',
     'version': '0.1',
-    'depends': ['base', 'mail', 'portal', 'asb_eclaim', 'asb_productivity_eclaim','asb_membership_member', 'asb_membership_member_limit', 'asb_membership_client', 'asb_membership', 'asb_master', 'asb_helpline', 'asb_helpline_call_record', 'asb_helpline_activity_log', 'asb_master_diagnosis', 'asb_master_provider'],
+    'depends': ['base', 'mail', 'portal', 'asb_eclaim', 'asb_productivity_eclaim','asb_membership_member', 'asb_membership_member_limit', 'asb_membership_client', 'asb_membership', 'asb_master', 'asb_helpline', 'asb_helpline_call_record', 'asb_helpline_activity_log', 'asb_master_diagnosis', 'asb_master_provider', 'asb_master_benefit', 'asb_master_configuration_benefit'],
     'data': [
         'security/ir.model.access.csv',
         'reports/template_gl.xml',
