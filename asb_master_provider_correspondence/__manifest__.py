@@ -17,7 +17,5 @@
         'views/master_configuration_correspondence_views.xml',
         'views/master_configuration_correspondence_type_views.xml',
         'reports/report_correspondence_type.xml',
-        # 'reports/report_correspondence_dua_dev.xml',
-        # 'reports/report_correspondence_tiga_dev.xml',
     ],
 }

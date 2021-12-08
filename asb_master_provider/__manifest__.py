@@ -14,7 +14,10 @@
 
     'data': [
         'security/ir.model.access.csv',
+        'security/provider_security.xml',
         'views/master_provider_views.xml',
         'views/tid_information_views.xml',
+        'views/history_join_views.xml',
+        'views/history_finished_views.xml',
     ],
 }

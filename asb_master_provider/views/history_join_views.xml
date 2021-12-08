@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- List View -->
+        <record model="ir.ui.view" id="history_join_tree">
+            <field name="name">history.join.tree</field>
+            <field name="model">history.join</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="partner_id"/>
+                    <field name="provider_join_date" />
+                    <field name="provider_join_date_month" />
+                    <field name="provider_join_date_year" />
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Form View -->
+        <record model="ir.ui.view" id="history_join_form">
+            <field name="name">history.join.form</field>
+            <field name="model">history.join</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="partner_id"/>
+                                <field name="provider_join_date" />
+                                <field name="provider_join_date_month" />
+                                <field name="provider_join_date_year" />
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="history_join_action">
+            <field name="name">History Join</field>
+            <field name="res_model">history.join</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- <menuitem 
+            id="main_history_join"
+            name="History Join"
+        />
+
+        <menuitem 
+            id="menu_history_join"
+            name="History Join"
+            parent="main_history_join"
+        />
+
+        <menuitem 
+            id="submenu_history_join"
+            name="History Join"
+            parent="menu_history_join"
+
+            action="history_join_action"
+        /> -->
+
+    </data>
+</odoo>

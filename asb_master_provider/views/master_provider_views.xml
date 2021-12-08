@@ -16,6 +16,9 @@
           <field name="remaining_contract" widget="badge" decoration-success="remaining_contract_int &#60; -60" decoration-warning="remaining_contract_int > -60 and remaining_contract_int &#60; -30" decoration-danger="remaining_contract_int > -30 and remaining_contract_int &#60; 1" decoration-bf="remaining_contract_int > 0" />
           <field name="remaining_contract_int" invisible="1" />
           <field name="edit" invisible="1" />
+          <field name="provider_join_date" force_save="1" readonly="1" invisible="1"  />
+          <field name="provider_join_date_month" force_save="1" readonly="1" invisible="1" />
+          <field name="provider_join_date_year" force_save="1" readonly="1" invisible="1" />
         </tree>
       </field>
     </record>
@@ -36,9 +39,11 @@
             ), are you sure to create a new one?
           </div>
           <header name="header_provider">
-            <button string="Enable" name="action_provider_enable" type="object" class="oe_highlight" attrs="{'invisible':[('provider_state','not in','draft')]}" />
-            <button string="Disable" name="action_provider_disable" type="object" class="oe_highlight" attrs="{'invisible':[('provider_state','not in','enabled')]}" />
-            <button string="Set to Draft" name="action_provider_draft" type="object" class="oe_highlight" attrs="{'invisible':[('provider_state','in','draft')]}" />
+            <button string="Enable" name="action_provider_enable" type="object" class="oe_highlight oe_read_only" attrs="{'invisible':[('provider_state','not in','draft')]}" />
+            <button string="Disable" name="action_provider_disable" type="object" class="oe_highlight oe_read_only" attrs="{'invisible':[('provider_state','not in','enabled')]}" />
+            <button string="Set to Draft" name="action_provider_draft" type="object" class="oe_highlight oe_read_only" attrs="{'invisible':[('provider_state','in','draft')]}" />
+            <button string="Set to Provider" name="set_to_provider" type="object" class="oe_highlight oe_read_only" attrs="{'invisible':[('provider_type','=','provider')]}" />
+            <button string="Set to Non Provider" name="set_to_non_provider" type="object" class="oe_highlight oe_read_only" attrs="{'invisible':[('provider_type','=','non')]}" />
             <field name="provider_state" widget="statusbar" />
           </header>
           <sheet>
@@ -87,9 +92,12 @@
                   <field name="zip" class="o_address_state" placeholder="ZIP" />
                 </div>
                 <field name="vat" placeholder="e.g. BE0477472701" attrs="{'readonly': ['|',('provider_state','!=','draft'),('parent_id','!=',False)]}" />
+                <field name="provider_join_date" force_save="1" readonly="1" invisible="1" />
+                <field name="provider_join_date_month" force_save="1" readonly="1" invisible="1" />
+                <field name="provider_join_date_year" force_save="1" readonly="1" invisible="1" />
                 <field name="provider_category" required="1" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
                 <field name="provider_code" attrs="{'required' : [('provider', '=', True)], 'readonly' : [('provider_state' ,'!=' ,'draft' )]}" />
-                <field name="provider_type" required="1" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                <field name="provider_type" required="1" force_save="1" readonly="1" />
                 <label for="top" />
                 <div class="o_row">
                   <field name="top" attrs="{'readonly' : [('provider_state' ,'!=' ,'draft' )]}" />
@@ -167,6 +175,8 @@
                   <group></group>
                 </group>
                 <field name="tid_information_line" attrs="{'readonly' : [('provider_state','!=','draft')]}" />
+                <field name="history_join_line" />
+                <field name="history_finished_line" />
               </page>
               <page name="invisible" string="Invisible" invisible="1">
                 <group>
@@ -225,7 +235,7 @@
 
 
     <menuitem id="provider_menuitem" name="Provider" parent="asb_master.top_menu_master" sequence='3' />
-    <menuitem id="provider_submenuitem" name="Provider" parent="provider_menuitem" action="master_provider_action" sequence='2' />
+    <!-- <menuitem id="provider_submenuitem" name="Provider" parent="provider_menuitem" action="master_provider_action" sequence='2' /> -->
 
   </data>
 </odoo>

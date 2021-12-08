@@ -26,8 +26,8 @@
             <field name="inherit_id" ref="asb_master_provider.master_provider_form" />
             <field name="arch" type="xml">
                 <div name='provider_box' position='inside'>
-                    <button class="oe_stat_button" type="action" name="asb_master_provider_rebate.rebate_detail_action" icon="fa-percent">
-                        <field string="Rebate Detail" name="rebate_detail_count" widget="statinfo" />
+                    <button class="oe_stat_button" string="Rebate Detail" type="action" name="asb_master_provider_rebate.rebate_detail_action" icon="fa-percent">
+                        <!-- <field string="Rebate Detail" name="rebate_detail_count" widget="statinfo" /> -->
                     </button>
                 </div>
                 <xpath expr="//page[@name='edc_information']" position="after" >
@@ -48,16 +48,20 @@
                         <group col='12'>
                             <group colspan="5">
                                 <field name="partner_id" required="1" domain="[('provider', '=', True)]" options="{'no_create': True}" />
-                                <field name="benefit_option" widget="radio" />
+                                <field name="provider_contract_ids" invisible="1" />
+                                <field name="provider_contract_id" required="1" domain="[('id','=',provider_contract_ids)]" options="{'no_create': True}" />
+                                <field name="benefit_option" widget="radio" options="{'horizontal': true}" />
                                 <field name="benefit_category_id" attrs="{'invisible' : [('benefit_option','=','all')]}" />
                                 <field name="rebate" widget="percentage" attrs="{'invisible' : [('benefit_option','=','partial')]}" />
                             </group>
                             <group colspan="5">
                                 <field name="top" />
                                 <field name="top_type" />
-                                <field name="start_date" />
+                                <!-- <field name="start_date" /> -->
                                 <field name="created_by" readonly="1" />
                                 <field name="created_date" readonly="1" />
+                                <field name="created_date_month" force_save="1" readonly="1" invisible="1" />
+                                <field name="created_date_year" force_save="1" readonly="1" invisible="1" />
                             </group>
                             <field name="get_benefit_id_domain" invisible="1" />
                         </group>
@@ -82,6 +86,7 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="partner_id" />
+                    <field name="provider_contract_id"/>
                     <field name="benefit_category_id" />
                     <field name="rebate" widget="percentage" />
                     <field name="top" />
@@ -89,6 +94,8 @@
                     <field name="start_date" />
                     <field name="create_uid" />
                     <field name="create_date" />
+                    <field name="created_date_month" force_save="1" readonly="1" invisible="1" />
+                    <field name="created_date_year" force_save="1" readonly="1" invisible="1" />
                 </tree>
             </field>
         </record>

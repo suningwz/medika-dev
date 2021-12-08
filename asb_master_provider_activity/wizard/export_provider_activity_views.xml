@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        
+        <!-- Form View -->
+        <record model="ir.ui.view" id="export_provider_activity_form">
+            <field name="name">export.provider.activity.form</field>
+            <field name="model">export.provider.activity</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="from_date" />
+                                <field name="to_date" />
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="export_activity" string=" Export" type="object" class="oe_highlight o_icon_white fa fa-download" />
+                        <button name="discard" string="Discard" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="export_provider_activity_action">
+            <field name="name">Export Provider Activity</field>
+            <field name="res_model">export.provider.activity</field>
+            <field name="view_mode">form</field>
+        </record>
+
+    </data>
+</odoo>

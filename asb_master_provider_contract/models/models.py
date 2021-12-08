@@ -157,6 +157,13 @@ class ProviderContract(models.Model):
         # self.search([]).update_provider()
         # self.search([('start_date', '<=', today), ('end_date', '>=', today)]).write({'state': 'active'})
         self.search([('end_date', '<', today)]).write({'state': 'inactive'})
+    
+        # Name Get
+    def name_get(self):
+        res = []
+        for rec in self:
+            res.append((rec.id, '%s - %s (%s)' % (rec.partner_id.name, rec.name, rec.state)))
+        return res
 
 
 class ResPartner(models.Model):

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template id="template" xml:space="preserve">
+    <t t-extend="ListView.buttons">
+        <t t-jquery="button.o_list_button_add" t-operation="after">
+            <button t-if="widget.modelName == 'provider.provider'" context='{}' name="asb_master_provider_activity.export_provider_activity_action" type="button" class="btn btn-secondary fa fa-download oe_filter_button" accesskey="f">
+                <span class="d-none d-sm-inline">Export</span>
+            </button>
+        </t>
+    </t>
+</template>
