@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_eclaim_user_productivity,asb_productivity.eclaim_user_productivity,model_eclaim_user_productivity,base.group_user,1,1,1,1
+access_user_productivity,asb_productivity.user_productivity,model_user_productivity,base.group_user,1,1,1,1

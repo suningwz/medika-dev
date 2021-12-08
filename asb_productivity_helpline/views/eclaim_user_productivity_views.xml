@@ -1,0 +1,110 @@
+<odoo>
+  <data>
+
+    <!-- Form View -->
+    <record model="ir.ui.view" id="eclaim_user_productivity_view_form">
+      <field name="name">eclaim.user.productivity.form</field>
+      <field name="model">eclaim.user.productivity</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <field name="name" />
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="eclaim_user_productivity_view_tree">
+      <field name="name">eclaim.user.productivity.tree</field>
+      <field name="model">eclaim.user.productivity</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="eclaim_user_productivity_view_qweb" model="ir.ui.view">
+      <field name="name">eclaim.user.productivity.qweb</field>
+      <field name="model">eclaim.user.productivity</field>
+      <field name="type">qweb</field>
+      <field name="arch" type="xml">
+        <qweb>
+          <div class="o_form_view o_form_readonly o_eclaim_user_productivity">
+            <div class="o_form_sheet_bg">
+              <div class="o_form_sheet">
+
+                <div class="o_title" style="text-align: center">
+                  <h2>E-Claim Daily Productivity</h2>
+                </div>
+
+                <div style="text-align: right; font-weight: bold">
+                  <t t-esc="datetime"/>
+                </div>
+
+                <div class="table_user_productivity table-responsive">
+                  <table class="table table-hover table-bordered">
+                    <thead>
+                      <tr class="text-center">
+                        <th>Name</th>
+                        <th>IP</th>
+                        <th>OP</th>
+                        <th>DE</th>
+                        <th>OPT</th>
+                        <th>MA</th>
+                        <th>MCU</th>
+                        <th>TOTAL</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <t t-foreach="eclaim_user" t-as="user">
+                        <tr>
+                          <th class="text-center">
+                            <span t-esc="user['name']"/>
+                          </th>
+                          <td class="text-center">
+                            <span t-esc="user['ip']"/>
+                          </td>
+                          <td class="text-center">
+                            <span t-esc="user['op']"/>
+                          </td>
+                          <td class="text-center">
+                            <span t-esc="user['de']"/>
+                          </td>
+                          <td class="text-center">
+                            <span t-esc="user['ot']"/>
+                          </td>
+                          <td class="text-center">
+                            <span t-esc="user['ma']"/>
+                          </td>
+                          <td class="text-center">
+                            <span t-esc="user['mcu']"/>
+                          </td>
+                          <td class="text-center">
+                            <span t-esc="user['total']"/>
+                          </td>
+                        </tr>
+                      </t>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </qweb>
+      </field>
+    </record>
+
+    <record id="action_eclaim_user_productivity_dashboard" model="ir.actions.act_window">
+      <field name="name">User Productivity</field>
+      <field name="res_model">eclaim.user.productivity</field>
+      <field name="view_mode">qweb</field>
+      <field name="view_id" ref="eclaim_user_productivity_view_qweb"/>
+    </record>
+
+    <menuitem id="eclaim_productivity_menuitem" name="E-Claim" parent="asb_productivity.menu_root" action="action_eclaim_user_productivity_dashboard" />
+
+  </data>
+</odoo>

@@ -1,0 +1,178 @@
+// // velo color
+// $velo-blue: rgb(0, 50, 85);
+// $velo-gold: rgb(186, 154, 96);
+// $velo-green: rgb(78, 144, 38);
+// $velo-white: rgb(256, 256, 256);
+// $velo-gray: rgb(121, 123, 121);
+// $velo-black: rgb(0, 0, 0);
+
+// $border-gray: rgba(121, 123, 121, 0.4);
+// $font-bold: bold;
+// $padding-card-body: 0.3rem;
+
+// // mixin
+// @mixin card-body1 {
+//     font-size: 2.4rem;
+//     font-weight: $font-bold;
+//     padding: $padding-card-body;
+// }
+
+// @mixin card-body2 {
+//     font-size: 1.5rem;
+//     font-weight: $font-bold;
+//     padding: $padding-card-body;
+// }
+
+.o_eclaim_user_productivity {
+
+    .o_form_sheet_bg {
+
+        > .o_form_sheet {
+            // max-width: calc(100% - 32px);
+            // border: 0px;
+            // box-shadow: none;
+            // padding: 0px;
+
+            .table_user_productivity {
+                // max-height: 350px;
+                // overflow-y: auto;
+
+                table {
+                    > thead > tr {
+                        color: white;
+                        font-size: 15px;
+
+                        > th {
+                            position: sticky;
+                            // top: 0;
+                            background-color: #134F7C;
+                            // white-space: nowrap;
+                            // min-width: 80px;
+                            // padding: 0.4rem;
+                            // border: 3px solid rgb(235, 235, 235);
+
+                            // &:nth-child(2), &:nth-child(3), &:nth-child(4), &:nth-child(5){
+                            //     width: 13%;
+                            // }
+                        }
+                    }
+
+                    // tbody > tr {
+                    //     font-size: 16px;
+                    //     font-weight: bold;
+
+                    //     > th {
+                    //         cursor: pointer;
+                    //         border: 3px solid rgb(235, 235, 235);
+                    //         padding: 0.4rem;
+                    //     }
+                    //     > td {
+                    //         border: 3px solid rgb(235, 235, 235);
+                    //         padding: 0.4rem;
+                    //     }
+                    // }
+                }
+            }
+
+            // .row_market_potential {
+            //     max-width: 100%;
+            //     margin-left: -10px;
+            //     margin-right: -10px;
+
+            //     > .col-lg-2, > .col-lg-3 {
+            //         margin-bottom: 0.5rem !important;
+            //         padding-right: 10px;
+            //         padding-left: 10px;
+            //     }
+
+            //     .card {
+            //         text-align: center;
+
+            //         .card-body:nth-child(1){
+            //             @include card-body1;
+            //         }
+
+            //         .card-body:nth-child(2){
+            //             @include card-body2;
+            //         }
+
+            //         .pop_value, .potential_value {
+            //             color: $velo-blue;
+            //         }
+
+            //         .customer_value, .monthly_value {
+            //             color: $velo-green;
+            //         }
+            //     }
+
+            //     .o_row_widget {
+            //         border: 1px solid $border-gray;
+            //         max-height: 90px;
+            //         display: flex;
+
+            //         > .col-6:first-child {
+            //             padding-left: 10px;
+            //         }
+
+            //         > .col-6:last-child {
+            //             padding: 0px;
+            //         }
+
+            //         .widget_value {
+            //             color: $velo-gold;
+            //         }
+
+            //         .card-body:nth-child(1) {
+            //             @include card-body1;
+            //         }
+
+            //         .card-body:nth-child(2) {
+            //             @include card-body2
+            //         }
+            //     }
+            // }
+
+            // .row_mp_description {
+            //     max-height: 300px;
+            //     max-width: 100%;
+            //     margin-left: 2px;
+            //     margin-right: 2px;
+            //     margin-bottom: 0.5rem !important;
+            //     border: 1px solid $border-gray;
+            //     overflow-y: auto;
+
+            //     .table > tbody > tr > td {
+            //         border: none;
+            //         font-weight: $font-bold;
+            //     }
+            //     .table > tbody > tr > td:first-child {
+            //         width: 12%;
+            //     }
+            // }
+        }
+    }
+}
+
+// // market potential recap list view
+// #list-mp-recap {
+//     table > tbody > tr > td {
+//         font-size: 14px;
+//         font-weight: bold;
+
+//         &:nth-child(1){
+//             border-right: 1px solid lighten($velo-gray, 15%);
+//             width: 65%;
+//         }
+
+//         &:nth-child(2){
+//             text-align: right;
+//         }
+//     }
+// }
+
+// // market potential form view
+// .market_potential_form {
+//     .o_group.o_inner_group > tbody > tr > td.o_td_label {
+//         width: 45%;
+//     }
+// }
